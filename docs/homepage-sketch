@@ -1,0 +1,29 @@
+# Homepage Sketch — Day 1
+
+第一版首頁概念，先決定主要操作流程，不追求實際 UI。
+
+```text
+┌─────────────────────────────────────┐
+│                                     │
+│          VISUAL LEARNING LAB        │
+│                                     │
+│   Turn complex ideas into something │
+│          you can actually see.      │
+│                                     │
+│       ┌───────────────────┐         │
+│       │   Drop PDF here   │         │
+│       │       📄          │         │
+│       └───────────────────┘         │
+│                                     │
+│                OR                   │
+│                                     │
+│       [ Paste your text... ]        │
+│                                     │
+│          [ Visualize → ]            │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+## Core Flow
+
+PDF / Text → AI Analysis → Visual Learning Experience
