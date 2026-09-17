@@ -20,4 +20,4 @@ ChatGPT × Codex × Vibe Coding
 
 ## Status
 
-Day 1 / 30 — Building in public.
+Day 3 / 30 — Building in public.
