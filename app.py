@@ -1,6 +1,9 @@
-"""Visual Learning Lab — Day 2 UI prototype. Run with streamlit run app.py."""
+"""Visual Learning Lab — Day 3 API prototype. Run with streamlit run app.py."""
 
+from openai import OpenAI
 import streamlit as st
+
+MODEL = "gpt-5.6-luna"
 
 st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="centered")
 
@@ -42,7 +45,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 2 prototype</span>
+    <span class="pill">2026 iThome Ironman · Day 3 API prototype</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -50,12 +53,69 @@ with st.container(border=True):
     st.subheader("Start with what you’re learning")
     st.caption("Bring a page, a chapter, or an idea you want to understand.")
     st.file_uploader("Upload a PDF", type=["pdf"],
-                     help="Day 2 preview: files can be selected but are not processed.")
-    st.text_area("Or paste your content", height=200,
-                 placeholder="Paste your notes, a tricky explanation, or a concept you want to explore…")
-    st.caption("UI preview only · PDF processing and visualization generation are coming later.")
+                     help="Day 3 preview: PDF processing will be added in a future version.")
+    content = st.text_area(
+        "Or paste your content",
+        height=200,
+        placeholder="Paste your notes, a tricky explanation, or a concept you want to explore…",
+    )
+    st.caption("Paste content to try the first AI analysis · PDF processing is coming later.")
     if st.button("Visualize", type="primary", use_container_width=True):
-        st.info("Visualization generation will be added in a future version.")
+        st.session_state.pop("analysis", None)
+
+        if not content.strip():
+            st.warning("Please paste some learning content first, then click Visualize.")
+        else:
+            prompt = """You are the learning-content analyst for Visual Learning Lab.
+
+Analyze the user's pasted learning content faithfully and make it easier to study.
+Return Markdown with exactly these four headings, in this order:
+
+## Quick Summary
+Give a concise explanation of the main idea.
+
+## Key Concepts
+List the important terms or ideas and explain each briefly.
+
+## Relationships
+Explain the cause-and-effect, hierarchy, sequence, or other relationships between
+the key concepts. State uncertainty when the source does not provide enough detail.
+
+## Suggested Visualization
+Choose one or more suitable types from this exact list: Concept Map, Flow, Timeline,
+Comparison, Analogy, Image / Diagram, 3D / Motion. Name the selected type(s) and
+briefly explain why each fits. Describe what a future visualization could show;
+do not create an actual diagram or 3D model.
+
+Use the same language as the user's content. Do not invent facts that are not
+supported by the content.
+"""
+
+            try:
+                api_key = st.secrets["OPENAI_API_KEY"]
+                client = OpenAI(api_key=api_key)
+                with st.spinner("Analyzing your content…"):
+                    response = client.responses.create(
+                        model=MODEL,
+                        instructions=prompt,
+                        input=content,
+                    )
+                st.session_state["analysis"] = response.output_text
+            except (KeyError, st.errors.StreamlitSecretNotFoundError):
+                st.error(
+                    "OpenAI API key is not configured yet. Add OPENAI_API_KEY to "
+                    ".streamlit/secrets.toml and try again."
+                )
+            except Exception:
+                st.error(
+                    "We couldn’t analyze that content right now. Check your API key "
+                    "and internet connection, then try again."
+                )
+
+if st.session_state.get("analysis"):
+    with st.container(border=True):
+        st.markdown("### Your learning snapshot")
+        st.markdown(st.session_state["analysis"])
 
 st.markdown("### One idea. More ways to understand it.")
 st.caption("Planned capabilities · coming in future versions")
