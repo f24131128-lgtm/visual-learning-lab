@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 5 PDF analysis prototype."""
+"""Visual Learning Lab — Day 6 multimodal PDF analysis prototype."""
 
 import json
 import textwrap
@@ -18,6 +18,15 @@ VISUALIZATION_TYPES = [
     "Analogy",
     "Image / Diagram",
     "3D / Motion",
+]
+VISUAL_EVIDENCE_TYPES = [
+    "formula",
+    "diagram",
+    "graph",
+    "waveform",
+    "table",
+    "image",
+    "other",
 ]
 
 ANALYSIS_SCHEMA = {
@@ -62,6 +71,58 @@ ANALYSIS_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "visual_evidence": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "page": {"type": "integer", "minimum": 1},
+                    "type": {"type": "string", "enum": VISUAL_EVIDENCE_TYPES},
+                    "description": {"type": "string"},
+                    "learning_value": {"type": "string"},
+                },
+                "required": ["page", "type", "description", "learning_value"],
+                "additionalProperties": False,
+            },
+        },
+        "visual_flow": {
+            "type": "object",
+            "properties": {
+                "suitable": {"type": "boolean"},
+                "reason": {"type": "string"},
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "label": {"type": "string"},
+                            "source_pages": {
+                                "type": "array",
+                                "items": {"type": "integer", "minimum": 1},
+                            },
+                        },
+                        "required": ["id", "label", "source_pages"],
+                        "additionalProperties": False,
+                    },
+                },
+                "edges": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "source": {"type": "string"},
+                            "target": {"type": "string"},
+                            "label": {"type": "string"},
+                        },
+                        "required": ["source", "target", "label"],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": ["suitable", "reason", "nodes", "edges"],
+            "additionalProperties": False,
+        },
         "suggested_visualizations": {
             "type": "array",
             "items": {"type": "string", "enum": VISUALIZATION_TYPES},
@@ -71,6 +132,8 @@ ANALYSIS_SCHEMA = {
         "quick_summary",
         "key_concepts",
         "relationships",
+        "visual_evidence",
+        "visual_flow",
         "suggested_visualizations",
     ],
     "additionalProperties": False,
@@ -114,6 +177,72 @@ def valid_source_pages(raw_pages, allowed_pages):
             and page in allowed_pages
         }
     )
+
+
+def clean_visual_evidence(visual_evidence, allowed_pages):
+    """Keep only complete visual evidence items tied to analyzed PDF pages."""
+    if not allowed_pages or not isinstance(visual_evidence, list):
+        return []
+
+    cleaned = []
+    for item in visual_evidence:
+        if not isinstance(item, dict):
+            continue
+
+        page = item.get("page")
+        evidence_type = item.get("type")
+        description = item.get("description")
+        learning_value = item.get("learning_value")
+        if (
+            not isinstance(page, int)
+            or isinstance(page, bool)
+            or page not in allowed_pages
+            or evidence_type not in VISUAL_EVIDENCE_TYPES
+            or not isinstance(description, str)
+            or not description.strip()
+            or not isinstance(learning_value, str)
+            or not learning_value.strip()
+        ):
+            continue
+
+        cleaned.append(
+            {
+                "page": page,
+                "type": evidence_type,
+                "description": description.strip(),
+                "learning_value": learning_value.strip(),
+            }
+        )
+    return cleaned
+
+
+class PdfVisualInputError(Exception):
+    """Raised when the original PDF cannot be attached for visual analysis."""
+
+
+def build_analysis_input(client, source_text, uploaded_pdf):
+    """Build text-only or combined text-plus-PDF input for the Responses API."""
+    if uploaded_pdf is None:
+        return source_text
+
+    pdf_name = getattr(uploaded_pdf, "name", None) or "uploaded.pdf"
+    try:
+        uploaded_file = client.files.create(
+            file=(pdf_name, uploaded_pdf.getvalue(), "application/pdf"),
+            purpose="user_data",
+        )
+    except Exception as error:
+        raise PdfVisualInputError from error
+
+    return [
+        {
+            "role": "user",
+            "content": [
+                {"type": "input_text", "text": source_text},
+                {"type": "input_file", "file_id": uploaded_file.id},
+            ],
+        }
+    ]
 
 
 def format_page_references(page_numbers):
@@ -169,20 +298,95 @@ def clean_relationships(relationships, allowed_pages):
     return cleaned
 
 
+def clean_visual_flow(raw_flow, allowed_pages):
+    """Validate one connected flow and its PDF page references."""
+    if not isinstance(raw_flow, dict):
+        return None
+
+    reason = raw_flow.get("reason", "")
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if raw_flow.get("suitable") is not True:
+        return {"suitable": False, "reason": reason, "nodes": [], "edges": []}
+
+    raw_nodes = raw_flow.get("nodes")
+    raw_edges = raw_flow.get("edges")
+    if not isinstance(raw_nodes, list) or not isinstance(raw_edges, list):
+        return None
+
+    nodes = []
+    node_ids = set()
+    for node in raw_nodes:
+        if not isinstance(node, dict):
+            return None
+        node_id = node.get("id")
+        label = node.get("label")
+        if not isinstance(node_id, str) or not isinstance(label, str):
+            return None
+        node_id, label = node_id.strip(), label.strip()
+        if not node_id or not label or node_id in node_ids:
+            return None
+        node_ids.add(node_id)
+        nodes.append(
+            {
+                "id": node_id,
+                "label": label,
+                "source_pages": valid_source_pages(
+                    node.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    if len(nodes) < 2 or not raw_edges:
+        return None
+
+    edges = []
+    neighbors = {node_id: set() for node_id in node_ids}
+    for edge in raw_edges:
+        if not isinstance(edge, dict):
+            return None
+        source, target, label = (
+            edge.get("source"), edge.get("target"), edge.get("label")
+        )
+        if not all(isinstance(value, str) for value in (source, target, label)):
+            return None
+        source, target, label = source.strip(), target.strip(), label.strip()
+        if source not in node_ids or target not in node_ids or source == target:
+            return None
+        edges.append({"source": source, "target": target, "label": label})
+        neighbors[source].add(target)
+        neighbors[target].add(source)
+
+    seen = set()
+    pending = [nodes[0]["id"]]
+    while pending:
+        node_id = pending.pop()
+        if node_id not in seen:
+            seen.add(node_id)
+            pending.extend(neighbors[node_id] - seen)
+    if seen != node_ids:
+        return None
+
+    return {"suitable": True, "reason": reason, "nodes": nodes, "edges": edges}
+
+
 def _wrap_graph_label(value, width):
     return "\n".join(textwrap.wrap(value, width=width))
 
 
-def build_flow_graph(relationships):
-    """Build a directed top-to-bottom graph from model-produced relationships."""
+def build_flow_graph(visual_flow):
+    """Build a directed top-to-bottom graph from the validated visual flow."""
+    if not visual_flow or not visual_flow["suitable"]:
+        return None
+
     graph = Digraph("visual_flow")
     graph.attr(
         "graph",
         rankdir="TB",
         bgcolor="transparent",
-        pad="0.25",
-        nodesep="0.55",
-        ranksep="0.75",
+        pad="0.12",
+        nodesep="0.32",
+        ranksep="0.45",
+        margin="0.02",
     )
     graph.attr(
         "node",
@@ -202,39 +406,21 @@ def build_flow_graph(relationships):
         arrowsize="0.7",
     )
 
-    node_ids = {}
-    valid_relationships = 0
-
-    for relationship in relationships or []:
-        if not isinstance(relationship, dict):
-            continue
-
-        source = relationship.get("source")
-        relation = relationship.get("relation")
-        target = relationship.get("target")
-        if not all(
-            isinstance(value, str) and value.strip()
-            for value in (source, relation, target)
-        ):
-            continue
-        source = source.strip()
-        relation = relation.strip()
-        target = target.strip()
-
-        for concept in (source, target):
-            if concept not in node_ids:
-                node_id = f"concept_{len(node_ids)}"
-                node_ids[concept] = node_id
-                graph.node(node_id, label=_wrap_graph_label(concept, 28))
-
-        graph.edge(
-            node_ids[source],
-            node_ids[target],
-            label=_wrap_graph_label(relation, 18),
+    for node in visual_flow["nodes"]:
+        graph.node(
+            node["id"],
+            label=_wrap_graph_label(node["label"], 28),
+            tooltip=format_page_references(node["source_pages"]),
         )
-        valid_relationships += 1
 
-    return graph if valid_relationships else None
+    for edge in visual_flow["edges"]:
+        graph.edge(
+            edge["source"],
+            edge["target"],
+            label=_wrap_graph_label(edge["label"], 18),
+        )
+
+    return graph
 
 st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="centered")
 
@@ -276,7 +462,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 5 PDF prototype</span>
+    <span class="pill">2026 iThome Ironman · Day 6 multimodal PDF prototype</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -286,14 +472,14 @@ with st.container(border=True):
     uploaded_pdf = st.file_uploader(
         "Upload a PDF",
         type=["pdf"],
-        help="Day 5 preview: text-based PDFs can now be analyzed.",
+        help="Day 6 preview: PDFs are analyzed through both extracted text and visual pages.",
     )
     content = st.text_area(
         "Or paste your content",
         height=200,
         placeholder="Paste your notes, a tricky explanation, or a concept you want to explore…",
     )
-    st.caption("Use one source at a time · scanned/image PDFs need OCR support planned for later.")
+    st.caption("Use one source at a time · PDF text and visual page content are analyzed together.")
     if st.button("Visualize", type="primary", use_container_width=True):
         st.session_state.pop("analysis", None)
         st.session_state.pop("source_info", None)
@@ -327,7 +513,7 @@ with st.container(border=True):
                     if not found_pages:
                         st.warning(
                             "No extractable text was found in this PDF. It may be scanned "
-                            "or image-based. OCR / image PDF support is planned for a later version."
+                            "or image-based. Visual analysis still requires a readable PDF file."
                         )
                     else:
                         source_text = pdf_data["text"]
@@ -353,7 +539,7 @@ with st.container(border=True):
             st.session_state["allowed_source_pages"] = allowed_source_pages
             prompt = """You are the learning-content analyst for Visual Learning Lab.
 
-Analyze the user's pasted learning content faithfully and make it easier to study.
+Analyze the user's learning content faithfully and make it easier to study.
 Return only data that matches the supplied JSON Schema.
 
 - quick_summary: a concise explanation of the main idea.
@@ -364,36 +550,71 @@ Return only data that matches the supplied JSON Schema.
   source, relation, target, and source_pages. source_pages must contain only page
   numbers explicitly shown in [Page X] markers. Use [] for pasted text or when no
   supporting page is clear. Use an empty array when no usable relationship is
-  supported by the content. Do not invent relationships.
+  supported by the content. Do not invent relationships. Include all supported
+  semantic relationships, including definitions and properties; this list is
+  displayed as text and does not define the Visual Flow.
+- visual_evidence: objects with page, type, description, and learning_value.
+  For PDFs, inspect the original PDF visually as well as the extracted [Page X]
+  text. Look for meaningful formulas, diagrams, graphs, waveforms, tables, labels,
+  and other visual learning content. page must be a page number explicitly shown
+  in a [Page X] marker; never invent a page number. Use only the allowed type
+  values. Do not invent visual evidence. Return [] when no meaningful visual
+  content is visible. For pasted text, return [].
+- visual_flow: decide independently of relationships whether the source contains
+  a meaningful sequence, process, transformation, cause-and-effect chain, or
+  input-to-output progression. Set suitable to true only in that case. Show the
+  MAIN learning process as one coherent, connected, directed flow. Use concise
+  stages that follow the source; do not add unrelated supporting concepts merely
+  to fill the diagram. Put supporting definitions and properties in key_concepts
+  and relationships instead. Give each stage one canonical id and a clear label;
+  every edge source and target must exactly match a node id. Give edges short,
+  readable labels. Node source_pages must contain only page numbers explicitly
+  shown in [Page X] markers; use [] for pasted text or unclear support. Never
+  invent page numbers or process steps. If the material is primarily conceptual
+  rather than sequential, set suitable to false, return empty nodes and edges,
+  and briefly explain in reason why a Concept Map may suit it better.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
 
-Use the same language as the user's content. Keep relationships clear enough to
-draw as labeled arrows in a top-to-bottom flow diagram. The [Page X] markers are
-the only valid source of PDF page numbers; never invent a page number. Do not
-create diagrams or 3D models in the response.
+Use the same language as the user's content. If the source is primarily Traditional
+Chinese, respond in Traditional Chinese. If it is English, English output is fine.
+Do not unexpectedly switch to Simplified Chinese. The [Page X] markers are the
+only valid source of PDF page numbers. Do not create rendered diagrams or 3D
+models in the response.
 """
 
             try:
                 api_key = st.secrets["OPENAI_API_KEY"]
                 client = OpenAI(api_key=api_key)
-                with st.spinner("Analyzing your content…"):
-                    response = client.responses.create(
-                        model=MODEL,
-                        instructions=prompt,
-                        input=source_text,
-                        text={
-                            "format": {
-                                "type": "json_schema",
-                                "name": "visual_learning_analysis",
-                                "strict": True,
-                                "schema": ANALYSIS_SCHEMA,
-                            }
-                        },
+                try:
+                    analysis_input = build_analysis_input(
+                        client, source_text, uploaded_pdf if has_pdf else None
                     )
-                analysis = json.loads(response.output_text)
-                if not isinstance(analysis, dict):
-                    raise ValueError("The model returned an invalid analysis object.")
-                st.session_state["analysis"] = analysis
+                except PdfVisualInputError:
+                    st.error(
+                        "We couldn’t send this PDF for visual analysis. Please try "
+                        "again with a valid PDF file."
+                    )
+                    analysis_input = None
+
+                if analysis_input is not None:
+                    with st.spinner("Analyzing your content…"):
+                        response = client.responses.create(
+                            model=MODEL,
+                            instructions=prompt,
+                            input=analysis_input,
+                            text={
+                                "format": {
+                                    "type": "json_schema",
+                                    "name": "visual_learning_analysis",
+                                    "strict": True,
+                                    "schema": ANALYSIS_SCHEMA,
+                                }
+                            },
+                        )
+                    analysis = json.loads(response.output_text)
+                    if not isinstance(analysis, dict):
+                        raise ValueError("The model returned an invalid analysis object.")
+                    st.session_state["analysis"] = analysis
             except (KeyError, st.errors.StreamlitSecretNotFoundError):
                 st.error(
                     "OpenAI API key is not configured yet. Add OPENAI_API_KEY to "
@@ -462,6 +683,21 @@ if analysis:
         else:
             st.caption("No key concepts were returned for this content.")
 
+        st.markdown("#### Visual Evidence")
+        visual_evidence = clean_visual_evidence(
+            analysis.get("visual_evidence", []), allowed_source_pages
+        )
+        if visual_evidence:
+            for item in visual_evidence:
+                st.markdown(
+                    f"**{item['type'].capitalize()}** — Page {item['page']}"
+                )
+                st.write(item["description"])
+                st.markdown("Learning value:")
+                st.write(item["learning_value"])
+        else:
+            st.caption("No meaningful visual evidence was found in this content.")
+
         st.markdown("#### Relationships")
         if relationships:
             relationship_lines = []
@@ -489,11 +725,19 @@ if analysis:
             st.caption("No visualization type was suggested for this content.")
 
     st.markdown("### Visual Flow")
-    flow_graph = build_flow_graph(relationships)
+    visual_flow = clean_visual_flow(
+        analysis.get("visual_flow"), allowed_source_pages
+    )
+    flow_graph = build_flow_graph(visual_flow)
     if flow_graph:
         st.graphviz_chart(flow_graph.source, use_container_width=True)
     else:
-        st.info("A flow visualization could not be generated from this content.")
+        st.info(
+            "No strong sequential flow was detected for this material. "
+            "A Concept Map may be more suitable."
+        )
+        if visual_flow and not visual_flow["suitable"] and visual_flow["reason"]:
+            st.caption(visual_flow["reason"])
 
 st.markdown("### One idea. More ways to understand it.")
 st.caption("Planned capabilities · coming in future versions")
