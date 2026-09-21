@@ -1,23 +1,18 @@
 # Visual Learning Lab
 
-Turn complex learning materials into interactive visual experiences.
+A 2026 iThome Ironman project built with ChatGPT × Codex × Vibe Coding. It turns learning content into structured explanations and visual learning aids.
 
-## Goal
+**Status:** Day 7 / 30 — building in public.
 
-Upload PDFs, images, or text and use AI to transform them into:
+## What works
 
-- Key concept cards
-- Concept maps
-- Flow diagrams
-- Multiple analogies
-- Image breakdowns
-- Interactive visualizations
-- 3D / animated learning experiences
+- Paste text or upload a text-based PDF. `pypdf` counts pages, extracts text from up to eight extractable pages, and keeps page labels for source tracing. Source page references are checked against those analyzed pages.
+- For PDF input, the original file is also sent to the OpenAI Responses API alongside the extracted text. The model can inspect formulas, diagrams, graphs, waveforms, tables, and other visual content. Image-only PDFs without extractable text are not supported yet; there is no OCR.
+- Strict Structured Outputs provide a Quick Summary, Key Concepts, Relationships, Suggested Visualization, Visual Evidence, dedicated Visual Flow and Concept Map data, and a primary visualization decision.
+- Relationships remain complete semantic text output. The app automatically chooses a Graphviz Visual Flow for an ordered process or a Graphviz Concept Map for conceptual structure. Each visualization has its own validated nodes and edges.
 
-## Built with
+## Planned
 
-ChatGPT × Codex × Vibe Coding
+Timeline, Comparison, Analogies, Image Breakdown, 3D / Motion, and richer Source Check. Suggested visualization types may include these ideas, but only Visual Flow and Concept Map are rendered today.
 
-## Status
-
-Day 3 / 30 — Building in public.
+Run the app with `streamlit run app.py` after configuring `OPENAI_API_KEY` in `.streamlit/secrets.toml`.

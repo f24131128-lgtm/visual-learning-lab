@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 6 multimodal PDF analysis prototype."""
+"""Visual Learning Lab — Day 7 visualization selection prototype."""
 
 import json
 import textwrap
@@ -28,6 +28,8 @@ VISUAL_EVIDENCE_TYPES = [
     "image",
     "other",
 ]
+PRIMARY_VISUALIZATION_TYPES = ["flow", "concept_map", "none"]
+CONCEPT_MAP_ROLES = ["central", "primary", "supporting"]
 
 ANALYSIS_SCHEMA = {
     "type": "object",
@@ -123,6 +125,54 @@ ANALYSIS_SCHEMA = {
             "required": ["suitable", "reason", "nodes", "edges"],
             "additionalProperties": False,
         },
+        "concept_map": {
+            "type": "object",
+            "properties": {
+                "suitable": {"type": "boolean"},
+                "reason": {"type": "string"},
+                "nodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "label": {"type": "string"},
+                            "role": {"type": "string", "enum": CONCEPT_MAP_ROLES},
+                            "source_pages": {
+                                "type": "array",
+                                "items": {"type": "integer", "minimum": 1},
+                            },
+                        },
+                        "required": ["id", "label", "role", "source_pages"],
+                        "additionalProperties": False,
+                    },
+                },
+                "edges": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "source": {"type": "string"},
+                            "target": {"type": "string"},
+                            "label": {"type": "string"},
+                        },
+                        "required": ["source", "target", "label"],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": ["suitable", "reason", "nodes", "edges"],
+            "additionalProperties": False,
+        },
+        "primary_visualization": {
+            "type": "object",
+            "properties": {
+                "type": {"type": "string", "enum": PRIMARY_VISUALIZATION_TYPES},
+                "reason": {"type": "string"},
+            },
+            "required": ["type", "reason"],
+            "additionalProperties": False,
+        },
         "suggested_visualizations": {
             "type": "array",
             "items": {"type": "string", "enum": VISUALIZATION_TYPES},
@@ -134,6 +184,8 @@ ANALYSIS_SCHEMA = {
         "relationships",
         "visual_evidence",
         "visual_flow",
+        "concept_map",
+        "primary_visualization",
         "suggested_visualizations",
     ],
     "additionalProperties": False,
@@ -369,6 +421,102 @@ def clean_visual_flow(raw_flow, allowed_pages):
     return {"suitable": True, "reason": reason, "nodes": nodes, "edges": edges}
 
 
+def clean_primary_visualization(raw_decision):
+    """Normalize the model's primary visualization decision."""
+    if not isinstance(raw_decision, dict):
+        return {"type": "none", "reason": ""}
+
+    visualization_type = raw_decision.get("type")
+    reason = raw_decision.get("reason", "")
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if visualization_type not in PRIMARY_VISUALIZATION_TYPES:
+        visualization_type = "none"
+    return {"type": visualization_type, "reason": reason}
+
+
+def clean_concept_map(raw_map, allowed_pages):
+    """Validate one connected concept map and its PDF page references."""
+    if not isinstance(raw_map, dict):
+        return None
+
+    reason = raw_map.get("reason", "")
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if raw_map.get("suitable") is not True:
+        return {"suitable": False, "reason": reason, "nodes": [], "edges": []}
+
+    raw_nodes = raw_map.get("nodes")
+    raw_edges = raw_map.get("edges")
+    if not isinstance(raw_nodes, list) or not isinstance(raw_edges, list):
+        return None
+
+    nodes = []
+    node_ids = set()
+    central_nodes = 0
+    for node in raw_nodes:
+        if not isinstance(node, dict):
+            return None
+        node_id = node.get("id")
+        label = node.get("label")
+        role = node.get("role")
+        if not isinstance(node_id, str) or not isinstance(label, str):
+            return None
+        node_id, label = node_id.strip(), label.strip()
+        if (
+            not node_id
+            or not label
+            or node_id in node_ids
+            or role not in CONCEPT_MAP_ROLES
+        ):
+            return None
+        node_ids.add(node_id)
+        central_nodes += role == "central"
+        nodes.append(
+            {
+                "id": node_id,
+                "label": label,
+                "role": role,
+                "source_pages": valid_source_pages(
+                    node.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    if len(nodes) < 2 or central_nodes != 1 or not raw_edges:
+        return None
+
+    edges = []
+    neighbors = {node_id: set() for node_id in node_ids}
+    for edge in raw_edges:
+        if not isinstance(edge, dict):
+            return None
+        source, target, label = (
+            edge.get("source"), edge.get("target"), edge.get("label")
+        )
+        if not all(
+            isinstance(value, str) and value.strip()
+            for value in (source, target, label)
+        ):
+            return None
+        source, target, label = source.strip(), target.strip(), label.strip()
+        if source not in node_ids or target not in node_ids or source == target:
+            return None
+        edges.append({"source": source, "target": target, "label": label})
+        neighbors[source].add(target)
+        neighbors[target].add(source)
+
+    seen = set()
+    pending = [nodes[0]["id"]]
+    while pending:
+        node_id = pending.pop()
+        if node_id not in seen:
+            seen.add(node_id)
+            pending.extend(neighbors[node_id] - seen)
+    if seen != node_ids:
+        return None
+
+    return {"suitable": True, "reason": reason, "nodes": nodes, "edges": edges}
+
+
 def _wrap_graph_label(value, width):
     return "\n".join(textwrap.wrap(value, width=width))
 
@@ -422,6 +570,81 @@ def build_flow_graph(visual_flow):
 
     return graph
 
+
+def build_concept_map_graph(concept_map):
+    """Build a compact concept network with role-based visual emphasis."""
+    if not concept_map or not concept_map["suitable"]:
+        return None
+
+    graph = Digraph("concept_map")
+    graph.attr(
+        "graph",
+        rankdir="LR",
+        bgcolor="transparent",
+        pad="0.12",
+        nodesep="0.3",
+        ranksep="0.55",
+        margin="0.02",
+        splines="spline",
+    )
+    graph.attr(
+        "node",
+        fontname="Arial",
+        fontsize="11",
+        margin="0.18,0.12",
+    )
+    graph.attr(
+        "edge",
+        color="#8270DF",
+        fontname="Arial",
+        fontsize="10",
+        fontcolor="#4F467A",
+        dir="none",
+    )
+
+    node_styles = {
+        "central": {
+            "shape": "ellipse",
+            "style": "filled",
+            "color": "#5540AE",
+            "fillcolor": "#6750C5",
+            "fontcolor": "white",
+            "penwidth": "2",
+        },
+        "primary": {
+            "shape": "box",
+            "style": "rounded,filled",
+            "color": "#8270DF",
+            "fillcolor": "#EEE9FF",
+            "fontcolor": "#2F2850",
+            "penwidth": "1.5",
+        },
+        "supporting": {
+            "shape": "box",
+            "style": "rounded,filled",
+            "color": "#B7ACEE",
+            "fillcolor": "#FBFAFF",
+            "fontcolor": "#3F385D",
+        },
+    }
+
+    for node in concept_map["nodes"]:
+        graph.node(
+            node["id"],
+            label=_wrap_graph_label(node["label"], 26),
+            tooltip=format_page_references(node["source_pages"]),
+            **node_styles[node["role"]],
+        )
+
+    for edge in concept_map["edges"]:
+        graph.edge(
+            edge["source"],
+            edge["target"],
+            label=_wrap_graph_label(edge["label"], 18),
+        )
+
+    return graph
+
 st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="centered")
 
 # Static presentation styles only; content inputs are never inserted into HTML.
@@ -462,7 +685,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 6 multimodal PDF prototype</span>
+    <span class="pill">2026 iThome Ironman · Day 7 visualization selection</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -472,7 +695,7 @@ with st.container(border=True):
     uploaded_pdf = st.file_uploader(
         "Upload a PDF",
         type=["pdf"],
-        help="Day 6 preview: PDFs are analyzed through both extracted text and visual pages.",
+        help="PDFs are analyzed through both extracted text and visual pages.",
     )
     content = st.text_area(
         "Or paste your content",
@@ -560,19 +783,31 @@ Return only data that matches the supplied JSON Schema.
   in a [Page X] marker; never invent a page number. Use only the allowed type
   values. Do not invent visual evidence. Return [] when no meaningful visual
   content is visible. For pasted text, return [].
-- visual_flow: decide independently of relationships whether the source contains
-  a meaningful sequence, process, transformation, cause-and-effect chain, or
-  input-to-output progression. Set suitable to true only in that case. Show the
-  MAIN learning process as one coherent, connected, directed flow. Use concise
-  stages that follow the source; do not add unrelated supporting concepts merely
-  to fill the diagram. Put supporting definitions and properties in key_concepts
-  and relationships instead. Give each stage one canonical id and a clear label;
-  every edge source and target must exactly match a node id. Give edges short,
-  readable labels. Node source_pages must contain only page numbers explicitly
-  shown in [Page X] markers; use [] for pasted text or unclear support. Never
-  invent page numbers or process steps. If the material is primarily conceptual
-  rather than sequential, set suitable to false, return empty nodes and edges,
-  and briefly explain in reason why a Concept Map may suit it better.
+- primary_visualization: choose the main visualization from the structure of the
+  actual material, not from keywords alone. Choose flow for a sequence, process,
+  transformation, procedure, cause-and-effect chain, or input-to-output
+  progression. Choose concept_map for concepts and definitions, properties,
+  categories, system components, formulas around a central topic, or other idea
+  relationships where order is not the main learning structure. Choose none only
+  when neither would meaningfully improve understanding. Briefly explain why.
+- visual_flow: use this only for the main coherent process. If
+  primary_visualization.type is flow, suitable should normally be true. Show one
+  connected, directed flow with concise stages that follow the source. Do not add
+  unrelated supporting concepts to fill it. Give each stage one canonical id;
+  every edge must reference exact node ids and have a short readable label. Node
+  source_pages must use only [Page X] markers, or [] for pasted text or unclear
+  support. Never invent page numbers or process steps. When flow is not selected,
+  set suitable to false and return empty nodes and edges.
+- concept_map: use this for the main conceptual structure. If
+  primary_visualization.type is concept_map, suitable should normally be true.
+  Prefer one central topic and roughly 5–10 useful nodes, without including every
+  possible fact. Use canonical, unique node ids and avoid duplicate concepts with
+  slightly different names. Give exactly one node the central role; use primary
+  and supporting roles for the others. Every edge must reference exact node ids
+  and describe a meaningful conceptual link. Keep the map connected. Node
+  source_pages must use only [Page X] markers, or [] for pasted text or unclear
+  support. Never invent page numbers or concepts. When Concept Map is not
+  selected, set suitable to false and return empty nodes and edges.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
 
 Use the same language as the user's content. If the source is primarily Traditional
@@ -724,27 +959,53 @@ if analysis:
         else:
             st.caption("No visualization type was suggested for this content.")
 
-    st.markdown("### Visual Flow")
+    primary_visualization = clean_primary_visualization(
+        analysis.get("primary_visualization")
+    )
     visual_flow = clean_visual_flow(
         analysis.get("visual_flow"), allowed_source_pages
     )
-    flow_graph = build_flow_graph(visual_flow)
-    if flow_graph:
-        st.graphviz_chart(flow_graph.source, use_container_width=True)
+    concept_map = clean_concept_map(
+        analysis.get("concept_map"), allowed_source_pages
+    )
+    selection_reason = primary_visualization["reason"]
+
+    if primary_visualization["type"] == "flow":
+        st.markdown("### Visual Flow")
+        flow_graph = build_flow_graph(visual_flow)
+        if flow_graph:
+            st.graphviz_chart(flow_graph.source, use_container_width=True)
+        else:
+            st.info(
+                "The selected Visual Flow could not be rendered because its "
+                "structured data was incomplete."
+            )
+        if selection_reason:
+            st.caption(selection_reason)
+    elif primary_visualization["type"] == "concept_map":
+        st.markdown("### Concept Map")
+        concept_graph = build_concept_map_graph(concept_map)
+        if concept_graph:
+            st.graphviz_chart(concept_graph.source, use_container_width=True)
+        else:
+            st.info(
+                "The selected Concept Map could not be rendered because its "
+                "structured data was incomplete."
+            )
+        if selection_reason:
+            st.caption(selection_reason)
     else:
+        st.markdown("### Primary Visualization")
         st.info(
-            "No strong sequential flow was detected for this material. "
-            "A Concept Map may be more suitable."
+            "No strong primary visualization was detected for this material."
         )
-        if visual_flow and not visual_flow["suitable"] and visual_flow["reason"]:
-            st.caption(visual_flow["reason"])
+        if selection_reason:
+            st.caption(selection_reason)
 
 st.markdown("### One idea. More ways to understand it.")
 st.caption("Planned capabilities · coming in future versions")
 
 capabilities = [
-    ("◎", "Concept Map", "Connect key ideas and see how they relate."),
-    ("→", "Flow", "Follow a process, one clear step at a time."),
     ("≈", "Analogies", "Make unfamiliar ideas click with familiar examples."),
     ("▧", "Image Breakdown", "Explore the parts of a diagram and what they mean."),
     ("◇", "3D / Motion", "Explore spatial ideas and how systems change."),
