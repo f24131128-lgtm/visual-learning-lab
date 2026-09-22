@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 7 visualization selection prototype."""
+"""Visual Learning Lab — Day 8 comparison visualization prototype."""
 
 import json
 import textwrap
@@ -28,7 +28,7 @@ VISUAL_EVIDENCE_TYPES = [
     "image",
     "other",
 ]
-PRIMARY_VISUALIZATION_TYPES = ["flow", "concept_map", "none"]
+PRIMARY_VISUALIZATION_TYPES = ["flow", "concept_map", "comparison", "none"]
 CONCEPT_MAP_ROLES = ["central", "primary", "supporting"]
 
 ANALYSIS_SCHEMA = {
@@ -164,6 +164,70 @@ ANALYSIS_SCHEMA = {
             "required": ["suitable", "reason", "nodes", "edges"],
             "additionalProperties": False,
         },
+        "comparison": {
+            "type": "object",
+            "properties": {
+                "suitable": {"type": "boolean"},
+                "reason": {"type": "string"},
+                "title": {"type": "string"},
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "label": {"type": "string"},
+                        },
+                        "required": ["id", "label"],
+                        "additionalProperties": False,
+                    },
+                },
+                "criteria": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "criterion": {"type": "string"},
+                            "values": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "item_id": {"type": "string"},
+                                        "value": {"type": "string"},
+                                        "source_pages": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer",
+                                                "minimum": 1,
+                                            },
+                                        },
+                                    },
+                                    "required": [
+                                        "item_id",
+                                        "value",
+                                        "source_pages",
+                                    ],
+                                    "additionalProperties": False,
+                                },
+                            },
+                        },
+                        "required": ["criterion", "values"],
+                        "additionalProperties": False,
+                    },
+                },
+                "takeaway": {"type": "string"},
+            },
+            "required": [
+                "suitable",
+                "reason",
+                "title",
+                "items",
+                "criteria",
+                "takeaway",
+            ],
+            "additionalProperties": False,
+        },
         "primary_visualization": {
             "type": "object",
             "properties": {
@@ -185,6 +249,7 @@ ANALYSIS_SCHEMA = {
         "visual_evidence",
         "visual_flow",
         "concept_map",
+        "comparison",
         "primary_visualization",
         "suggested_visualizations",
     ],
@@ -517,6 +582,141 @@ def clean_concept_map(raw_map, allowed_pages):
     return {"suitable": True, "reason": reason, "nodes": nodes, "edges": edges}
 
 
+def clean_comparison(raw_comparison, allowed_pages):
+    """Validate a complete comparison matrix and its PDF page references."""
+    if not isinstance(raw_comparison, dict):
+        return None
+
+    reason = raw_comparison.get("reason", "")
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if raw_comparison.get("suitable") is not True:
+        return {
+            "suitable": False,
+            "reason": reason,
+            "title": "",
+            "items": [],
+            "criteria": [],
+            "takeaway": "",
+        }
+
+    title = raw_comparison.get("title")
+    takeaway = raw_comparison.get("takeaway")
+    raw_items = raw_comparison.get("items")
+    raw_criteria = raw_comparison.get("criteria")
+    if (
+        not isinstance(title, str)
+        or not title.strip()
+        or not isinstance(takeaway, str)
+        or not takeaway.strip()
+        or not isinstance(raw_items, list)
+        or not 2 <= len(raw_items) <= 4
+        or not isinstance(raw_criteria, list)
+        or not 1 <= len(raw_criteria) <= 6
+    ):
+        return None
+
+    items = []
+    item_ids = set()
+    item_labels = set()
+    for item in raw_items:
+        if not isinstance(item, dict):
+            return None
+        item_id = item.get("id")
+        label = item.get("label")
+        if not isinstance(item_id, str) or not isinstance(label, str):
+            return None
+        item_id, label = item_id.strip(), label.strip()
+        normalized_label = label.casefold()
+        if (
+            not item_id
+            or not label
+            or item_id in item_ids
+            or normalized_label in item_labels
+        ):
+            return None
+        item_ids.add(item_id)
+        item_labels.add(normalized_label)
+        items.append({"id": item_id, "label": label})
+
+    criteria = []
+    criterion_names = set()
+    for criterion_item in raw_criteria:
+        if not isinstance(criterion_item, dict):
+            return None
+        criterion = criterion_item.get("criterion")
+        raw_values = criterion_item.get("values")
+        if (
+            not isinstance(criterion, str)
+            or not criterion.strip()
+            or not isinstance(raw_values, list)
+            or len(raw_values) != len(items)
+        ):
+            return None
+        criterion = criterion.strip()
+        normalized_criterion = criterion.casefold()
+        if normalized_criterion in criterion_names:
+            return None
+        criterion_names.add(normalized_criterion)
+
+        values_by_id = {}
+        for raw_value in raw_values:
+            if not isinstance(raw_value, dict):
+                return None
+            item_id = raw_value.get("item_id")
+            value = raw_value.get("value")
+            if (
+                not isinstance(item_id, str)
+                or item_id not in item_ids
+                or item_id in values_by_id
+                or not isinstance(value, str)
+                or not value.strip()
+            ):
+                return None
+            values_by_id[item_id] = {
+                "item_id": item_id,
+                "value": value.strip(),
+                "source_pages": valid_source_pages(
+                    raw_value.get("source_pages", []), allowed_pages
+                ),
+            }
+
+        if set(values_by_id) != item_ids:
+            return None
+        criteria.append(
+            {
+                "criterion": criterion,
+                "values": [values_by_id[item["id"]] for item in items],
+            }
+        )
+
+    return {
+        "suitable": True,
+        "reason": reason,
+        "title": title.strip(),
+        "items": items,
+        "criteria": criteria,
+        "takeaway": takeaway.strip(),
+    }
+
+
+def build_comparison_table(comparison):
+    """Build rows for a static Streamlit comparison table."""
+    if not comparison or not comparison["suitable"]:
+        return []
+
+    item_labels = {item["id"]: item["label"] for item in comparison["items"]}
+    rows = []
+    for criterion in comparison["criteria"]:
+        row = {"Criterion": criterion["criterion"]}
+        for value in criterion["values"]:
+            cell = value["value"]
+            if value["source_pages"]:
+                cell += f"\n\nSource: {format_page_references(value['source_pages'])}"
+            row[item_labels[value["item_id"]]] = cell
+        rows.append(row)
+    return rows
+
+
 def _wrap_graph_label(value, width):
     return "\n".join(textwrap.wrap(value, width=width))
 
@@ -685,7 +885,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 7 visualization selection</span>
+    <span class="pill">2026 iThome Ironman · Day 8 comparison visualization</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -783,21 +983,33 @@ Return only data that matches the supplied JSON Schema.
   in a [Page X] marker; never invent a page number. Use only the allowed type
   values. Do not invent visual evidence. Return [] when no meaningful visual
   content is visible. For pasted text, return [].
-- primary_visualization: choose the main visualization from the structure of the
-  actual material, not from keywords alone. Choose flow for a sequence, process,
-  transformation, procedure, cause-and-effect chain, or input-to-output
-  progression. Choose concept_map for concepts and definitions, properties,
-  categories, system components, formulas around a central topic, or other idea
-  relationships where order is not the main learning structure. Choose none only
-  when neither would meaningfully improve understanding. Briefly explain why.
+- primary_visualization: choose the single visualization that would most help a
+  learner understand the core structure of the actual material. Do not decide from
+  keywords or from the number of concepts or relationships. First detect whether
+  the material contains an explicit, coherent, pedagogically important process
+  with roughly three or more meaningful stages: for example, a problem, input,
+  state, or cause progressing through transformations or intermediate effects to
+  a result, output, new state, or outcome. If that process is central to what the
+  learner needs to understand, choose flow even when the material also contains
+  definitions, notation, formulas, or supporting conceptual relationships. Choose
+  concept_map when no strong ordered process dominates and understanding mainly
+  depends on relationships among concepts, properties, categories, components, or
+  formulas where ordering is not essential. Choose comparison when useful
+  side-by-side similarities, differences, alternatives, tradeoffs, or parallel
+  properties are the dominant learning structure. Do not choose comparison merely
+  because two concepts appear. Choose none only when none of these views would
+  meaningfully improve understanding. Briefly explain why.
 - visual_flow: use this only for the main coherent process. If
   primary_visualization.type is flow, suitable should normally be true. Show one
   connected, directed flow with concise stages that follow the source. Do not add
   unrelated supporting concepts to fill it. Give each stage one canonical id;
   every edge must reference exact node ids and have a short readable label. Node
   source_pages must use only [Page X] markers, or [] for pasted text or unclear
-  support. Never invent page numbers or process steps. When flow is not selected,
-  set suitable to false and return empty nodes and edges.
+  support. Never invent page numbers or process steps. If visual_flow contains a
+  coherent connected process of three or more meaningful nodes and that process is
+  central to the material, primary_visualization should normally be flow. Do not
+  force flow when the sequence is artificial or merely a possible study order.
+  When flow is not selected, set suitable to false and return empty nodes and edges.
 - concept_map: use this for the main conceptual structure. If
   primary_visualization.type is concept_map, suitable should normally be true.
   Prefer one central topic and roughly 5–10 useful nodes, without including every
@@ -808,6 +1020,15 @@ Return only data that matches the supplied JSON Schema.
   source_pages must use only [Page X] markers, or [] for pasted text or unclear
   support. Never invent page numbers or concepts. When Concept Map is not
   selected, set suitable to false and return empty nodes and edges.
+- comparison: use this only when primary_visualization.type is comparison. Compare
+  2–4 distinct items using preferably 3–6 meaningful, specific criteria. Avoid
+  vague criteria. Every criterion must contain exactly one value for every item,
+  and every item_id must exactly match a canonical id from items. Keep cell values
+  concise and include only supported distinctions. Value source_pages must use
+  only [Page X] markers, or [] for pasted text or unclear support. Never invent
+  page numbers. The takeaway should state the most useful learning distinction,
+  not declare a winner. When Comparison is not selected, set suitable to false
+  and return an empty title, items, criteria, and takeaway.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
 
 Use the same language as the user's content. If the source is primarily Traditional
@@ -968,6 +1189,9 @@ if analysis:
     concept_map = clean_concept_map(
         analysis.get("concept_map"), allowed_source_pages
     )
+    comparison = clean_comparison(
+        analysis.get("comparison"), allowed_source_pages
+    )
     selection_reason = primary_visualization["reason"]
 
     if primary_visualization["type"] == "flow":
@@ -990,6 +1214,21 @@ if analysis:
         else:
             st.info(
                 "The selected Concept Map could not be rendered because its "
+                "structured data was incomplete."
+            )
+        if selection_reason:
+            st.caption(selection_reason)
+    elif primary_visualization["type"] == "comparison":
+        st.markdown("### Comparison")
+        comparison_rows = build_comparison_table(comparison)
+        if comparison_rows:
+            st.markdown(f"#### {comparison['title']}")
+            st.table(comparison_rows)
+            st.markdown("**Takeaway**")
+            st.write(comparison["takeaway"])
+        else:
+            st.info(
+                "The selected Comparison could not be rendered because its "
                 "structured data was incomplete."
             )
         if selection_reason:

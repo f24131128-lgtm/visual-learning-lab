@@ -15,18 +15,19 @@ Current stack:
 - pypdf
 
 ## Current product behavior
-- Day 7 accepts pasted text or a text-based PDF upload, one source at a time.
+- Day 8 accepts pasted text or a text-based PDF upload, one source at a time.
 - `pypdf` counts pages and extracts up to eight text-bearing pages with page markers. Source page references are validated against those analyzed pages.
 - For PDFs, the original file and extracted page-labeled text go to the OpenAI Responses API together. Visual analysis may inspect formulas, diagrams, graphs, waveforms, tables, and other visual learning content. There is no OCR.
-- Strict Structured Outputs produce Quick Summary, Key Concepts, Relationships, Suggested Visualization, Visual Evidence, Visual Flow, Concept Map, and a primary visualization decision.
-- Relationships, Visual Flow, and Concept Map are separate structured outputs. Relationships preserve semantic links as text. Visual Flow represents a coherent process; Concept Map represents a connected conceptual structure. The app renders the selected primary visualization with Graphviz.
+- Strict Structured Outputs produce Quick Summary, Key Concepts, Relationships, Suggested Visualization, Visual Evidence, Visual Flow, Concept Map, Comparison, and a primary visualization decision.
+- Relationships, Visual Flow, Concept Map, and Comparison are separate structured outputs. Relationships preserve semantic links as text. Visual Flow represents a coherent process, Concept Map represents a connected conceptual structure, and Comparison represents complete side-by-side distinctions.
+- The app renders the selected Flow or Concept Map with Graphviz and renders Comparison as a static Streamlit table.
 - Visual Evidence records meaningful PDF visuals with validated page numbers.
 
 ## Product direction
 This is not meant to be another AI summarizer.
 The core value is turning AI understanding into visual, interactive learning experiences.
 
-Planned directions include Timeline, Comparison, Analogies, Image Breakdown, richer Source Check, and 3D / Motion.
+Planned directions include Timeline, Analogies, Image Breakdown, richer Source Check, and 3D / Motion.
 
 ## Important rules
 - Do not redesign the homepage unless explicitly asked.
