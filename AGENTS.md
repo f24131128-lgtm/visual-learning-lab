@@ -15,13 +15,15 @@ Current stack:
 - pypdf
 
 ## Current product behavior
-- Day 8 accepts pasted text or a text-based PDF upload, one source at a time.
+- Day 9 accepts pasted text or a text-based PDF upload, one source at a time.
 - `pypdf` counts pages and extracts up to eight text-bearing pages with page markers. Source page references are validated against those analyzed pages.
 - For PDFs, the original file and extracted page-labeled text go to the OpenAI Responses API together. Visual analysis may inspect formulas, diagrams, graphs, waveforms, tables, and other visual learning content. There is no OCR.
 - Strict Structured Outputs produce Quick Summary, Key Concepts, Relationships, Suggested Visualization, Visual Evidence, Visual Flow, Concept Map, Comparison, and a primary visualization decision.
 - Relationships, Visual Flow, Concept Map, and Comparison are separate structured outputs. Relationships preserve semantic links as text. Visual Flow represents a coherent process, Concept Map represents a connected conceptual structure, and Comparison represents complete side-by-side distinctions.
 - The app renders the selected Flow or Concept Map with Graphviz and renders Comparison as a static Streamlit table.
 - Visual Evidence records meaningful PDF visuals with validated page numbers.
+- Every Key Concept and Visual Evidence item offers Explain This. Its separate strict Structured Output request uses the selected item, Quick Summary, validated page context, relevant extracted text, and nearby analysis context. It does not resend or claim to reinspect the PDF.
+- Main analysis and source context stay in `st.session_state`; explanation actions must not rerun the full analysis. Explanations are cached only for the active analyzed material and target.
 
 ## Product direction
 This is not meant to be another AI summarizer.
@@ -43,6 +45,7 @@ Planned directions include Timeline, Analogies, Image Breakdown, richer Source C
 - Generated visualizations must come from user input.
 - Each visualization type should have its own structured representation rather than reusing semantic Relationships blindly.
 - Source references must never invent page numbers.
+- Explain This must stay grounded in the active source context and clearly distinguish source support from added general knowledge.
 
 ## Workflow
 Before editing:

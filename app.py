@@ -1,5 +1,6 @@
-"""Visual Learning Lab — Day 8 comparison visualization prototype."""
+"""Visual Learning Lab — Day 9 contextual explanation prototype."""
 
+import hashlib
 import json
 import textwrap
 
@@ -30,6 +31,7 @@ VISUAL_EVIDENCE_TYPES = [
 ]
 PRIMARY_VISUALIZATION_TYPES = ["flow", "concept_map", "comparison", "none"]
 CONCEPT_MAP_ROLES = ["central", "primary", "supporting"]
+MAX_EXPLANATION_SOURCE_CHARS = 6000
 
 ANALYSIS_SCHEMA = {
     "type": "object",
@@ -256,6 +258,23 @@ ANALYSIS_SCHEMA = {
     "additionalProperties": False,
 }
 
+EXPLANATION_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "plain_explanation": {"type": "string"},
+        "why_it_matters": {"type": "string"},
+        "intuition_or_example": {"type": "string"},
+        "source_note": {"type": "string"},
+    },
+    "required": [
+        "plain_explanation",
+        "why_it_matters",
+        "intuition_or_example",
+        "source_note",
+    ],
+    "additionalProperties": False,
+}
+
 
 def extract_pdf_text(uploaded_pdf):
     """Extract up to eight text-bearing PDF pages with explicit page markers."""
@@ -278,6 +297,9 @@ def extract_pdf_text(uploaded_pdf):
         "total_pages": len(reader.pages),
         "extractable_page_numbers": [page_number for page_number, _ in text_pages],
         "analyzed_page_numbers": [page_number for page_number, _ in analyzed_pages],
+        "analyzed_page_texts": {
+            page_number: page_text for page_number, page_text in analyzed_pages
+        },
     }
 
 
@@ -360,6 +382,297 @@ def build_analysis_input(client, source_text, uploaded_pdf):
             ],
         }
     ]
+
+
+def build_analysis_id(source_kind, source_bytes):
+    """Create a stable identity for explanation caching within one source."""
+    digest = hashlib.sha256()
+    digest.update(source_kind.encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(source_bytes)
+    return digest.hexdigest()
+
+
+def clean_explanation(raw_explanation):
+    """Validate and normalize one contextual explanation response."""
+    if not isinstance(raw_explanation, dict):
+        return None
+
+    cleaned = {}
+    for field in EXPLANATION_SCHEMA["required"]:
+        value = raw_explanation.get(field)
+        if not isinstance(value, str):
+            return None
+        cleaned[field] = value.strip()
+
+    if not all(
+        cleaned[field]
+        for field in ("plain_explanation", "why_it_matters", "source_note")
+    ):
+        return None
+    return cleaned
+
+
+def get_explanation_language(analysis):
+    """Choose one stable explanation language from the full generated analysis."""
+    language_fragments = []
+    quick_summary = analysis.get("quick_summary")
+    if isinstance(quick_summary, str):
+        language_fragments.append(quick_summary)
+
+    field_groups = (
+        ("key_concepts", ("concept", "explanation")),
+        ("relationships", ("source", "relation", "target")),
+        ("visual_evidence", ("description", "learning_value")),
+    )
+    for group_name, fields in field_groups:
+        items = analysis.get(group_name, [])
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            language_fragments.extend(
+                item[field]
+                for field in fields
+                if isinstance(item.get(field), str)
+            )
+
+    combined_text = " ".join(language_fragments)
+    chinese_count = sum(
+        "\u3400" <= character <= "\u4dbf"
+        or "\u4e00" <= character <= "\u9fff"
+        or "\uf900" <= character <= "\ufaff"
+        for character in combined_text
+    )
+    english_count = sum(
+        character.isascii() and character.isalpha()
+        for character in combined_text
+    )
+    if chinese_count >= 4 and chinese_count * 2 >= english_count:
+        return "Traditional Chinese"
+    return "English"
+
+
+def build_explanation_context(
+    target_type, target, analysis, source_context, allowed_pages
+):
+    """Build bounded, source-aware context for an explanation request."""
+    source_context = source_context if isinstance(source_context, dict) else {}
+    source_kind = source_context.get("kind", "text")
+
+    if target_type == "key_concept":
+        target_pages = valid_source_pages(
+            target.get("source_pages", []), allowed_pages
+        )
+        selected_item = {
+            "concept": target.get("concept", ""),
+            "explanation": target.get("explanation", ""),
+            "source_pages": target_pages,
+        }
+    else:
+        page = target.get("page")
+        target_pages = [page] if page in allowed_pages else []
+        selected_item = {
+            "type": target.get("type", "other"),
+            "description": target.get("description", ""),
+            "learning_value": target.get("learning_value", ""),
+            "page": page if target_pages else None,
+        }
+
+    source_sections = []
+    if source_kind == "pdf":
+        page_texts = source_context.get("page_texts", {})
+        if isinstance(page_texts, dict):
+            for page in target_pages:
+                page_text = page_texts.get(page, "")
+                if isinstance(page_text, str) and page_text.strip():
+                    source_sections.append(f"[Page {page}]\n{page_text.strip()}")
+    else:
+        pasted_text = source_context.get("source_text", "")
+        if isinstance(pasted_text, str) and pasted_text.strip():
+            source_sections.append(pasted_text.strip())
+    relevant_source_text = "\n\n".join(source_sections)
+    relevant_source_text = relevant_source_text[:MAX_EXPLANATION_SOURCE_CHARS]
+
+    nearby_concepts = []
+    raw_concepts = analysis.get("key_concepts", [])
+    if isinstance(raw_concepts, list):
+        for item in raw_concepts:
+            if not isinstance(item, dict):
+                continue
+            concept = item.get("concept")
+            explanation = item.get("explanation")
+            pages = valid_source_pages(item.get("source_pages", []), allowed_pages)
+            if not isinstance(concept, str) or not concept.strip():
+                continue
+            if target_pages and not set(pages).intersection(target_pages):
+                continue
+            nearby_concepts.append(
+                {
+                    "concept": concept.strip(),
+                    "explanation": (
+                        explanation.strip() if isinstance(explanation, str) else ""
+                    ),
+                    "source_pages": pages,
+                }
+            )
+            if len(nearby_concepts) == 5:
+                break
+
+    target_terms = {
+        value.strip().casefold()
+        for value in (
+            selected_item.get("concept", ""),
+            *(item["concept"] for item in nearby_concepts),
+        )
+        if isinstance(value, str) and value.strip()
+    }
+    nearby_relationships = []
+    raw_relationships = analysis.get("relationships", [])
+    if isinstance(raw_relationships, list):
+        for item in raw_relationships:
+            if not isinstance(item, dict):
+                continue
+            source = item.get("source")
+            relation = item.get("relation")
+            relationship_target = item.get("target")
+            if not all(
+                isinstance(value, str) and value.strip()
+                for value in (source, relation, relationship_target)
+            ):
+                continue
+            pages = valid_source_pages(item.get("source_pages", []), allowed_pages)
+            touches_target = (
+                source.strip().casefold() in target_terms
+                or relationship_target.strip().casefold() in target_terms
+            )
+            overlaps_pages = bool(
+                target_pages and set(pages).intersection(target_pages)
+            )
+            if not touches_target and not overlaps_pages:
+                continue
+            nearby_relationships.append(
+                {
+                    "source": source.strip(),
+                    "relation": relation.strip(),
+                    "target": relationship_target.strip(),
+                    "source_pages": pages,
+                }
+            )
+            if len(nearby_relationships) == 5:
+                break
+
+    return {
+        "source_kind": source_kind,
+        "response_language": get_explanation_language(analysis),
+        "selected_item_type": target_type,
+        "selected_item": selected_item,
+        "quick_summary": analysis.get("quick_summary", ""),
+        "relevant_pages": target_pages,
+        "relevant_extracted_source_text": relevant_source_text,
+        "nearby_key_concepts": nearby_concepts,
+        "nearby_relationships": nearby_relationships,
+        "pdf_reinspection_status": (
+            "The original PDF is not attached to this explanation request. "
+            "Any selected visual evidence comes from the prior analysis."
+            if source_kind == "pdf"
+            else "Not applicable to pasted text."
+        ),
+    }
+
+
+def request_explanation(client, explanation_context):
+    """Request one source-aware drill-down explanation from the Responses API."""
+    instructions = """You explain one selected part of a learning analysis.
+
+Return only data matching the supplied JSON Schema.
+- plain_explanation: explain the selected item clearly in simpler language.
+- why_it_matters: state its role in understanding the broader material.
+- intuition_or_example: give a concise intuition or example when useful; otherwise
+  return an empty string.
+- source_note: write one short line. Identify the relevant PDF page or pages from
+  relevant_pages, or identify the source as pasted text. State whether source
+  material was used and whether general explanatory knowledge was added. Do not
+  write a paragraph or repeat the explanation.
+
+Use only page numbers present in relevant_pages. Never invent source pages. For a
+PDF visual-evidence item, the original PDF is not attached to this request: rely on
+the prior visual-evidence description and extracted text, and do not claim that you
+reinspected the PDF. Keep the explanation concise and educational. Use the exact
+language specified by response_language for every output field. That language hint
+comes from the full active analysis, so do not switch languages based on the
+selected item alone. When response_language is Traditional Chinese, use Traditional
+Chinese characters and never Simplified Chinese. When it is English, use English.
+"""
+    response = client.responses.create(
+        model=MODEL,
+        instructions=instructions,
+        input=json.dumps(explanation_context, ensure_ascii=False),
+        text={
+            "format": {
+                "type": "json_schema",
+                "name": "visual_learning_explanation",
+                "strict": True,
+                "schema": EXPLANATION_SCHEMA,
+            }
+        },
+    )
+    explanation = clean_explanation(json.loads(response.output_text))
+    if explanation is None:
+        raise ValueError("The model returned an invalid explanation object.")
+    return explanation
+
+
+def render_explanation(explanation):
+    """Render the currently active contextual explanation."""
+    with st.container(border=True):
+        st.markdown("##### Explain This")
+        st.markdown("**In simple terms**")
+        st.write(explanation["plain_explanation"])
+        st.markdown("**Why it matters**")
+        st.write(explanation["why_it_matters"])
+        if explanation["intuition_or_example"]:
+            st.markdown("**Intuition or example**")
+            st.write(explanation["intuition_or_example"])
+        st.caption(f"Source context: {explanation['source_note']}")
+
+
+def render_explain_action(cache_key, explanation_context):
+    """Render one inline action and cache its explanation for this analysis."""
+    cache = st.session_state.setdefault("explanation_cache", {})
+    errors = st.session_state.setdefault("explanation_errors", {})
+
+    if st.button("Explain this", key=f"explain-{cache_key}"):
+        st.session_state["active_explanation_key"] = cache_key
+        if cache_key not in cache:
+            try:
+                api_key = st.secrets["OPENAI_API_KEY"]
+                client = OpenAI(api_key=api_key)
+                with st.spinner("Explaining this part…"):
+                    cache[cache_key] = request_explanation(
+                        client, explanation_context
+                    )
+                errors.pop(cache_key, None)
+            except (KeyError, st.errors.StreamlitSecretNotFoundError):
+                errors[cache_key] = (
+                    "OpenAI API access is not configured for explanations yet."
+                )
+            except (json.JSONDecodeError, ValueError):
+                errors[cache_key] = (
+                    "This explanation came back in an unexpected format. "
+                    "Please try again."
+                )
+            except Exception:
+                errors[cache_key] = (
+                    "We couldn’t explain this item right now. Please try again."
+                )
+
+    if st.session_state.get("active_explanation_key") == cache_key:
+        if cache_key in cache:
+            render_explanation(cache[cache_key])
+        elif cache_key in errors:
+            st.error(errors[cache_key])
 
 
 def format_page_references(page_numbers):
@@ -907,6 +1220,11 @@ with st.container(border=True):
         st.session_state.pop("analysis", None)
         st.session_state.pop("source_info", None)
         st.session_state.pop("allowed_source_pages", None)
+        st.session_state.pop("source_context", None)
+        st.session_state.pop("analysis_id", None)
+        st.session_state["explanation_cache"] = {}
+        st.session_state["explanation_errors"] = {}
+        st.session_state.pop("active_explanation_key", None)
 
         has_pdf = uploaded_pdf is not None
         has_pasted_text = bool(content.strip())
@@ -919,6 +1237,9 @@ with st.container(border=True):
             source_text = content.strip()
             allowed_source_pages = []
             source_info = None
+            source_kind = "text"
+            source_bytes = source_text.encode("utf-8")
+            page_texts = {}
 
             if has_pdf:
                 try:
@@ -941,6 +1262,9 @@ with st.container(border=True):
                     else:
                         source_text = pdf_data["text"]
                         allowed_source_pages = analyzed_pages
+                        source_kind = "pdf"
+                        source_bytes = uploaded_pdf.getvalue()
+                        page_texts = pdf_data["analyzed_page_texts"]
                         source_info = {
                             "found_count": len(found_pages),
                             "total_count": pdf_data["total_pages"],
@@ -960,6 +1284,14 @@ with st.container(border=True):
 
             st.session_state["source_info"] = source_info
             st.session_state["allowed_source_pages"] = allowed_source_pages
+            st.session_state["source_context"] = {
+                "kind": source_kind,
+                "source_text": source_text if source_kind == "text" else "",
+                "page_texts": page_texts,
+            }
+            st.session_state["analysis_id"] = build_analysis_id(
+                source_kind, source_bytes
+            )
             prompt = """You are the learning-content analyst for Visual Learning Lab.
 
 Analyze the user's learning content faithfully and make it easier to study.
@@ -1090,6 +1422,8 @@ analysis = st.session_state.get("analysis")
 if analysis:
     allowed_source_pages = st.session_state.get("allowed_source_pages", [])
     source_info = st.session_state.get("source_info")
+    source_context = st.session_state.get("source_context", {})
+    analysis_id = st.session_state.get("analysis_id", "current-analysis")
     relationships = clean_relationships(
         analysis.get("relationships", []), allowed_source_pages
     )
@@ -1110,8 +1444,8 @@ if analysis:
         key_concepts = analysis.get("key_concepts", [])
         if not isinstance(key_concepts, list):
             key_concepts = []
-        concept_lines = []
-        for item in key_concepts:
+        displayed_concept_count = 0
+        for index, item in enumerate(key_concepts):
             if isinstance(item, dict):
                 concept = item.get("concept", "")
                 explanation = item.get("explanation", "")
@@ -1130,13 +1464,27 @@ if analysis:
             concept = concept.strip()
             explanation = explanation.strip() if isinstance(explanation, str) else ""
             description = f" — {explanation}" if explanation else ""
-            concept_lines.append(f"- **{concept}**{description}")
+            st.markdown(f"- **{concept}**{description}")
             if pages:
-                concept_lines.append(f"  - Source: {format_page_references(pages)}")
+                st.caption(f"Source: {format_page_references(pages)}")
+            concept_target = {
+                "concept": concept,
+                "explanation": explanation,
+                "source_pages": pages,
+            }
+            explanation_context = build_explanation_context(
+                "key_concept",
+                concept_target,
+                analysis,
+                source_context,
+                allowed_source_pages,
+            )
+            render_explain_action(
+                f"{analysis_id}:key-concept:{index}", explanation_context
+            )
+            displayed_concept_count += 1
 
-        if concept_lines:
-            st.markdown("\n".join(concept_lines))
-        else:
+        if not displayed_concept_count:
             st.caption("No key concepts were returned for this content.")
 
         st.markdown("#### Visual Evidence")
@@ -1144,13 +1492,23 @@ if analysis:
             analysis.get("visual_evidence", []), allowed_source_pages
         )
         if visual_evidence:
-            for item in visual_evidence:
+            for index, item in enumerate(visual_evidence):
                 st.markdown(
                     f"**{item['type'].capitalize()}** — Page {item['page']}"
                 )
                 st.write(item["description"])
                 st.markdown("Learning value:")
                 st.write(item["learning_value"])
+                explanation_context = build_explanation_context(
+                    "visual_evidence",
+                    item,
+                    analysis,
+                    source_context,
+                    allowed_source_pages,
+                )
+                render_explain_action(
+                    f"{analysis_id}:visual-evidence:{index}", explanation_context
+                )
         else:
             st.caption("No meaningful visual evidence was found in this content.")
 
