@@ -15,7 +15,7 @@ Current stack:
 - pypdf
 
 ## Current product behavior
-- Day 9 accepts pasted text or a text-based PDF upload, one source at a time.
+- Day 10 v0.1 is prepared for public deployment on Streamlit Community Cloud and accepts pasted text or a text-based PDF upload, one source at a time.
 - `pypdf` counts pages and extracts up to eight text-bearing pages with page markers. Source page references are validated against those analyzed pages.
 - For PDFs, the original file and extracted page-labeled text go to the OpenAI Responses API together. Visual analysis may inspect formulas, diagrams, graphs, waveforms, tables, and other visual learning content. There is no OCR.
 - Strict Structured Outputs produce Quick Summary, Key Concepts, Relationships, Suggested Visualization, Visual Evidence, Visual Flow, Concept Map, Comparison, and a primary visualization decision.
@@ -24,6 +24,7 @@ Current stack:
 - Visual Evidence records meaningful PDF visuals with validated page numbers.
 - Every Key Concept and Visual Evidence item offers Explain This. Its separate strict Structured Output request uses the selected item, Quick Summary, validated page context, relevant extracted text, and nearby analysis context. It does not resend or claim to reinspect the PDF.
 - Main analysis and source context stay in `st.session_state`; explanation actions must not rerun the full analysis. Explanations are cached only for the active analyzed material and target.
+- `app.py` is the repository-root Streamlit entrypoint. Python dependencies are declared in `requirements.txt`; current Graphviz rendering uses DOT source through `st.graphviz_chart` and does not require a system `packages.txt` file.
 
 ## Product direction
 This is not meant to be another AI summarizer.
@@ -46,6 +47,7 @@ Planned directions include Timeline, Analogies, Image Breakdown, richer Source C
 - Each visualization type should have its own structured representation rather than reusing semantic Relationships blindly.
 - Source references must never invent page numbers.
 - Explain This must stay grounded in the active source context and clearly distinguish source support from added general knowledge.
+- Preserve Streamlit Community Cloud compatibility: keep runtime paths portable, keep Python dependencies synchronized, and do not require local-only artifacts.
 
 ## Workflow
 Before editing:

@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 9 contextual explanation prototype."""
+"""Visual Learning Lab — Day 10 v0.1 public deployment."""
 
 import hashlib
 import json
@@ -1198,7 +1198,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 8 comparison visualization</span>
+    <span class="pill">2026 iThome Ironman · Day 10 · v0.1</span>
 </div>
 """, unsafe_allow_html=True)
 
