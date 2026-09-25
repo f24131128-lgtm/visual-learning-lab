@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 10 v0.1 public deployment."""
+"""Visual Learning Lab — Day 12 guided learning mode."""
 
 import hashlib
 import json
@@ -230,6 +230,89 @@ ANALYSIS_SCHEMA = {
             ],
             "additionalProperties": False,
         },
+        "learning_path": {
+            "type": "object",
+            "properties": {
+                "suitable": {"type": "boolean"},
+                "title": {"type": "string"},
+                "reason": {"type": "string"},
+                "steps": {
+                    "type": "array",
+                    "maxItems": 6,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "title": {"type": "string"},
+                            "learning_goal": {"type": "string"},
+                            "explanation": {"type": "string"},
+                            "source_pages": {
+                                "type": "array",
+                                "items": {"type": "integer", "minimum": 1},
+                            },
+                            "connection_to_previous": {"type": "string"},
+                        },
+                        "required": [
+                            "id",
+                            "title",
+                            "learning_goal",
+                            "explanation",
+                            "source_pages",
+                            "connection_to_previous",
+                        ],
+                        "additionalProperties": False,
+                    },
+                },
+                "checkpoint_questions": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "string"},
+                            "question": {"type": "string"},
+                            "options": {
+                                "type": "array",
+                                "minItems": 4,
+                                "maxItems": 4,
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {"type": "string"},
+                                        "text": {"type": "string"},
+                                    },
+                                    "required": ["id", "text"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                            "correct_option_id": {"type": "string"},
+                            "explanation": {"type": "string"},
+                            "source_pages": {
+                                "type": "array",
+                                "items": {"type": "integer", "minimum": 1},
+                            },
+                        },
+                        "required": [
+                            "id",
+                            "question",
+                            "options",
+                            "correct_option_id",
+                            "explanation",
+                            "source_pages",
+                        ],
+                        "additionalProperties": False,
+                    },
+                },
+            },
+            "required": [
+                "suitable",
+                "title",
+                "reason",
+                "steps",
+                "checkpoint_questions",
+            ],
+            "additionalProperties": False,
+        },
         "primary_visualization": {
             "type": "object",
             "properties": {
@@ -252,6 +335,7 @@ ANALYSIS_SCHEMA = {
         "visual_flow",
         "concept_map",
         "comparison",
+        "learning_path",
         "primary_visualization",
         "suggested_visualizations",
     ],
@@ -454,13 +538,192 @@ def get_explanation_language(analysis):
     return "English"
 
 
+def build_visualization_explanation_target(
+    target_type, target, visualization, allowed_pages
+):
+    """Build validated target and local context for one visualization element."""
+    if not isinstance(target, dict) or not isinstance(visualization, dict):
+        return None
+
+    target_id = target.get("id")
+    label = target.get("label")
+    if not all(
+        isinstance(value, str) and value.strip()
+        for value in (target_id, label)
+    ):
+        return None
+    target_id, label = target_id.strip(), label.strip()
+
+    if target_type in {"concept_map_node", "visual_flow_node"}:
+        nodes = visualization.get("nodes", [])
+        edges = visualization.get("edges", [])
+        if not isinstance(nodes, list) or not isinstance(edges, list):
+            return None
+        nodes_by_id = {
+            node["id"]: node
+            for node in nodes
+            if isinstance(node, dict)
+            and isinstance(node.get("id"), str)
+            and isinstance(node.get("label"), str)
+        }
+        if target_id not in nodes_by_id:
+            return None
+
+        node = nodes_by_id[target_id]
+        source_pages = valid_source_pages(
+            node.get("source_pages", []), allowed_pages
+        )
+        connected_edges = []
+        for edge in edges:
+            if not isinstance(edge, dict):
+                continue
+            source_id = edge.get("source")
+            target_node_id = edge.get("target")
+            if target_id not in {source_id, target_node_id}:
+                continue
+            if source_id not in nodes_by_id or target_node_id not in nodes_by_id:
+                continue
+            connected_edge = {
+                "source": nodes_by_id[source_id]["label"],
+                "relation": edge.get("label", ""),
+                "target": nodes_by_id[target_node_id]["label"],
+            }
+            if target_type == "visual_flow_node":
+                connected_edge["position"] = (
+                    "previous step" if target_node_id == target_id else "next step"
+                )
+            connected_edges.append(connected_edge)
+
+        selected_item = {
+            "id": target_id,
+            "label": label,
+            "source_pages": source_pages,
+        }
+        if target_type == "concept_map_node":
+            selected_item["role"] = node.get("role", "supporting")
+        return selected_item, source_pages, {
+            "connected_relationships": connected_edges
+        }
+
+    if target_type == "comparison_item":
+        items = visualization.get("items", [])
+        criteria = visualization.get("criteria", [])
+        if not isinstance(items, list) or not isinstance(criteria, list):
+            return None
+        if not any(
+            isinstance(item, dict) and item.get("id") == target_id
+            for item in items
+        ):
+            return None
+
+        comparison_values = []
+        source_pages = set()
+        for criterion in criteria:
+            if not isinstance(criterion, dict):
+                continue
+            for value in criterion.get("values", []):
+                if not isinstance(value, dict) or value.get("item_id") != target_id:
+                    continue
+                value_pages = valid_source_pages(
+                    value.get("source_pages", []), allowed_pages
+                )
+                source_pages.update(value_pages)
+                comparison_values.append(
+                    {
+                        "criterion": criterion.get("criterion", ""),
+                        "value": value.get("value", ""),
+                        "source_pages": value_pages,
+                    }
+                )
+                break
+
+        source_pages = sorted(source_pages)
+        return (
+            {
+                "id": target_id,
+                "label": label,
+                "source_pages": source_pages,
+            },
+            source_pages,
+            {
+                "comparison_title": visualization.get("title", ""),
+                "criteria_and_values": comparison_values,
+                "takeaway": visualization.get("takeaway", ""),
+            },
+        )
+
+    return None
+
+
+def build_learning_step_explanation_target(target, learning_path, allowed_pages):
+    """Build one validated lesson-step target with adjacent step context."""
+    if not isinstance(target, dict) or not isinstance(learning_path, dict):
+        return None
+
+    target_id = target.get("id")
+    steps = learning_path.get("steps", [])
+    if not isinstance(target_id, str) or not isinstance(steps, list):
+        return None
+
+    step_index = next(
+        (
+            index
+            for index, step in enumerate(steps)
+            if isinstance(step, dict) and step.get("id") == target_id
+        ),
+        None,
+    )
+    if step_index is None:
+        return None
+
+    step = steps[step_index]
+    source_pages = valid_source_pages(
+        step.get("source_pages", []), allowed_pages
+    )
+    selected_item = {
+        "id": target_id,
+        "title": step.get("title", ""),
+        "learning_goal": step.get("learning_goal", ""),
+        "explanation": step.get("explanation", ""),
+        "connection_to_previous": step.get("connection_to_previous", ""),
+        "source_pages": source_pages,
+    }
+
+    nearby_steps = []
+    for index in (step_index - 1, step_index + 1):
+        if not 0 <= index < len(steps):
+            continue
+        nearby_step = steps[index]
+        nearby_steps.append(
+            {
+                "position": "previous" if index < step_index else "next",
+                "id": nearby_step["id"],
+                "title": nearby_step["title"],
+                "learning_goal": nearby_step["learning_goal"],
+                "connection_to_previous": nearby_step["connection_to_previous"],
+                "source_pages": valid_source_pages(
+                    nearby_step.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    return selected_item, source_pages, {"nearby_steps": nearby_steps}
+
+
 def build_explanation_context(
-    target_type, target, analysis, source_context, allowed_pages
+    target_type,
+    target,
+    analysis,
+    source_context,
+    allowed_pages,
+    visualization=None,
 ):
     """Build bounded, source-aware context for an explanation request."""
     source_context = source_context if isinstance(source_context, dict) else {}
     source_kind = source_context.get("kind", "text")
 
+    visualization_context = {}
+    learning_path_context = {}
     if target_type == "key_concept":
         target_pages = valid_source_pages(
             target.get("source_pages", []), allowed_pages
@@ -470,7 +733,7 @@ def build_explanation_context(
             "explanation": target.get("explanation", ""),
             "source_pages": target_pages,
         }
-    else:
+    elif target_type == "visual_evidence":
         page = target.get("page")
         target_pages = [page] if page in allowed_pages else []
         selected_item = {
@@ -479,6 +742,20 @@ def build_explanation_context(
             "learning_value": target.get("learning_value", ""),
             "page": page if target_pages else None,
         }
+    elif target_type == "learning_path_step":
+        learning_target = build_learning_step_explanation_target(
+            target, visualization, allowed_pages
+        )
+        if learning_target is None:
+            return None
+        selected_item, target_pages, learning_path_context = learning_target
+    else:
+        visualization_target = build_visualization_explanation_target(
+            target_type, target, visualization, allowed_pages
+        )
+        if visualization_target is None:
+            return None
+        selected_item, target_pages, visualization_context = visualization_target
 
     source_sections = []
     if source_kind == "pdf":
@@ -524,6 +801,8 @@ def build_explanation_context(
         value.strip().casefold()
         for value in (
             selected_item.get("concept", ""),
+            selected_item.get("label", ""),
+            selected_item.get("title", ""),
             *(item["concept"] for item in nearby_concepts),
         )
         if isinstance(value, str) and value.strip()
@@ -573,9 +852,11 @@ def build_explanation_context(
         "relevant_extracted_source_text": relevant_source_text,
         "nearby_key_concepts": nearby_concepts,
         "nearby_relationships": nearby_relationships,
+        "visualization_context": visualization_context,
+        "learning_path_context": learning_path_context,
         "pdf_reinspection_status": (
             "The original PDF is not attached to this explanation request. "
-            "Any selected visual evidence comes from the prior analysis."
+            "Visual evidence and visualization data come from the prior analysis."
             if source_kind == "pdf"
             else "Not applicable to pasted text."
         ),
@@ -596,14 +877,18 @@ Return only data matching the supplied JSON Schema.
   material was used and whether general explanatory knowledge was added. Do not
   write a paragraph or repeat the explanation.
 
-Use only page numbers present in relevant_pages. Never invent source pages. For a
-PDF visual-evidence item, the original PDF is not attached to this request: rely on
-the prior visual-evidence description and extracted text, and do not claim that you
-reinspected the PDF. Keep the explanation concise and educational. Use the exact
-language specified by response_language for every output field. That language hint
-comes from the full active analysis, so do not switch languages based on the
-selected item alone. When response_language is Traditional Chinese, use Traditional
-Chinese characters and never Simplified Chinese. When it is English, use English.
+Use only page numbers present in relevant_pages. Never invent source pages. For any
+PDF target, the original PDF is not attached to this request: rely on the extracted
+text and structured results from the prior analysis, and do not claim that you
+reinspected the PDF. For visualization targets, use visualization_context directly
+instead of reconstructing graph connections, flow steps, or comparison values.
+For a learning_path_step target, use learning_path_context for the adjacent steps
+and explain the selected lesson step without replacing the guided lesson.
+Keep the explanation concise and educational. Use the exact language specified by
+response_language for every output field. That language hint comes from the full
+active analysis, so do not switch languages based on the selected item alone. When
+response_language is Traditional Chinese, use Traditional Chinese characters and
+never Simplified Chinese. When it is English, use English.
 """
     response = client.responses.create(
         model=MODEL,
@@ -638,12 +923,14 @@ def render_explanation(explanation):
         st.caption(f"Source context: {explanation['source_note']}")
 
 
-def render_explain_action(cache_key, explanation_context):
+def render_explain_action(
+    cache_key, explanation_context, button_label="Explain this"
+):
     """Render one inline action and cache its explanation for this analysis."""
     cache = st.session_state.setdefault("explanation_cache", {})
     errors = st.session_state.setdefault("explanation_errors", {})
 
-    if st.button("Explain this", key=f"explain-{cache_key}"):
+    if st.button(button_label, key=f"explain-{cache_key}"):
         st.session_state["active_explanation_key"] = cache_key
         if cache_key not in cache:
             try:
@@ -673,6 +960,310 @@ def render_explain_action(cache_key, explanation_context):
             render_explanation(cache[cache_key])
         elif cache_key in errors:
             st.error(errors[cache_key])
+
+
+def render_visualization_explorer(
+    visualization_type,
+    visualization,
+    analysis,
+    source_context,
+    allowed_pages,
+    analysis_id,
+):
+    """Render one compact selector that reuses the existing explanation system."""
+    st.markdown("#### Explore this visualization")
+    if not visualization or not visualization.get("suitable"):
+        st.caption("No visualization elements are available to explore.")
+        return
+
+    if visualization_type == "comparison_item":
+        targets = visualization.get("items", [])
+        select_label = "Choose an item"
+    elif visualization_type == "visual_flow_node":
+        targets = visualization.get("nodes", [])
+        select_label = "Choose a step"
+    else:
+        targets = visualization.get("nodes", [])
+        select_label = "Choose a concept"
+
+    targets_by_id = {
+        target["id"]: target
+        for target in targets
+        if isinstance(target, dict)
+        and isinstance(target.get("id"), str)
+        and target.get("id")
+        and isinstance(target.get("label"), str)
+        and target.get("label")
+    }
+    if not targets_by_id:
+        st.caption("No visualization elements are available to explore.")
+        return
+
+    selected_id = st.selectbox(
+        select_label,
+        options=list(targets_by_id),
+        format_func=lambda target_id: targets_by_id[target_id]["label"],
+        key=f"explore-select-{analysis_id}-{visualization_type}",
+    )
+    selected_target = targets_by_id.get(selected_id)
+    if selected_target is None:
+        st.warning("That visualization element is no longer available.")
+        return
+
+    explanation_context = build_explanation_context(
+        visualization_type,
+        selected_target,
+        analysis,
+        source_context,
+        allowed_pages,
+        visualization=visualization,
+    )
+    if explanation_context is None:
+        st.warning("We couldn’t prepare that visualization element for explanation.")
+        return
+
+    render_explain_action(
+        f"{analysis_id}:{visualization_type}:{selected_id}",
+        explanation_context,
+    )
+
+
+def reset_guided_learning_state():
+    """Clear lesson progress that belongs to a previous material."""
+    for key in (
+        "guided_learning_material_id",
+        "guided_learning_started",
+        "guided_learning_step_id",
+        "guided_quiz_answers",
+        "guided_quiz_checked",
+    ):
+        st.session_state.pop(key, None)
+    for key in list(st.session_state):
+        if isinstance(key, str) and key.startswith("guided-quiz-option-"):
+            st.session_state.pop(key, None)
+
+
+def ensure_guided_learning_state(analysis_id, learning_path):
+    """Initialize and sanitize material-specific lesson and quiz state."""
+    steps = learning_path["steps"]
+    questions = learning_path["checkpoint_questions"]
+    step_ids = {step["id"] for step in steps}
+    questions_by_id = {question["id"]: question for question in questions}
+
+    if st.session_state.get("guided_learning_material_id") != analysis_id:
+        reset_guided_learning_state()
+        st.session_state["guided_learning_material_id"] = analysis_id
+        st.session_state["guided_learning_started"] = False
+        st.session_state["guided_learning_step_id"] = steps[0]["id"]
+        st.session_state["guided_quiz_answers"] = {}
+        st.session_state["guided_quiz_checked"] = {}
+
+    if st.session_state.get("guided_learning_step_id") not in step_ids:
+        st.session_state["guided_learning_step_id"] = steps[0]["id"]
+
+    answers = st.session_state.get("guided_quiz_answers", {})
+    if not isinstance(answers, dict):
+        answers = {}
+    answers = {
+        question_id: option_id
+        for question_id, option_id in answers.items()
+        if question_id in questions_by_id
+        and option_id
+        in {option["id"] for option in questions_by_id[question_id]["options"]}
+    }
+    st.session_state["guided_quiz_answers"] = answers
+
+    checked = st.session_state.get("guided_quiz_checked", {})
+    if not isinstance(checked, dict):
+        checked = {}
+    st.session_state["guided_quiz_checked"] = {
+        question_id: True
+        for question_id, is_checked in checked.items()
+        if is_checked and question_id in answers and question_id in questions_by_id
+    }
+
+
+def calculate_quiz_result(questions, answers, checked):
+    """Return a completed local quiz result, or None while answers are unchecked."""
+    question_ids = {question["id"] for question in questions}
+    if not question_ids or not question_ids.issubset(checked):
+        return None
+    correct_count = sum(
+        answers.get(question["id"]) == question["correct_option_id"]
+        for question in questions
+    )
+    return correct_count, len(questions)
+
+
+def render_knowledge_check(questions, allowed_pages, analysis_id):
+    """Render and grade the structured checkpoint quiz without API calls."""
+    st.markdown("#### Knowledge Check")
+    if not questions:
+        st.caption("No checkpoint questions are available for this lesson.")
+        return
+
+    answers = st.session_state["guided_quiz_answers"]
+    checked = st.session_state["guided_quiz_checked"]
+    for index, question in enumerate(questions, start=1):
+        question_id = question["id"]
+        options_by_id = {
+            option["id"]: option["text"] for option in question["options"]
+        }
+        st.markdown(f"**{index}. {question['question']}**")
+
+        widget_key = f"guided-quiz-option-{analysis_id}-{question_id}"
+        previous_answer = answers.get(question_id)
+        if widget_key not in st.session_state and previous_answer in options_by_id:
+            st.session_state[widget_key] = previous_answer
+        selected_option = st.radio(
+            "Choose an answer",
+            options=list(options_by_id),
+            index=None,
+            format_func=lambda option_id, labels=options_by_id: labels[option_id],
+            key=widget_key,
+            label_visibility="collapsed",
+        )
+        if selected_option != previous_answer:
+            if selected_option is None:
+                answers.pop(question_id, None)
+            else:
+                answers[question_id] = selected_option
+            checked.pop(question_id, None)
+
+        if st.button(
+            "Check answer",
+            key=f"guided-quiz-check-{analysis_id}-{question_id}",
+        ):
+            if selected_option is None:
+                st.warning("Choose an answer before checking.")
+            else:
+                checked[question_id] = True
+
+        if checked.get(question_id):
+            if answers.get(question_id) == question["correct_option_id"]:
+                st.success("Correct")
+            else:
+                st.error("Not quite")
+            st.write(question["explanation"])
+            pages = valid_source_pages(
+                question.get("source_pages", []), allowed_pages
+            )
+            if pages:
+                st.caption(f"Source: {format_page_references(pages)}")
+
+    result = calculate_quiz_result(questions, answers, checked)
+    if result is not None:
+        correct_count, question_count = result
+        st.info(f"Knowledge Check: {correct_count} / {question_count} correct")
+
+
+def render_guided_learning(
+    learning_path,
+    analysis,
+    primary_visualization,
+    source_context,
+    allowed_pages,
+    analysis_id,
+):
+    """Render one lesson step at a time with local navigation and quiz state."""
+    st.markdown("### Guided Learning")
+    if not learning_path or not learning_path.get("suitable"):
+        reason = learning_path.get("reason", "") if learning_path else ""
+        st.caption(reason or "A guided learning path is not available for this material.")
+        return
+
+    ensure_guided_learning_state(analysis_id, learning_path)
+    steps = learning_path["steps"]
+    st.markdown(f"#### {learning_path['title']}")
+
+    if not st.session_state["guided_learning_started"]:
+        st.write(f"Learn this material in {len(steps)} steps.")
+        if learning_path["reason"]:
+            st.caption(learning_path["reason"])
+        if st.button(
+            "Start guided learning",
+            key=f"guided-start-{analysis_id}",
+            type="primary",
+        ):
+            st.session_state["guided_learning_started"] = True
+            st.session_state["guided_learning_step_id"] = steps[0]["id"]
+            st.rerun()
+        return
+
+    step_ids = [step["id"] for step in steps]
+    current_step_id = st.session_state["guided_learning_step_id"]
+    current_index = step_ids.index(current_step_id)
+    current_step = steps[current_index]
+
+    st.caption(f"Step {current_index + 1} of {len(steps)}")
+    st.progress((current_index + 1) / len(steps))
+    st.markdown(f"#### {current_step['title']}")
+    st.markdown("**Goal**")
+    st.write(current_step["learning_goal"])
+    st.markdown("**Explanation**")
+    st.write(current_step["explanation"])
+    if current_step["connection_to_previous"]:
+        st.markdown("**Why this comes next**")
+        st.write(current_step["connection_to_previous"])
+    if current_step["source_pages"]:
+        st.caption(
+            f"Source: {format_page_references(current_step['source_pages'])}"
+        )
+
+    visualization_labels = {
+        "flow": "Visual Flow",
+        "concept_map": "Concept Map",
+        "comparison": "Comparison",
+    }
+    related_visualization = visualization_labels.get(primary_visualization["type"])
+    if related_visualization:
+        st.caption(f"Related visualization: {related_visualization}")
+
+    previous_column, next_column = st.columns(2)
+    with previous_column:
+        if st.button(
+            "Previous",
+            key=f"guided-previous-{analysis_id}-{current_step_id}",
+            disabled=current_index == 0,
+            use_container_width=True,
+        ):
+            st.session_state["guided_learning_step_id"] = step_ids[
+                current_index - 1
+            ]
+            st.rerun()
+    with next_column:
+        if st.button(
+            "Next",
+            key=f"guided-next-{analysis_id}-{current_step_id}",
+            disabled=current_index == len(steps) - 1,
+            use_container_width=True,
+        ):
+            st.session_state["guided_learning_step_id"] = step_ids[
+                current_index + 1
+            ]
+            st.rerun()
+
+    explanation_context = build_explanation_context(
+        "learning_path_step",
+        current_step,
+        analysis,
+        source_context,
+        allowed_pages,
+        visualization=learning_path,
+    )
+    if explanation_context is not None:
+        render_explain_action(
+            f"{analysis_id}:learning_path_step:{current_step_id}",
+            explanation_context,
+            button_label="Explain this step",
+        )
+
+    if current_index == len(steps) - 1:
+        render_knowledge_check(
+            learning_path["checkpoint_questions"],
+            allowed_pages,
+            analysis_id,
+        )
 
 
 def format_page_references(page_numbers):
@@ -1012,6 +1603,159 @@ def clean_comparison(raw_comparison, allowed_pages):
     }
 
 
+def clean_learning_path(raw_path, allowed_pages):
+    """Validate lesson steps and keep only independently valid quiz questions."""
+    if not isinstance(raw_path, dict):
+        return None
+
+    reason = raw_path.get("reason", "")
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if raw_path.get("suitable") is not True:
+        return {
+            "suitable": False,
+            "title": "",
+            "reason": reason,
+            "steps": [],
+            "checkpoint_questions": [],
+        }
+
+    title = raw_path.get("title")
+    raw_steps = raw_path.get("steps")
+    if (
+        not isinstance(title, str)
+        or not title.strip()
+        or not isinstance(raw_steps, list)
+        or not 2 <= len(raw_steps) <= 6
+    ):
+        return None
+
+    steps = []
+    step_ids = set()
+    for raw_step in raw_steps:
+        if not isinstance(raw_step, dict):
+            return None
+        step_id = raw_step.get("id")
+        step_title = raw_step.get("title")
+        learning_goal = raw_step.get("learning_goal")
+        explanation = raw_step.get("explanation")
+        connection = raw_step.get("connection_to_previous")
+        if not all(
+            isinstance(value, str)
+            for value in (
+                step_id,
+                step_title,
+                learning_goal,
+                explanation,
+                connection,
+            )
+        ):
+            return None
+        step_id = step_id.strip()
+        step_title = step_title.strip()
+        learning_goal = learning_goal.strip()
+        explanation = explanation.strip()
+        connection = connection.strip()
+        if (
+            not step_id
+            or step_id in step_ids
+            or not step_title
+            or not learning_goal
+            or not explanation
+        ):
+            return None
+        step_ids.add(step_id)
+        steps.append(
+            {
+                "id": step_id,
+                "title": step_title,
+                "learning_goal": learning_goal,
+                "explanation": explanation,
+                "source_pages": valid_source_pages(
+                    raw_step.get("source_pages", []), allowed_pages
+                ),
+                "connection_to_previous": connection,
+            }
+        )
+
+    checkpoint_questions = []
+    question_ids = set()
+    raw_questions = raw_path.get("checkpoint_questions", [])
+    if not isinstance(raw_questions, list):
+        raw_questions = []
+    for raw_question in raw_questions[:3]:
+        if not isinstance(raw_question, dict):
+            continue
+        question_id = raw_question.get("id")
+        question = raw_question.get("question")
+        explanation = raw_question.get("explanation")
+        correct_option_id = raw_question.get("correct_option_id")
+        raw_options = raw_question.get("options")
+        if (
+            not all(
+                isinstance(value, str) and value.strip()
+                for value in (
+                    question_id,
+                    question,
+                    explanation,
+                    correct_option_id,
+                )
+            )
+            or question_id.strip() in question_ids
+            or not isinstance(raw_options, list)
+            or len(raw_options) != 4
+        ):
+            continue
+
+        options = []
+        option_ids = set()
+        options_valid = True
+        for raw_option in raw_options:
+            if not isinstance(raw_option, dict):
+                options_valid = False
+                break
+            option_id = raw_option.get("id")
+            option_text = raw_option.get("text")
+            if not all(
+                isinstance(value, str) and value.strip()
+                for value in (option_id, option_text)
+            ):
+                options_valid = False
+                break
+            option_id, option_text = option_id.strip(), option_text.strip()
+            if option_id in option_ids:
+                options_valid = False
+                break
+            option_ids.add(option_id)
+            options.append({"id": option_id, "text": option_text})
+
+        correct_option_id = correct_option_id.strip()
+        if not options_valid or correct_option_id not in option_ids:
+            continue
+
+        question_id = question_id.strip()
+        question_ids.add(question_id)
+        checkpoint_questions.append(
+            {
+                "id": question_id,
+                "question": question.strip(),
+                "options": options,
+                "correct_option_id": correct_option_id,
+                "explanation": explanation.strip(),
+                "source_pages": valid_source_pages(
+                    raw_question.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    return {
+        "suitable": True,
+        "title": title.strip(),
+        "reason": reason,
+        "steps": steps,
+        "checkpoint_questions": checkpoint_questions,
+    }
+
+
 def build_comparison_table(comparison):
     """Build rows for a static Streamlit comparison table."""
     if not comparison or not comparison["suitable"]:
@@ -1198,7 +1942,7 @@ div.stButton > button[kind="primary"]:hover { background: #5540ae;
     <div class="eyebrow">See the idea. Find the connection.</div>
     <h1>Visual Learning Lab</h1>
     <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 10 · v0.1</span>
+    <span class="pill">2026 iThome Ironman · Day 12 · v0.1</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1225,6 +1969,7 @@ with st.container(border=True):
         st.session_state["explanation_cache"] = {}
         st.session_state["explanation_errors"] = {}
         st.session_state.pop("active_explanation_key", None)
+        reset_guided_learning_state()
 
         has_pdf = uploaded_pdf is not None
         has_pasted_text = bool(content.strip())
@@ -1361,6 +2106,23 @@ Return only data that matches the supplied JSON Schema.
   page numbers. The takeaway should state the most useful learning distinction,
   not declare a winner. When Comparison is not selected, set suitable to false
   and return an empty title, items, criteria, and takeaway.
+- learning_path: create a short guided lesson from the same understanding used for
+  the rest of this analysis. When the material supports it, set suitable to true,
+  create a concise title, and prefer 4–6 steps in a pedagogically meaningful order.
+  Each step must teach one idea, use a unique canonical id, stay focused, and
+  explain through connection_to_previous why it follows the prior step. Build the
+  progression around the actual structure of the source: foundations and
+  transformations for processes, central ideas and relationships for conceptual
+  material, or items and important dimensions for comparisons. Do not merely copy
+  Key Concepts in arbitrary order. Consider Quick Summary, Key Concepts,
+  Relationships, Visual Flow, Concept Map, Comparison, Visual Evidence, and source
+  structure together. Prefer 3 checkpoint questions that test understanding of the
+  supplied material through concepts, relationships or processes, and application.
+  Each question should have exactly 4 plausible options with unique ids, and
+  correct_option_id must exactly match one option id. Avoid trivia and trick
+  questions. Step and question source_pages may contain only [Page X] markers, or
+  [] for pasted text or unclear support. Never invent pages. If a useful lesson
+  cannot be formed, set suitable to false and return empty steps and questions.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
 
 Use the same language as the user's content. If the source is primarily Traditional
@@ -1550,6 +2312,9 @@ if analysis:
     comparison = clean_comparison(
         analysis.get("comparison"), allowed_source_pages
     )
+    learning_path = clean_learning_path(
+        analysis.get("learning_path"), allowed_source_pages
+    )
     selection_reason = primary_visualization["reason"]
 
     if primary_visualization["type"] == "flow":
@@ -1564,6 +2329,14 @@ if analysis:
             )
         if selection_reason:
             st.caption(selection_reason)
+        render_visualization_explorer(
+            "visual_flow_node",
+            visual_flow,
+            analysis,
+            source_context,
+            allowed_source_pages,
+            analysis_id,
+        )
     elif primary_visualization["type"] == "concept_map":
         st.markdown("### Concept Map")
         concept_graph = build_concept_map_graph(concept_map)
@@ -1576,6 +2349,14 @@ if analysis:
             )
         if selection_reason:
             st.caption(selection_reason)
+        render_visualization_explorer(
+            "concept_map_node",
+            concept_map,
+            analysis,
+            source_context,
+            allowed_source_pages,
+            analysis_id,
+        )
     elif primary_visualization["type"] == "comparison":
         st.markdown("### Comparison")
         comparison_rows = build_comparison_table(comparison)
@@ -1591,6 +2372,14 @@ if analysis:
             )
         if selection_reason:
             st.caption(selection_reason)
+        render_visualization_explorer(
+            "comparison_item",
+            comparison,
+            analysis,
+            source_context,
+            allowed_source_pages,
+            analysis_id,
+        )
     else:
         st.markdown("### Primary Visualization")
         st.info(
@@ -1598,6 +2387,15 @@ if analysis:
         )
         if selection_reason:
             st.caption(selection_reason)
+
+    render_guided_learning(
+        learning_path,
+        analysis,
+        primary_visualization,
+        source_context,
+        allowed_source_pages,
+        analysis_id,
+    )
 
 st.markdown("### One idea. More ways to understand it.")
 st.caption("Planned capabilities · coming in future versions")
