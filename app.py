@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 12 guided learning mode."""
+"""Visual Learning Lab — Day 17 coordinated Learning Scenes."""
 
 import hashlib
 import json
@@ -8,6 +8,24 @@ from graphviz import Digraph
 from openai import OpenAI
 from pypdf import PdfReader
 import streamlit as st
+
+from i18n import RESPONSE_LANGUAGES, current_language, output_language_instruction, tr
+from interactive_lab import (
+    INTERACTIVE_LAB_SCHEMA, LAB_INSTRUCTIONS, clean_interactive_lab,
+    ensure_lab_state, render_interactive_lab, render_lab_links, reset_lab_state,
+)
+from presentation import render_header, render_footer
+from dynamic_simulation import ensure_simulation_state, render_simulation_studio, reset_simulation_state
+from scene.compiler import render_scene_builder, reset_scene_state, scene_candidate
+
+from learning_canvas import (
+    VISUAL_REF_SCHEMA,
+    clean_visual_refs,
+    ensure_canvas_state,
+    go_to_lesson,
+    render_learning_canvas,
+    reset_canvas_state,
+)
 
 MODEL = "gpt-5.6-luna"
 MAX_ANALYZED_PDF_PAGES = 8
@@ -251,6 +269,7 @@ ANALYSIS_SCHEMA = {
                                 "items": {"type": "integer", "minimum": 1},
                             },
                             "connection_to_previous": {"type": "string"},
+                            "visual_refs": VISUAL_REF_SCHEMA,
                         },
                         "required": [
                             "id",
@@ -259,6 +278,7 @@ ANALYSIS_SCHEMA = {
                             "explanation",
                             "source_pages",
                             "connection_to_previous",
+                            "visual_refs",
                         ],
                         "additionalProperties": False,
                     },
@@ -291,6 +311,10 @@ ANALYSIS_SCHEMA = {
                                 "type": "array",
                                 "items": {"type": "integer", "minimum": 1},
                             },
+                            "related_step_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
                         },
                         "required": [
                             "id",
@@ -299,6 +323,7 @@ ANALYSIS_SCHEMA = {
                             "correct_option_id",
                             "explanation",
                             "source_pages",
+                            "related_step_ids",
                         ],
                         "additionalProperties": False,
                     },
@@ -313,6 +338,7 @@ ANALYSIS_SCHEMA = {
             ],
             "additionalProperties": False,
         },
+        "interactive_lab": INTERACTIVE_LAB_SCHEMA,
         "primary_visualization": {
             "type": "object",
             "properties": {
@@ -336,6 +362,7 @@ ANALYSIS_SCHEMA = {
         "concept_map",
         "comparison",
         "learning_path",
+        "interactive_lab",
         "primary_visualization",
         "suggested_visualizations",
     ],
@@ -355,6 +382,98 @@ EXPLANATION_SCHEMA = {
         "why_it_matters",
         "intuition_or_example",
         "source_note",
+    ],
+    "additionalProperties": False,
+}
+
+FOCUSED_REVIEW_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "review_title": {"type": "string"},
+        "review_summary": {"type": "string"},
+        "source_note": {"type": "string"},
+        "items": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "related_step_ids": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                    },
+                    "what_to_fix": {"type": "string"},
+                    "focused_explanation": {"type": "string"},
+                    "intuition_or_example": {"type": "string"},
+                    "source_pages": {
+                        "type": "array",
+                        "items": {"type": "integer", "minimum": 1},
+                    },
+                },
+                "required": [
+                    "id",
+                    "related_step_ids",
+                    "what_to_fix",
+                    "focused_explanation",
+                    "intuition_or_example",
+                    "source_pages",
+                ],
+                "additionalProperties": False,
+            },
+        },
+        "retry_questions": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "question": {"type": "string"},
+                    "options": {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {"type": "string"},
+                                "text": {"type": "string"},
+                            },
+                            "required": ["id", "text"],
+                            "additionalProperties": False,
+                        },
+                    },
+                    "correct_option_id": {"type": "string"},
+                    "explanation": {"type": "string"},
+                    "related_step_ids": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                    },
+                    "source_pages": {
+                        "type": "array",
+                        "items": {"type": "integer", "minimum": 1},
+                    },
+                },
+                "required": [
+                    "id",
+                    "question",
+                    "options",
+                    "correct_option_id",
+                    "explanation",
+                    "related_step_ids",
+                    "source_pages",
+                ],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": [
+        "review_title",
+        "review_summary",
+        "source_note",
+        "items",
+        "retry_questions",
     ],
     "additionalProperties": False,
 }
@@ -468,12 +587,14 @@ def build_analysis_input(client, source_text, uploaded_pdf):
     ]
 
 
-def build_analysis_id(source_kind, source_bytes):
+def build_analysis_id(source_kind, source_bytes, analysis_language="zh-TW"):
     """Create a stable identity for explanation caching within one source."""
     digest = hashlib.sha256()
     digest.update(source_kind.encode("utf-8"))
     digest.update(b"\0")
     digest.update(source_bytes)
+    digest.update(b"\0")
+    digest.update(analysis_language.encode("utf-8"))
     return digest.hexdigest()
 
 
@@ -498,7 +619,10 @@ def clean_explanation(raw_explanation):
 
 
 def get_explanation_language(analysis):
-    """Choose one stable explanation language from the full generated analysis."""
+    """Use stored language; retain the legacy heuristic only for old sessions."""
+    stored_language = analysis.get("analysis_language")
+    if stored_language in RESPONSE_LANGUAGES:
+        return RESPONSE_LANGUAGES[stored_language]
     language_fragments = []
     quick_summary = analysis.get("quick_summary")
     if isinstance(quick_summary, str):
@@ -889,6 +1013,8 @@ response_language for every output field. That language hint comes from the full
 active analysis, so do not switch languages based on the selected item alone. When
 response_language is Traditional Chinese, use Traditional Chinese characters and
 never Simplified Chinese. When it is English, use English.
+Keep quoted source excerpts and mathematical variables in their original language.
+Never present a translated passage as original source evidence.
 """
     response = client.responses.create(
         model=MODEL,
@@ -909,50 +1035,254 @@ never Simplified Chinese. When it is English, use English.
     return explanation
 
 
+def build_focused_review_context(
+    analysis,
+    learning_path,
+    incorrect_questions,
+    answers,
+    source_context,
+    allowed_pages,
+):
+    """Build bounded context around the learner's checked wrong answers."""
+    steps = learning_path["steps"]
+    steps_by_id = {step["id"]: step for step in steps}
+    relevant_step_ids = {
+        step_id
+        for question in incorrect_questions
+        for step_id in question["related_step_ids"]
+        if step_id in steps_by_id
+    }
+    relevant_steps = [
+        step for step in steps if step["id"] in relevant_step_ids
+    ]
+
+    incorrect_context = []
+    relevant_pages = set()
+    for question in incorrect_questions:
+        options_by_id = {
+            option["id"]: option["text"] for option in question["options"]
+        }
+        selected_option_id = answers.get(question["id"])
+        correct_option_id = question["correct_option_id"]
+        question_pages = valid_source_pages(
+            question.get("source_pages", []), allowed_pages
+        )
+        relevant_pages.update(question_pages)
+        incorrect_context.append(
+            {
+                "id": question["id"],
+                "question": question["question"],
+                "learner_selected": {
+                    "id": selected_option_id,
+                    "text": options_by_id.get(selected_option_id, ""),
+                },
+                "correct_option": {
+                    "id": correct_option_id,
+                    "text": options_by_id[correct_option_id],
+                },
+                "checkpoint_explanation": question["explanation"],
+                "related_step_ids": question["related_step_ids"],
+                "source_pages": question_pages,
+            }
+        )
+
+    step_context = []
+    for step in relevant_steps:
+        step_pages = valid_source_pages(
+            step.get("source_pages", []), allowed_pages
+        )
+        relevant_pages.update(step_pages)
+        step_context.append(
+            {
+                "id": step["id"],
+                "title": step["title"],
+                "learning_goal": step["learning_goal"],
+                "explanation": step["explanation"],
+                "connection_to_previous": step["connection_to_previous"],
+                "source_pages": step_pages,
+            }
+        )
+
+    relevant_pages = sorted(relevant_pages)
+    source_context = source_context if isinstance(source_context, dict) else {}
+    source_kind = source_context.get("kind", "text")
+    source_sections = []
+    if source_kind == "pdf":
+        page_texts = source_context.get("page_texts", {})
+        if isinstance(page_texts, dict):
+            for page in relevant_pages:
+                page_text = page_texts.get(page, "")
+                if isinstance(page_text, str) and page_text.strip():
+                    source_sections.append(f"[Page {page}]\n{page_text.strip()}")
+    else:
+        pasted_text = source_context.get("source_text", "")
+        if isinstance(pasted_text, str) and pasted_text.strip():
+            source_sections.append(pasted_text.strip())
+    relevant_source_text = "\n\n".join(source_sections)
+    relevant_source_text = relevant_source_text[:MAX_EXPLANATION_SOURCE_CHARS]
+
+    key_concepts = []
+    for item in analysis.get("key_concepts", []):
+        if not isinstance(item, dict):
+            continue
+        pages = valid_source_pages(item.get("source_pages", []), allowed_pages)
+        if relevant_pages and not set(pages).intersection(relevant_pages):
+            continue
+        key_concepts.append(
+            {
+                "concept": item.get("concept", ""),
+                "explanation": item.get("explanation", ""),
+                "source_pages": pages,
+            }
+        )
+        if len(key_concepts) == 6:
+            break
+
+    relevant_terms = {
+        value.strip().casefold()
+        for value in (
+            *(step["title"] for step in relevant_steps),
+            *(item["concept"] for item in key_concepts),
+        )
+        if isinstance(value, str) and value.strip()
+    }
+    relationships = []
+    for item in clean_relationships(
+        analysis.get("relationships", []), allowed_pages
+    ):
+        page_overlap = bool(
+            relevant_pages
+            and set(item["source_pages"]).intersection(relevant_pages)
+        )
+        term_overlap = (
+            item["source"].casefold() in relevant_terms
+            or item["target"].casefold() in relevant_terms
+        )
+        if not page_overlap and not term_overlap:
+            continue
+        relationships.append(item)
+        if len(relationships) == 6:
+            break
+
+    visual_evidence = [
+        item
+        for item in clean_visual_evidence(
+            analysis.get("visual_evidence", []), allowed_pages
+        )
+        if item["page"] in relevant_pages
+    ][:4]
+
+    return {
+        "source_kind": source_kind,
+        "response_language": get_explanation_language(analysis),
+        "quick_summary": analysis.get("quick_summary", ""),
+        "incorrect_checkpoint_questions": incorrect_context,
+        "related_learning_steps": step_context,
+        "relevant_key_concepts": key_concepts,
+        "relevant_relationships": relationships,
+        "relevant_visual_evidence": visual_evidence,
+        "relevant_pages": relevant_pages,
+        "relevant_extracted_source_text": relevant_source_text,
+        "pdf_reinspection_status": (
+            "The original PDF is not attached to this focused-review request."
+            if source_kind == "pdf"
+            else "Not applicable to pasted text."
+        ),
+    }
+
+
+def request_focused_review(
+    client, review_context, allowed_pages, valid_step_ids
+):
+    """Generate and validate one explicitly requested targeted review."""
+    instructions = """Create a small focused review for the learner's checked mistakes.
+
+Return only data matching the supplied JSON Schema.
+- Address the exact distinction behind each learner-selected wrong option. Do not
+  produce a generic chapter summary and do not repeat original questions verbatim.
+- Create 1–3 review items for distinct review areas when practical. Use only valid
+  learning-step ids from related_learning_steps in related_step_ids.
+- Create a small Retry Check, preferably 2 questions, aimed at the missed ideas.
+  Each retry question must have exactly four plausible options with unique ids, and
+  correct_option_id must match one option. Avoid trivia and trick questions.
+- Use only page numbers present in relevant_pages. Never invent page numbers. The
+  original PDF is not attached, so do not claim to have reinspected it.
+- Keep source_note to one short line that distinguishes supplied source context
+  from any general explanatory knowledge added for clarification.
+- Discuss specific responses and concepts without labeling or diagnosing the
+  learner's ability.
+
+Use the exact language specified by response_language for every output field. When
+it is Traditional Chinese, use Traditional Chinese characters and never Simplified
+Chinese. When it is English, use English.
+Keep quoted source excerpts and mathematical variables in their original language.
+Never present a translated passage as original source evidence.
+"""
+    response = client.responses.create(
+        model=MODEL,
+        instructions=instructions,
+        input=json.dumps(review_context, ensure_ascii=False),
+        text={
+            "format": {
+                "type": "json_schema",
+                "name": "visual_learning_focused_review",
+                "strict": True,
+                "schema": FOCUSED_REVIEW_SCHEMA,
+            }
+        },
+    )
+    raw_review = json.loads(response.output_text)
+    focused_review = clean_focused_review(
+        raw_review, allowed_pages, valid_step_ids
+    )
+    if focused_review is None:
+        raise ValueError("The model returned an invalid focused review.")
+    return focused_review
+
+
 def render_explanation(explanation):
     """Render the currently active contextual explanation."""
     with st.container(border=True):
-        st.markdown("##### Explain This")
-        st.markdown("**In simple terms**")
+        st.markdown("##### " + tr("Explain This"))
+        st.markdown("**" + tr("In simple terms") + "**")
         st.write(explanation["plain_explanation"])
-        st.markdown("**Why it matters**")
+        st.markdown("**" + tr("Why it matters") + "**")
         st.write(explanation["why_it_matters"])
         if explanation["intuition_or_example"]:
-            st.markdown("**Intuition or example**")
+            st.markdown("**" + tr("Intuition or example") + "**")
             st.write(explanation["intuition_or_example"])
-        st.caption(f"Source context: {explanation['source_note']}")
+        st.caption(tr("Source context: {note}", note=explanation["source_note"]))
 
 
 def render_explain_action(
-    cache_key, explanation_context, button_label="Explain this"
+    cache_key, explanation_context, button_label=None
 ):
     """Render one inline action and cache its explanation for this analysis."""
     cache = st.session_state.setdefault("explanation_cache", {})
     errors = st.session_state.setdefault("explanation_errors", {})
 
-    if st.button(button_label, key=f"explain-{cache_key}"):
+    if st.button(button_label or tr("Explain this"), key=f"explain-{cache_key}"):
         st.session_state["active_explanation_key"] = cache_key
         if cache_key not in cache:
             try:
                 api_key = st.secrets["OPENAI_API_KEY"]
                 client = OpenAI(api_key=api_key)
-                with st.spinner("Explaining this part…"):
+                with st.spinner(tr("Explaining this part…")):
                     cache[cache_key] = request_explanation(
                         client, explanation_context
                     )
                 errors.pop(cache_key, None)
             except (KeyError, st.errors.StreamlitSecretNotFoundError):
                 errors[cache_key] = (
-                    "OpenAI API access is not configured for explanations yet."
+                    tr("OpenAI API access is not configured for explanations yet.")
                 )
             except (json.JSONDecodeError, ValueError):
                 errors[cache_key] = (
-                    "This explanation came back in an unexpected format. "
-                    "Please try again."
+                    tr("This explanation came back in an unexpected format. Please try again.")
                 )
             except Exception:
                 errors[cache_key] = (
-                    "We couldn’t explain this item right now. Please try again."
+                    tr("We couldn’t explain this item right now. Please try again.")
                 )
 
     if st.session_state.get("active_explanation_key") == cache_key:
@@ -971,20 +1301,20 @@ def render_visualization_explorer(
     analysis_id,
 ):
     """Render one compact selector that reuses the existing explanation system."""
-    st.markdown("#### Explore this visualization")
+    st.markdown("#### " + tr("Explore this visualization"))
     if not visualization or not visualization.get("suitable"):
-        st.caption("No visualization elements are available to explore.")
+        st.caption(tr("No visualization elements are available to explore."))
         return
 
     if visualization_type == "comparison_item":
         targets = visualization.get("items", [])
-        select_label = "Choose an item"
+        select_label = tr("Choose an item")
     elif visualization_type == "visual_flow_node":
         targets = visualization.get("nodes", [])
-        select_label = "Choose a step"
+        select_label = tr("Choose a step")
     else:
         targets = visualization.get("nodes", [])
-        select_label = "Choose a concept"
+        select_label = tr("Choose a concept")
 
     targets_by_id = {
         target["id"]: target
@@ -996,7 +1326,7 @@ def render_visualization_explorer(
         and target.get("label")
     }
     if not targets_by_id:
-        st.caption("No visualization elements are available to explore.")
+        st.caption(tr("No visualization elements are available to explore."))
         return
 
     selected_id = st.selectbox(
@@ -1007,7 +1337,7 @@ def render_visualization_explorer(
     )
     selected_target = targets_by_id.get(selected_id)
     if selected_target is None:
-        st.warning("That visualization element is no longer available.")
+        st.warning(tr("That visualization element is no longer available."))
         return
 
     explanation_context = build_explanation_context(
@@ -1019,13 +1349,128 @@ def render_visualization_explorer(
         visualization=visualization,
     )
     if explanation_context is None:
-        st.warning("We couldn’t prepare that visualization element for explanation.")
+        st.warning(tr("We couldn’t prepare that visualization element for explanation."))
         return
 
     render_explain_action(
         f"{analysis_id}:{visualization_type}:{selected_id}",
         explanation_context,
     )
+
+
+def get_incorrect_questions(questions, answers, checked):
+    """Return checked questions whose stored answer is incorrect."""
+    return [
+        question
+        for question in questions
+        if checked.get(question["id"])
+        and answers.get(question["id"]) != question["correct_option_id"]
+    ]
+
+
+def build_review_queue(learning_path, incorrect_questions):
+    """Map missed questions to deduplicated lesson steps in lesson order."""
+    question_numbers = {
+        question["id"]: index
+        for index, question in enumerate(
+            learning_path["checkpoint_questions"], start=1
+        )
+    }
+    missed_by_step = {}
+    for question in incorrect_questions:
+        for step_id in question["related_step_ids"]:
+            missed_by_step.setdefault(step_id, []).append(question["id"])
+
+    return [
+        {
+            "step_id": step["id"],
+            "title": step["title"],
+            "source_pages": step["source_pages"],
+            "question_ids": list(dict.fromkeys(missed_by_step[step["id"]])),
+            "question_numbers": [
+                question_numbers[question_id]
+                for question_id in dict.fromkeys(missed_by_step[step["id"]])
+                if question_id in question_numbers
+            ],
+        }
+        for step in learning_path["steps"]
+        if step["id"] in missed_by_step
+    ]
+
+
+def build_review_pattern_key(analysis_id, incorrect_questions, answers):
+    """Identify one material-specific pattern of checked wrong answers."""
+    pattern = sorted(
+        (question["id"], answers.get(question["id"], ""))
+        for question in incorrect_questions
+    )
+    digest = hashlib.sha256(
+        json.dumps(pattern, ensure_ascii=False).encode("utf-8")
+    ).hexdigest()
+    return f"{analysis_id}:{digest}"
+
+
+def clear_adaptive_retry_widgets():
+    """Remove retry radio state when the active mistake pattern changes."""
+    for key in list(st.session_state):
+        if isinstance(key, str) and key.startswith("adaptive-retry-option-"):
+            st.session_state.pop(key, None)
+
+
+def clear_active_adaptive_review():
+    """Clear displayed review state while retaining reusable cached reviews."""
+    state = st.session_state.get("adaptive_review_state")
+    if isinstance(state, dict):
+        state.update(
+            {
+                "pattern_key": None,
+                "review_queue": [],
+                "focused_review": None,
+                "error": None,
+                "retry_answers": {},
+                "retry_checked": {},
+            }
+        )
+    clear_adaptive_retry_widgets()
+
+
+def reset_adaptive_review_state():
+    """Clear all adaptive-review state and cache for a new material."""
+    st.session_state.pop("adaptive_review_state", None)
+    st.session_state.pop("focused_review_cache", None)
+    clear_adaptive_retry_widgets()
+
+
+def ensure_adaptive_review_state(analysis_id):
+    """Return initialized adaptive-review state for the active material."""
+    state = st.session_state.get("adaptive_review_state")
+    if not isinstance(state, dict) or state.get("material_id") != analysis_id:
+        reset_adaptive_review_state()
+        state = {
+            "material_id": analysis_id,
+            "pattern_key": None,
+            "review_queue": [],
+            "focused_review": None,
+            "error": None,
+            "retry_answers": {},
+            "retry_checked": {},
+        }
+        st.session_state["adaptive_review_state"] = state
+        st.session_state["focused_review_cache"] = {}
+    return state
+
+
+def adaptive_review_copy():
+    """Keep review chrome in the selected product language."""
+    keys = (
+        "complete", "review_areas", "related_questions", "review_step", "unmapped",
+        "build", "building", "focused_review", "review", "what_to_fix",
+        "focused_explanation", "intuition", "retry", "choose", "check",
+        "choose_first", "correct", "not_quite", "no_retry", "original",
+        "retry_result", "retry_complete", "correct_suffix", "source",
+        "error", "key_error", "format_error",
+    )
+    return {key: tr(f"review.{key}") for key in keys}
 
 
 def reset_guided_learning_state():
@@ -1041,6 +1486,7 @@ def reset_guided_learning_state():
     for key in list(st.session_state):
         if isinstance(key, str) and key.startswith("guided-quiz-option-"):
             st.session_state.pop(key, None)
+    reset_adaptive_review_state()
 
 
 def ensure_guided_learning_state(analysis_id, learning_path):
@@ -1097,10 +1543,10 @@ def calculate_quiz_result(questions, answers, checked):
 
 def render_knowledge_check(questions, allowed_pages, analysis_id):
     """Render and grade the structured checkpoint quiz without API calls."""
-    st.markdown("#### Knowledge Check")
+    st.markdown("#### " + tr("Knowledge Check"))
     if not questions:
-        st.caption("No checkpoint questions are available for this lesson.")
-        return
+        st.caption(tr("No checkpoint questions are available for this lesson."))
+        return None
 
     answers = st.session_state["guided_quiz_answers"]
     checked = st.session_state["guided_quiz_checked"]
@@ -1116,7 +1562,84 @@ def render_knowledge_check(questions, allowed_pages, analysis_id):
         if widget_key not in st.session_state and previous_answer in options_by_id:
             st.session_state[widget_key] = previous_answer
         selected_option = st.radio(
-            "Choose an answer",
+            tr("Choose an answer"),
+            options=list(options_by_id),
+            index=None,
+            format_func=lambda option_id, labels=options_by_id: labels[option_id],
+            key=widget_key,
+            label_visibility="collapsed",
+        )
+        if selected_option != previous_answer:
+            if selected_option is None:
+                answers.pop(question_id, None)
+            else:
+                answers[question_id] = selected_option
+            checked.pop(question_id, None)
+            clear_active_adaptive_review()
+            st.rerun()  # Refresh the canvas review emphasis above the quiz.
+
+        if st.button(
+            tr("Check answer"),
+            key=f"guided-quiz-check-{analysis_id}-{question_id}",
+        ):
+            if selected_option is None:
+                st.warning(tr("Choose an answer before checking."))
+            else:
+                checked[question_id] = True
+                st.rerun()
+
+        if checked.get(question_id):
+            if answers.get(question_id) == question["correct_option_id"]:
+                st.success(tr("Correct"))
+            else:
+                st.error(tr("Not quite"))
+            st.write(question["explanation"])
+            pages = valid_source_pages(
+                question.get("source_pages", []), allowed_pages
+            )
+            if pages:
+                st.caption(tr("Source: {pages}", pages=format_page_references(pages)))
+
+    result = calculate_quiz_result(questions, answers, checked)
+    if result is not None:
+        correct_count, question_count = result
+        st.info(tr("Knowledge Check: {correct} / {total} correct", correct=correct_count, total=question_count))
+    return result
+
+
+def render_retry_check(
+    focused_review,
+    original_result,
+    adaptive_state,
+    allowed_pages,
+    pattern_key,
+    copy,
+):
+    """Render and grade focused-review retry questions entirely locally."""
+    st.markdown(f"#### {copy['retry']}")
+    questions = focused_review["retry_questions"]
+    if not questions:
+        st.caption(copy["no_retry"])
+        return
+
+    answers = adaptive_state["retry_answers"]
+    checked = adaptive_state["retry_checked"]
+    pattern_digest = pattern_key.rsplit(":", 1)[-1]
+    for index, question in enumerate(questions, start=1):
+        question_id = question["id"]
+        options_by_id = {
+            option["id"]: option["text"] for option in question["options"]
+        }
+        st.markdown(f"**{index}. {question['question']}**")
+
+        widget_key = (
+            f"adaptive-retry-option-{pattern_digest}-{question_id}"
+        )
+        previous_answer = answers.get(question_id)
+        if widget_key not in st.session_state and previous_answer in options_by_id:
+            st.session_state[widget_key] = previous_answer
+        selected_option = st.radio(
+            copy["choose"],
             options=list(options_by_id),
             index=None,
             format_func=lambda option_id, labels=options_by_id: labels[option_id],
@@ -1131,30 +1654,194 @@ def render_knowledge_check(questions, allowed_pages, analysis_id):
             checked.pop(question_id, None)
 
         if st.button(
-            "Check answer",
-            key=f"guided-quiz-check-{analysis_id}-{question_id}",
+            copy["check"],
+            key=f"adaptive-retry-check-{pattern_digest}-{question_id}",
         ):
             if selected_option is None:
-                st.warning("Choose an answer before checking.")
+                st.warning(copy["choose_first"])
             else:
                 checked[question_id] = True
 
         if checked.get(question_id):
             if answers.get(question_id) == question["correct_option_id"]:
-                st.success("Correct")
+                st.success(copy["correct"])
             else:
-                st.error("Not quite")
+                st.error(copy["not_quite"])
             st.write(question["explanation"])
             pages = valid_source_pages(
                 question.get("source_pages", []), allowed_pages
             )
             if pages:
-                st.caption(f"Source: {format_page_references(pages)}")
+                st.caption(
+                    f"{copy['source']}: {format_page_references(pages)}"
+                )
 
-    result = calculate_quiz_result(questions, answers, checked)
-    if result is not None:
-        correct_count, question_count = result
-        st.info(f"Knowledge Check: {correct_count} / {question_count} correct")
+    retry_result = calculate_quiz_result(questions, answers, checked)
+    if retry_result is not None:
+        original_correct, original_total = original_result
+        retry_correct, retry_total = retry_result
+        st.info(
+            f"{copy['original']}: {original_correct} / {original_total} "
+            f"{copy['correct_suffix']}\n\n"
+            f"{copy['retry_result']}: {retry_correct} / {retry_total} "
+            f"{copy['correct_suffix']}"
+        )
+        st.caption(copy["retry_complete"])
+
+
+def render_adaptive_review(
+    learning_path,
+    analysis,
+    source_context,
+    allowed_pages,
+    analysis_id,
+    original_result,
+    interactive_lab=None,
+):
+    """Render local review routing and an optional cached focused-review request."""
+    questions = learning_path["checkpoint_questions"]
+    answers = st.session_state["guided_quiz_answers"]
+    checked = st.session_state["guided_quiz_checked"]
+    copy = adaptive_review_copy()
+    adaptive_state = ensure_adaptive_review_state(analysis_id)
+    incorrect_questions = get_incorrect_questions(questions, answers, checked)
+
+    if not incorrect_questions:
+        clear_active_adaptive_review()
+        st.success(copy["complete"])
+        return
+
+    review_queue = build_review_queue(learning_path, incorrect_questions)
+    pattern_key = build_review_pattern_key(
+        analysis_id, incorrect_questions, answers
+    )
+    if adaptive_state.get("pattern_key") != pattern_key:
+        clear_adaptive_retry_widgets()
+        focused_review_cache = st.session_state.setdefault(
+            "focused_review_cache", {}
+        )
+        adaptive_state.update(
+            {
+                "pattern_key": pattern_key,
+                "review_queue": review_queue,
+                "focused_review": focused_review_cache.get(pattern_key),
+                "error": None,
+                "retry_answers": {},
+                "retry_checked": {},
+            }
+        )
+
+    st.markdown(f"#### {copy['review_areas']}")
+    if review_queue:
+        for index, queue_item in enumerate(review_queue, start=1):
+            st.markdown(f"**{index}. {queue_item['title']}**")
+            question_numbers = ", ".join(
+                str(number) for number in queue_item["question_numbers"]
+            )
+            if question_numbers:
+                st.caption(
+                    f"{copy['related_questions']} {question_numbers}"
+                )
+            if queue_item["source_pages"]:
+                st.caption(
+                    f"{copy['source']}: "
+                    f"{format_page_references(queue_item['source_pages'])}"
+                )
+            if st.button(
+                copy["review_step"],
+                key=(
+                    f"adaptive-review-step-{pattern_key}-"
+                    f"{queue_item['step_id']}"
+                ),
+            ):
+                go_to_lesson(queue_item["step_id"], learning_path)
+                st.rerun()
+    else:
+        st.caption(copy["unmapped"])
+
+    render_lab_links(interactive_lab, [item["step_id"] for item in review_queue],
+                     analysis_id, "review-queue", recommended=True)
+
+    if adaptive_state.get("focused_review") is None:
+        if st.button(
+            copy["build"],
+            key=f"adaptive-build-focused-{pattern_key}",
+            type="primary",
+        ):
+            focused_review_cache = st.session_state.setdefault(
+                "focused_review_cache", {}
+            )
+            cached_review = focused_review_cache.get(pattern_key)
+            if cached_review is not None:
+                adaptive_state["focused_review"] = cached_review
+                adaptive_state["error"] = None
+            else:
+                try:
+                    api_key = st.secrets["OPENAI_API_KEY"]
+                    client = OpenAI(api_key=api_key)
+                    review_context = build_focused_review_context(
+                        analysis,
+                        learning_path,
+                        incorrect_questions,
+                        answers,
+                        source_context,
+                        allowed_pages,
+                    )
+                    with st.spinner(copy["building"]):
+                        focused_review = request_focused_review(
+                            client,
+                            review_context,
+                            allowed_pages,
+                            {step["id"] for step in learning_path["steps"]},
+                        )
+                    focused_review_cache[pattern_key] = focused_review
+                    adaptive_state["focused_review"] = focused_review
+                    adaptive_state["error"] = None
+                    st.rerun()  # Reflect review-to-canvas links after the explicit request.
+                except (KeyError, st.errors.StreamlitSecretNotFoundError):
+                    adaptive_state["error"] = copy["key_error"]
+                except (json.JSONDecodeError, ValueError):
+                    adaptive_state["error"] = copy["format_error"]
+                except Exception:
+                    adaptive_state["error"] = copy["error"]
+
+    if adaptive_state.get("error"):
+        st.error(adaptive_state["error"])
+
+    focused_review = adaptive_state.get("focused_review")
+    if focused_review is None:
+        return
+
+    st.markdown(f"### {copy['focused_review']}")
+    st.markdown(f"#### {focused_review['review_title']}")
+    st.write(focused_review["review_summary"])
+    for index, item in enumerate(focused_review["items"], start=1):
+        st.markdown(f"##### {copy['review']} {index}")
+        st.markdown(f"**{copy['what_to_fix']}**")
+        st.write(item["what_to_fix"])
+        st.markdown(f"**{copy['focused_explanation']}**")
+        st.write(item["focused_explanation"])
+        if item["intuition_or_example"]:
+            st.markdown(f"**{copy['intuition']}**")
+            st.write(item["intuition_or_example"])
+        if item["source_pages"]:
+            st.caption(
+                f"{copy['source']}: "
+                f"{format_page_references(item['source_pages'])}"
+            )
+    st.caption(focused_review["source_note"])
+    render_lab_links(interactive_lab,
+                     [step_id for item in focused_review["items"] for step_id in item["related_step_ids"]],
+                     analysis_id, "focused-review", recommended=True)
+
+    render_retry_check(
+        focused_review,
+        original_result,
+        adaptive_state,
+        allowed_pages,
+        pattern_key,
+        copy,
+    )
 
 
 def render_guided_learning(
@@ -1164,12 +1851,13 @@ def render_guided_learning(
     source_context,
     allowed_pages,
     analysis_id,
+    interactive_lab=None,
 ):
     """Render one lesson step at a time with local navigation and quiz state."""
-    st.markdown("### Guided Learning")
+    st.markdown("### " + tr("Guided Learning"))
     if not learning_path or not learning_path.get("suitable"):
         reason = learning_path.get("reason", "") if learning_path else ""
-        st.caption(reason or "A guided learning path is not available for this material.")
+        st.caption(reason or tr("A guided learning path is not available for this material."))
         return
 
     ensure_guided_learning_state(analysis_id, learning_path)
@@ -1177,11 +1865,11 @@ def render_guided_learning(
     st.markdown(f"#### {learning_path['title']}")
 
     if not st.session_state["guided_learning_started"]:
-        st.write(f"Learn this material in {len(steps)} steps.")
+        st.write(tr("Learn this material in {count} steps.", count=len(steps)))
         if learning_path["reason"]:
             st.caption(learning_path["reason"])
         if st.button(
-            "Start guided learning",
+            tr("Start guided learning"),
             key=f"guided-start-{analysis_id}",
             type="primary",
         ):
@@ -1195,19 +1883,19 @@ def render_guided_learning(
     current_index = step_ids.index(current_step_id)
     current_step = steps[current_index]
 
-    st.caption(f"Step {current_index + 1} of {len(steps)}")
+    st.caption(tr("Step {number} of {count}", number=current_index + 1, count=len(steps)))
     st.progress((current_index + 1) / len(steps))
     st.markdown(f"#### {current_step['title']}")
-    st.markdown("**Goal**")
+    st.markdown("**" + tr("Goal") + "**")
     st.write(current_step["learning_goal"])
-    st.markdown("**Explanation**")
+    st.markdown("**" + tr("Explanation") + "**")
     st.write(current_step["explanation"])
     if current_step["connection_to_previous"]:
-        st.markdown("**Why this comes next**")
+        st.markdown("**" + tr("Why this comes next") + "**")
         st.write(current_step["connection_to_previous"])
     if current_step["source_pages"]:
         st.caption(
-            f"Source: {format_page_references(current_step['source_pages'])}"
+            tr("Source: {pages}", pages=format_page_references(current_step["source_pages"]))
         )
 
     visualization_labels = {
@@ -1217,12 +1905,14 @@ def render_guided_learning(
     }
     related_visualization = visualization_labels.get(primary_visualization["type"])
     if related_visualization:
-        st.caption(f"Related visualization: {related_visualization}")
+        st.caption(tr("Related visualization: {label}", label=tr(related_visualization)))
+
+    render_lab_links(interactive_lab, [current_step_id], analysis_id, "guided")
 
     previous_column, next_column = st.columns(2)
     with previous_column:
         if st.button(
-            "Previous",
+            tr("Previous"),
             key=f"guided-previous-{analysis_id}-{current_step_id}",
             disabled=current_index == 0,
             use_container_width=True,
@@ -1233,7 +1923,7 @@ def render_guided_learning(
             st.rerun()
     with next_column:
         if st.button(
-            "Next",
+            tr("Next"),
             key=f"guided-next-{analysis_id}-{current_step_id}",
             disabled=current_index == len(steps) - 1,
             use_container_width=True,
@@ -1255,15 +1945,25 @@ def render_guided_learning(
         render_explain_action(
             f"{analysis_id}:learning_path_step:{current_step_id}",
             explanation_context,
-            button_label="Explain this step",
+            button_label=tr("Explain this step"),
         )
 
     if current_index == len(steps) - 1:
-        render_knowledge_check(
+        original_result = render_knowledge_check(
             learning_path["checkpoint_questions"],
             allowed_pages,
             analysis_id,
         )
+        if original_result is not None:
+            render_adaptive_review(
+                learning_path,
+                analysis,
+                source_context,
+                allowed_pages,
+                analysis_id,
+                original_result,
+                interactive_lab,
+            )
 
 
 def format_page_references(page_numbers):
@@ -1286,7 +1986,7 @@ def format_page_references(page_numbers):
         str(start) if start == end else f"{start}–{end}"
         for start, end in ranges
     ]
-    return "p. " + ", ".join(parts)
+    return tr("p. {pages}", pages=", ".join(parts))
 
 
 def clean_relationships(relationships, allowed_pages):
@@ -1603,7 +2303,7 @@ def clean_comparison(raw_comparison, allowed_pages):
     }
 
 
-def clean_learning_path(raw_path, allowed_pages):
+def clean_learning_path(raw_path, allowed_pages, visualization_type="none", visualization=None):
     """Validate lesson steps and keep only independently valid quiz questions."""
     if not isinstance(raw_path, dict):
         return None
@@ -1674,6 +2374,9 @@ def clean_learning_path(raw_path, allowed_pages):
                     raw_step.get("source_pages", []), allowed_pages
                 ),
                 "connection_to_previous": connection,
+                "visual_refs": clean_visual_refs(
+                    raw_step.get("visual_refs", []), visualization_type, visualization
+                ),
             }
         )
 
@@ -1732,6 +2435,18 @@ def clean_learning_path(raw_path, allowed_pages):
         if not options_valid or correct_option_id not in option_ids:
             continue
 
+        raw_related_step_ids = raw_question.get("related_step_ids", [])
+        if not isinstance(raw_related_step_ids, list):
+            raw_related_step_ids = []
+        related_step_ids = []
+        for related_step_id in raw_related_step_ids:
+            if (
+                isinstance(related_step_id, str)
+                and related_step_id in step_ids
+                and related_step_id not in related_step_ids
+            ):
+                related_step_ids.append(related_step_id)
+
         question_id = question_id.strip()
         question_ids.add(question_id)
         checkpoint_questions.append(
@@ -1744,6 +2459,7 @@ def clean_learning_path(raw_path, allowed_pages):
                 "source_pages": valid_source_pages(
                     raw_question.get("source_pages", []), allowed_pages
                 ),
+                "related_step_ids": related_step_ids,
             }
         )
 
@@ -1756,6 +2472,168 @@ def clean_learning_path(raw_path, allowed_pages):
     }
 
 
+def clean_focused_review(raw_review, allowed_pages, valid_step_ids):
+    """Validate focused-review content while isolating malformed retry questions."""
+    if not isinstance(raw_review, dict):
+        return None
+
+    review_title = raw_review.get("review_title")
+    review_summary = raw_review.get("review_summary")
+    source_note = raw_review.get("source_note")
+    raw_items = raw_review.get("items")
+    raw_retry_questions = raw_review.get("retry_questions", [])
+    if (
+        not all(
+            isinstance(value, str) and value.strip()
+            for value in (review_title, review_summary, source_note)
+        )
+        or not isinstance(raw_items, list)
+        or not isinstance(raw_retry_questions, list)
+    ):
+        return None
+
+    valid_step_ids = set(valid_step_ids)
+    items = []
+    item_ids = set()
+    for raw_item in raw_items[:3]:
+        if not isinstance(raw_item, dict):
+            continue
+        item_id = raw_item.get("id")
+        what_to_fix = raw_item.get("what_to_fix")
+        focused_explanation = raw_item.get("focused_explanation")
+        intuition_or_example = raw_item.get("intuition_or_example")
+        if (
+            not all(
+                isinstance(value, str)
+                for value in (
+                    item_id,
+                    what_to_fix,
+                    focused_explanation,
+                    intuition_or_example,
+                )
+            )
+            or not item_id.strip()
+            or item_id.strip() in item_ids
+            or not what_to_fix.strip()
+            or not focused_explanation.strip()
+        ):
+            continue
+        item_id = item_id.strip()
+        item_ids.add(item_id)
+        related_step_ids = []
+        raw_related_step_ids = raw_item.get("related_step_ids", [])
+        if isinstance(raw_related_step_ids, list):
+            for step_id in raw_related_step_ids:
+                if (
+                    isinstance(step_id, str)
+                    and step_id in valid_step_ids
+                    and step_id not in related_step_ids
+                ):
+                    related_step_ids.append(step_id)
+        items.append(
+            {
+                "id": item_id,
+                "related_step_ids": related_step_ids,
+                "what_to_fix": what_to_fix.strip(),
+                "focused_explanation": focused_explanation.strip(),
+                "intuition_or_example": intuition_or_example.strip(),
+                "source_pages": valid_source_pages(
+                    raw_item.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    if not items:
+        return None
+
+    retry_questions = []
+    retry_question_ids = set()
+    for raw_question in raw_retry_questions[:2]:
+        if not isinstance(raw_question, dict):
+            continue
+        question_id = raw_question.get("id")
+        question = raw_question.get("question")
+        explanation = raw_question.get("explanation")
+        correct_option_id = raw_question.get("correct_option_id")
+        raw_options = raw_question.get("options")
+        if (
+            not all(
+                isinstance(value, str) and value.strip()
+                for value in (
+                    question_id,
+                    question,
+                    explanation,
+                    correct_option_id,
+                )
+            )
+            or question_id.strip() in retry_question_ids
+            or not isinstance(raw_options, list)
+            or len(raw_options) != 4
+        ):
+            continue
+
+        options = []
+        option_ids = set()
+        options_valid = True
+        for raw_option in raw_options:
+            if not isinstance(raw_option, dict):
+                options_valid = False
+                break
+            option_id = raw_option.get("id")
+            option_text = raw_option.get("text")
+            if not all(
+                isinstance(value, str) and value.strip()
+                for value in (option_id, option_text)
+            ):
+                options_valid = False
+                break
+            option_id, option_text = option_id.strip(), option_text.strip()
+            if option_id in option_ids:
+                options_valid = False
+                break
+            option_ids.add(option_id)
+            options.append({"id": option_id, "text": option_text})
+
+        correct_option_id = correct_option_id.strip()
+        if not options_valid or correct_option_id not in option_ids:
+            continue
+
+        related_step_ids = []
+        raw_related_step_ids = raw_question.get("related_step_ids", [])
+        if isinstance(raw_related_step_ids, list):
+            for step_id in raw_related_step_ids:
+                if (
+                    isinstance(step_id, str)
+                    and step_id in valid_step_ids
+                    and step_id not in related_step_ids
+                ):
+                    related_step_ids.append(step_id)
+
+        question_id = question_id.strip()
+        retry_question_ids.add(question_id)
+        retry_questions.append(
+            {
+                "id": question_id,
+                "question": question.strip(),
+                "options": options,
+                "correct_option_id": correct_option_id,
+                "explanation": explanation.strip(),
+                "related_step_ids": related_step_ids,
+                "source_pages": valid_source_pages(
+                    raw_question.get("source_pages", []), allowed_pages
+                ),
+            }
+        )
+
+    return {
+        "review_title": review_title.strip(),
+        "review_summary": review_summary.strip(),
+        "source_note": source_note.strip(),
+        "items": items,
+        "retry_questions": retry_questions,
+    }
+
+
 def build_comparison_table(comparison):
     """Build rows for a static Streamlit comparison table."""
     if not comparison or not comparison["suitable"]:
@@ -1764,11 +2642,11 @@ def build_comparison_table(comparison):
     item_labels = {item["id"]: item["label"] for item in comparison["items"]}
     rows = []
     for criterion in comparison["criteria"]:
-        row = {"Criterion": criterion["criterion"]}
+        row = {tr("Criterion"): criterion["criterion"]}
         for value in criterion["values"]:
             cell = value["value"]
             if value["source_pages"]:
-                cell += f"\n\nSource: {format_page_references(value['source_pages'])}"
+                cell += "\n\n" + tr("Source: {pages}", pages=format_page_references(value["source_pages"]))
             row[item_labels[value["item_id"]]] = cell
         rows.append(row)
     return rows
@@ -1799,15 +2677,15 @@ def build_flow_graph(visual_flow):
         style="rounded,filled",
         color="#6750C5",
         fillcolor="#F7F4FF",
-        fontname="Arial",
-        fontsize="11",
+        fontname="Noto Sans TC, Microsoft JhengHei, sans-serif",
+        fontsize="14",
         margin="0.18,0.12",
     )
     graph.attr(
         "edge",
         color="#8270DF",
-        fontname="Arial",
-        fontsize="10",
+        fontname="Noto Sans TC, Microsoft JhengHei, sans-serif",
+        fontsize="12",
         arrowsize="0.7",
     )
 
@@ -1846,15 +2724,15 @@ def build_concept_map_graph(concept_map):
     )
     graph.attr(
         "node",
-        fontname="Arial",
-        fontsize="11",
+        fontname="Noto Sans TC, Microsoft JhengHei, sans-serif",
+        fontsize="14",
         margin="0.18,0.12",
     )
     graph.attr(
         "edge",
         color="#8270DF",
-        fontname="Arial",
-        fontsize="10",
+        fontname="Noto Sans TC, Microsoft JhengHei, sans-serif",
+        fontsize="12",
         fontcolor="#4F467A",
         dir="none",
     )
@@ -1904,63 +2782,24 @@ def build_concept_map_graph(concept_map):
 
 st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="centered")
 
-# Static presentation styles only; content inputs are never inserted into HTML.
-st.markdown("""
-<style>
-.block-container { max-width: 980px; padding-top: 3rem; padding-bottom: 3rem; }
-.hero { padding: 2rem 0 1.5rem; }
-.eyebrow { color: #8270df; font-size: .76rem; font-weight: 700;
-           letter-spacing: .15em; text-transform: uppercase; }
-.hero h1 { font-size: clamp(2.3rem, 6vw, 3.7rem); line-height: 1.12;
-           letter-spacing: -.055em; padding: .7rem 0; }
-.subtitle { font-size: 1.15rem; opacity: .75; line-height: 1.65; }
-.pill { display: inline-block; border: 1px solid #8270df66; border-radius: 99px;
-        padding: .3rem .7rem; font-size: .75rem; margin-top: .8rem; }
-[data-testid="stFileUploaderDropzone"] { border: 1px dashed #8270df88;
-                                         border-radius: 12px; }
-div.stButton > button[kind="primary"] { background: #6750c5; color: white;
-    border: 1px solid #6750c5; border-radius: 10px; min-height: 3rem;
-    font-weight: 650; }
-div.stButton > button[kind="primary"]:hover { background: #5540ae;
-                                            border-color: #5540ae; }
-.capabilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 12px; margin: .8rem 0 1.2rem; }
-.capability { border: 1px solid #8270df33; border-radius: 14px;
-              padding: 1.1rem; background: #8270df08; }
-.capability h3 { font-size: 1rem; padding: .5rem 0; }
-.capability p { font-size: .86rem; line-height: 1.55; opacity: .75; margin: 0; }
-.symbol { color: #8270df; font-size: 1.35rem; }
-.source { border-color: #8270df88; background: #8270df12; }
-.source-note { border-left: 3px solid #8270df; padding: .5rem 1rem;
-               font-size: .9rem; line-height: 1.6; margin: 1rem 0; }
-@media (max-width: 640px) {
-    .capabilities { grid-template-columns: 1fr; }
-    .block-container { padding-top: 1.5rem; }
-}
-</style>
-<div class="hero">
-    <div class="eyebrow">See the idea. Find the connection.</div>
-    <h1>Visual Learning Lab</h1>
-    <div class="subtitle">Turn complex ideas into something you can actually see.</div>
-    <span class="pill">2026 iThome Ironman · Day 12 · v0.1</span>
-</div>
-""", unsafe_allow_html=True)
+render_header()
 
 with st.container(border=True):
-    st.subheader("Start with what you’re learning")
-    st.caption("Bring a page, a chapter, or an idea you want to understand.")
+    st.subheader(tr("Start with what you’re learning"))
+    st.caption(tr("Bring a page, a chapter, or an idea you want to understand."))
     uploaded_pdf = st.file_uploader(
-        "Upload a PDF",
-        type=["pdf"],
-        help="PDFs are analyzed through both extracted text and visual pages.",
+        tr("Upload a PDF"),
+        type=["pdf"], key="material-pdf",
+        help=tr("PDFs are analyzed through both extracted text and visual pages."),
     )
     content = st.text_area(
-        "Or paste your content",
-        height=200,
-        placeholder="Paste your notes, a tricky explanation, or a concept you want to explore…",
+        tr("Or paste your content"),
+        height=200, key="material-text",
+        placeholder=tr("Paste your notes, a tricky explanation, or a concept you want to explore…"),
     )
-    st.caption("Use one source at a time · PDF text and visual page content are analyzed together.")
-    if st.button("Visualize", type="primary", use_container_width=True):
+    st.caption(tr("Use one source at a time · PDF text and visual page content are analyzed together."))
+    st.caption(tr("Original source excerpts stay in their original language."))
+    if st.button(tr("Visualize"), key="analyze-material", type="primary", use_container_width=True):
         st.session_state.pop("analysis", None)
         st.session_state.pop("source_info", None)
         st.session_state.pop("allowed_source_pages", None)
@@ -1970,14 +2809,19 @@ with st.container(border=True):
         st.session_state["explanation_errors"] = {}
         st.session_state.pop("active_explanation_key", None)
         reset_guided_learning_state()
+        reset_canvas_state()
+        reset_lab_state()
+        reset_simulation_state()
+        reset_scene_state()
+        st.session_state.pop("analysis_language", None)
 
         has_pdf = uploaded_pdf is not None
         has_pasted_text = bool(content.strip())
 
         if not has_pdf and not has_pasted_text:
-            st.warning("Please upload a PDF or paste some learning content first.")
+            st.warning(tr("Please upload a PDF or paste some learning content first."))
         elif has_pdf and has_pasted_text:
-            st.warning("Please use only one source at a time: upload a PDF or paste text.")
+            st.warning(tr("Please use only one source at a time: upload a PDF or paste text."))
         else:
             source_text = content.strip()
             allowed_source_pages = []
@@ -1991,8 +2835,7 @@ with st.container(border=True):
                     pdf_data = extract_pdf_text(uploaded_pdf)
                 except Exception:
                     st.error(
-                        "We couldn’t read this PDF. Please check that it is a valid PDF "
-                        "and try again."
+                        tr("We couldn’t read this PDF. Please check that it is a valid PDF and try again.")
                     )
                     pdf_data = None
 
@@ -2001,8 +2844,7 @@ with st.container(border=True):
                     analyzed_pages = pdf_data["analyzed_page_numbers"]
                     if not found_pages:
                         st.warning(
-                            "No extractable text was found in this PDF. It may be scanned "
-                            "or image-based. Visual analysis still requires a readable PDF file."
+                            tr("No extractable text was found in this PDF. It may be scanned or image-based. Visual analysis still requires a readable PDF file.")
                         )
                     else:
                         source_text = pdf_data["text"]
@@ -2016,9 +2858,7 @@ with st.container(border=True):
                             "analyzed_count": len(analyzed_pages),
                         }
                         st.info(
-                            f"Found extractable text on {len(found_pages)} of "
-                            f"{pdf_data['total_pages']} PDF page(s); analyzing the first "
-                            f"{len(analyzed_pages)} extractable page(s)."
+                            tr("Found extractable text on {found} of {total} PDF page(s); analyzing the first {analyzed} extractable page(s).", found=len(found_pages), total=pdf_data["total_pages"], analyzed=len(analyzed_pages))
                         )
 
             if has_pdf and not source_info:
@@ -2035,7 +2875,7 @@ with st.container(border=True):
                 "page_texts": page_texts,
             }
             st.session_state["analysis_id"] = build_analysis_id(
-                source_kind, source_bytes
+                source_kind, source_bytes, current_language()
             )
             prompt = """You are the learning-content analyst for Visual Learning Lab.
 
@@ -2120,17 +2960,23 @@ Return only data that matches the supplied JSON Schema.
   supplied material through concepts, relationships or processes, and application.
   Each question should have exactly 4 plausible options with unique ids, and
   correct_option_id must exactly match one option id. Avoid trivia and trick
-  questions. Step and question source_pages may contain only [Page X] markers, or
-  [] for pasted text or unclear support. Never invent pages. If a useful lesson
-  cannot be formed, set suitable to false and return empty steps and questions.
+  questions. Each question should use related_step_ids to identify one or more
+  exact step ids that teach the knowledge it checks. Step and question source_pages
+  may contain only [Page X] markers, or [] for pasted text or unclear support.
+  Each step's visual_refs must link only relevant elements of the selected primary
+  visualization using their exact canonical ids: type visual_flow_node for flow
+  nodes, concept_map_node for concept map nodes, or comparison_item for comparison
+  items. Do not infer ids from labels. Return [] when no direct link is supported
+  or the primary visualization is none. Do not force supporting definitions into
+  the visualization.
+  Never invent pages. If a useful lesson cannot be formed, set suitable to false
+  and return empty steps and questions.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
 
-Use the same language as the user's content. If the source is primarily Traditional
-Chinese, respond in Traditional Chinese. If it is English, English output is fine.
-Do not unexpectedly switch to Simplified Chinese. The [Page X] markers are the
-only valid source of PDF page numbers. Do not create rendered diagrams or 3D
-models in the response.
+The [Page X] markers are the only valid source of PDF page numbers.
+Do not create rendered diagrams or 3D models in the response.
 """
+            prompt += LAB_INSTRUCTIONS + "\n" + output_language_instruction(current_language())
 
             try:
                 api_key = st.secrets["OPENAI_API_KEY"]
@@ -2141,13 +2987,12 @@ models in the response.
                     )
                 except PdfVisualInputError:
                     st.error(
-                        "We couldn’t send this PDF for visual analysis. Please try "
-                        "again with a valid PDF file."
+                        tr("We couldn’t send this PDF for visual analysis. Please try again with a valid PDF file.")
                     )
                     analysis_input = None
 
                 if analysis_input is not None:
-                    with st.spinner("Analyzing your content…"):
+                    with st.spinner(tr("Analyzing your content…")):
                         response = client.responses.create(
                             model=MODEL,
                             instructions=prompt,
@@ -2164,24 +3009,36 @@ models in the response.
                     analysis = json.loads(response.output_text)
                     if not isinstance(analysis, dict):
                         raise ValueError("The model returned an invalid analysis object.")
+                    analysis["analysis_language"] = current_language()
+                    st.session_state["analysis_language"] = current_language()
                     st.session_state["analysis"] = analysis
+                    ensure_canvas_state(
+                        st.session_state["analysis_id"],
+                        source_bytes if source_kind == "pdf" else None,
+                    )
             except (KeyError, st.errors.StreamlitSecretNotFoundError):
                 st.error(
-                    "OpenAI API key is not configured yet. Add OPENAI_API_KEY to "
-                    ".streamlit/secrets.toml and try again."
+                    tr("OpenAI API key is not configured yet. Add OPENAI_API_KEY to .streamlit/secrets.toml and try again.")
                 )
             except json.JSONDecodeError:
                 st.error(
-                    "The analysis came back in an unexpected format. Please try again."
+                    tr("The analysis came back in an unexpected format. Please try again.")
                 )
             except Exception:
                 st.error(
-                    "We couldn’t analyze that content right now. Check your API key "
-                    "and internet connection, then try again."
+                    tr("We couldn’t analyze that content right now. Check your API key and internet connection, then try again.")
                 )
 
 analysis = st.session_state.get("analysis")
 if analysis:
+    # Migrate a pre-Day-15 session once; subsequent UI switches cannot change it.
+    if analysis.get("analysis_language") not in RESPONSE_LANGUAGES:
+        analysis["analysis_language"] = (
+            "zh-TW" if get_explanation_language(analysis) == "Traditional Chinese" else "en"
+        )
+    st.session_state["analysis_language"] = analysis["analysis_language"]
+    if current_language() != analysis["analysis_language"]:
+        st.info(tr("Generated content will use the selected language after your next analysis. Current explanations and reviews keep the active analysis language."))
     allowed_source_pages = st.session_state.get("allowed_source_pages", [])
     source_info = st.session_state.get("source_info")
     source_context = st.session_state.get("source_context", {})
@@ -2189,20 +3046,26 @@ if analysis:
     relationships = clean_relationships(
         analysis.get("relationships", []), allowed_source_pages
     )
+    learning_scene_candidate = scene_candidate(analysis, source_context)
+
+    # Put the optional Day 17 workspace where a learner can actually discover it.
+    # The compiler remains explicit; this render call makes no request on its own.
+    render_scene_builder(
+        analysis, analysis_id, source_context, allowed_source_pages, MODEL,
+        format_page_references,
+    )
 
     with st.container(border=True):
-        st.markdown("### Your learning snapshot")
+        st.markdown("### " + tr("Your learning snapshot"))
         if source_info:
             st.caption(
-                f"PDF source: text found on {source_info['found_count']} of "
-                f"{source_info['total_count']} page(s); analyzed "
-                f"{source_info['analyzed_count']} page(s)."
+                tr("PDF source: text found on {found} of {total} page(s); analyzed {analyzed} page(s).", found=source_info["found_count"], total=source_info["total_count"], analyzed=source_info["analyzed_count"])
             )
 
-        st.markdown("#### Quick Summary")
+        st.markdown("#### " + tr("Quick Summary"))
         st.write(analysis.get("quick_summary", ""))
 
-        st.markdown("#### Key Concepts")
+        st.markdown("#### " + tr("Key Concepts"))
         key_concepts = analysis.get("key_concepts", [])
         if not isinstance(key_concepts, list):
             key_concepts = []
@@ -2228,7 +3091,7 @@ if analysis:
             description = f" — {explanation}" if explanation else ""
             st.markdown(f"- **{concept}**{description}")
             if pages:
-                st.caption(f"Source: {format_page_references(pages)}")
+                st.caption(tr("Source: {pages}", pages=format_page_references(pages)))
             concept_target = {
                 "concept": concept,
                 "explanation": explanation,
@@ -2247,19 +3110,19 @@ if analysis:
             displayed_concept_count += 1
 
         if not displayed_concept_count:
-            st.caption("No key concepts were returned for this content.")
+            st.caption(tr("No key concepts were returned for this content."))
 
-        st.markdown("#### Visual Evidence")
+        st.markdown("#### " + tr("Visual Evidence"))
         visual_evidence = clean_visual_evidence(
             analysis.get("visual_evidence", []), allowed_source_pages
         )
         if visual_evidence:
             for index, item in enumerate(visual_evidence):
                 st.markdown(
-                    f"**{item['type'].capitalize()}** — Page {item['page']}"
+                    tr("{kind} — Page {page}", kind=tr(item["type"]).capitalize(), page=item["page"])
                 )
                 st.write(item["description"])
-                st.markdown("Learning value:")
+                st.markdown(tr("Learning value:"))
                 st.write(item["learning_value"])
                 explanation_context = build_explanation_context(
                     "visual_evidence",
@@ -2272,33 +3135,39 @@ if analysis:
                     f"{analysis_id}:visual-evidence:{index}", explanation_context
                 )
         else:
-            st.caption("No meaningful visual evidence was found in this content.")
+            st.caption(tr("No meaningful visual evidence was found in this content."))
 
-        st.markdown("#### Relationships")
-        if relationships:
-            relationship_lines = []
-            for item in relationships:
-                relationship_lines.append(
-                    f"- **{item['source']}** — *{item['relation']}* → **{item['target']}**"
-                )
-                if item["source_pages"]:
-                    relationship_lines.append(
-                        f"  - Source: {format_page_references(item['source_pages'])}"
-                    )
-            st.markdown(
-                "\n".join(relationship_lines)
+        relationship_lines = []
+        for item in relationships:
+            relationship_lines.append(
+                f"- **{item['source']}** — *{item['relation']}* → **{item['target']}**"
             )
-        else:
-            st.caption("No explicit relationships were found in this content.")
+            if item["source_pages"]:
+                relationship_lines.append(
+                    "  - " + tr("Source: {pages}", pages=format_page_references(item["source_pages"]))
+                )
 
-        st.markdown("#### Suggested Visualization")
+        if learning_scene_candidate:
+            with st.expander(tr("Relationships"), expanded=False):
+                if relationship_lines:
+                    st.markdown("\n".join(relationship_lines))
+                else:
+                    st.caption(tr("No explicit relationships were found in this content."))
+        else:
+            st.markdown("#### " + tr("Relationships"))
+            if relationship_lines:
+                st.markdown("\n".join(relationship_lines))
+            else:
+                st.caption(tr("No explicit relationships were found in this content."))
+
+        st.markdown("#### " + tr("Suggested Visualization"))
         suggested_visualizations = analysis.get("suggested_visualizations", [])
         if not isinstance(suggested_visualizations, list):
             suggested_visualizations = []
         if suggested_visualizations:
-            st.markdown(", ".join(suggested_visualizations))
+            st.markdown(", ".join(tr(value) for value in suggested_visualizations if isinstance(value, str)))
         else:
-            st.caption("No visualization type was suggested for this content.")
+            st.caption(tr("No visualization type was suggested for this content."))
 
     primary_visualization = clean_primary_visualization(
         analysis.get("primary_visualization")
@@ -2312,81 +3181,76 @@ if analysis:
     comparison = clean_comparison(
         analysis.get("comparison"), allowed_source_pages
     )
+    selected_visualization = {
+        "flow": visual_flow, "concept_map": concept_map, "comparison": comparison,
+    }.get(primary_visualization["type"])
     learning_path = clean_learning_path(
-        analysis.get("learning_path"), allowed_source_pages
+        analysis.get("learning_path"), allowed_source_pages,
+        primary_visualization["type"], selected_visualization,
     )
+    if learning_path and learning_path["suitable"]:
+        ensure_guided_learning_state(analysis_id, learning_path)
+    interactive_lab = clean_interactive_lab(
+        analysis.get("interactive_lab"), allowed_source_pages, learning_path, valid_source_pages,
+    )
+    ensure_lab_state(analysis_id, interactive_lab)
+    try:
+        ensure_simulation_state(analysis_id, interactive_lab, analysis, learning_path,
+                                source_context, allowed_source_pages, valid_source_pages, MODEL)
+    except Exception:
+        reset_simulation_state()
+        st.caption(tr("Dynamic simulations are unavailable for this context. Your experiment and lesson remain available."))
     selection_reason = primary_visualization["reason"]
 
     if primary_visualization["type"] == "flow":
-        st.markdown("### Visual Flow")
-        flow_graph = build_flow_graph(visual_flow)
-        if flow_graph:
-            st.graphviz_chart(flow_graph.source, use_container_width=True)
-        else:
+        st.markdown("### " + tr("Visual Flow"))
+        if not visual_flow or not visual_flow["suitable"]:
             st.info(
-                "The selected Visual Flow could not be rendered because its "
-                "structured data was incomplete."
+                tr("The selected Visual Flow could not be rendered because its structured data was incomplete.")
             )
         if selection_reason:
             st.caption(selection_reason)
-        render_visualization_explorer(
-            "visual_flow_node",
-            visual_flow,
-            analysis,
-            source_context,
-            allowed_source_pages,
-            analysis_id,
-        )
     elif primary_visualization["type"] == "concept_map":
-        st.markdown("### Concept Map")
-        concept_graph = build_concept_map_graph(concept_map)
-        if concept_graph:
-            st.graphviz_chart(concept_graph.source, use_container_width=True)
-        else:
+        st.markdown("### " + tr("Concept Map"))
+        if not concept_map or not concept_map["suitable"]:
             st.info(
-                "The selected Concept Map could not be rendered because its "
-                "structured data was incomplete."
+                tr("The selected Concept Map could not be rendered because its structured data was incomplete.")
             )
         if selection_reason:
             st.caption(selection_reason)
-        render_visualization_explorer(
-            "concept_map_node",
-            concept_map,
-            analysis,
-            source_context,
-            allowed_source_pages,
-            analysis_id,
-        )
     elif primary_visualization["type"] == "comparison":
-        st.markdown("### Comparison")
+        st.markdown("### " + tr("Comparison"))
         comparison_rows = build_comparison_table(comparison)
         if comparison_rows:
             st.markdown(f"#### {comparison['title']}")
             st.table(comparison_rows)
-            st.markdown("**Takeaway**")
+            st.markdown("**" + tr("Takeaway") + "**")
             st.write(comparison["takeaway"])
         else:
             st.info(
-                "The selected Comparison could not be rendered because its "
-                "structured data was incomplete."
+                tr("The selected Comparison could not be rendered because its structured data was incomplete.")
             )
         if selection_reason:
             st.caption(selection_reason)
-        render_visualization_explorer(
-            "comparison_item",
-            comparison,
-            analysis,
-            source_context,
-            allowed_source_pages,
-            analysis_id,
-        )
     else:
-        st.markdown("### Primary Visualization")
+        st.markdown("### " + tr("Primary Visualization"))
         st.info(
-            "No strong primary visualization was detected for this material."
+            tr("No strong primary visualization was detected for this material.")
         )
         if selection_reason:
             st.caption(selection_reason)
+
+    if primary_visualization["type"] != "none":
+        render_learning_canvas(
+            primary_visualization["type"], selected_visualization, learning_path,
+            analysis, source_context, allowed_source_pages, analysis_id,
+            build_flow_graph if primary_visualization["type"] == "flow" else build_concept_map_graph,
+            build_explanation_context, render_explain_action, format_page_references,
+            interactive_lab,
+        )
+
+    render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+    render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
 
     render_guided_learning(
         learning_path,
@@ -2395,29 +3259,7 @@ if analysis:
         source_context,
         allowed_source_pages,
         analysis_id,
+        interactive_lab,
     )
 
-st.markdown("### One idea. More ways to understand it.")
-st.caption("Planned capabilities · coming in future versions")
-
-capabilities = [
-    ("≈", "Analogies", "Make unfamiliar ideas click with familiar examples."),
-    ("▧", "Image Breakdown", "Explore the parts of a diagram and what they mean."),
-    ("◇", "3D / Motion", "Explore spatial ideas and how systems change."),
-    ("↗", "Source Check", "Trace explanations back to the original PDF or source material."),
-]
-
-cards = "".join(
-    f'<article class="capability {"source" if title == "Source Check" else ""}">'
-    f'<span class="symbol" aria-hidden="true">{symbol}</span>'
-    f'<h3>{title}</h3><p>{description}</p></article>'
-    for symbol, title, description in capabilities
-)
-st.markdown(f'<div class="capabilities">{cards}</div>', unsafe_allow_html=True)
-st.markdown("""
-<div class="source-note"><strong>Understanding should come with evidence.</strong><br>
-Planned Source Check will link generated explanations to their supporting source passages,
-so you can inspect the original context and spot oversimplifications.</div>
-""", unsafe_allow_html=True)
-st.divider()
-st.caption("Visual Learning Lab · Built in public, one day at a time.")
+render_footer()

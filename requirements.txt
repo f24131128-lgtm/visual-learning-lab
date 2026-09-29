@@ -2,3 +2,9 @@ streamlit>=1.39,<2.0
 openai>=1.66.0,<2.0
 graphviz>=0.20.3,<1.0
 pypdf>=5.0,<7.0
+streamlit-flow-component==1.6.1
+pymupdf==1.26.7
+# Already required by Streamlit; used directly for cached source-image overlays.
+pillow>=10,<13
+numpy>=1.26,<3.0
+plotly>=6.0,<7.0
