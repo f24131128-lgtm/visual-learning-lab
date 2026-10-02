@@ -1,0 +1,563 @@
+{
+  "model": "gpt-5.6-luna",
+  "compiler_received": true,
+  "raw": {
+    "scene_version": "2.1",
+    "domain": "spatial_dynamics",
+    "scene_id": "balanced_three_phase_rotating_field",
+    "title": "平衡三相交流的合成旋轉磁場",
+    "learning_goal": "觀察三相電流的 120° 相位差如何形成大小穩定、方向隨時間旋轉的合成磁場，並比較振幅與頻率對系統的影響。",
+    "assumptions": [
+      "以理想平衡三相系統表示三相電流。",
+      "三個空間方向固定且彼此相差 120°，各相磁場分量與對應電流成正比。",
+      "磁場比例常數取為 1，因此電流振幅與磁場向量大小使用相同的任意單位。",
+      "頻率使用 Hz，時間使用秒；時間範圍涵蓋最大宣告頻率下的三個週期。"
+    ],
+    "source_pages": [],
+    "time": {
+      "min": 0,
+      "max": 1.5,
+      "frames": 90,
+      "unit": "秒"
+    },
+    "axes": {
+      "x_min": -3,
+      "x_max": 3,
+      "y_min": -3,
+      "y_max": 3,
+      "x_label": "磁場 x 分量",
+      "y_label": "磁場 y 分量"
+    },
+    "parameters": [
+      {
+        "id": "amplitude",
+        "label": "電流振幅 A",
+        "unit": "任意單位",
+        "min": 0.5,
+        "max": 2,
+        "default": 1,
+        "step": 0.1,
+        "source_pages": []
+      },
+      {
+        "id": "frequency",
+        "label": "頻率",
+        "unit": "Hz",
+        "min": 0.5,
+        "max": 2,
+        "default": 1,
+        "step": 0.1,
+        "source_pages": []
+      }
+    ],
+    "quantities": [
+      {
+        "id": "phase_a",
+        "label": "A 相初始相位",
+        "unit": "rad",
+        "expression": "0",
+        "source_pages": []
+      },
+      {
+        "id": "phase_b",
+        "label": "B 相初始相位",
+        "unit": "rad",
+        "expression": "-2*pi/3",
+        "source_pages": []
+      },
+      {
+        "id": "phase_c",
+        "label": "C 相初始相位",
+        "unit": "rad",
+        "expression": "-4*pi/3",
+        "source_pages": []
+      },
+      {
+        "id": "current_a",
+        "label": "A 相電流",
+        "unit": "任意單位",
+        "expression": "amplitude*cos(2*pi*frequency*time+phase_a)",
+        "source_pages": []
+      },
+      {
+        "id": "current_b",
+        "label": "B 相電流",
+        "unit": "任意單位",
+        "expression": "amplitude*cos(2*pi*frequency*time+phase_b)",
+        "source_pages": []
+      },
+      {
+        "id": "current_c",
+        "label": "C 相電流",
+        "unit": "任意單位",
+        "expression": "amplitude*cos(2*pi*frequency*time+phase_c)",
+        "source_pages": []
+      },
+      {
+        "id": "axis_a_x",
+        "label": "A 軸 x 分量",
+        "unit": "無因次",
+        "expression": "1",
+        "source_pages": []
+      },
+      {
+        "id": "axis_a_y",
+        "label": "A 軸 y 分量",
+        "unit": "無因次",
+        "expression": "0",
+        "source_pages": []
+      },
+      {
+        "id": "axis_b_x",
+        "label": "B 軸 x 分量",
+        "unit": "無因次",
+        "expression": "cos(2*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "axis_b_y",
+        "label": "B 軸 y 分量",
+        "unit": "無因次",
+        "expression": "sin(2*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "axis_c_x",
+        "label": "C 軸 x 分量",
+        "unit": "無因次",
+        "expression": "cos(4*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "axis_c_y",
+        "label": "C 軸 y 分量",
+        "unit": "無因次",
+        "expression": "sin(4*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "field_a_x",
+        "label": "A 相磁場 x 分量",
+        "unit": "任意單位",
+        "expression": "current_a*axis_a_x",
+        "source_pages": []
+      },
+      {
+        "id": "field_a_y",
+        "label": "A 相磁場 y 分量",
+        "unit": "任意單位",
+        "expression": "current_a*axis_a_y",
+        "source_pages": []
+      },
+      {
+        "id": "field_b_x",
+        "label": "B 相磁場 x 分量",
+        "unit": "任意單位",
+        "expression": "current_b*axis_b_x",
+        "source_pages": []
+      },
+      {
+        "id": "field_b_y",
+        "label": "B 相磁場 y 分量",
+        "unit": "任意單位",
+        "expression": "current_b*axis_b_y",
+        "source_pages": []
+      },
+      {
+        "id": "field_c_x",
+        "label": "C 相磁場 x 分量",
+        "unit": "任意單位",
+        "expression": "current_c*axis_c_x",
+        "source_pages": []
+      },
+      {
+        "id": "field_c_y",
+        "label": "C 相磁場 y 分量",
+        "unit": "任意單位",
+        "expression": "current_c*axis_c_y",
+        "source_pages": []
+      },
+      {
+        "id": "result_x",
+        "label": "合成磁場 x 分量",
+        "unit": "任意單位",
+        "expression": "field_a_x+field_b_x+field_c_x",
+        "source_pages": []
+      },
+      {
+        "id": "result_y",
+        "label": "合成磁場 y 分量",
+        "unit": "任意單位",
+        "expression": "field_a_y+field_b_y+field_c_y",
+        "source_pages": []
+      },
+      {
+        "id": "result_magnitude",
+        "label": "合成磁場大小",
+        "unit": "任意單位",
+        "expression": "sqrt(result_x**2+result_y**2)",
+        "source_pages": []
+      }
+    ],
+    "objects": [
+      {
+        "id": "axis_a",
+        "label": "A 相空間方向",
+        "type": "axis",
+        "semantic_id": "axis_a_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "axis_b",
+        "label": "B 相空間方向",
+        "type": "axis",
+        "semantic_id": "axis_b_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "axis_c",
+        "label": "C 相空間方向",
+        "type": "axis",
+        "semantic_id": "axis_c_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_vector_a",
+        "label": "A 相磁場向量",
+        "type": "vector",
+        "semantic_id": "field_a_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_vector_b",
+        "label": "B 相磁場向量",
+        "type": "vector",
+        "semantic_id": "field_b_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_vector_c",
+        "label": "C 相磁場向量",
+        "type": "vector",
+        "semantic_id": "field_c_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "result_vector",
+        "label": "合成旋轉磁場",
+        "type": "vector",
+        "semantic_id": "result_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      }
+    ],
+    "series": [
+      {
+        "id": "current_a_curve",
+        "label": "A 相電流曲線",
+        "semantic_id": "current_a",
+        "source_pages": []
+      },
+      {
+        "id": "current_b_curve",
+        "label": "B 相電流曲線",
+        "semantic_id": "current_b",
+        "source_pages": []
+      },
+      {
+        "id": "current_c_curve",
+        "label": "C 相電流曲線",
+        "semantic_id": "current_c",
+        "source_pages": []
+      }
+    ],
+    "metrics": [
+      {
+        "id": "result_magnitude_metric",
+        "label": "合成磁場大小",
+        "semantic_id": "result_magnitude",
+        "unit": "任意單位",
+        "source_pages": []
+      }
+    ],
+    "bindings": [
+      {
+        "id": "bind_axis_a",
+        "type": "vector_components",
+        "target_id": "axis_a",
+        "quantity_ids": [
+          "axis_a_x",
+          "axis_a_y"
+        ]
+      },
+      {
+        "id": "bind_axis_b",
+        "type": "vector_components",
+        "target_id": "axis_b",
+        "quantity_ids": [
+          "axis_b_x",
+          "axis_b_y"
+        ]
+      },
+      {
+        "id": "bind_axis_c",
+        "type": "vector_components",
+        "target_id": "axis_c",
+        "quantity_ids": [
+          "axis_c_x",
+          "axis_c_y"
+        ]
+      },
+      {
+        "id": "bind_field_a",
+        "type": "vector_components",
+        "target_id": "field_vector_a",
+        "quantity_ids": [
+          "field_a_x",
+          "field_a_y"
+        ]
+      },
+      {
+        "id": "bind_field_b",
+        "type": "vector_components",
+        "target_id": "field_vector_b",
+        "quantity_ids": [
+          "field_b_x",
+          "field_b_y"
+        ]
+      },
+      {
+        "id": "bind_field_c",
+        "type": "vector_components",
+        "target_id": "field_vector_c",
+        "quantity_ids": [
+          "field_c_x",
+          "field_c_y"
+        ]
+      },
+      {
+        "id": "bind_result",
+        "type": "vector_components",
+        "target_id": "result_vector",
+        "quantity_ids": [
+          "result_x",
+          "result_y"
+        ]
+      },
+      {
+        "id": "bind_current_a",
+        "type": "curve_value",
+        "target_id": "current_a_curve",
+        "quantity_ids": [
+          "current_a"
+        ]
+      },
+      {
+        "id": "bind_current_b",
+        "type": "curve_value",
+        "target_id": "current_b_curve",
+        "quantity_ids": [
+          "current_b"
+        ]
+      },
+      {
+        "id": "bind_current_c",
+        "type": "curve_value",
+        "target_id": "current_c_curve",
+        "quantity_ids": [
+          "current_c"
+        ]
+      },
+      {
+        "id": "bind_result_magnitude",
+        "type": "metric_value",
+        "target_id": "result_magnitude_metric",
+        "quantity_ids": [
+          "result_magnitude"
+        ]
+      }
+    ],
+    "inverse_bindings": [
+      {
+        "id": "result_angle_to_time",
+        "type": "angle_to_time",
+        "object_id": "result_vector",
+        "target_id": "time",
+        "rate_expression": "2*pi*frequency",
+        "offset_expression": "0",
+        "scale": 1
+      }
+    ],
+    "invariants": [
+      {
+        "id": "phase_ab_120",
+        "label": "A、B 相相位差為 120°",
+        "type": "phase_difference",
+        "left_expression": "phase_a",
+        "right_expression": "phase_b",
+        "lower": 2.0943951023931953,
+        "upper": 2.0943951023931953,
+        "tolerance": 1e-10,
+        "samples": 3
+      },
+      {
+        "id": "phase_bc_120",
+        "label": "B、C 相相位差為 120°",
+        "type": "phase_difference",
+        "left_expression": "phase_b",
+        "right_expression": "phase_c",
+        "lower": 2.0943951023931953,
+        "upper": 2.0943951023931953,
+        "tolerance": 1e-10,
+        "samples": 3
+      },
+      {
+        "id": "current_sum_zero",
+        "label": "三相電流瞬時和為零",
+        "type": "approx_equal",
+        "left_expression": "current_a+current_b+current_c",
+        "right_expression": "0",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 32
+      },
+      {
+        "id": "constant_resultant_magnitude",
+        "label": "合成磁場大小保持穩定",
+        "type": "approx_equal",
+        "left_expression": "result_magnitude",
+        "right_expression": "1.5*amplitude",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 32
+      }
+    ],
+    "experiments": [
+      {
+        "id": "change_amplitude",
+        "title": "改變電流振幅",
+        "learning_goal": "觀察振幅增加時，各相電流與合成磁場大小同步增加。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "amplitude",
+            "value": 2
+          },
+          {
+            "op": "set_focus",
+            "target_id": "result_magnitude",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "current_a",
+          "current_b",
+          "current_c",
+          "result_magnitude"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "change_frequency",
+        "title": "改變旋轉速度",
+        "learning_goal": "觀察頻率增加時，合成磁場向量在相同時間內旋轉得更快。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "frequency",
+            "value": 2
+          },
+          {
+            "op": "set_focus",
+            "target_id": "result_vector",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "result_x",
+          "result_y",
+          "result_magnitude"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "inspect_phase_balance",
+        "title": "檢查三相平衡",
+        "learning_goal": "比較三相波形的 120° 相位差，並觀察任一時刻三相電流總和為零。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0.125
+          },
+          {
+            "op": "set_focus",
+            "target_id": "current_a",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "current_a",
+          "current_b",
+          "current_c",
+          "result_x",
+          "result_y"
+        ],
+        "source_pages": []
+      }
+    ]
+  },
+  "accepted": false,
+  "validator_reason": "scene.experiments[change_frequency].steps[2]: invalid set_focus target/value; set_focus requires a quantity ID, set_parameter a parameter ID, and set_time the canonical time."
+}

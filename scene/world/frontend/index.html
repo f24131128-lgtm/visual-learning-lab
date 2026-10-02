@@ -1,0 +1,147 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;color:#26314b;background:#fff;font-size:14px}
+*{box-sizing:border-box}body{margin:0}button,select,input{font:inherit}button,select{border:1px solid #d7dbe5;border-radius:7px;background:#fff;color:inherit;padding:6px 10px;cursor:pointer}button:hover{background:#eeeafb}button:focus-visible,svg:focus-visible{outline:3px solid #8b6cda}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:10px}.panel{border:1px solid #e0e3eb;border-radius:12px;padding:10px;min-width:0}.panel h3{font-size:15px;margin:0 0 6px}.panel > svg{width:100%;height:270px;display:block;touch-action:none;background:#f9faff;border-radius:8px}.bottom > svg{height:230px}.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 0}.controls input{flex:1;min-width:150px}#timeLabel{font-variant-numeric:tabular-nums}.hint{font-size:12px;color:#68728a;margin:6px 0}.metric{padding:7px 8px;background:#f6f7fb;margin:4px 0;border-radius:7px;border-left:3px solid transparent}.metric.focus{border-left-color:#7150bd;background:#eee8fa}.value{float:right;font-variant-numeric:tabular-nums}#metrics{max-height:238px;overflow:auto}.equation{font-size:12px;overflow-wrap:anywhere;margin:4px 0;color:#53617a}.delta{font-size:11px;color:#6a7087}.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;margin:4px 0}.legend button{font-size:12px;padding:3px 5px}.handle{cursor:grab}.trajectory{cursor:crosshair}.ghost{opacity:.25;stroke-dasharray:5 5}.label{font-size:11px;pointer-events:none}.cursor{stroke:#7150bd;stroke-width:2}.axis{stroke:#c9cfdd;stroke-width:1}.gridline{stroke:#e8ebf2;stroke-width:1}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.panel > svg{height:230px}#metrics{max-height:200px}}
+</style></head><body>
+<div id="parameters" class="controls"></div>
+<div class="controls"><button id="play"></button><button id="pause"></button><button id="reset"></button><select id="speed" aria-label="Playback speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><input id="timeline" type="range" aria-label="Time"><span id="timeLabel"></span></div>
+<div class="grid">
+ <div class="panel"><h3 id="spaceTitle"></h3><div class="legend"><button id="cameraToggle"></button><span id="cameraNote" class="hint"></span></div><svg id="space" viewBox="0 0 520 300" tabindex="0" role="img"></svg><div id="camera" style="display:none;height:300px"></div></div>
+ <div class="panel"><h3 id="stateTitle"></h3><div id="metrics"></div><div id="equations"></div></div>
+ <div class="panel bottom"><h3 id="waveTitle"></h3><div id="legend" class="legend"></div><svg id="waves" viewBox="0 0 520 260" tabindex="0" role="img"></svg></div>
+ <div class="panel bottom"><h3 id="vectorTitle"></h3><svg id="vectors" viewBox="0 0 520 300" tabindex="0" role="img"></svg></div>
+</div><div class="controls"><button id="baselineSet"></button><button id="baselineReset"></button><button id="baselineClear"></button></div>
+<div id="experimentRow" class="controls"><label id="experimentLabel" for="experimentChoice"></label><select id="experimentChoice"></select><button id="experimentRun"></button></div>
+<details><summary id="recordTitle"></summary><div class="controls"><button id="recordStart"></button><button id="recordStop"></button><button id="recordReplay"></button><button id="recordClear"></button><label id="replaySpeedLabel" for="replaySpeed"></label><select id="replaySpeed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><span id="recordStatus"></span></div></details>
+<p id="hint" class="hint"></p><p id="status" class="hint" aria-live="polite"></p>
+<script src="plotly.min.js"></script><script src="camera.js"></script>
+<script>
+"use strict";
+// Fixed product code. No model expression is evaluated by this component.
+const NS="http://www.w3.org/2000/svg", colors=["#7252b9","#188ca5","#d77b25","#ce487e","#398559","#546acc"];
+const $=id=>document.getElementById(id);
+let P=null,D=null,S=null,frame=0,playing=false,clock=null,lastTick=0,drag=null,replaying=false,replayIndex=0,lastReplay=0,seenReplay="",pending=false;
+let cameraMode=false;
+const say=(type,data={})=>parent.postMessage({isStreamlitMessage:true,type,...data},"*");
+let lastHeight=-1;
+const height=()=>{const currentHeight=document.body.scrollHeight+6;if(currentHeight!==lastHeight){lastHeight=currentHeight;say("streamlit:setFrameHeight",{height:currentHeight})}};
+const text=(el,value)=>{el.textContent=String(value)};
+const fmt=n=>Number(n).toLocaleString(undefined,{maximumSignificantDigits:5,notation:Math.abs(n)>0&&(Math.abs(n)<1e-4||Math.abs(n)>=1e6)?"scientific":"standard"});
+const t=key=>P.labels[key]||key;
+const svgNode=(tag,attrs={},content)=>{const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));if(content!==undefined)text(el,content);return el};
+const color=id=>colors[P.quantities.findIndex(q=>q.id===id)%colors.length]||colors[0];
+const table=data=>P.tables[data.frames_ref];
+const domain=()=>D.current.domain;
+const speed=value=>[.5,1,2].includes(Number(value))?Number(value):1;
+const replayDwell=value=>1800/speed(value);
+const baseTable=data=>data.baseline_frames_ref?P.tables[data.baseline_frames_ref]:null;
+const family=()=>new Set((P.quantities.find(q=>q.id===S.focus)||{family:[]}).family);
+function emit(kind,data){if(pending)return;pending=true;playing=false;replaying=false;text($("status"),t("Updating shared state…"));draw();say("streamlit:setComponentValue",{dataType:"json",value:{scene:P.identity,revision:P.revision,token:String(Date.now())+"-"+Math.random().toString(36).slice(2),kind,...data}})}
+function patch(op,target_id,value){if(replaying){stop(true);return}if(op==="set_focus")emit("focus",{semantic_id:target_id,time:S.time});else emit("patch",{patch:{op,target_id,value}})}
+function stop(commit=true){playing=false;cancelAnimationFrame(clock);if(commit&&P){if(replaying)emit("replay",{index:P.replay_indices[replayIndex]});else patch("set_time","time",S.time)}replaying=false}
+function chooseTime(value){const times=table(D).times;frame=times.reduce((best,n,i)=>Math.abs(n-value)<Math.abs(times[best]-value)?i:best,0);S={...D.current,time:times[frame],values:{},projections:{}};for(const [k,v] of Object.entries(table(D).values))S.values[k]=v[frame];for(const [k,v] of Object.entries(table(D).projections))S.projections[k]=v.map(series=>series[frame]);draw()}
+function coords(axes,w=520,h=300,pad=30,equal=true){let sx=(w-2*pad)/(axes.x_max-axes.x_min),sy=(h-2*pad)/(axes.y_max-axes.y_min);if(equal)sx=sy=Math.min(sx,sy);const left=(w-sx*(axes.x_max-axes.x_min))/2,top=(h-sy*(axes.y_max-axes.y_min))/2;return {x:n=>left+(n-axes.x_min)*sx,y:n=>h-top-(n-axes.y_min)*sy,ix:n=>axes.x_min+(n-left)/sx,iy:n=>axes.y_min+(h-top-n)/sy}}
+function pointerPosition(svg,event){const r=svg.getBoundingClientRect(),v=svg.viewBox.baseVal,scale=Math.min(r.width/v.width,r.height/v.height),left=(r.width-v.width*scale)/2,top=(r.height-v.height*scale)/2;return [(event.clientX-r.left-left)/scale,(event.clientY-r.top-top)/scale]}
+function line(svg,x1,y1,x2,y2,attrs={}){svg.append(svgNode("line",{x1,y1,x2,y2,...attrs}))}
+function axes(svg,c,a){for(let i=0;i<=4;i++){let x=a.x_min+(a.x_max-a.x_min)*i/4,y=a.y_min+(a.y_max-a.y_min)*i/4;line(svg,c.x(x),30,c.x(x),270,{class:"gridline"});line(svg,30,c.y(y),490,c.y(y),{class:"gridline"})}line(svg,30,c.y(0),490,c.y(0),{class:"axis"});line(svg,c.x(0),30,c.x(0),270,{class:"axis"});svg.append(svgNode("text",{x:480,y:290,class:"label"},a.x_label),svgNode("text",{x:5,y:20,class:"label"},a.y_label))}
+function drawObject(svg,obj,nums,c,ghost=false,plane=false){const active=family().has(obj.semantic_id),co=ghost?"#8792a7":color(obj.semantic_id);if(obj.type==="vector"){let [ox,oy,dx,dy]=nums;if(plane){ox=0;oy=0}const x=c.x(ox+dx),y=c.y(oy+dy),sx=c.x(ox),sy=c.y(oy),angle=Math.atan2(y-sy,x-sx);line(svg,sx,sy,x,y,{stroke:co,"stroke-width":active?4:2.5,class:ghost?"ghost":""});const points=[[x,y],[x-10*Math.cos(angle-.4),y-10*Math.sin(angle-.4)],[x-10*Math.cos(angle+.4),y-10*Math.sin(angle+.4)]].map(p=>p.join(",")).join(" ");svg.append(svgNode("polygon",{points,fill:co,opacity:ghost?.25:1}));if(!ghost){const inverse=P.inverse.find(b=>b.object_id===obj.id&&b.type!=="nearest_path_time");const handle=svgNode("circle",{cx:x,cy:y,r:inverse?8:5,fill:co,stroke:"white","stroke-width":2,class:inverse?"handle":"",tabindex:"0","aria-label":obj.label});handle.addEventListener("pointerdown",e=>{e.preventDefault();e.stopPropagation();playing=false;replaying=false;if(inverse){svg.setPointerCapture(e.pointerId);drag={svg,object:obj,inverse,c,origin:[ox,oy],plane};text($("status"),obj.label)}else{S.focus=obj.semantic_id;draw();patch("set_focus",obj.semantic_id,null)}});handle.addEventListener("keydown",e=>{if(e.key==="Enter"){patch("set_focus",obj.semantic_id,null)}});handle.addEventListener("click",()=>{if(!pending&&!drag)patch("set_focus",obj.semantic_id,null)});svg.append(handle,svgNode("text",{x:x+9,y:y-8,class:"label",fill:co},obj.label))}}
+ else if(obj.type==="point"){const dot=svgNode("circle",{cx:c.x(nums[0]),cy:c.y(nums[1]),r:active?8:6,fill:co,class:ghost?"ghost":"",tabindex:"0","aria-label":obj.label});if(!ghost)dot.addEventListener("click",()=>patch("set_focus",obj.semantic_id,null));svg.append(dot)}
+ else if(obj.type==="axis"&&!ghost){const [ox,oy,dx,dy]=nums;line(svg,c.x(ox-dx),c.y(oy-dy),c.x(ox+dx),c.y(oy+dy),{stroke:co,"stroke-width":active?2:1,"stroke-dasharray":"5 5",opacity:.5});svg.append(svgNode("text",{x:c.x(ox+dx)+5,y:c.y(oy+dy)-5,class:"label",fill:co},obj.label))}
+}
+function spatial(svg,plane){svg.replaceChildren();let a=D.axes;if(plane){const vectorNums=P.objects.filter(o=>o.type==="vector").flatMap(o=>table(D).projections[o.id].slice(2).flat().concat(baseTable(D)?baseTable(D).projections[o.id].slice(2).flat():[]));const max=Math.max(1,...vectorNums.map(Math.abs))*1.25;a={x_min:-max,x_max:max,y_min:-max,y_max:max,x_label:D.axes.x_label,y_label:D.axes.y_label}}const c=coords(a);axes(svg,c,a);for(const obj of P.objects){if(plane&&obj.type!=="vector")continue;const nums=S.projections[obj.id];if(obj.type==="trajectory"){const rows=table(D).projections[obj.id],path=rows[0].map((x,i)=>[c.x(x),c.y(rows[1][i])].join(",")).join(" ");const trajectory=svgNode("polyline",{points:path,fill:"none",stroke:color(obj.semantic_id),"stroke-width":family().has(obj.semantic_id)?4:2,class:"trajectory"});const inv=P.inverse.find(b=>b.object_id===obj.id&&b.type==="nearest_path_time");if(inv)trajectory.addEventListener("click",e=>{const [x,y]=pointerPosition(svg,e);emit("inverse",{binding_id:inv.id,value:[c.ix(x),c.iy(y)]})});svg.append(trajectory,svgNode("circle",{cx:c.x(nums[0]),cy:c.y(nums[1]),r:6,fill:color(obj.semantic_id)}));if(D.baseline&&baseTable(D)){const rows=baseTable(D).projections[obj.id];svg.append(svgNode("polyline",{points:rows[0].map((x,i)=>[c.x(x),c.y(rows[1][i])].join(",")).join(" "),fill:"none",stroke:"#8792a7",class:"ghost"}))}}
+else{if(D.baseline)drawObject(svg,obj,D.baseline.projections[obj.id],c,true,plane);drawObject(svg,obj,nums,c,false,plane)}}}
+function wave(){
+ const svg=$("waves");svg.replaceChildren();
+ const f=table(D),bf=baseTable(D),all=P.series.flatMap(s=>f.projections[s.id][0]).concat(bf?P.series.flatMap(s=>bf.projections[s.id][0]):[]);
+ let lo=Math.min(...all),hi=Math.max(...all);
+ if(hi-lo<1e-8){lo-=1;hi+=1}else{const pad=(hi-lo)*.1;lo-=pad;hi+=pad}
+ const a={x_min:domain().min,x_max:Math.max(domain().max,bf?bf.domain.max:domain().max),y_min:lo,y_max:hi},c=coords(a,520,260,28,false);
+ for(let i=0;i<=4;i++){const n=a.x_min+(a.x_max-a.x_min)*i/4;line(svg,c.x(n),20,c.x(n),232,{class:"gridline"});svg.append(svgNode("text",{x:c.x(n),y:252,"text-anchor":"middle",class:"label"},fmt(n)))}
+ if(lo<=0&&hi>=0)line(svg,28,c.y(0),492,c.y(0),{class:"axis"});
+ const clicked=e=>{e.stopPropagation();const [x]=pointerPosition(svg,e);chooseTime(Math.max(domain().min,Math.min(domain().max,c.ix(x))));patch("set_time","time",S.time)};
+ for(const s of P.series){
+  if(bf)svg.append(svgNode("polyline",{points:bf.times.map((time,i)=>[c.x(time),c.y(bf.projections[s.id][0][i])].join(",")).join(" "),fill:"none",stroke:color(s.semantic_id),class:"ghost"}));
+  const curve=svgNode("polyline",{points:f.times.map((time,i)=>[c.x(time),c.y(f.projections[s.id][0][i])].join(",")).join(" "),fill:"none",stroke:color(s.semantic_id),"stroke-width":family().has(s.semantic_id)?3.5:1.8});
+  curve.addEventListener("click",clicked);
+  svg.append(curve,svgNode("circle",{cx:c.x(S.time),cy:c.y(S.projections[s.id][0]),r:4,fill:color(s.semantic_id)}));
+ }
+ line(svg,c.x(S.time),20,c.x(S.time),232,{class:"cursor"});
+ if(D.baseline)line(svg,c.x(D.baseline.time),20,c.x(D.baseline.time),232,{class:"cursor ghost"});
+ svg.onclick=clicked;
+}
+function stateLens(){const el=$("metrics");el.replaceChildren();for(const item of P.parameters.concat(P.metrics)){const factor=item.display?item.display.factor:1,unit=item.display?item.display.unit:item.unit,value=(item.semantic_id?S.projections[item.id][0]:S.parameters[item.id])*factor,row=document.createElement("div");row.className="metric"+(item.semantic_id&&family().has(item.semantic_id)?" focus":"");const label=document.createElement("span"),number=document.createElement("span");number.className="value";text(label,item.label);text(number,fmt(value)+" "+unit);row.append(label,number);if(item.semantic_id)row.onclick=()=>patch("set_focus",item.semantic_id,null);if(D.baseline){const before=(item.semantic_id?D.baseline.projections[item.id][0]:D.baseline.parameters[item.id])*factor,delta=document.createElement("div");delta.className="delta";text(delta,t("Baseline")+": "+fmt(before)+" · "+t("Delta")+": "+fmt(value-before));row.append(delta)}el.append(row)}const q=P.quantities.find(q=>q.id===S.focus),eq=$("equations");eq.replaceChildren();for(const id of [S.focus,...q.family.filter(id=>id!==S.focus).slice(0,3)]){const quantity=P.quantities.find(q=>q.id===id),p=document.createElement("div");p.className="equation";text(p,quantity.label+" = "+quantity.equation+" = "+fmt(S.values[id])+" "+quantity.unit);eq.append(p)}}
+function draw(){
+ if(!P||!S)return;
+ spatial($("space"),false);spatial($("vectors"),true);wave();stateLens();
+ const d=domain();$("timeline").min=d.min;$("timeline").max=d.max;$("timeline").step=(d.max-d.min)/(table(D).times.length-1);$("timeline").value=S.time;
+ text($("timeLabel"),t("Time")+": "+fmt(S.time)+" / "+fmt(d.max)+" "+d.unit);
+ for(let i=0;i<P.parameters.length;i++){const p=P.parameters[i],label=$("parameters").children[i];if(!label)continue;label.children[1].value=S.parameters[p.id]*p.display.factor;text(label.children[0],p.label+": "+fmt(S.parameters[p.id]*p.display.factor)+" "+p.display.unit)}
+ const locked=replaying||pending;
+ for(const id of ["play","reset","timeline","speed","baselineSet","baselineReset","baselineClear","experimentRun","experimentChoice","recordStart","recordStop","recordClear"])$(id).disabled=locked;
+ $("recordReplay").disabled=locked||P.recording.count===0;
+ for(const id of ["space","vectors","waves","metrics","camera"])$(id).style.pointerEvents=locked?"none":"auto";
+ for(const label of $("parameters").children)label.children[1].disabled=locked;
+ for(const button of $("legend").children)button.disabled=locked;
+ $("space").style.display=cameraMode?"none":"block";$("camera").style.display=cameraMode?"block":"none";
+ text($("cameraToggle"),t(cameraMode?"2D interaction":"3D camera"));text($("cameraNote"),cameraMode?t("Synchronized planar camera (z = 0)")+" · "+t("Drag to rotate; scroll to zoom."):"");
+ if(cameraMode&&globalThis.WorldCamera)WorldCamera.render($("camera"),P,D,S,family(),color,table,id=>patch("set_focus",id,null),()=>{cameraMode=false;draw();text($("cameraNote"),t("3D camera unavailable; synchronized 2D remains active."))});
+ if(replaying)text($("status"),t("Replay step {step} / {count}").replace("{step}",replayIndex+1).replace("{count}",P.replay.length)+" · "+P.replay_summaries[replayIndex]);
+ height();
+}
+function tick(now){
+ if(!playing)return;
+ // One clock, including the camera. Gate the entire coordinated projection,
+ // rather than queue 3D snapshots behind a waveform that keeps running ahead.
+ if(cameraMode&&globalThis.WorldCamera&&(WorldCamera.isBusy()||now-lastTick<100)){clock=requestAnimationFrame(tick);return}
+ if(replaying){
+   if(now-lastReplay>=replayDwell($("replaySpeed").value)){
+     lastReplay=now;replayIndex++;
+     if(replayIndex>=P.replay.length){replayIndex=P.replay.length-1;stop(true);return}
+     D=P.replay[replayIndex];S=D.current;draw();
+   }
+ }else{
+   // Anchor the educational playback rate to the baseline duration, not the
+   // current derived endpoint: changing frequency can really change rotation.
+   const delta=Math.min(100,now-lastTick)/1000*speed($("speed").value)*(P.time.max-P.time.min)/4;
+   clockTime+=delta;chooseTime(Math.min(domain().max,clockTime));
+   if(clockTime>=domain().max){stop(true);return}
+ }
+ lastTick=now;clock=requestAnimationFrame(tick);
+}
+let clockTime=0;
+$("play").onclick=()=>{if(pending)return;if(S.time>=domain().max)chooseTime(domain().min);playing=true;replaying=false;clockTime=S.time;lastTick=performance.now();clock=requestAnimationFrame(tick)};
+$("pause").onclick=()=>stop(true);
+$("reset").onclick=()=>{playing=false;replaying=false;chooseTime(domain().min);patch("set_time","time",S.time)};
+$("cameraToggle").onclick=()=>{cameraMode=!cameraMode;draw()};
+$("timeline").oninput=e=>{playing=false;replaying=false;chooseTime(Number(e.target.value))};
+$("timeline").onchange=()=>patch("set_time","time",S.time);
+for(const [id,action] of [["baselineSet","set"],["baselineReset","restore"],["baselineClear","clear"]])$(id).onclick=()=>{if(replaying){stop(true);return}emit("baseline",{action,time:S.time})};
+$("experimentRun").onclick=()=>{if(replaying){stop(true);return}emit("experiment",{id:$("experimentChoice").value,time:S.time})};
+for(const [id,action] of [["recordStart","start"],["recordStop","stop"],["recordClear","clear"],["recordReplay","replay"]])$(id).onclick=()=>{if(replaying){stop(true);return}emit("record",{action,time:S.time})};
+for(const svg of [$("space"),$("vectors")]){svg.onpointermove=e=>{if(!drag||drag.svg!==svg)return;const [x,y]=pointerPosition(svg,e),world=[drag.c.ix(x),drag.c.iy(y)],angle=Math.atan2(world[1]-drag.origin[1],world[0]-drag.origin[0]);drag.angle=angle;const f=table(D),obj=drag.object;
+if(drag.inverse.type==="angle_to_time"){let best=0,error=Infinity;f.projections[obj.id][2].forEach((dx,i)=>{const dy=f.projections[obj.id][3][i],diff=Math.atan2(Math.sin(Math.atan2(dy,dx)-angle),Math.cos(Math.atan2(dy,dx)-angle)),score=Math.abs(diff)+Math.abs(f.times[i]-S.time)*1e-5;if(score<error){error=score;best=i}});chooseTime(f.times[best])}
+text($("status"),obj.label+": "+fmt(angle)+" rad")};svg.onpointerup=e=>{if(!drag||drag.svg!==svg)return;const saved=drag;drag=null;svg.releasePointerCapture(e.pointerId);if(saved.angle!==undefined)emit("inverse",{binding_id:saved.inverse.id,value:saved.angle,time:S.time});else patch("set_focus",saved.object.semantic_id,null)};svg.onpointercancel=()=>{drag=null;draw()}}
+window.addEventListener("message",event=>{if(event.source!==parent||event.data.type!=="streamlit:render")return;const next=event.data.args.payload;if(!next||!next.identity)return;
+// Streamlit may resend identical args after an iframe height/layout update.
+// These are not semantic updates and must not reset the local animation clock.
+if(P&&next.identity===P.identity&&next.revision===P.revision&&next.replay_generation===P.replay_generation&&JSON.stringify(next.recording)===JSON.stringify(P.recording)&&JSON.stringify(next.labels)===JSON.stringify(P.labels))return;
+cancelAnimationFrame(clock);P=next;D=P.data;S=D.current;playing=false;replaying=false;pending=false;drag=null;
+for(const [id,key] of [["spaceTitle","Spatial Scene"],["stateTitle","Equation / State Lens"],["waveTitle","Signal / Waveform"],["vectorTitle","Vector / Phasor"],["play","Play"],["pause","Pause"],["reset","Reset time"],["hint","Drag a highlighted handle; click a waveform or trajectory to explore the same system."]])text($(id),t(key));
+if(!P.inverse.length)text($("hint"),t("Click a waveform or select an object to explore the same system."));
+for(const [id,key] of [["baselineSet","Set baseline"],["baselineReset","Reset to baseline"],["baselineClear","Clear comparison"]])text($(id),t(key));
+for(const [id,key] of [["experimentLabel","Try this"],["experimentRun","Run experiment"],["recordTitle","Exploration Recording & Replay"],["recordStart","Start recording"],["recordStop","Stop recording"],["recordClear","Clear recording"],["recordReplay","Replay exploration"],["replaySpeedLabel","Replay speed"]])text($(id),t(key));
+text($("recordStatus"),(P.recording.active?t("Recording"):t("Recording stopped"))+" · "+t("Recorded steps: {count}").replace("{count}",P.recording.count));
+$("recordReplay").disabled=P.recording.count===0;$("experimentChoice").replaceChildren();
+$("experimentRow").style.display=P.experiments.length?"flex":"none";
+for(const experiment of P.experiments){const option=document.createElement("option");option.value=experiment.id;text(option,experiment.title);$("experimentChoice").append(option)}
+$("parameters").replaceChildren();
+for(const parameter of P.parameters){const label=document.createElement("label"),input=document.createElement("input"),value=document.createElement("span"),d=parameter.display;input.type="range";input.min=d.min;input.max=d.max;input.step=d.step;input.value=S.parameters[parameter.id]*d.factor;input.setAttribute("aria-label",parameter.label);text(value,parameter.label+": "+fmt(input.value)+" "+d.unit);input.oninput=()=>text(value,parameter.label+": "+fmt(input.value)+" "+d.unit);input.onchange=()=>{if(replaying){stop(true);return}const canonical=Math.max(parameter.min,Math.min(parameter.max,Number(input.value)/d.factor));emit("batch",{patches:[{op:"set_time",target_id:"time",value:S.time},{op:"set_parameter",target_id:parameter.id,value:canonical}]})};label.append(value,input);$("parameters").append(label)}
+$("timeline").setAttribute("aria-label",t("Time"));$("speed").setAttribute("aria-label",t("Playback speed"));$("replaySpeed").setAttribute("aria-label",t("Replay speed"));$("space").setAttribute("aria-label",t("Spatial Scene"));$("vectors").setAttribute("aria-label",t("Vector / Phasor"));$("waves").setAttribute("aria-label",t("Signal / Waveform"));
+$("legend").replaceChildren();for(const s of P.series){const button=document.createElement("button");text(button,s.label);button.style.color=color(s.semantic_id);button.onclick=()=>patch("set_focus",s.semantic_id,null);$("legend").append(button)}
+text($("status"),D.baseline?t("Comparison"):t("Local exploration"));draw();const replayIdentity=P.identity+":"+P.replay_generation;if(P.replay.length&&replayIdentity!==seenReplay){seenReplay=replayIdentity;D=P.replay[0];S=D.current;replayIndex=0;playing=true;replaying=true;lastReplay=performance.now();lastTick=lastReplay;draw();clock=requestAnimationFrame(tick)}});
+new ResizeObserver(height).observe(document.body);
+say("streamlit:componentReady",{apiVersion:1});height();
+</script></body></html>

@@ -1,0 +1,3 @@
+# Optional Day 20 native document geometry. Base requirements remain unchanged.
+# No neural models/OCR downloads. Install alongside requirements.txt.
+pdfplumber==0.11.10

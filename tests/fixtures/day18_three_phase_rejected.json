@@ -1,0 +1,678 @@
+{
+  "model": "gpt-5.6-luna",
+  "compiler_received": true,
+  "raw": {
+    "scene_version": "2.0",
+    "domain": "spatial_dynamics",
+    "scene_id": "balanced_three_phase_rotating_field",
+    "title": "平衡三相交流系統的合成旋轉磁場",
+    "learning_goal": "觀察三相電流的 120° 相位差如何與空間中三個 120° 方向的磁場分量結合，形成大小穩定且旋轉速度隨頻率改變的合成磁場。",
+    "assumptions": [
+      "採用理想平衡三相系統，三相振幅相同。",
+      "三個空間方向皆視為單位方向，磁場分量大小與相電流瞬時值成正比。",
+      "未提供實際線圈、磁導率或比例常數，因此將振幅 A 視為歸一化磁場分量振幅。",
+      "合成磁場限制在二維平面內，時間以秒表示，角度以弧度表示。"
+    ],
+    "source_pages": [],
+    "time": {
+      "min": 0,
+      "max": 1,
+      "frames": 120,
+      "unit": "s"
+    },
+    "axes": {
+      "x_min": -2,
+      "x_max": 2,
+      "y_min": -2,
+      "y_max": 2,
+      "x_label": "x 空間分量",
+      "y_label": "y 空間分量"
+    },
+    "parameters": [
+      {
+        "id": "A",
+        "label": "相電流振幅 A",
+        "unit": "normalized",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": 0.1,
+        "source_pages": []
+      },
+      {
+        "id": "f",
+        "label": "頻率 f",
+        "unit": "Hz",
+        "min": 1,
+        "max": 100,
+        "default": 10,
+        "step": 1,
+        "source_pages": []
+      }
+    ],
+    "quantities": [
+      {
+        "id": "omega",
+        "label": "角頻率 ω",
+        "unit": "rad/s",
+        "expression": "2*pi*f",
+        "source_pages": []
+      },
+      {
+        "id": "phase_a",
+        "label": "A 相相位",
+        "unit": "rad",
+        "expression": "0",
+        "source_pages": []
+      },
+      {
+        "id": "phase_b",
+        "label": "B 相相位",
+        "unit": "rad",
+        "expression": "-2*pi/3",
+        "source_pages": []
+      },
+      {
+        "id": "phase_c",
+        "label": "C 相相位",
+        "unit": "rad",
+        "expression": "-4*pi/3",
+        "source_pages": []
+      },
+      {
+        "id": "ia",
+        "label": "A 相電流 Ia",
+        "unit": "normalized",
+        "expression": "A*cos(omega*t+phase_a)",
+        "source_pages": []
+      },
+      {
+        "id": "ib",
+        "label": "B 相電流 Ib",
+        "unit": "normalized",
+        "expression": "A*cos(omega*t+phase_b)",
+        "source_pages": []
+      },
+      {
+        "id": "ic",
+        "label": "C 相電流 Ic",
+        "unit": "normalized",
+        "expression": "A*cos(omega*t+phase_c)",
+        "source_pages": []
+      },
+      {
+        "id": "ux",
+        "label": "A 軸 x 方向",
+        "unit": "normalized",
+        "expression": "1",
+        "source_pages": []
+      },
+      {
+        "id": "uy",
+        "label": "A 軸 y 方向",
+        "unit": "normalized",
+        "expression": "0",
+        "source_pages": []
+      },
+      {
+        "id": "vx",
+        "label": "B 軸 x 方向",
+        "unit": "normalized",
+        "expression": "cos(2*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "vy",
+        "label": "B 軸 y 方向",
+        "unit": "normalized",
+        "expression": "sin(2*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "wx",
+        "label": "C 軸 x 方向",
+        "unit": "normalized",
+        "expression": "cos(4*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "wy",
+        "label": "C 軸 y 方向",
+        "unit": "normalized",
+        "expression": "sin(4*pi/3)",
+        "source_pages": []
+      },
+      {
+        "id": "bax",
+        "label": "A 相磁場 x 分量",
+        "unit": "normalized",
+        "expression": "ia*ux",
+        "source_pages": []
+      },
+      {
+        "id": "bay",
+        "label": "A 相磁場 y 分量",
+        "unit": "normalized",
+        "expression": "ia*uy",
+        "source_pages": []
+      },
+      {
+        "id": "bbx",
+        "label": "B 相磁場 x 分量",
+        "unit": "normalized",
+        "expression": "ib*vx",
+        "source_pages": []
+      },
+      {
+        "id": "bby",
+        "label": "B 相磁場 y 分量",
+        "unit": "normalized",
+        "expression": "ib*vy",
+        "source_pages": []
+      },
+      {
+        "id": "bcx",
+        "label": "C 相磁場 x 分量",
+        "unit": "normalized",
+        "expression": "ic*wx",
+        "source_pages": []
+      },
+      {
+        "id": "bcy",
+        "label": "C 相磁場 y 分量",
+        "unit": "normalized",
+        "expression": "ic*wy",
+        "source_pages": []
+      },
+      {
+        "id": "bx",
+        "label": "合成磁場 x 分量",
+        "unit": "normalized",
+        "expression": "bax+bbx+bcx",
+        "source_pages": []
+      },
+      {
+        "id": "by",
+        "label": "合成磁場 y 分量",
+        "unit": "normalized",
+        "expression": "bay+bby+bcy",
+        "source_pages": []
+      },
+      {
+        "id": "bmag",
+        "label": "合成磁場大小",
+        "unit": "normalized",
+        "expression": "sqrt(bx**2+by**2)",
+        "source_pages": []
+      }
+    ],
+    "objects": [
+      {
+        "id": "axis_a",
+        "label": "A 相空間方向",
+        "type": "axis",
+        "semantic_id": "ux",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "axis_b",
+        "label": "B 相空間方向",
+        "type": "axis",
+        "semantic_id": "vx",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "axis_c",
+        "label": "C 相空間方向",
+        "type": "axis",
+        "semantic_id": "wx",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_a",
+        "label": "A 相磁場分量",
+        "type": "vector",
+        "semantic_id": "ia",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_b",
+        "label": "B 相磁場分量",
+        "type": "vector",
+        "semantic_id": "ib",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "field_c",
+        "label": "C 相磁場分量",
+        "type": "vector",
+        "semantic_id": "ic",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "resultant_field",
+        "label": "合成旋轉磁場",
+        "type": "vector",
+        "semantic_id": "bmag",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "resultant_path",
+        "label": "合成磁場端點軌跡",
+        "type": "trajectory",
+        "semantic_id": "bmag",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      }
+    ],
+    "series": [
+      {
+        "id": "series_ia",
+        "label": "A 相電流 Ia(t)",
+        "semantic_id": "ia",
+        "source_pages": []
+      },
+      {
+        "id": "series_ib",
+        "label": "B 相電流 Ib(t)",
+        "semantic_id": "ib",
+        "source_pages": []
+      },
+      {
+        "id": "series_ic",
+        "label": "C 相電流 Ic(t)",
+        "semantic_id": "ic",
+        "source_pages": []
+      },
+      {
+        "id": "series_bx",
+        "label": "合成磁場 x 分量",
+        "semantic_id": "bx",
+        "source_pages": []
+      },
+      {
+        "id": "series_by",
+        "label": "合成磁場 y 分量",
+        "semantic_id": "by",
+        "source_pages": []
+      },
+      {
+        "id": "series_bmag",
+        "label": "合成磁場大小",
+        "semantic_id": "bmag",
+        "source_pages": []
+      }
+    ],
+    "metrics": [
+      {
+        "id": "metric_bmag",
+        "label": "合成磁場大小",
+        "semantic_id": "bmag",
+        "unit": "normalized",
+        "source_pages": []
+      },
+      {
+        "id": "metric_omega",
+        "label": "角頻率",
+        "semantic_id": "omega",
+        "unit": "rad/s",
+        "source_pages": []
+      }
+    ],
+    "bindings": [
+      {
+        "id": "bind_axis_a",
+        "type": "vector_components",
+        "target_id": "axis_a",
+        "quantity_ids": [
+          "ux",
+          "uy"
+        ]
+      },
+      {
+        "id": "bind_axis_b",
+        "type": "vector_components",
+        "target_id": "axis_b",
+        "quantity_ids": [
+          "vx",
+          "vy"
+        ]
+      },
+      {
+        "id": "bind_axis_c",
+        "type": "vector_components",
+        "target_id": "axis_c",
+        "quantity_ids": [
+          "wx",
+          "wy"
+        ]
+      },
+      {
+        "id": "bind_field_a",
+        "type": "vector_components",
+        "target_id": "field_a",
+        "quantity_ids": [
+          "bax",
+          "bay"
+        ]
+      },
+      {
+        "id": "bind_field_b",
+        "type": "vector_components",
+        "target_id": "field_b",
+        "quantity_ids": [
+          "bbx",
+          "bby"
+        ]
+      },
+      {
+        "id": "bind_field_c",
+        "type": "vector_components",
+        "target_id": "field_c",
+        "quantity_ids": [
+          "bcx",
+          "bcy"
+        ]
+      },
+      {
+        "id": "bind_resultant",
+        "type": "vector_components",
+        "target_id": "resultant_field",
+        "quantity_ids": [
+          "bx",
+          "by"
+        ]
+      },
+      {
+        "id": "bind_path",
+        "type": "point_position",
+        "target_id": "resultant_path",
+        "quantity_ids": [
+          "bx",
+          "by"
+        ]
+      },
+      {
+        "id": "bind_series_ia",
+        "type": "curve_value",
+        "target_id": "series_ia",
+        "quantity_ids": [
+          "ia"
+        ]
+      },
+      {
+        "id": "bind_series_ib",
+        "type": "curve_value",
+        "target_id": "series_ib",
+        "quantity_ids": [
+          "ib"
+        ]
+      },
+      {
+        "id": "bind_series_ic",
+        "type": "curve_value",
+        "target_id": "series_ic",
+        "quantity_ids": [
+          "ic"
+        ]
+      },
+      {
+        "id": "bind_series_bx",
+        "type": "curve_value",
+        "target_id": "series_bx",
+        "quantity_ids": [
+          "bx"
+        ]
+      },
+      {
+        "id": "bind_series_by",
+        "type": "curve_value",
+        "target_id": "series_by",
+        "quantity_ids": [
+          "by"
+        ]
+      },
+      {
+        "id": "bind_series_bmag",
+        "type": "curve_value",
+        "target_id": "series_bmag",
+        "quantity_ids": [
+          "bmag"
+        ]
+      },
+      {
+        "id": "bind_metric_bmag",
+        "type": "metric_value",
+        "target_id": "metric_bmag",
+        "quantity_ids": [
+          "bmag"
+        ]
+      },
+      {
+        "id": "bind_metric_omega",
+        "type": "metric_value",
+        "target_id": "metric_omega",
+        "quantity_ids": [
+          "omega"
+        ]
+      }
+    ],
+    "inverse_bindings": [
+      {
+        "id": "inverse_resultant_angle_time",
+        "type": "angle_to_time",
+        "object_id": "resultant_field",
+        "target_id": "time",
+        "rate_expression": "omega",
+        "offset_expression": "0",
+        "scale": 1
+      }
+    ],
+    "invariants": [
+      {
+        "id": "inv_current_sum",
+        "label": "三相瞬時電流和為零",
+        "type": "sum_relation",
+        "left_expression": "ia+ib+ic",
+        "right_expression": "0",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 24
+      },
+      {
+        "id": "inv_phase_ab",
+        "label": "A、B 相相差 120°",
+        "type": "phase_difference",
+        "left_expression": "phase_a",
+        "right_expression": "phase_b",
+        "lower": 2.0943951023931953,
+        "upper": 2.0943951023931953,
+        "tolerance": 1e-10,
+        "samples": 3
+      },
+      {
+        "id": "inv_phase_bc",
+        "label": "B、C 相相差 120°",
+        "type": "phase_difference",
+        "left_expression": "phase_b",
+        "right_expression": "phase_c",
+        "lower": 2.0943951023931953,
+        "upper": 2.0943951023931953,
+        "tolerance": 1e-10,
+        "samples": 3
+      },
+      {
+        "id": "inv_resultant_constant",
+        "label": "合成磁場大小對時間保持不變",
+        "type": "constant_over_time",
+        "left_expression": "bmag",
+        "right_expression": "bmag",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 24
+      },
+      {
+        "id": "inv_resultant_vector",
+        "label": "合成磁場等於三相分量向量和",
+        "type": "vector_relation",
+        "left_expression": "bx",
+        "right_expression": "bax+bbx+bcx",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 24
+      }
+    ],
+    "experiments": [
+      {
+        "id": "exp_amplitude",
+        "title": "改變振幅 A",
+        "learning_goal": "觀察振幅增加時，各相電流與合成磁場大小同步增加。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "A",
+            "value": 2
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_focus",
+            "target_id": "bmag",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "ia",
+          "ib",
+          "ic",
+          "bmag"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "exp_frequency",
+        "title": "改變頻率 f",
+        "learning_goal": "觀察頻率增加時，合成磁場的旋轉速度與角頻率增加。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "f",
+            "value": 50
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_focus",
+            "target_id": "omega",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "omega",
+          "bx",
+          "by",
+          "bmag"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "exp_phase_rotation",
+        "title": "沿時間觀察旋轉",
+        "learning_goal": "透過改變時間，觀察合成磁場方向持續旋轉，而理想模型中的大小維持穩定。",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "f",
+            "value": 10
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0.025
+          },
+          {
+            "op": "set_focus",
+            "target_id": "resultant_field",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0.05
+          }
+        ],
+        "observation_targets": [
+          "bx",
+          "by",
+          "bmag"
+        ],
+        "source_pages": []
+      }
+    ]
+  },
+  "accepted": false,
+  "validator_reason": "Unknown expression reference."
+}

@@ -1,9 +1,20 @@
 """Strict declarative schema for Learning Scene v1."""
 
-SCENE_SCHEMA_VERSION = "1.0"
+SCENE_SCHEMA_VERSION = "1.1"
 DOMAIN = "probability_sets"
 VIEW_TYPES = ["sample_space", "set", "probability_tree", "formula", "monte_carlo"]
 RELATION_TYPES = ["subset", "mutually_exclusive", "equivalent", "complement", "related"]
+
+LEARNING_SCENE_CANDIDATE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "suitable": {"type": "boolean"},
+        "domain": {"type": "string", "enum": [DOMAIN, "spatial_dynamics", "none"]},
+        "reason": {"type": "string"},
+    },
+    "required": ["suitable", "domain", "reason"],
+    "additionalProperties": False,
+}
 
 SOURCE_PAGES = {"type": "array", "items": {"type": "integer", "minimum": 1}}
 
@@ -165,8 +176,8 @@ LEARNING_SCENE_SCHEMA = {
 SCENE_INSTRUCTIONS = """You compile supplied learning material into a safe declarative Learning Scene.
 Return only the strict JSON schema. The only supported v1 domain is probability_sets.
 If the source does not support a finite probability/set model, return a conservative scene is not possible is not an option in this schema: only call this compiler for candidate material.
-Use stable ASCII ids. Outcomes are the complete finite sample space. Events contain exact outcome ids.
-Use positive outcome weights; set equally_likely only when supported. For staged experiments, each outcome path has exactly one branch value per stage and every value is declared by that stage. Otherwise staged is false, stages and paths are empty.
+Use stable ASCII ids and concise human-facing labels. Outcomes, taken together, are the complete finite sample space S. Never emit S, sample_space, universe, omega, Ω, or an event containing every outcome as an ordinary event. Events contain exact outcome ids and must be proper subsets of S.
+Use positive outcome weights; set equally_likely only when supported. For staged experiments, each outcome path has exactly one branch value per stage and every value is declared by that stage. When complete outcome labels such as (H,H), (H,T), (T,H), (T,T) clearly encode repeated ordered stages, set staged true, declare those stages, preserve the ordered paths, and include probability_tree. Do not add branch probabilities unless the source supports them. Otherwise staged is false, stages and paths are empty.
 Views use only the whitelisted types. Include sample_space, set, formula and monte_carlo; add probability_tree only for a real staged experiment. semantic_ids reference declared outcomes/events/focus targets.
 Focus target expressions use only event ids, | union, & intersection, ~ complement, - difference, and parentheses. Never emit code, HTML, JavaScript, Python, URLs, Plotly specifications, prose formulas, calls, indexing, or attribute access.
-Bindings connect the same semantic outcome/event/focus target to all views that represent it. Source pages must be drawn only from the supplied allowed pages; use [] when uncertain. Do not invent outcomes, event membership, probabilities, stages, or pages."""
+De Morgan and inclusion-exclusion operands must be two genuine non-universe events. Bindings connect the same semantic outcome/event/focus target to all views that represent it. Use the smallest source-page set that directly supports each item; pages must be drawn only from the supplied allowed pages, and use [] when uncertain. Do not invent outcomes, event membership, probabilities, stages, or pages."""

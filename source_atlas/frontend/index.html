@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px system-ui,"Microsoft JhengHei",sans-serif;color:#e9edf5;background:#111827}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px}.bar label{font-size:12px;color:#cbd5e1}
+button,select{background:#243249;color:#f1f5f9;border:1px solid #586784;border-radius:6px;padding:5px}
+input[type=range]{width:100px;accent-color:#a78bfa}.viewport{height:540px;overflow:auto;background:#1c2638;border-radius:8px;padding:10px}
+svg{display:block;margin:auto;background:white;touch-action:pan-x pan-y}.region{fill:#8b5cf610;stroke:#8b5cf655;stroke-width:1.4;vector-effect:non-scaling-stroke;cursor:pointer}
+.region.medium{stroke-dasharray:5 4}.region.active{fill:#8b5cf626;stroke:#7c3aed;stroke-width:3}
+.region.related{stroke:#0284c7;stroke-width:2}.region.dim{opacity:.25}.region.mask{fill:#18243b;stroke:#b4a1f7;opacity:1}
+.region:focus{stroke:#dc2626;stroke-width:3;outline:none}.note{padding:8px;color:#aebdd1;font-size:12px}
+</style></head><body>
+<div class="bar"><label id="zoomLabel" for="zoom"></label><input id="zoom" type="range" min="1" max="3" step=".1" value="1"><button id="reset"></button>
+<label id="breakdownLabel" for="layer"></label><select id="layer"></select>
+<label><input id="focusOnly" type="checkbox"><span id="focusLabel"></span></label>
+<label><input id="hideLabels" type="checkbox"><span id="hideLabel"></span></label></div>
+<div class="viewport"><svg id="page" role="group"><image id="original" x="0" y="0"/><g id="overlays"></g></svg></div>
+<div class="note" id="note"></div>
+<script>
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let D=null, signature='', revealed=new Set(), pending=false;
+const send=(type,extra={})=>parent.postMessage({isStreamlitMessage:true,type,...extra},'*');
+const text=(id,key)=>$(id).textContent=D.labels[key]||key;
+function draw(){if(!D)return;const svg=$('page'),w=D.width,h=D.height;
+ svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('aria-label',D.labels['Source Viewer']);
+ svg.style.width=(100*Number($('zoom').value))+'%';svg.style.height='auto';
+ $('original').setAttribute('href',D.image);$('original').setAttribute('width',w);$('original').setAttribute('height',h);$('overlays').replaceChildren();
+ const selected=D.regions.find(r=>r.region_id===D.selected),related=new Set(selected?.related_region_ids||[]);
+ for(const r of D.regions){const hiddenLabel=$('hideLabels').checked&&r.type==='label'&&r.confidence==='high'&&!revealed.has(r.region_id);
+  const focused=D.relevant.includes(r.region_id)||r.region_id===D.selected;
+  if(!hiddenLabel&&($('layer').value!=='all'&&r.layer!==$('layer').value||$('focusOnly').checked&&!focused&&!related.has(r.region_id)))continue;
+  const b=r.bbox,e=document.createElementNS(NS,'rect');
+  for(const [k,v] of Object.entries({x:b.x0*w,y:b.y0*h,width:(b.x1-b.x0)*w,height:(b.y1-b.y0)*h,tabindex:'0',role:'button'}))e.setAttribute(k,v);
+  e.setAttribute('class','region '+r.confidence+(r.region_id===D.selected?' active':related.has(r.region_id)?' related':D.selected?' dim':'')+(hiddenLabel?' mask':''));
+  const label=hiddenLabel?D.labels['Reveal label']:r.label;e.setAttribute('aria-label',label);
+  const title=document.createElementNS(NS,'title');title.textContent=label;e.appendChild(title);
+  const activate=()=>{if(hiddenLabel){revealed.add(r.region_id);draw();return;}if(pending)return;pending=true;
+   send('streamlit:setComponentValue',{value:{atlas:D.identity,focus_stamp:D.focus_stamp,region_id:r.region_id,token:Date.now()+'-'+Math.random().toString(36).slice(2)}});};
+  e.onclick=activate;e.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();activate();}};$('overlays').appendChild(e);
+ }
+}
+window.addEventListener('message',e=>{if(e.source!==parent||e.data.type!=='streamlit:render')return;const next=e.data.args.payload;
+ if(!next||!Array.isArray(next.regions))return;const newSignature=next.identity+':'+next.page;
+ if(signature!==newSignature){revealed.clear();$('zoom').value='1';$('focusOnly').checked=false;signature=newSignature;}
+ if(D?.selected!==next.selected){const selected=next.regions.find(r=>r.region_id===next.selected);if(selected&&$('layer').value!=='all'&&$('layer').value!==selected.layer)$('layer').value='all';}
+ D=next;pending=false;text('zoomLabel','Zoom');text('reset','Reset view');text('breakdownLabel','Diagram Breakdown');text('focusLabel','Active focus only');text('hideLabel','Hide labels');text('note','Estimated region — verify on the original page.');
+ const selectedLayer=$('layer').value;$('layer').replaceChildren();
+ for(const [value,label]of [['all','All layers'],['structure','Structure'],['labels','Labels'],['vectors','Vectors'],['formulas','Formulas'],['relationships','Relationships']]){const opt=document.createElement('option');opt.value=value;opt.textContent=D.labels[label];$('layer').appendChild(opt);}
+ $('layer').value=selectedLayer||'all';draw();send('streamlit:setFrameHeight',{height:660});
+});
+for(const id of ['zoom','layer','focusOnly','hideLabels'])$(id).oninput=draw;
+$('reset').onclick=()=>{$('zoom').value='1';$('layer').value='all';$('focusOnly').checked=false;$('hideLabels').checked=false;revealed.clear();document.querySelector('.viewport').scrollTo(0,0);draw();};
+send('streamlit:componentReady',{apiVersion:1});send('streamlit:setFrameHeight',{height:660});
+</script></body></html>

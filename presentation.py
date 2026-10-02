@@ -33,6 +33,7 @@ button p, input, textarea { font-size: 1rem; font-weight: 500; line-height: 1.65
 div.stButton > button { min-height: 2.8rem; border-radius: 10px; }
 div.stButton > button[kind="primary"] { background: #6750c5; color: white; border: 1px solid #6750c5; font-weight: 650; }
 div.stButton > button[kind="primary"]:hover { background: #5540ae; border-color: #5540ae; }
+div[class*="st-key-explain-"] button { min-height: 2rem; padding: .15rem .55rem; opacity: .82; font-size: .92rem; }
 .capabilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: .8rem 0 1.2rem; }
 .capability { border: 1px solid #8270df33; border-radius: 14px; padding: 1.1rem; background: #8270df08; }
 .capability h3 { font-size: 1.08rem; padding: .5rem 0; }
@@ -60,7 +61,7 @@ def render_header():
       <div class="eyebrow">{tr('See the idea. Find the connection.')}</div>
       <h1>Visual Learning Lab</h1>
       <div class="subtitle">{tr('Turn complex ideas into something you can actually see.')}</div>
-      <span class="pill">2026 iThome Ironman · Day 17 / 30</span>
+      <span class="pill">2026 iThome Ironman · Day 20 / 30</span>
     </div>
     """, unsafe_allow_html=True)
 

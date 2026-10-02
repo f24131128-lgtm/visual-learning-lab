@@ -63,6 +63,7 @@ def fixture(kind="concept_map"):
         "comparison": comparison if kind == "comparison" else {"suitable": False, "reason": "", "title": "", "items": [], "criteria": [], "takeaway": ""},
         "learning_path": path, "suggested_visualizations": ["Concept Map" if kind == "concept_map" else "Flow" if kind == "flow" else "Comparison"],
         "interactive_lab": {"suitable": False, "reason": "No mathematical experiment is supported.", "demos": []},
+        "learning_scene_candidate": {"suitable": False, "domain": "none", "reason": "No finite probability scene is supported."},
     }
 
 

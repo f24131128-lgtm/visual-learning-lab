@@ -1,0 +1,218 @@
+{
+  "date": "2026-10-02",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "cold_first_parse_ms": 153.824,
+  "corpus": [
+    {
+      "case": "lecture_phasor",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 63,
+      "after_native_text_regions": 3,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 34.926,
+      "after_parser_ms": 82.936,
+      "before_python_alloc_peak_bytes": 405316,
+      "after_python_alloc_peak_bytes": 1121646,
+      "failures": null
+    },
+    {
+      "case": "projectile",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 49,
+      "after_native_text_regions": 3,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 18.477,
+      "after_parser_ms": 44.774,
+      "before_python_alloc_peak_bytes": 254651,
+      "after_python_alloc_peak_bytes": 1042172,
+      "failures": null
+    },
+    {
+      "case": "probability",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 112,
+      "after_native_text_regions": 4,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 6.611,
+      "after_parser_ms": 42.547,
+      "before_python_alloc_peak_bytes": 207657,
+      "after_python_alloc_peak_bytes": 1028755,
+      "failures": null
+    },
+    {
+      "case": "formula_heavy",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 399,
+      "after_native_text_regions": 12,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 15.298,
+      "after_parser_ms": 74.626,
+      "before_python_alloc_peak_bytes": 247123,
+      "after_python_alloc_peak_bytes": 1624207,
+      "failures": null
+    },
+    {
+      "case": "image_only",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 0,
+      "after_native_text_regions": 0,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 4.421,
+      "after_parser_ms": 20.881,
+      "before_python_alloc_peak_bytes": 3857145,
+      "after_python_alloc_peak_bytes": 5115191,
+      "failures": "no OCR/figure/vector detection"
+    },
+    {
+      "case": "messy_marks_page",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 32,
+      "after_native_text_regions": 1,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 9.629,
+      "after_parser_ms": 26.901,
+      "before_python_alloc_peak_bytes": 235867,
+      "after_python_alloc_peak_bytes": 808649,
+      "failures": "no OCR/figure/vector detection"
+    },
+    {
+      "case": "crop_rotate_90",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 63,
+      "after_native_text_regions": 10,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 35.861,
+      "after_parser_ms": 80.898,
+      "before_python_alloc_peak_bytes": 401634,
+      "after_python_alloc_peak_bytes": 1267805,
+      "failures": null
+    }
+  ],
+  "formula_box_comparison": {
+    "metric": "normalized formula-box area, NOT accuracy",
+    "before": 0.087,
+    "after": 0.007571545238095237,
+    "semantic_confidence_unchanged": true,
+    "native_transcription": "unique exact whole-line match; vector boxes unchanged"
+  },
+  "dependencies": [
+    {
+      "name": "pdfplumber",
+      "version": "0.11.10",
+      "installed_bytes": 553179,
+      "license_paths": [
+        "pdfplumber-0.11.10.dist-info/licenses/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "pdfminer.six",
+      "version": "20260107",
+      "installed_bytes": 9537368,
+      "license_paths": [
+        "pdfminer_six-20260107.dist-info/licenses/LICENSE"
+      ]
+    },
+    {
+      "name": "pypdfium2",
+      "version": "5.13.0",
+      "installed_bytes": 8380215,
+      "license_paths": [
+        "pypdfium2-5.13.0.dist-info/licenses/LICENSES/Apache-2.0.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/LICENSES/BSD-3-Clause.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/LICENSES/CC-BY-4.0.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/abseil.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/agg23.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/fast_float.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/freetype.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/icu.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/lcms.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/libjpeg_turbo.ijg",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/libjpeg_turbo.md",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/libopenjpeg.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/libpng.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/libtiff.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/llvm-libc.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/pdfium-binaries.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/pdfium.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/simdutf.txt",
+        "pypdfium2-5.13.0.dist-info/licenses/data/windows_x64/BUILD_LICENSES/zlib.txt"
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.2",
+      "installed_bytes": 11188904,
+      "license_paths": [
+        "cryptography-50.0.2.dist-info/licenses/LICENSE",
+        "cryptography-50.0.2.dist-info/licenses/LICENSE.APACHE",
+        "cryptography-50.0.2.dist-info/licenses/LICENSE.BSD"
+      ]
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "installed_bytes": 1117041,
+      "license_paths": [
+        "cffi-2.1.1.dist-info/licenses/LICENSE"
+      ]
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "installed_bytes": 475947,
+      "license_paths": [
+        "pycparser-3.0.dist-info/licenses/LICENSE"
+      ]
+    }
+  ],
+  "failure_cases": [
+    {
+      "case": "dense_native_page",
+      "rejected": true,
+      "type": "ValueError"
+    },
+    {
+      "case": "malformed_pdf",
+      "rejected": true,
+      "type": "PdfStreamError"
+    }
+  ],
+  "limitations": [
+    "Docling/MinerU/Marker/PaddleOCR not run locally; comparison is documented capabilities, not measured ranking.",
+    "No real user slides/7-page probability/handwritten corpus present. Image-only fixture is not handwriting accuracy ground truth.",
+    "Timing excludes paid API latency. tracemalloc measures Python allocations, NOT native RSS/process peak memory.",
+    "Install bytes include package files; not container size or future platform wheel size.",
+    "No mathematical formula recognition, table or figure classifier is implemented by this adapter."
+  ]
+}

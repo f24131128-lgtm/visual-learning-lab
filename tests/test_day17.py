@@ -15,9 +15,13 @@ import learning_canvas as canvas
 from scene import compiler
 from scene.expressions import EventExpressionError, display_expression, evaluate_expression, parse_expression
 from scene.probability import de_morgan, inclusion_exclusion, monte_carlo, probability
+from scene.renderers import (
+    build_set_figure, build_tree_graph, inclusion_exclusion_lines,
+    probability_decomposition, semantic_focus, set_view_data, tree_view_data,
+)
 from scene.schema import LEARNING_SCENE_SCHEMA
 from scene.validator import SceneValidationError, normalize_scene
-from scene_fixtures import probability_analysis, two_toss_scene
+from scene_fixtures import formal_probability_pdf_analysis, probability_analysis, two_toss_scene
 from support import ROOT
 
 
@@ -34,6 +38,8 @@ class LearningSceneCoreTests(unittest.TestCase):
         self.assertEqual([item["id"] for item in scene["outcomes"]], ["o_hh", "o_ht", "o_th", "o_tt"])
         self.assertEqual(scene["event_sets"]["E"], frozenset({"o_hh", "o_ht"}))
         self.assertEqual(scene["focus_sets"]["focus_union"], frozenset({"o_hh", "o_ht", "o_th"}))
+        self.assertEqual(scene["universe"]["outcome_ids"], frozenset({"o_hh", "o_ht", "o_th", "o_tt"}))
+        self.assertEqual(scene["outcome_by_path"][("H", "T")], "o_ht")
         def walk(schema):
             if schema.get("type") == "object":
                 self.assertFalse(schema["additionalProperties"])
@@ -51,6 +57,57 @@ class LearningSceneCoreTests(unittest.TestCase):
         self.assertIn("o_ht", events["E"]); self.assertNotIn("o_tt", events["E"])
         self.assertEqual(display_expression("~(E | F)"), "(E ∪ F)ᶜ")
 
+    def test_universe_is_not_an_event_or_peer_circle(self):
+        for identifier, label in (("S", "S"), ("sample_space", "Sample space"), ("event_s", "Ω")):
+            with self.subTest(identifier=identifier), self.assertRaises(SceneValidationError):
+                self.scene(lambda raw, identifier=identifier, label=label: raw["events"].insert(0, {
+                    "id": identifier, "label": label,
+                    "outcome_ids": [item["id"] for item in raw["outcomes"]], "source_pages": [2],
+                }))
+        scene = self.scene()
+        figure = build_set_figure(scene, {"active_expression": "E", "selected_outcome_id": None})
+        self.assertEqual(sum(shape.type == "circle" for shape in figure.layout.shapes), 2)
+        self.assertEqual(figure.layout.meta["universe"], "S")
+        self.assertEqual(figure.layout.meta["event_ids"], ["E", "F"])
+        self.assertNotIn("S", scene["event_sets"])
+
+    def test_tuple_outcomes_restore_complete_two_stage_tree(self):
+        raw = two_toss_scene()
+        raw["experiment"] = {"staged": False, "stages": []}
+        for outcome in raw["outcomes"]:
+            outcome["path"] = []
+        raw["views"] = [view for view in raw["views"] if view["type"] != "probability_tree"]
+        valid_view_ids = {view["id"] for view in raw["views"]}
+        for binding in raw["bindings"]:
+            binding["view_ids"] = [view_id for view_id in binding["view_ids"] if view_id in valid_view_ids]
+        scene = normalize_scene(raw, [2])
+        self.assertTrue(scene["experiment"]["staged"])
+        self.assertTrue(scene["experiment"]["inferred"])
+        self.assertIn("probability_tree", {view["type"] for view in scene["views"]})
+        self.assertEqual(scene["outcome_by_path"], {
+            ("H", "H"): "o_hh", ("H", "T"): "o_ht",
+            ("T", "H"): "o_th", ("T", "T"): "o_tt",
+        })
+        self.assertEqual([stage["branch_values"] for stage in scene["experiment"]["stages"]], [["H", "T"], ["H", "T"]])
+
+    def test_incomplete_tuple_product_does_not_invent_a_tree(self):
+        raw = two_toss_scene()
+        raw["outcomes"].pop()
+        raw["experiment"] = {"staged": False, "stages": []}
+        for outcome in raw["outcomes"]:
+            outcome["path"] = []
+        raw["events"][1]["outcome_ids"] = ["o_ht", "o_th"]
+        raw["views"] = [view for view in raw["views"] if view["type"] != "probability_tree"]
+        for view in raw["views"]:
+            view["semantic_ids"] = [value for value in view["semantic_ids"] if value != "o_tt"]
+        raw["bindings"] = [binding for binding in raw["bindings"] if binding["semantic_id"] != "o_tt"]
+        valid_view_ids = {view["id"] for view in raw["views"]}
+        for binding in raw["bindings"]:
+            binding["view_ids"] = [view_id for view_id in binding["view_ids"] if view_id in valid_view_ids]
+        scene = normalize_scene(raw, [2])
+        self.assertFalse(scene["experiment"]["staged"])
+        self.assertFalse(scene["outcome_by_path"])
+
     def test_mutually_exclusive_events_and_false_declaration(self):
         def exclusive(raw):
             raw["events"][1]["outcome_ids"] = ["o_th", "o_tt"]
@@ -61,6 +118,7 @@ class LearningSceneCoreTests(unittest.TestCase):
 
     def test_de_morgan_both_laws_and_inclusion_exclusion_are_derived(self):
         scene = self.scene(); laws = de_morgan(scene, "E", "F")
+        self.assertNotIn("S", scene["event_sets"])
         self.assertTrue(laws["union_complement"][2]); self.assertTrue(laws["intersection_complement"][2])
         self.assertEqual(laws["union_complement"][0], {"o_tt"})
         values = inclusion_exclusion(scene, "E", "F")
@@ -68,6 +126,68 @@ class LearningSceneCoreTests(unittest.TestCase):
         self.assertEqual(values["intersection_count"], 1)
         self.assertEqual(values["union_count"], 3)
         self.assertEqual(values["derived"], values["union"])
+
+    def test_one_semantic_focus_drives_set_tree_formula_and_monte_carlo_targets(self):
+        scene = self.scene()
+        state = {"active_expression": "E | F", "selected_outcome_id": None}
+        expected = frozenset({"o_hh", "o_ht", "o_th"})
+        focus = semantic_focus(scene, state)
+        self.assertEqual(focus["outcome_ids"], expected)
+        self.assertEqual(set_view_data(scene, state)["focus"]["outcome_ids"], expected)
+        self.assertEqual(tree_view_data(scene, state)["focus"]["outcome_ids"], expected)
+        self.assertEqual(build_set_figure(scene, state).layout.meta["focus_outcome_ids"], sorted(expected))
+        result = monte_carlo(scene, focus["outcome_ids"], 100, seed=17)
+        self.assertEqual(result["theoretical"], .75)
+        self.assertEqual(probability_decomposition(scene, focus["outcome_ids"]), "3/4 = 0.75")
+
+        state["active_expression"] = "E & F"
+        intersection = semantic_focus(scene, state)["outcome_ids"]
+        self.assertEqual(intersection, frozenset({"o_ht"}))
+        self.assertEqual(set_view_data(scene, state)["focus"]["outcome_ids"], intersection)
+        self.assertEqual(tree_view_data(scene, state)["focus"]["outcome_ids"], intersection)
+
+    def test_selected_outcome_maps_to_tree_path_and_membership_zone(self):
+        scene = self.scene()
+        state = {"active_expression": "E", "selected_outcome_id": "o_ht"}
+        focus = semantic_focus(scene, state)
+        self.assertEqual(focus["outcome_ids"], frozenset({"o_ht"}))
+        self.assertEqual(scene["path_by_outcome"]["o_ht"], ("H", "T"))
+        self.assertEqual(tree_view_data(scene, state)["leaves"][("H", "T")], "o_ht")
+        self.assertEqual(set_view_data(scene, state)["selected_zone"], "both")
+        source = build_tree_graph(scene, state).source
+        self.assertIn("(H,T)", source)
+        self.assertIn('color="#d97706"', source)
+
+    def test_human_labels_hide_internal_ids_and_inclusion_exclusion_is_exact(self):
+        raw = two_toss_scene()
+        replacements = {"E": "event_e", "F": "event_f"}
+        for event in raw["events"]:
+            event["id"] = replacements[event["id"]]
+        for view in raw["views"]:
+            view["semantic_ids"] = [replacements.get(value, value) for value in view["semantic_ids"]]
+        for binding in raw["bindings"]:
+            binding["semantic_id"] = replacements.get(binding["semantic_id"], binding["semantic_id"])
+        for source_ref in raw["source_refs"]:
+            source_ref["semantic_id"] = replacements.get(source_ref["semantic_id"], source_ref["semantic_id"])
+        for state in raw["states"]:
+            state["semantic_ids"] = [replacements.get(value, value) for value in state["semantic_ids"]]
+        for target in raw["focus_targets"]:
+            target["expression"] = target["expression"].replace("E", "event_e").replace("F", "event_f")
+        raw["events"][1]["outcome_ids"] = ["o_ht", "o_th", "o_tt"]
+        scene = normalize_scene(raw, [2])
+        self.assertEqual(display_expression("event_e | event_f", scene["event_labels"]), "E ∪ F")
+        self.assertTrue(all("event_" not in target["label"] for target in scene["focus_targets"]))
+        lines = inclusion_exclusion_lines(scene, scene["events"][0], scene["events"][1])
+        self.assertEqual(lines, [
+            "P(E) = 2/4 = 0.50",
+            "P(F) = 3/4 = 0.75",
+            "P(E ∩ F) = 1/4 = 0.25",
+            "P(E ∪ F)",
+            "= P(E) + P(F) − P(E ∩ F)",
+            "= 0.50 + 0.75 − 0.25",
+            "= 1.00",
+        ])
+        self.assertNotIn("event_", "\n".join(lines))
 
     def test_expression_parser_valid_and_malicious_inputs(self):
         for expression in ("E", "F", "E | F", "E & F", "~E", "E - F", "~(E | F)", "(~E) & F"):
@@ -87,6 +207,8 @@ class LearningSceneCoreTests(unittest.TestCase):
             lambda raw: raw["events"][0]["outcome_ids"].append("missing"),
             lambda raw: raw["views"][0].update(type="arbitrary_html"),
             lambda raw: raw["outcomes"][1].update(path=["H", "H"]),
+            lambda raw: raw["views"].pop(4),
+            lambda raw: raw["experiment"].update(staged=False, stages=[]),
         ]
         for mutation in bad:
             with self.subTest(mutation=mutation), self.assertRaises(SceneValidationError): self.scene(mutation)
@@ -122,6 +244,28 @@ class LearningSceneCoreTests(unittest.TestCase):
         self.assertEqual(context["analysis_language"], "en")
         self.assertTrue(compiler.scene_candidate(analysis))
 
+    def test_pdf_candidate_uses_extracted_pages_and_requires_probability_structure(self):
+        analysis = formal_probability_pdf_analysis()
+        self.assertTrue(compiler.scene_candidate(analysis, {"kind": "pdf", "page_texts": {}}))
+        legacy_analysis = copy.deepcopy(analysis)
+        legacy_analysis.pop("learning_scene_candidate")
+        self.assertFalse(compiler.scene_candidate(legacy_analysis, {"kind": "pdf", "page_texts": {}}))
+        source = {"kind": "pdf", "source_text": "", "page_texts": {
+            1: "樣 本 空 間 S 包含所有樣本點。",
+            2: "事 件是樣本空間的子集合。",
+            3: "事件的聯 集、交 集與補 集。",
+            4: "機 率公理與等可能有限樣本空間。",
+            5: "德 摩 根定律與互斥事件。",
+            6: "容 斥原理計算 P(A ∪ B)。",
+        }}
+        evidence = compiler.scene_candidate_evidence(legacy_analysis, source)
+        self.assertEqual(evidence, {"structured": False, "probability": True,
+                                    "sample_space": True, "events": True,
+                                    "set_operations": True, "candidate": True})
+        self.assertTrue(compiler.scene_candidate_evidence(analysis, {})["structured"])
+        generic_sets = {"quick_summary": "集合的子集合可使用聯集與交集運算。"}
+        self.assertFalse(compiler.scene_candidate(generic_sets))
+
 
 class LearningSceneAppTests(unittest.TestCase):
     def setUp(self):
@@ -151,7 +295,7 @@ class LearningSceneAppTests(unittest.TestCase):
         self.assertIn("English", request["instructions"]); self.assertIsInstance(request["input"], str)
         self.assertTrue(at.session_state["learning_scene_state"]["scene"])
         at.button(key="scene-widget-outcome-probability-material-o_ht").click().run()
-        at.selectbox(key="scene-widget-focus-probability-material").select("E union F").run()
+        at.selectbox(key="scene-widget-focus-probability-material").select("E ∪ F").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("De Morgan").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("Inclusion–Exclusion").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("Explore").run()
@@ -168,6 +312,45 @@ class LearningSceneAppTests(unittest.TestCase):
         self.assertFalse(at.session_state["learning_scene_state"]["scene"])
         self.assertTrue(any("incomplete or unsafe" in item.value for item in at.info))
         self.assertTrue(any("Guided Learning" in item.value for item in at.markdown))
+
+    def test_realistic_probability_pdf_exposes_early_localized_entry_and_collapses_relationships(self):
+        at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
+        at.session_state["analysis"] = formal_probability_pdf_analysis()
+        at.session_state["analysis_id"] = "real-probability-pdf"
+        at.session_state["allowed_source_pages"] = [1, 2, 3, 4, 5, 6, 7]
+        at.session_state["source_context"] = {"kind": "pdf", "source_text": "", "page_texts": {
+            1: "樣本空間 S 包含所有樣本點。",
+            2: "事件 E 與 F 是 S 的子集合。",
+            3: "聯集、交集、補集與互斥事件。",
+            4: "機率公理以及等可能結果。",
+            5: "德摩根定律。",
+            6: "容斥原理。",
+            7: "P(E)=|E|/|S|。",
+        }}
+        at.session_state["product_language"] = "zh-TW"
+        at.secrets["OPENAI_API_KEY"] = "offline-placeholder"
+        at.run(); self.assertFalse(at.exception)
+        self.client.responses.create.assert_not_called()
+        build = next(button for button in at.button if button.label == "建立互動學習場景")
+        values = [item.value for item in at.markdown]
+        scene_index = next(index for index, value in enumerate(values) if "互動學習場景" in value)
+        snapshot_index = next(index for index, value in enumerate(values) if "學習概覽" in value)
+        self.assertLess(scene_index, snapshot_index)
+        self.assertTrue(any("Day 20 / 30" in value for value in values))
+        self.assertTrue(any(item.label == "概念關係" for item in at.expander))
+        build.click().run(); self.assertFalse(at.exception)
+        self.assertEqual(self.client.responses.create.call_count, 1)
+        values = [item.value for item in at.markdown]
+        for heading in ("樣本空間", "集合視圖", "機率樹", "公式／推理視角", "蒙地卡羅模擬"):
+            self.assertTrue(any(heading in value for value in values), heading)
+        self.assertGreaterEqual(len(at.get("plotly_chart")), 2)
+        at.button(key="scene-widget-outcome-real-probability-pdf-o_ht").click().run()
+        self.assertEqual(at.session_state["learning_scene_state"]["selected_outcome_id"], "o_ht")
+        self.assertTrue(any(button.label == "● (H,T)" for button in at.button))
+        self.assertTrue(any("(H,T) ∈ E" in item.value for item in at.markdown))
+        self.assertTrue(any("(H,T) ∈ F" in item.value for item in at.markdown))
+        self.assertTrue(any(metric.label == "理論值" and "0.2500" in metric.value for metric in at.metric))
+        self.assertEqual(self.client.responses.create.call_count, 1)
 
 
 if __name__ == "__main__":

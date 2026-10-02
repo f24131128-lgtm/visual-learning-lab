@@ -104,13 +104,25 @@ def evaluate_expression(expression, events, universe):
     return visit(node)
 
 
-def display_expression(expression):
+def expression_event_ids(expression):
+    """Return event ids in first-appearance order for a validated expression."""
+    tokens = _tokens(expression)
+    result = []
+    for token in tokens:
+        if re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,31}", token) and token not in result:
+            result.append(token)
+    return result
+
+
+def display_expression(expression, labels=None):
+    """Render safe set notation while keeping internal event ids out of the UI."""
     tokens = _tokens(expression)
     identifiers = {token for token in tokens if re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,31}", token)}
     node = _Parser(tokens, identifiers).parse()
+    labels = labels if isinstance(labels, dict) else {}
 
     def render(item):
-        if item.op == "id": return item.value
+        if item.op == "id": return str(labels.get(item.value, item.value))
         if item.op == "~":
             child = render(item.left)
             return f"{child}ᶜ" if item.left.op == "id" else f"({child})ᶜ"

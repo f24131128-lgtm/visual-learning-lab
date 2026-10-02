@@ -1,4 +1,4 @@
-"""Visual Learning Lab — Day 17 coordinated Learning Scenes."""
+"""Visual Learning Lab — Day 19 source-to-scene semantic atlas."""
 
 import hashlib
 import json
@@ -17,6 +17,7 @@ from interactive_lab import (
 from presentation import render_header, render_footer
 from dynamic_simulation import ensure_simulation_state, render_simulation_studio, reset_simulation_state
 from scene.compiler import render_scene_builder, reset_scene_state, scene_candidate
+from scene.schema import LEARNING_SCENE_CANDIDATE_SCHEMA
 
 from learning_canvas import (
     VISUAL_REF_SCHEMA,
@@ -339,6 +340,7 @@ ANALYSIS_SCHEMA = {
             "additionalProperties": False,
         },
         "interactive_lab": INTERACTIVE_LAB_SCHEMA,
+        "learning_scene_candidate": LEARNING_SCENE_CANDIDATE_SCHEMA,
         "primary_visualization": {
             "type": "object",
             "properties": {
@@ -363,6 +365,7 @@ ANALYSIS_SCHEMA = {
         "comparison",
         "learning_path",
         "interactive_lab",
+        "learning_scene_candidate",
         "primary_visualization",
         "suggested_visualizations",
     ],
@@ -1261,7 +1264,7 @@ def render_explain_action(
     cache = st.session_state.setdefault("explanation_cache", {})
     errors = st.session_state.setdefault("explanation_errors", {})
 
-    if st.button(button_label or tr("Explain this"), key=f"explain-{cache_key}"):
+    if st.button(button_label or tr("Explain this"), key=f"explain-{cache_key}", type="tertiary"):
         st.session_state["active_explanation_key"] = cache_key
         if cache_key not in cache:
             try:
@@ -2780,7 +2783,7 @@ def build_concept_map_graph(concept_map):
 
     return graph
 
-st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="centered")
+st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="wide")
 
 render_header()
 
@@ -2972,6 +2975,19 @@ Return only data that matches the supplied JSON Schema.
   Never invent pages. If a useful lesson cannot be formed, set suitable to false
   and return empty steps and questions.
 - suggested_visualizations: choose zero or more types from the exact allowed list.
+- learning_scene_candidate: decide whether the supplied material supports a finite,
+  source-grounded probability/set Learning Scene. Set suitable true and domain
+  probability_sets when the material defines or meaningfully connects a sample
+  space or finite outcomes, events as sets, and probability/set operations such
+  as union, intersection, complement, mutually exclusive events, De Morgan, or
+  inclusion-exclusion. Do not require a staged experiment. Use suitable false and
+  For source-supported quantitative physics/engineering with time evolution,
+  vectors/positions/trajectories, and meaningful parameters/equations, set suitable
+  true and domain spatial_dynamics. This may include rotating fields, harmonic
+  motion, or projectile/orbital motion, not just one motor document. Prefer none
+  for purely qualitative material with no defensible bounded numeric model.
+  Use suitable false and domain none for unrelated material.
+  The build remains a separate explicit action; this field only routes the UI.
 
 The [Page X] markers are the only valid source of PDF page numbers.
 Do not create rendered diagrams or 3D models in the response.
@@ -3048,7 +3064,7 @@ if analysis:
     )
     learning_scene_candidate = scene_candidate(analysis, source_context)
 
-    # Put the optional Day 17 workspace where a learner can actually discover it.
+    # Both Learning Scene domains precede the normal learning overview.
     # The compiler remains explicit; this render call makes no request on its own.
     render_scene_builder(
         analysis, analysis_id, source_context, allowed_source_pages, MODEL,

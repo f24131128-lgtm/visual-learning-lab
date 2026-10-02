@@ -1,0 +1,143 @@
+invalid pdf header: b'not a'
+EOF marker not found
+{
+  "date": "2026-10-02",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "cold_first_parse_ms": 153.824,
+  "corpus": [
+    {
+      "case": "lecture_phasor",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 63,
+      "after_native_text_regions": 3,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 34.926,
+      "after_parser_ms": 82.936,
+      "before_python_alloc_peak_bytes": 405316,
+      "after_python_alloc_peak_bytes": 1121646,
+      "failures": null
+    },
+    {
+      "case": "projectile",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 49,
+      "after_native_text_regions": 3,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 18.477,
+      "after_parser_ms": 44.774,
+      "before_python_alloc_peak_bytes": 254651,
+      "after_python_alloc_peak_bytes": 1042172,
+      "failures": null
+    },
+    {
+      "case": "probability",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 112,
+      "after_native_text_regions": 4,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 6.611,
+      "after_parser_ms": 42.547,
+      "before_python_alloc_peak_bytes": 207657,
+      "after_python_alloc_peak_bytes": 1028755,
+      "failures": null
+    },
+    {
+      "case": "formula_heavy",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 399,
+      "after_native_text_regions": 12,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 15.298,
+      "after_parser_ms": 74.626,
+      "before_python_alloc_peak_bytes": 247123,
+      "after_python_alloc_peak_bytes": 1624207,
+      "failures": null
+    },
+    {
+      "case": "image_only",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 0,
+      "after_native_text_regions": 0,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 4.421,
+      "after_parser_ms": 20.881,
+      "before_python_alloc_peak_bytes": 3857145,
+      "after_python_alloc_peak_bytes": 5115191,
+      "failures": "no OCR/figure/vector detection"
+    },
+    {
+      "case": "messy_marks_page",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 32,
+      "after_native_text_regions": 1,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 9.629,
+      "after_parser_ms": 26.901,
+      "before_python_alloc_peak_bytes": 235867,
+      "after_python_alloc_peak_bytes": 808649,
+      "failures": "no OCR/figure/vector detection"
+    },
+    {
+      "case": "crop_rotate_90",
+      "source": "synthetic, inspectable; not user PDF",
+      "pages": [
+        1,
+        2
+      ],
+      "before_native_geometry_regions": 0,
+      "before_text_characters": 63,
+      "after_native_text_regions": 10,
+      "parser_order": "pdfplumber extraction order, not validated semantic reading order",
+      "before_pypdf_ms": 35.861,
+      "after_parser_ms": 80.898,
+      "before_python_alloc_peak_bytes": 401634,
+      "after_python_alloc_peak_bytes": 1267805,
+      "failures": null
+    }
+  ],
+  "formula_box_comparison": {
+    "metric": "normalized formula-box area, NOT accuracy",
+    "before": 0.087,
+    "after": 0.007571545238095237,
+    "semantic_confidence_unchanged": true,
+    "native_transcription": "unique exact whole-line match; vector boxes unchanged"
+  },
+  "failure_cases": [
+    {
+      "case": "dense_native_page",
+      "rejected": true,
+      "type": "ValueError"
+    },
+    {
+      "case": "malformed_pdf",
+      "rejected": true,
+      "type": "PdfStreamError"
+    }
+  ]
+}
