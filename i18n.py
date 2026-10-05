@@ -8,6 +8,47 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Animation uses a local teaching clock; formal time keeps its committed state.": "動畫使用本地教學時鐘；正式模型的時間保留已確認的狀態。",
+    "Static view": "靜態檢視",
+    "Animation is unavailable; use the static view and local controls.": "目前無法播放動畫，可使用靜態檢視與本地控制。",
+    "Representation": "探索方式", "Formal model": "正式模型", "Analogy World": "譬喻世界", "Compare": "對照",
+    "Build Analogy World": "建立譬喻世界", "Building an analogy…": "正在建立譬喻…",
+    "Analogy developer diagnostics": "譬喻開發診斷",
+    "Download sanitized diagnostics": "下載已遮蔽的診斷",
+    "Recheck saved analogy locally": "本地重驗已保留的譬喻",
+    "Generate a new analogy candidate": "重新生成譬喻候選",
+    "The failed candidate is saved in this session. Rechecking makes no AI request; generating a new candidate makes one explicit request.": "失敗候選已保留在此工作階段。本地重驗不會呼叫 AI；重新生成候選會明確呼叫一次 AI。",
+    "Correspondence schematic · positions illustrate concepts, not physical motion.": "概念對應示意 · 位置用來呈現概念，不表示物理運動。",
+    "Some optional visuals or links were omitted. Correspondences remain available; independent teaching controls do not synchronize formal values.": "部分非必要圖形或連動已省略。對應關係仍可查看；獨立教學控制不會同步正式模型的數值。",
+    "No detailed trace was retained for this attempt. A new explicit build records one.": "這次嘗試未保留詳細紀錄；重新按一次建立按鈕後會留下診斷。",
+    "Generated analogy · an explanatory aid, not source evidence or physical identity.": "AI 生成譬喻 · 用於輔助理解，不是原文證據，也不代表物理上的同一事物。",
+    "Choose a source-supported concept in the formal model before building an analogy.": "請先在正式模型選取有來源支持的概念，再建立譬喻。",
+    "Choose a concept": "選取概念",
+    "The analogy could not be built safely. Your formal learning remains available. You may retry explicitly.": "這次無法安全建立譬喻。正式模型仍可使用，可按按鈕重試。",
+    "This analogy covers the concepts listed below. Build explicitly to explore another concept.": "這個譬喻涵蓋下方概念。若要探索其他概念，請明確建立新的譬喻。",
+    "What it helps explain": "這個譬喻幫助理解什麼", "Where the analogy breaks": "譬喻在哪裡不成立",
+    "Misconception to avoid: {text}": "避免誤解：{text}",
+    "The analogy view is unavailable. Your formal learning remains available.": "目前無法顯示譬喻。正式模型仍可使用。",
+    "Reset analogy controls": "重設譬喻控制", "Linked formal control": "與正式模型參數連動",
+    "Teaching control · qualitative correspondence": "教學控制 · 定性對應",
+    "Select a correspondence": "選取對應關係",
+    "Formal model · source-supported analysis": "正式模型 · 依據來源的分析",
+    "Analogy · generated teaching model": "譬喻 · 生成的教學模型",
+    "Source pages: {pages}": "來源頁：{pages}",
+    "Drag a control horizontally; select a shape to focus its formal concept.": "水平拖曳控制物件；點選圖形可聚焦對應的正式概念。",
+    "Learning Workspace": "學習工作區",
+    "Learn": "理解", "Source": "來源", "Explore": "探索", "Practice": "練習",
+    "Current focus: {name}": "目前焦點：{name}",
+    "Choose a concept or source object": "選取概念或來源物件",
+    "Clear focus": "清除焦點",
+    "Explore in interactive scene": "在互動場景中探索",
+    "View related formula": "查看相關公式",
+    "Practice this concept": "練習這個概念",
+    "Explain this source": "解釋這裡",
+    "No source context is available.": "目前沒有可用的來源脈絡。",
+    "No interactive experiment is available. Explore the material visualization below.": "目前沒有互動實驗，可探索下方教材視覺化。",
+    "Continue with guided practice": "開始引導練習",
+
     "See the idea. Find the connection.": "看見概念，找到連結。",
     "Turn complex ideas into something you can actually see.": "讓複雜的概念，成為看得見的理解。",
     "Start with what you’re learning": "從正在學習的內容開始",
@@ -307,6 +348,11 @@ UI_TEXT["zh-TW"]["review.format_error"] = "重點複習的回傳格式不完整�
 
 
 WORLD_TEXT = {
+    "The candidate is retained. Local recheck makes no AI request; a new candidate makes one explicit request.": "候選已保留。本地重驗不會發出 AI 請求；重新生成候選會發出一次明確請求。",
+    "Generate a new representation candidate": "重新生成學習表示候選",
+    "Recheck saved representation locally": "本地重驗已保留的學習表示",
+    "Learning representation diagnostics": "學習表示開發診斷",
+    "Download representation diagnostics": "下載學習表示診斷",
     "Spatial Learning World": "空間學習場景",
     "Build Spatial Learning World": "建立空間學習場景",
     "Explore one physical system through coordinated spatial, signal and vector views.": "以協調的空間、波形與向量視圖探索同一個物理系統。",
@@ -412,6 +458,24 @@ ATLAS_TEXT = {
 }
 UI_TEXT["zh-TW"].update(ATLAS_TEXT)
 UI_TEXT["en"].update({key: key for key in ATLAS_TEXT})
+
+WORLD_TEXT = {
+    "Choose a learning representation": "選擇適合的學習表示",
+    "Choosing a learning representation…": "正在選擇適合的學習表示…",
+    "Interactive process": "互動流程",
+    "The representation could not be built safely. Existing learning remains available; retry explicitly.": "目前無法安全建立此表示。既有學習功能仍可使用，可明確重試。",
+    "A simpler supported representation is used.": "目前採用已支援的較簡單表示。",
+    "Generated learning model · formal concepts retain their original source links.": "生成的學習模型；正式概念保留原始來源連結。",
+    "Empty collection": "集合目前為空",
+    "New item": "新項目",
+    "Reset process": "重設流程",
+    "Last removed: {item}": "上次移除：{item}",
+    "Local transition history": "本地操作紀錄",
+    "Source pages: {pages}": "來源頁面：{pages}",
+    "The process state is unavailable. Existing learning remains available.": "流程狀態目前無法使用。既有學習功能仍可使用。",
+}
+UI_TEXT["zh-TW"].update(WORLD_TEXT)
+UI_TEXT["en"].update({key: key for key in WORLD_TEXT})
 
 
 def current_language():

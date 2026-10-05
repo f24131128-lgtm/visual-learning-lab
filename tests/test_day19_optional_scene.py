@@ -154,7 +154,9 @@ class NormalPDFOptionalSceneTests(unittest.TestCase):
             next(e for e in at.selectbox if e.label == "來源頁面").set_value(2).run()
             self.assertFalse(at.exception)
             self.assertEqual(client.responses.create.call_count, 1)
+            at.radio(key="workspace-mode-pdf19").set_value("explore").run()
             self.assertFalse(at.button(key="scene-widget-build-pdf19").disabled)
+            at.radio(key="workspace-mode-pdf19").set_value("source").run()
 
             # A later validated scene changes semantic identity. Explicitly
             # rebuild grounding with that catalog, retaining the existing bridge.
@@ -167,7 +169,9 @@ class NormalPDFOptionalSceneTests(unittest.TestCase):
             next(e for e in at.selectbox if e.label == "選取來源物件").set_value("vector_b").run()
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"], "ib")
+            at.radio(key="workspace-mode-pdf19").set_value("explore").run()
             at.selectbox(key="world-widget-pdf19-focus").set_value("ia").run()
+            at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state["source_atlas_state"]["region_hint"], "formula_a")
             self.assertEqual(client.responses.create.call_count, 2)

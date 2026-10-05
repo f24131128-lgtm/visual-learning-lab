@@ -213,6 +213,7 @@ class ProductPolicyTests(unittest.TestCase):
             at.session_state["analysis"]=spatial_analysis();at.session_state["analysis_id"]="complete-flight"
             at.session_state["source_context"]=dict(kind="text",source_text="拋體運動 x=v0 cosθ t，y=v0 sinθ t−g t²/2，回到同一地面。",page_texts={})
             at.session_state["allowed_source_pages"]=[];at.session_state["product_language"]="zh-TW"
+            at.session_state["learning_workspace"] = dict(material_id="complete-flight", mode="explore", focus=None)
             at.secrets["OPENAI_API_KEY"]="offline-placeholder";at.run()
             at.button(key="scene-widget-build-complete-flight").click().run()
             self.assertFalse(at.exception)

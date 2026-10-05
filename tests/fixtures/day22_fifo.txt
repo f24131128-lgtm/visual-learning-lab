@@ -1,0 +1,9 @@
+Queue: a bounded ordered collection with first-in-first-out (FIFO) behavior.
+Enqueue inserts one item at the rear. Dequeue removes exactly the item at the front.
+Front means the earliest remaining item; rear means the most recently inserted item.
+If A arrives, then B, then C, the queue is A, B, C from front to rear.
+The first dequeue returns A, leaving B, C. The second returns B, leaving C.
+Dequeue is unavailable when empty. Enqueue is unavailable at the configured capacity.
+Use a capacity of six items for an illustrative local learning model.
+Reset restores the initial illustration A, B; it is a teaching action, not a queue operation.
+Items are discrete labels: their order matters, not physical positions or motion.

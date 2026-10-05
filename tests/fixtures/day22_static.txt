@@ -1,0 +1,5 @@
+A glossary defines a term's agreed meaning within a document.
+For this note, "draft" means a version awaiting editorial review.
+This is a naming convention, not a quantitative law or a claim about a process.
+There are no state transitions, spatial relations, manipulable variables or sample-space outcomes to investigate here.
+A short source-grounded explanation is sufficient; an animated or interactive world would imply relationships not stated in this material.

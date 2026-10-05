@@ -95,6 +95,13 @@ def select_target(state, target_id, visualization):
     if target_id == state["selected_id"]:
         return False
     state["selected_id"] = target_id
+    workspace = st.session_state.get("learning_workspace")
+    wrapper = st.session_state.get("learning_scene_state")
+    if workspace and workspace["material_id"] == state["material_id"]:
+        from workspace.state import set_workspace_focus
+        from source_atlas.model import semantic_catalog
+        catalog = semantic_catalog((wrapper or {}).get("scene"), st.session_state.get("analysis"))
+        set_workspace_focus(workspace, target_id, catalog, wrapper)
     state["source"]["view"].update(target=None, open=False, page=None)
     return True
 
@@ -106,6 +113,9 @@ def related_lessons(learning_path, target_type, target_id):
 
 def go_to_lesson(step_id, learning_path):
     if any(step["id"] == step_id for step in (learning_path or {}).get("steps", [])):
+        from workspace.state import open_workspace
+        workspace = st.session_state.get("learning_workspace")
+        if workspace: open_workspace(workspace, "practice")
         st.session_state["guided_learning_started"] = True
         st.session_state["guided_learning_step_id"] = step_id
         return True
@@ -299,6 +309,10 @@ def render_selection_controls(kind, visualization, state, lesson_ids, review_ids
                 state["component_error"] = False
                 st.rerun()
         if state["selected_id"] is not None and st.button(tr("Clear selection"), key=f"canvas-clear-{state['material_id']}"):
+            workspace = st.session_state.get("learning_workspace")
+            if workspace and workspace["material_id"] == state["material_id"]:
+                from workspace.state import clear_workspace_focus
+                clear_workspace_focus(workspace, st.session_state.get("learning_scene_state"))
             state["selected_id"] = None
             state["source"]["view"].update(target=None, open=False, page=None)
             st.rerun()
@@ -362,6 +376,11 @@ def render_learning_canvas(kind, visualization, learning_path, analysis, source_
     state = ensure_canvas_state(analysis_id)
     if state["kind"] != kind:
         state.update(kind=kind, selected_id=None, component=None, style_signature=None, last_event=-1)
+    workspace = st.session_state.get("learning_workspace")
+    if workspace and workspace["material_id"] == analysis_id:
+        from workspace.state import get_workspace_focus
+        focus = get_workspace_focus(workspace, st.session_state.get("learning_scene_state"))
+        if focus in visual_targets(visualization): state["selected_id"] = focus
     if state["selected_id"] not in visual_targets(visualization):
         state["selected_id"] = None
     lesson_ids, review_ids = canvas_highlights(learning_path, analysis_id)

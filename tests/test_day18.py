@@ -353,6 +353,7 @@ class WorldProductTests(unittest.TestCase):
         at = AppTest.from_file(str(ROOT/"app.py"), default_timeout=30)
         at.session_state["analysis"] = spatial_analysis()
         at.session_state["analysis_id"] = "physics-pdf"
+        at.session_state["learning_workspace"] = dict(material_id="physics-pdf", mode="explore", focus=None)
         at.session_state["source_context"] = dict(kind="pdf", source_text="", page_texts={1: "Ia=A cos(ωt). Three phase vectors 120 degrees apart; frequency and amplitude."})
         at.session_state["allowed_source_pages"] = [1]
         at.session_state["product_language"] = language
@@ -370,11 +371,12 @@ class WorldProductTests(unittest.TestCase):
         self.client.responses.create.assert_not_called()
         self.assertEqual(at.button(key="scene-widget-build-physics-pdf").label, "建立空間學習場景")
         values = [m.value for m in at.markdown]
-        self.assertLess(next(i for i, v in enumerate(values) if "空間學習場景" in v), next(i for i, v in enumerate(values) if "學習概覽" in v))
+        self.assertFalse(any("學習概覽" in v for v in values))
         self.assertTrue(any("Day 20 / 30" in v for v in values))
         self.build(at)
         for label in ("空間視圖", "訊號／波形", "向量／相量", "方程式／狀態视角".replace("视", "視")):
             self.assertTrue(any(label in m.value for m in at.markdown))
+        at.radio(key="workspace-mode-physics-pdf").set_value("learn").run()
         self.assertTrue(any(e.label == "概念關係" for e in at.expander))
 
     def test_build_once_and_parameter_time_experiment_recording_remain_local(self):
@@ -426,7 +428,9 @@ class WorldProductTests(unittest.TestCase):
         at.button(key="scene-widget-build-physics-pdf").click().run()
         self.assertFalse(at.exception)
         self.assertTrue(any("incomplete or unsafe" in m.value for m in at.info))
+        at.radio(key="workspace-mode-physics-pdf").set_value("practice").run()
         self.assertTrue(any("Guided Learning" in m.value for m in at.markdown))
+        at.radio(key="workspace-mode-physics-pdf").set_value("explore").run()
         at.run()
         self.assertTrue(at.button(key="scene-widget-build-physics-pdf").disabled)
         self.assertEqual(self.client.responses.create.call_count, 1)
@@ -441,6 +445,7 @@ class WorldProductTests(unittest.TestCase):
         at.session_state["analysis_id"] = "different-material"
         at.run(); self.assertFalse(at.exception)
         self.assertFalse(at.session_state["learning_scene_state"]["scene"])
+        at.radio(key="workspace-mode-different-material").set_value("explore").run()
         self.assertTrue(at.button(key="scene-widget-build-different-material"))
 
     def test_projectile_uses_identical_product_runtime(self):

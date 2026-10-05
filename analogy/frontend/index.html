@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;font:15px system-ui,sans-serif;color:#23384b;background:white}button{border:1px solid #bac7d1;border-radius:6px;background:#f3f7fa;padding:7px 14px;cursor:pointer}#stage{width:100%;height:360px;touch-action:none;border:1px solid #dde5eb;background:#fafcfe;border-radius:12px;box-sizing:border-box}#controls{display:flex;gap:10px;align-items:center;padding:10px 0}input{flex:1}text{font:14px system-ui,sans-serif;pointer-events:none}#hint{font-size:13px;color:#556879} .shape{cursor:pointer}
+</style></head><body><svg id="stage" role="group" aria-label="Analogy"></svg><div id="controls"><button id="play"></button><button id="replay"></button><input id="scrub" type="range" min="0" step="1" value="0"><span id="time"></span></div><div id="hint"></div><script>
+// Fixed product renderer: all geometry is numeric; labels enter textContent only.
+const stage=document.getElementById('stage'),NS='http://www.w3.org/2000/svg',colors={blue:'#298bc2',orange:'#e59439',green:'#399a77',purple:'#8b62b4',gray:'#81929b'};
+let payload=null,frame=0,playing=false,start=0,drag=null,suppressClick=false;
+function send(type,data){parent.postMessage({isStreamlitMessage:true,type,...data},'*')}
+function commit(kind,data){playing=false;send('streamlit:setComponentValue',{dataType:'json',value:{identity:payload.identity,revision:payload.revision,token:Date.now()+'-'+Math.random(),kind,...data}})}
+function node(type,attrs,text){const n=document.createElementNS(NS,type);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,String(v));if(text!==undefined)n.textContent=text;stage.appendChild(n);return n}
+function draw(){if(!payload)return;stage.replaceChildren();const b=payload.data.bounds,margin=.6;stage.setAttribute('viewBox',[b[0]-margin,-b[3]-margin,b[1]-b[0]+2*margin,b[3]-b[2]+2*margin].join(' '));
+const font=Math.max(b[1]-b[0],b[3]-b[2])/30;
+for(const o of payload.data.objects){let a={};for(const [k,v]of Object.entries(o.data))a[k]=v[frame];if(a.visible<.5)continue;
+let attrs={fill:colors[o.color],stroke:payload.selected.includes(o.entity_id)?'#de3f65':colors[o.color],'stroke-width':payload.selected.includes(o.entity_id)?font/3:font/8};let n;
+if(o.type==='rectangle')n=node('rect',{...attrs,x:a.x-a.x2/2,y:-a.y-a.y2/2,width:a.x2,height:a.y2,opacity:.75});
+else if(o.type==='disc'||o.type==='tokens')n=node('circle',{...attrs,cx:a.x,cy:-a.y,r:a.radius});
+else if(o.type==='segment')n=node('line',{...attrs,x1:a.x,y1:-a.y,x2:a.x2,y2:-a.y2,'stroke-width':font/3});
+else if(o.type==='curve'){let pts=o.data.x.map((x,i)=>x+','+(-o.data.y[i])).join(' ');n=node('polyline',{...attrs,fill:'none',points:pts,'stroke-width':font/5});node('circle',{...attrs,cx:a.x,cy:-a.y,r:font/4});}
+else n=node('text',{...attrs,stroke:'none',x:a.x,y:-a.y},o.label+': '+a.value.toFixed(3));
+n.setAttribute('class','shape');n.setAttribute('tabindex','0');n.setAttribute('role','button');n.setAttribute('aria-label',o.label);n.style.fontSize=font+'px';
+n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();commit('focus',{entity:o.entity_id})}});
+n.onclick=()=>{if(suppressClick){suppressClick=false;return}commit('focus',{entity:o.entity_id})};
+n.addEventListener('pointerdown',e=>{playing=false;drag={object:o,x:e.clientX,y:e.clientY};stage.setPointerCapture(e.pointerId)});
+if(o.index===0&&o.type!=='meter'){const t=node('text',{x:a.x,y:-a.y-a.radius-font,fill:'#23384b'},o.label);t.style.fontSize=font+'px';}}
+document.getElementById('scrub').value=frame;document.getElementById('time').textContent=payload.data.times[frame].toFixed(2);document.getElementById('play').textContent=payload.labels[playing?'Pause':'Play'];}
+function scenePoint(e){const p=stage.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(stage.getScreenCTM().inverse())}
+stage.addEventListener('pointerup',e=>{if(!drag)return;const d=drag;drag=null;const moved=Math.hypot(e.clientX-d.x,e.clientY-d.y)>5,p=payload.parameters.find(p=>p.id===d.object.control_parameter);
+if(moved&&p){suppressClick=true;const b=payload.data.bounds,x=scenePoint(e).x,v=p.min+Math.max(0,Math.min(1,(x-b[0])/(b[1]-b[0])))*(p.max-p.min);commit('parameter',{parameter:p.id,value:v})}});stage.addEventListener('pointercancel',()=>drag=null);
+document.getElementById('play').onclick=()=>{playing=!playing;if(frame===payload.data.times.length-1)frame=0;start=performance.now()-payload.data.times[frame]*1000;draw()};
+document.getElementById('replay').onclick=()=>{frame=0;playing=true;start=performance.now();draw()};document.getElementById('scrub').oninput=e=>{playing=false;frame=Number(e.target.value);draw()};
+function tick(now){if(payload&&playing){let elapsed=(now-start)/1000,t=payload.data.times;frame=Math.min(t.length-1,Math.floor(elapsed/t[t.length-1]*(t.length-1)));if(frame===t.length-1)playing=false;draw()}requestAnimationFrame(tick)}requestAnimationFrame(tick);
+window.addEventListener('message',e=>{if(e.source!==parent||e.data.type!=='streamlit:render')return;const next=e.data.args.payload;if(!next)return;if(!payload||payload.numeric_identity!==next.numeric_identity){frame=0;playing=false}payload=next;document.getElementById('scrub').max=next.data.times.length-1;document.getElementById('replay').textContent=next.labels.Replay;document.getElementById('scrub').setAttribute('aria-label',next.labels.Time);document.getElementById('hint').textContent=next.labels['Drag a control horizontally; select a shape to focus its formal concept.'];draw();send('streamlit:setFrameHeight',{height:430})});
+send('streamlit:componentReady',{apiVersion:1});
+</script></body></html>

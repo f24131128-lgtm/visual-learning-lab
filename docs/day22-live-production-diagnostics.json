@@ -1,0 +1,17 @@
+{
+  "stage": "cached_before_diagnostics",
+  "code": "accepted",
+  "path": "$",
+  "generated": {
+    "shape": "NoneType"
+  },
+  "compiled_family": "process",
+  "normalized_entity_ids": [
+    "queue_items",
+    "enqueue_c",
+    "dequeue_front"
+  ],
+  "process_runtime_reached": true,
+  "legacy_visual_flow_used": false,
+  "request_count": 0
+}

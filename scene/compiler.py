@@ -245,15 +245,22 @@ def ensure_scene_state(material_id, analysis, domain=DOMAIN):
     return ensure_state(material_id, language, domain)
 
 
-def render_scene_builder(analysis, material_id, source_context, allowed_pages, model, format_pages):
+def render_scene_builder(analysis, material_id, source_context, allowed_pages, model, format_pages, workspace_mode=None):
     """Show the explicit compiler action and the cached local runtime."""
     domain = scene_domain(analysis, source_context)
     state = ensure_scene_state(material_id, analysis, domain or DOMAIN)
+    if workspace_mode == "source":
+        from source_atlas.compiler import render_atlas_builder
+        from source_atlas.runtime import render_atlas
+        bundle = render_atlas_builder(analysis, material_id, source_context, allowed_pages, model, state)
+        if bundle: render_atlas(bundle)
+        return bundle
     evidence = scene_candidate_evidence(analysis, source_context)
     candidate = domain is not None
     spatial = domain == WORLD_DOMAIN
     logger.debug("Learning Scene route candidate=%s evidence=%s cached=%s", candidate, evidence, bool(state.get("scene")))
     if not candidate and not state.get("scene"):
+        if workspace_mode == "explore": return
         from source_atlas.compiler import render_atlas_builder
         from source_atlas.runtime import render_atlas
         bundle = render_atlas_builder(analysis, material_id, source_context, allowed_pages, model)
@@ -297,7 +304,7 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
                 st.info(tr("The Learning Scene was incomplete or unsafe. Your analysis is still available."))
     from source_atlas.compiler import render_atlas_builder
     from source_atlas.runtime import render_atlas
-    bundle = render_atlas_builder(analysis, material_id, source_context, allowed_pages, model, state)
+    bundle = None if workspace_mode == "explore" else render_atlas_builder(analysis, material_id, source_context, allowed_pages, model, state)
     if bundle and not state.get("scene"):
         render_atlas(bundle)
     if state.get("scene"):

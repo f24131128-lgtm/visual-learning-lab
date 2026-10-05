@@ -271,6 +271,7 @@ class StreamlitInteractionTests(unittest.TestCase):
         at.session_state["product_language"] = "en"
         at.session_state["analysis"] = fixture(kind)
         at.session_state["analysis_id"] = "offline-material"
+        at.session_state["learning_workspace"] = dict(material_id="offline-material", mode="explore", focus=None)
         at.session_state["allowed_source_pages"] = [1, 2] if pdf else []
         at.session_state["source_context"] = source_fixture() if pdf else {"kind": "text", "source_text": "Incoming material enters the process.", "page_texts": {}}
         at.secrets["OPENAI_API_KEY"] = "offline-test-placeholder"
@@ -352,11 +353,12 @@ class StreamlitInteractionTests(unittest.TestCase):
 
     def test_knowledge_review_focused_cache_retry_and_cross_navigation(self):
         at = self.app()
+        at.radio(key="workspace-mode-offline-material").set_value("practice").run()
         self.click(at, "Start guided learning")
         self.click(at, "Next")
         self.click(at, "Next")
         for i in range(3):
-            at.radio[i].set_value("b" if i == 1 else "a").run()
+            at.radio(key=f"guided-quiz-option-offline-material-q{i+1}").set_value("b" if i == 1 else "a").run()
             at.button(key=f"guided-quiz-check-offline-material-q{i + 1}").click().run()
         self.assertFalse(at.exception)
         self.assertEqual(self.calls, [])
@@ -375,6 +377,7 @@ class StreamlitInteractionTests(unittest.TestCase):
         saved_answers = dict(at.session_state["guided_quiz_answers"])
         self.click(at, "Review step")
         self.assertEqual(at.session_state["guided_learning_step_id"], "s2")
+        at.radio(key="workspace-mode-offline-material").set_value("explore").run()
         at.selectbox[1].select("output").run()
         self.assertEqual(at.session_state["guided_quiz_answers"], saved_answers)
         self.assertEqual(at.session_state["adaptive_review_state"]["focused_review"], saved_review)
@@ -407,14 +410,14 @@ class StreamlitInteractionTests(unittest.TestCase):
         at.session_state["guided_learning_step_id"] = "s3"
         at.session_state["guided_quiz_answers"] = {"q1": "a", "q2": "b", "q3": "a"}
         at.session_state["guided_quiz_checked"] = {"q1": True, "q2": True, "q3": True}
-        at.run()
+        at.radio(key="workspace-mode-offline-material").set_value("practice").run()
         self.client.responses.create.side_effect = RuntimeError("offline simulated failure")
         self.click(at, "Build focused review")
         self.assertEqual(len(at.session_state["adaptive_review_state"]["review_queue"]), 1)
         self.assertEqual(at.session_state["guided_quiz_answers"]["q2"], "b")
         self.assertTrue(at.session_state["analysis"])
         self.assertIsNotNone(at.session_state["adaptive_review_state"]["error"])
-        at.radio[1].set_value("a").run()
+        at.radio(key="guided-quiz-option-offline-material-q2").set_value("a").run()
         at.button(key="guided-quiz-check-offline-material-q2").click().run()
         self.assertFalse(at.exception)
         self.assertFalse(any(button.label == "Build focused review" for button in at.button))

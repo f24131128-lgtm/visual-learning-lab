@@ -217,6 +217,11 @@ def related_demos(lab, step_ids):
 def select_demo(state, demo_id):
     if demo_id in state["demos"]:
         state["selected_id"] = demo_id
+        from workspace.state import open_workspace
+        workspace = st.session_state.get("learning_workspace")
+        if workspace:
+            workspace["representation"] = "formal"
+            open_workspace(workspace, "explore")
 
 
 def render_lab_links(lab, step_ids, material_id, key_prefix, recommended=False):

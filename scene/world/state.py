@@ -52,6 +52,13 @@ def apply_patch(scene, state, patch, record=True):
     return state
 
 
+def clear_focus(state, record=True):
+    """Clear selection only; leave validated physical values and recordings intact."""
+    state["focus"] = None
+    state["revision"] += 1
+    if record: record_action(state, {"kind": "clear_focus"})
+
+
 def record_action(state, action):
     if state["recording"]:
         if len(state["recorded"]) >= MAX_RECORDING_STEPS:
@@ -88,7 +95,8 @@ def validate_semantic(scene, value):
         raise ValueError("Malformed recording state.")
     snapshot(scene, value)
     validate_patch(scene, {"op": "set_time", "target_id": "time", "value": value["time"]}, parameters=value["parameters"])
-    validate_patch(scene, {"op": "set_focus", "target_id": value["focus"], "value": None})
+    if value["focus"] is not None:
+        validate_patch(scene, {"op": "set_focus", "target_id": value["focus"], "value": None})
     invariant_report(scene, value["parameters"])
     frames(scene, value["parameters"])
     if value["baseline"] is not None:
@@ -111,6 +119,8 @@ def replay_states(scene, state):
             apply_patch(scene, trial, action["patch"], record=False)
         elif action.get("kind") == "baseline" and set(action) == {"kind", "action"}:
             baseline_action(trial, action["action"], record=False)
+        elif action == {"kind": "clear_focus"}:
+            clear_focus(trial, record=False)
         elif action.get("kind") == "experiment" and set(action) == {"kind", "id"}:
             if action["id"] not in {e["id"] for e in scene["experiments"]}: raise ValueError("Unknown recorded experiment.")
             # Marker only: the following validated patches contain the changes.

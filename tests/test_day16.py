@@ -282,6 +282,7 @@ class SimulationInteractionTests(unittest.TestCase):
         at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
         at.session_state["analysis"] = analysis
         at.session_state["analysis_id"] = "sim-material"
+        at.session_state["learning_workspace"] = dict(material_id="sim-material", mode="explore", focus=None)
         at.session_state["allowed_source_pages"] = [1, 2]
         at.session_state["source_context"] = source_fixture()
         at.session_state["product_language"] = language
@@ -337,6 +338,7 @@ class SimulationInteractionTests(unittest.TestCase):
 
     def test_lesson_inspector_review_and_focused_review_use_existing_mapping(self):
         at = self.app()
+        at.radio(key="workspace-mode-sim-material").set_value("practice").run()
         self.click(at, "Start guided learning")
         # Build from the existing lesson link, then every subsequent link is local.
         self.client.responses.create.side_effect = lambda **kw: SimpleNamespace(output_text=json.dumps(self.raw_scene))
@@ -344,17 +346,19 @@ class SimulationInteractionTests(unittest.TestCase):
         self.assertEqual(self.client.responses.create.call_count, 1)
         lesson_button = next(button for button in at.button if str(button.key).startswith("sim-widget-sim-material-") and str(button.key).endswith("-lesson-s2"))
         lesson_button.click().run()
+        at.radio(key="workspace-mode-sim-material").set_value("explore").run()
         at.selectbox(key="canvas-list-sim-material-concept_map").select("transform").run()
         at.button(key="sim-widget-link-inspector-transform-sim-material-flight_model").click().run()
+        at.radio(key="workspace-mode-sim-material").set_value("practice").run()
         self.click(at, "Next")
         for i in range(3):
-            at.radio[i].set_value("b" if i == 1 else "a").run()
+            at.radio(key=f"guided-quiz-option-sim-material-q{i+1}").set_value("b" if i == 1 else "a").run()
             at.button(key=f"guided-quiz-check-sim-material-q{i+1}").click().run()
         at.button(key="sim-widget-link-review-queue-sim-material-flight_model").click().run()
         pattern = at.session_state["adaptive_review_state"]["pattern_key"]
         at.session_state["adaptive_review_state"]["focused_review"] = focused_fixture()
         at.session_state["focused_review_cache"][pattern] = focused_fixture()
-        at.run()
+        at.radio(key="workspace-mode-sim-material").set_value("practice").run()
         at.button(key="sim-widget-link-focused-review-sim-material-flight_model").click().run()
         self.assertEqual(self.client.responses.create.call_count, 1)
         self.assertEqual(at.session_state["guided_quiz_answers"]["q2"], "b")
@@ -376,6 +380,7 @@ class SimulationInteractionTests(unittest.TestCase):
         self.click(at, "Open simulation")
         self.assertEqual(self.client.responses.create.call_count, 3)
         self.assertFalse(any(item.value == "Dynamic Simulation Studio" for item in at.subheader))
+        at.radio(key="workspace-mode-sim-material").set_value("practice").run()
         self.assertTrue(any("Guided Learning" in item.value for item in at.markdown))
 
     def test_numeric_and_plot_failures_fallback_and_new_material_clear_only_simulation(self):
@@ -399,6 +404,7 @@ class SimulationInteractionTests(unittest.TestCase):
         at.run()
         self.assertFalse(at.session_state["dynamic_simulation_state"]["specs"])
         self.assertFalse(at.session_state["dynamic_simulation_state"]["frames"])
+        at.radio(key="workspace-mode-new-material").set_value("explore").run()
         self.assertEqual(at.slider[0].value, 25)
         self.assertEqual(self.client.responses.create.call_count, 1)
 

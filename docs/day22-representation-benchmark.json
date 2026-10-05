@@ -1,0 +1,142 @@
+{
+  "kind": "Representation Suitability Benchmark",
+  "corpus": "six synthetic deterministic cases",
+  "live_model_accuracy_test": false,
+  "cases": [
+    {
+      "case": "sinusoid / phase",
+      "semantic_characteristics": [
+        "equations",
+        "continuous_parameters",
+        "time_dynamics",
+        "spatial_relations",
+        "interaction_value"
+      ],
+      "expected_family": "dynamic",
+      "planner_result": "dynamic",
+      "runtime": "scene.world",
+      "compile_success": true,
+      "interaction_observed": "phase π/2 → wave 1, horizontal 0 via existing DAG",
+      "local_interaction_available": true,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "angle",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "none",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    },
+    {
+      "case": "FIFO queue",
+      "semantic_characteristics": [
+        "ordered_collection",
+        "transitions",
+        "structure",
+        "interaction_value"
+      ],
+      "expected_family": "process",
+      "planner_result": "process",
+      "runtime": "learning_world.process",
+      "compile_success": true,
+      "interaction_observed": "A,B + C → remove A → B,C; canonical focus remove",
+      "local_interaction_available": true,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "remove",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "process",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    },
+    {
+      "case": "Ohm's law",
+      "semantic_characteristics": [
+        "equations",
+        "continuous_parameters",
+        "analogy_suitable",
+        "interaction_value"
+      ],
+      "expected_family": "analogy",
+      "planner_result": "analogy",
+      "runtime": "analogy",
+      "compile_success": true,
+      "interaction_observed": "V=10,R=5 → formal current and analogy flow both 2",
+      "local_interaction_available": true,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "voltage",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "none",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    },
+    {
+      "case": "projectile",
+      "semantic_characteristics": [
+        "equations",
+        "continuous_parameters",
+        "time_dynamics",
+        "spatial_relations",
+        "interaction_value"
+      ],
+      "expected_family": "spatial",
+      "planner_result": "spatial",
+      "runtime": "scene.world",
+      "compile_success": true,
+      "interaction_observed": "existing world time patch changes validated trajectory projection",
+      "local_interaction_available": true,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "vx",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "none",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    },
+    {
+      "case": "probability",
+      "semantic_characteristics": [
+        "finite_outcomes",
+        "set_relations",
+        "structure",
+        "interaction_value"
+      ],
+      "expected_family": "structural",
+      "planner_result": "structural",
+      "runtime": "scene.probability",
+      "compile_success": true,
+      "interaction_observed": "exact P(E)=1/2; existing inclusion–exclusion and seeded sampling",
+      "local_interaction_available": true,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "E",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "static",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    },
+    {
+      "case": "terminology definition",
+      "semantic_characteristics": [],
+      "expected_family": "none",
+      "planner_result": "none",
+      "runtime": "existing explanation",
+      "compile_success": true,
+      "interaction_observed": "No forced interaction",
+      "local_interaction_available": false,
+      "source_grounding_available": true,
+      "source_grounding": "validated synthetic formal page links; not live grounding accuracy",
+      "shared_focus_available": true,
+      "shared_focus_observed": "definition",
+      "graceful_fallback": "existing formal view; planner unsupported-capability tests",
+      "fallback_family_without_specialized_capabilities": "none",
+      "mock_compile_calls": 1,
+      "paid_api_calls_after_compilation": 0
+    }
+  ]
+}

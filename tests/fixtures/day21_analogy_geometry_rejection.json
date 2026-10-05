@@ -1,0 +1,981 @@
+{
+  "stage": "normalize",
+  "code": "geometry_bounds",
+  "path": "$.primitives",
+  "generated": {
+    "version": "1.1",
+    "suitable": true,
+    "reason": "「水流通道」能以直觀方式對應教材中的驅動、流動與阻礙三者關係，並可呈現固定電壓下電阻變大時電流減小，以及 I-V 線性關係斜率變小。類比僅作為教學視覺化，不把水流系統宣稱為電路的物理同一物。",
+    "formal_focus": "ohms_law",
+    "selected_candidate": "water_channel",
+    "analogy_domain": "水流通道與可調阻礙",
+    "candidates": [
+      {
+        "id": "water_channel",
+        "title": "水流通道與可調阻礙",
+        "clarity": 0.9,
+        "visualizability": 0.92,
+        "interaction": 0.86,
+        "fidelity": 0.82,
+        "misconception_risk": 0.32
+      },
+      {
+        "id": "conveyor_belt",
+        "title": "輸送帶與可調阻力",
+        "clarity": 0.78,
+        "visualizability": 0.8,
+        "interaction": 0.82,
+        "fidelity": 0.7,
+        "misconception_risk": 0.4
+      },
+      {
+        "id": "traffic_lane",
+        "title": "交通車道與通行阻礙",
+        "clarity": 0.72,
+        "visualizability": 0.84,
+        "interaction": 0.78,
+        "fidelity": 0.67,
+        "misconception_risk": 0.44
+      }
+    ],
+    "formal_entities": [
+      {
+        "id": "ohms_law",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "voltage_v",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "current_i",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "resistance_r",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "equivalent_forms",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "parameter_trends",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "iv_slope",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "model_scope",
+        "source_pages": [
+          2
+        ]
+      }
+    ],
+    "analogy_entities": [
+      {
+        "id": "ae_channel_system",
+        "label": "整體水流通道模型"
+      },
+      {
+        "id": "ae_drive_difference",
+        "label": "通道兩端的驅動差"
+      },
+      {
+        "id": "ae_flow_stream",
+        "label": "通道中的流動量"
+      },
+      {
+        "id": "ae_obstruction",
+        "label": "可調通道阻礙"
+      },
+      {
+        "id": "ae_three_forms",
+        "label": "三種已知量與未知量的解法"
+      },
+      {
+        "id": "ae_trend_control",
+        "label": "阻礙調整控制"
+      },
+      {
+        "id": "ae_iv_display",
+        "label": "流動量—驅動差示意線"
+      },
+      {
+        "id": "ae_ideal_scope",
+        "label": "理想且近似固定的通道模型"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "map_ohms_system",
+        "formal_id": "ohms_law",
+        "analogy_id": "ae_channel_system",
+        "fidelity": 0.82,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_voltage_drive",
+        "formal_id": "voltage_v",
+        "analogy_id": "ae_drive_difference",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_current_flow",
+        "formal_id": "current_i",
+        "analogy_id": "ae_flow_stream",
+        "fidelity": 0.74,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_resistance_obstruction",
+        "formal_id": "resistance_r",
+        "analogy_id": "ae_obstruction",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_equivalent_forms",
+        "formal_id": "equivalent_forms",
+        "analogy_id": "ae_three_forms",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_parameter_trends",
+        "formal_id": "parameter_trends",
+        "analogy_id": "ae_trend_control",
+        "fidelity": 0.86,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_iv_slope",
+        "formal_id": "iv_slope",
+        "analogy_id": "ae_iv_display",
+        "fidelity": 0.84,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_model_scope",
+        "formal_id": "model_scope",
+        "analogy_id": "ae_ideal_scope",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      }
+    ],
+    "parameters": [
+      {
+        "id": "resistance_control",
+        "mapping_id": "map_parameter_trends",
+        "formal_target": "lab:iv_line_demo:resistance",
+        "min": 1,
+        "max": 20,
+        "default": 6,
+        "scale": 1,
+        "offset": 0
+      }
+    ],
+    "primitives": [
+      {
+        "id": "prim_channel",
+        "entity_id": "ae_channel_system",
+        "type": "rectangle",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "x2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "48449a14a4ff7d79"
+          },
+          "y2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "8527a891e2241369"
+          },
+          "radius": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "value": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_flow_tokens",
+        "entity_id": "ae_flow_stream",
+        "type": "tokens",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 27,
+            "blank": false,
+            "fingerprint": "599f6daf30b03001"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "x2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "y2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "d4735e3a265e16ee"
+          },
+          "value": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_drive_meter",
+        "entity_id": "ae_drive_difference",
+        "type": "meter",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "4ec9599fc203d176"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "f5ca38f748a1d6ea"
+          },
+          "x2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "y2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "radius": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "value": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "6b51d431df5d7f14"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_flow_meter",
+        "entity_id": "ae_flow_stream",
+        "type": "meter",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "a46e37632fa6ca51"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "f5ca38f748a1d6ea"
+          },
+          "x2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "y2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "radius": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "value": {
+            "length": 12,
+            "blank": false,
+            "fingerprint": "285497eda70aa967"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_obstruction_meter",
+        "entity_id": "ae_obstruction",
+        "type": "meter",
+        "control_parameter": "resistance_control",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "8b940be7fb78aaa6"
+          },
+          "x2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "y2": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "radius": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "value": {
+            "length": 18,
+            "blank": false,
+            "fingerprint": "96e1e5313d667de1"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_iv_line",
+        "entity_id": "ae_iv_display",
+        "type": "segment",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "4a44dc15364204a8"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "48449a14a4ff7d79"
+          },
+          "x2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "69f59c273b6e669a"
+          },
+          "y2": {
+            "length": 17,
+            "blank": false,
+            "fingerprint": "47bcaeec0ad94217"
+          },
+          "radius": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "value": {
+            "length": 0,
+            "blank": true,
+            "fingerprint": "e3b0c44298fc1c14"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      }
+    ]
+  },
+  "normalized": {
+    "version": "1.1",
+    "suitable": true,
+    "reason": "「水流通道」能以直觀方式對應教材中的驅動、流動與阻礙三者關係，並可呈現固定電壓下電阻變大時電流減小，以及 I-V 線性關係斜率變小。類比僅作為教學視覺化，不把水流系統宣稱為電路的物理同一物。",
+    "formal_focus": "ohms_law",
+    "selected_candidate": "water_channel",
+    "analogy_domain": "水流通道與可調阻礙",
+    "candidates": [
+      {
+        "id": "water_channel",
+        "title": "水流通道與可調阻礙",
+        "clarity": 0.9,
+        "visualizability": 0.92,
+        "interaction": 0.86,
+        "fidelity": 0.82,
+        "misconception_risk": 0.32
+      },
+      {
+        "id": "conveyor_belt",
+        "title": "輸送帶與可調阻力",
+        "clarity": 0.78,
+        "visualizability": 0.8,
+        "interaction": 0.82,
+        "fidelity": 0.7,
+        "misconception_risk": 0.4
+      },
+      {
+        "id": "traffic_lane",
+        "title": "交通車道與通行阻礙",
+        "clarity": 0.72,
+        "visualizability": 0.84,
+        "interaction": 0.78,
+        "fidelity": 0.67,
+        "misconception_risk": 0.44
+      }
+    ],
+    "formal_entities": [
+      {
+        "id": "ohms_law",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "voltage_v",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "current_i",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "resistance_r",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "equivalent_forms",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "parameter_trends",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "iv_slope",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "model_scope",
+        "source_pages": [
+          2
+        ]
+      }
+    ],
+    "analogy_entities": [
+      {
+        "id": "ae_channel_system",
+        "label": "整體水流通道模型"
+      },
+      {
+        "id": "ae_drive_difference",
+        "label": "通道兩端的驅動差"
+      },
+      {
+        "id": "ae_flow_stream",
+        "label": "通道中的流動量"
+      },
+      {
+        "id": "ae_obstruction",
+        "label": "可調通道阻礙"
+      },
+      {
+        "id": "ae_three_forms",
+        "label": "三種已知量與未知量的解法"
+      },
+      {
+        "id": "ae_trend_control",
+        "label": "阻礙調整控制"
+      },
+      {
+        "id": "ae_iv_display",
+        "label": "流動量—驅動差示意線"
+      },
+      {
+        "id": "ae_ideal_scope",
+        "label": "理想且近似固定的通道模型"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "map_ohms_system",
+        "formal_id": "ohms_law",
+        "analogy_id": "ae_channel_system",
+        "fidelity": 0.82,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_voltage_drive",
+        "formal_id": "voltage_v",
+        "analogy_id": "ae_drive_difference",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_current_flow",
+        "formal_id": "current_i",
+        "analogy_id": "ae_flow_stream",
+        "fidelity": 0.74,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_resistance_obstruction",
+        "formal_id": "resistance_r",
+        "analogy_id": "ae_obstruction",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_equivalent_forms",
+        "formal_id": "equivalent_forms",
+        "analogy_id": "ae_three_forms",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_parameter_trends",
+        "formal_id": "parameter_trends",
+        "analogy_id": "ae_trend_control",
+        "fidelity": 0.86,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_iv_slope",
+        "formal_id": "iv_slope",
+        "analogy_id": "ae_iv_display",
+        "fidelity": 0.84,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_model_scope",
+        "formal_id": "model_scope",
+        "analogy_id": "ae_ideal_scope",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      }
+    ],
+    "parameters": [
+      {
+        "id": "resistance_control",
+        "mapping_id": "map_parameter_trends",
+        "formal_target": "lab:iv_line_demo:resistance",
+        "min": 1,
+        "max": 20,
+        "default": 6,
+        "scale": 1,
+        "offset": 0
+      }
+    ],
+    "primitives": [
+      {
+        "id": "prim_channel",
+        "entity_id": "ae_channel_system",
+        "type": "rectangle",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "x2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "48449a14a4ff7d79"
+          },
+          "y2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "8527a891e2241369"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "value": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_flow_tokens",
+        "entity_id": "ae_flow_stream",
+        "type": "tokens",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 27,
+            "blank": false,
+            "fingerprint": "599f6daf30b03001"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "x2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "y2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "d4735e3a265e16ee"
+          },
+          "value": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_drive_meter",
+        "entity_id": "ae_drive_difference",
+        "type": "meter",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "4ec9599fc203d176"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "f5ca38f748a1d6ea"
+          },
+          "x2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "y2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "value": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "6b51d431df5d7f14"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_flow_meter",
+        "entity_id": "ae_flow_stream",
+        "type": "meter",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "a46e37632fa6ca51"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "f5ca38f748a1d6ea"
+          },
+          "x2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "y2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "value": {
+            "length": 12,
+            "blank": false,
+            "fingerprint": "285497eda70aa967"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_obstruction_meter",
+        "entity_id": "ae_obstruction",
+        "type": "meter",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "1a6562590ef19d10"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "8b940be7fb78aaa6"
+          },
+          "x2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "y2": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "value": {
+            "length": 18,
+            "blank": false,
+            "fingerprint": "96e1e5313d667de1"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      },
+      {
+        "id": "prim_iv_line",
+        "entity_id": "ae_iv_display",
+        "type": "segment",
+        "control_parameter": "",
+        "math_slots": {
+          "x": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "4a44dc15364204a8"
+          },
+          "y": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "48449a14a4ff7d79"
+          },
+          "x2": {
+            "length": 2,
+            "blank": false,
+            "fingerprint": "69f59c273b6e669a"
+          },
+          "y2": {
+            "length": 17,
+            "blank": false,
+            "fingerprint": "47bcaeec0ad94217"
+          },
+          "radius": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "value": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "5feceb66ffc86f38"
+          },
+          "visible": {
+            "length": 1,
+            "blank": false,
+            "fingerprint": "6b86b273ff34fce1"
+          }
+        }
+      }
+    ]
+  },
+  "recoveries": [
+    {
+      "code": "drag_omitted",
+      "path": "$.primitives[4].control_parameter"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[0].radius"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[0].value"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[1].x2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[1].y2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[1].value"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[2].x2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[2].y2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[2].radius"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[3].x2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[3].y2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[3].radius"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[4].x2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[4].y2"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[4].radius"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[5].radius"
+    },
+    {
+      "code": "unused_visual_default",
+      "path": "$.primitives[5].value"
+    }
+  ]
+}

@@ -84,7 +84,7 @@ def payload(scene, wrapper, replay=None):
             rows = changes(scene, local | {"baseline": None, "previous": previous}) if previous else []
             summary = [f"{r['label']}: {r['before']:.4g} → {r['after']:.4g} {r['unit']}" for r in rows if r["label"] in {p["label"] for p in scene["parameters"]}]
             if previous and local["time"] != previous["time"]: summary.append(tr("Time") + f": {previous['time']:.4g} → {local['time']:.4g} " + scene["time"]["unit"])
-            if previous and local["focus"] != previous["focus"]: summary.append(tr("Focus") + ": " + labels[local["focus"]])
+            if previous and local["focus"] != previous["focus"]: summary.append(tr("Focus") + ": " + labels.get(local["focus"], tr("Choose a concept or source object")))
             if previous and local["baseline"] != previous["baseline"]: summary.append(tr("Comparison"))
             result["replay"].append(dataset(local)); result["replay_indices"].append(index)
             result["replay_summaries"].append(" · ".join(summary[:3]) or tr("Initial state"))
@@ -146,7 +146,7 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
             focus_ids = [q["id"] for q in scene["quantities"]]
             focus_key = prefix+"focus"
             st.session_state[focus_key] = state["focus"]
-            st.selectbox(tr("Semantic focus"), focus_ids, format_func=lambda i: next(q["label"] for q in scene["quantities"] if q["id"] == i), key=focus_key,
+            st.selectbox(tr("Semantic focus"), focus_ids, index=None, format_func=lambda i: next(q["label"] for q in scene["quantities"] if q["id"] == i), key=focus_key,
                          on_change=lambda: act(apply_patch, scene, state, {"op": "set_focus", "target_id": st.session_state[focus_key], "value": None}))
         # Accessible fallback to the contained browser scrubber, same canonical state.
         time_key = prefix+"time"
@@ -202,14 +202,15 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
             st.caption(tr("This camera view is a committed-state snapshot; continuous playback stays in the coordinated workspace."))
             plotly_fallback(scene, state)
         # Accessible state values also provide regression evidence after gestures.
-        selected = next(q for q in scene["quantities"] if q["id"] == state["focus"])
-        selected_value = snapshot(scene, state)["values"][state["focus"]]
-        st.caption(selected["label"]+f": {selected_value:.6g} "+selected["unit"])
+        selected = next((q for q in scene["quantities"] if q["id"] == state["focus"]), None)
+        if selected:
+            selected_value = snapshot(scene, state)["values"][state["focus"]]
+            st.caption(selected["label"]+f": {selected_value:.6g} "+selected["unit"])
         rows = changes(scene, state)
         if rows:
             st.caption(tr("What changed?"))
             st.caption(" · ".join(f"{r['label']}: {r['before']:.4g} → {r['after']:.4g} {r['unit']} (Δ {r['delta']:+.3g}"+(f", {r['percent']:+.1f}%" if r["percent"] is not None else "")+")" for r in rows[:6]))
-        pages = selected["source_pages"]
+        pages = selected["source_pages"] if selected else []
         if pages:
             st.caption(format_pages(pages))
             canvas = st.session_state.get("learning_canvas")

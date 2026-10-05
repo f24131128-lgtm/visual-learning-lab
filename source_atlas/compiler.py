@@ -67,8 +67,9 @@ def _render_atlas_builder(analysis, material_id, source_context, allowed, model,
     with st.container(border=True):
         st.markdown("### "+tr("Source Atlas"))
         st.caption(tr("Connect original formulas and diagrams to the same learning-world focus."))
+        page_labels = {p: tr("Page {page}", page=p) for p in ranked}
         pages = st.multiselect(tr("Pages to ground (up to 3)"), ranked, default=ranked[:MAX_PAGES],
-            format_func=lambda p: tr("Page {page}", page=p), max_selections=MAX_PAGES, key="atlas-widget-pages-"+material_id)
+            format_func=lambda p, labels=page_labels: labels[p], max_selections=MAX_PAGES, key="atlas-widget-pages-"+material_id)
         if not pages: return None
         key = cache_key(material_id, source["pdf_bytes"], analysis["analysis_language"], pages, scene, catalog)
         state = ensure_state(key)

@@ -202,6 +202,7 @@ class CompilerProductRegressionTests(unittest.TestCase):
         at = AppTest.from_file(str(ROOT/"app.py"), default_timeout=30)
         at.session_state["analysis"] = analysis
         at.session_state["analysis_id"] = "zh-three-phase"
+        at.session_state["learning_workspace"] = dict(material_id="zh-three-phase", mode="explore", focus=None)
         at.session_state["source_context"] = dict(kind="text", source_text=THREE_PHASE_TEXT, page_texts={})
         at.session_state["allowed_source_pages"] = []
         at.session_state["product_language"] = "zh-TW"

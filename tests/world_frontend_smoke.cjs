@@ -92,6 +92,11 @@ for(const input of inputs){
     assert.equal(messages.at(-1).value.kind,'inverse');
     assert(Math.abs(messages.at(-1).value.value-Math.PI/2)<1e-8);
   }
+  const cleared=structuredClone(payload);
+  cleared.revision+=1;
+  cleared.data.current.focus=null;
+  render(cleared);
+  assert.equal(node('equations').children.length,0);
   render(input.replay);
   inspect('tick(1000)');assert.equal(inspect('replayIndex'),0);
   inspect('tick(1900)');

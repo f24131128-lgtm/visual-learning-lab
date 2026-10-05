@@ -39,7 +39,11 @@ def optional_scene(wrapper):
 
 def current_focus(wrapper):
     scene = optional_scene(wrapper)
-    if scene is None: return None
+    if scene is None:
+        workspace = st.session_state.get("learning_workspace")
+        if workspace and isinstance(wrapper, dict) and wrapper.get("material_id") == workspace["material_id"]:
+            return workspace["focus"]
+        return None
     if scene["domain"] == "spatial_dynamics":
         from scene.world.state import new_state
         return wrapper.setdefault("world", new_state(scene))["focus"]
@@ -54,7 +58,13 @@ def current_focus(wrapper):
 def set_focus(wrapper, identifier, catalog):
     """Use existing reducers and selectors; never modify source physics/state."""
     scene = optional_scene(wrapper)
-    if scene is None or identifier not in catalog: return False
+    if identifier not in catalog: return False
+    if scene is None:
+        workspace = st.session_state.get("learning_workspace")
+        if workspace and isinstance(wrapper, dict) and wrapper.get("material_id") == workspace["material_id"]:
+            from workspace.state import set_workspace_focus
+            return set_workspace_focus(workspace, identifier, catalog)
+        return False
     if scene["domain"] == "spatial_dynamics":
         from scene.world.state import apply_patch, new_state
         quantity_ids = {q["id"] for q in scene["quantities"]}

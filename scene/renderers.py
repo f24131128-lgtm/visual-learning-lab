@@ -75,6 +75,10 @@ def _select_outcome(state, outcome_id):
 
 def render_controls(scene, state):
     targets = list(scene["focus_targets"])
+    if state.get("selected_focus_id") == "workspace_empty":
+        event = scene["events"][0]["id"]
+        targets.append(dict(id="workspace_empty", label=tr("Choose a concept or source object"),
+                            expression=f"{event} - {event}", source_pages=[]))
     left, right = _event_pair(scene)
     if left and right:
         generated = [

@@ -1,0 +1,185 @@
+{
+  "stage": "normalize",
+  "code": "ambiguous_mappings",
+  "path": "$",
+  "generated": {
+    "version": "1.0",
+    "suitable": true,
+    "reason": "水流管路類比能清楚對應電壓的驅動條件、電流的流動量與電阻的阻礙程度，也能呈現 V = IR、參數變化及 I–V 圖斜率 1/R。類比限制可明確標示，因此誤解風險可控制在可接受範圍。",
+    "formal_focus": "ohms_law",
+    "selected_candidate": "water_pipe",
+    "analogy_domain": "水流管路：壓力差、流量與管路阻礙",
+    "candidates": [
+      {
+        "id": "water_pipe",
+        "title": "水流管路：壓差、流量與管路阻礙",
+        "clarity": 0.92,
+        "visualizability": 0.93,
+        "interaction": 0.9,
+        "fidelity": 0.84,
+        "misconception_risk": 0.3
+      },
+      {
+        "id": "traffic_lane",
+        "title": "交通道路：推動、車流與道路阻塞",
+        "clarity": 0.84,
+        "visualizability": 0.88,
+        "interaction": 0.82,
+        "fidelity": 0.7,
+        "misconception_risk": 0.42
+      },
+      {
+        "id": "marble_track",
+        "title": "彈珠軌道：推動、通過量與狹窄通道",
+        "clarity": 0.76,
+        "visualizability": 0.8,
+        "interaction": 0.78,
+        "fidelity": 0.67,
+        "misconception_risk": 0.46
+      }
+    ],
+    "formal_entities": [
+      {
+        "id": "ohms_law"
+      },
+      {
+        "id": "voltage_v"
+      },
+      {
+        "id": "current_i"
+      },
+      {
+        "id": "resistance_r"
+      },
+      {
+        "id": "parameter_scaling"
+      },
+      {
+        "id": "iv_slope"
+      },
+      {
+        "id": "scope_limits"
+      }
+    ],
+    "analogy_entities": [
+      {
+        "id": "pipe_drive",
+        "label": "管路兩端的推動壓差"
+      },
+      {
+        "id": "water_flow",
+        "label": "通過管路的水流量"
+      },
+      {
+        "id": "pipe_obstruction",
+        "label": "管路的流動阻礙"
+      },
+      {
+        "id": "pipe_relation",
+        "label": "整段管路的推動—流量關係"
+      },
+      {
+        "id": "flow_graph",
+        "label": "流量—壓差圖"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "map_drive",
+        "formal_id": "voltage_v",
+        "analogy_id": "pipe_drive",
+        "fidelity": 0.82,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_flow",
+        "formal_id": "current_i",
+        "analogy_id": "water_flow",
+        "fidelity": 0.83,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_obstruction",
+        "formal_id": "resistance_r",
+        "analogy_id": "pipe_obstruction",
+        "fidelity": 0.84,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_relation",
+        "formal_id": "ohms_law",
+        "analogy_id": "pipe_relation",
+        "fidelity": 0.76,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_scaling",
+        "formal_id": "parameter_scaling",
+        "analogy_id": "pipe_relation",
+        "fidelity": 0.8,
+        "mode": "quantitative"
+      },
+      {
+        "id": "map_slope",
+        "formal_id": "iv_slope",
+        "analogy_id": "flow_graph",
+        "fidelity": 0.8,
+        "mode": "quantitative"
+      }
+    ],
+    "parameters": [
+      {
+        "id": "voltage",
+        "mapping_id": "map_drive",
+        "formal_target": "",
+        "min": 6,
+        "max": 24,
+        "default": 12,
+        "scale": 1,
+        "offset": 0
+      },
+      {
+        "id": "resistance",
+        "mapping_id": "map_obstruction",
+        "formal_target": "lab:ohms_current_curve:resistance",
+        "min": 1,
+        "max": 15,
+        "default": 6,
+        "scale": 1,
+        "offset": 0
+      }
+    ],
+    "primitives": [
+      {
+        "id": "pipe_body",
+        "entity_id": "pipe_obstruction",
+        "type": "rectangle",
+        "control_parameter": "resistance"
+      },
+      {
+        "id": "flow_tokens",
+        "entity_id": "water_flow",
+        "type": "tokens",
+        "control_parameter": ""
+      },
+      {
+        "id": "drive_meter",
+        "entity_id": "pipe_drive",
+        "type": "meter",
+        "control_parameter": "voltage"
+      },
+      {
+        "id": "flow_meter",
+        "entity_id": "water_flow",
+        "type": "meter",
+        "control_parameter": ""
+      },
+      {
+        "id": "iv_curve",
+        "entity_id": "flow_graph",
+        "type": "curve",
+        "control_parameter": "resistance"
+      }
+    ]
+  }
+}

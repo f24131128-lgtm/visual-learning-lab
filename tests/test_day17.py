@@ -279,6 +279,7 @@ class LearningSceneAppTests(unittest.TestCase):
         at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=30)
         at.session_state["analysis"] = probability_analysis()
         at.session_state["analysis_id"] = "probability-material"
+        at.session_state["learning_workspace"] = dict(material_id="probability-material", mode="explore", focus=None)
         at.session_state["allowed_source_pages"] = [2]
         at.session_state["source_context"] = {"kind": "text", "source_text": "Sample space and probability events.", "page_texts": {}}
         at.session_state["product_language"] = "en"
@@ -311,6 +312,7 @@ class LearningSceneAppTests(unittest.TestCase):
         self.assertFalse(at.exception); self.assertTrue(at.session_state["analysis"])
         self.assertFalse(at.session_state["learning_scene_state"]["scene"])
         self.assertTrue(any("incomplete or unsafe" in item.value for item in at.info))
+        at.radio(key="workspace-mode-probability-material").set_value("practice").run()
         self.assertTrue(any("Guided Learning" in item.value for item in at.markdown))
 
     def test_realistic_probability_pdf_exposes_early_localized_entry_and_collapses_relationships(self):
@@ -331,13 +333,11 @@ class LearningSceneAppTests(unittest.TestCase):
         at.secrets["OPENAI_API_KEY"] = "offline-placeholder"
         at.run(); self.assertFalse(at.exception)
         self.client.responses.create.assert_not_called()
-        build = next(button for button in at.button if button.label == "建立互動學習場景")
-        values = [item.value for item in at.markdown]
-        scene_index = next(index for index, value in enumerate(values) if "互動學習場景" in value)
-        snapshot_index = next(index for index, value in enumerate(values) if "學習概覽" in value)
-        self.assertLess(scene_index, snapshot_index)
-        self.assertTrue(any("Day 20 / 30" in value for value in values))
         self.assertTrue(any(item.label == "概念關係" for item in at.expander))
+        self.assertTrue(any("Day 20 / 30" in item.value for item in at.markdown))
+        at.radio(key="workspace-mode-real-probability-pdf").set_value("explore").run()
+        build = next(button for button in at.button if button.label == "建立互動學習場景")
+        self.assertFalse(any("學習概覽" in item.value for item in at.markdown))
         build.click().run(); self.assertFalse(at.exception)
         self.assertEqual(self.client.responses.create.call_count, 1)
         values = [item.value for item in at.markdown]

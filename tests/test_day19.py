@@ -245,6 +245,7 @@ class NormalPDFTests(unittest.TestCase):
         at=AppTest.from_file(str(ROOT/"app.py"),default_timeout=40)
         pdf=source_pdf();analysis=spatial_analysis();analysis["analysis_language"]="zh-TW"
         at.session_state["analysis"]=analysis;at.session_state["analysis_id"]="pdf19"
+        at.session_state["learning_workspace"] = dict(material_id="pdf19", mode="source", focus=None)
         at.session_state["source_context"]=dict(kind="pdf",page_texts=page_texts(pdf))
         at.session_state["allowed_source_pages"]=[1,2]
         at.session_state["learning_canvas"]=dict(material_id="pdf19",selected_id=None,kind=None,component=None,style_signature=None,last_event=-1,fallback=False,component_error=False,source=new_source_state("pdf19",pdf))
@@ -260,11 +261,13 @@ class NormalPDFTests(unittest.TestCase):
             self.assertTrue(any("Day 20 / 30" in str(e.value) for e in at.markdown))
             self.assertEqual(client.responses.create.call_count,0)
             at.button(key="atlas-widget-build-pdf19").click().run();self.assertFalse(at.exception)
-            self.assertTrue(any("原始來源" in str(e.value) for e in at.markdown));self.assertTrue(any("互動理解" in str(e.value) for e in at.markdown))
+            self.assertTrue(any("原始來源" in str(e.value) for e in at.markdown));self.assertFalse(any("互動理解" in str(e.value) for e in at.markdown))
             region_select=next(e for e in at.selectbox if e.label=="選取來源物件")
             region_select.set_value("vector_b").run();self.assertFalse(at.exception)
             self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"],"ib")
+            at.radio(key="workspace-mode-pdf19").set_value("explore").run()
             at.selectbox(key="world-widget-pdf19-focus").set_value("ia").run();self.assertFalse(at.exception)
+            at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertEqual(at.session_state["source_atlas_state"]["region_hint"],"formula_a")
             next(e for e in at.selectbox if e.label=="來源頁面").set_value(2).run()
             self.assertFalse(at.exception);self.assertEqual(client.responses.create.call_count,1)
@@ -278,7 +281,9 @@ class NormalPDFTests(unittest.TestCase):
             at=self.app().run();at.button(key="atlas-widget-build-pdf19").click().run()
             self.assertFalse(at.exception);self.assertIsNone(at.session_state["source_atlas_state"]["atlas"])
             self.assertIsNotNone(at.session_state["learning_scene_state"]["scene"])
+            at.radio(key="workspace-mode-pdf19").set_value("learn").run()
             self.assertTrue(any("學習概覽" in str(e.value) for e in at.markdown))
+            at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertTrue(at.button(key="atlas-widget-build-pdf19").disabled)
             self.assertEqual(client.responses.create.call_count,1)
 

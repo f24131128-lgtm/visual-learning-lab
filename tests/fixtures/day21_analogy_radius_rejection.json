@@ -1,0 +1,478 @@
+{
+  "stage": "normalize",
+  "code": "unsafe_expression",
+  "path": "$.primitives[0].radius",
+  "generated": {
+    "version": "1.1",
+    "suitable": true,
+    "reason": "「單向輸送帶與可調阻力閘門」能清楚對應驅動、流動與阻礙三者，並以同一條通道呈現理想串聯電路；調整類比控制時，也能直觀看到流動代理量隨驅動增加、隨阻礙增加而改變。它仍需明確標示為教學類比，避免把電壓直接等同於流體壓力或把類比比例當成所有電性元件的物理定律。",
+    "formal_focus": "ohm_law",
+    "selected_candidate": "candidate_conveyor_gate",
+    "analogy_domain": "單向貨物流動的輸送帶與可調阻力閘門",
+    "candidates": [
+      {
+        "id": "candidate_water_pipe",
+        "title": "水管中的水流與閥門",
+        "clarity": 0.88,
+        "visualizability": 0.91,
+        "interaction": 0.86,
+        "fidelity": 0.78,
+        "misconception_risk": 0.43
+      },
+      {
+        "id": "candidate_conveyor_gate",
+        "title": "輸送帶上的貨物流動與阻力閘門",
+        "clarity": 0.9,
+        "visualizability": 0.9,
+        "interaction": 0.88,
+        "fidelity": 0.82,
+        "misconception_risk": 0.34
+      },
+      {
+        "id": "candidate_crowd_corridor",
+        "title": "人群通過狹窄通道",
+        "clarity": 0.76,
+        "visualizability": 0.82,
+        "interaction": 0.79,
+        "fidelity": 0.68,
+        "misconception_risk": 0.48
+      }
+    ],
+    "formal_entities": [
+      {
+        "id": "ohm_law",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "voltage_v",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "current_i",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "resistance_r",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "series_circuit",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "parameter_rules",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "iv_slope",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "model_scope",
+        "source_pages": [
+          2
+        ]
+      }
+    ],
+    "analogy_entities": [
+      {
+        "id": "belt_drive",
+        "label": "輸送帶的推動條件"
+      },
+      {
+        "id": "cargo_stream",
+        "label": "單位時間通過的貨物流動"
+      },
+      {
+        "id": "resistance_gate",
+        "label": "可調阻力閘門"
+      },
+      {
+        "id": "single_lane",
+        "label": "單一路徑輸送帶"
+      },
+      {
+        "id": "relation_panel",
+        "label": "驅動、流動與阻礙關係板"
+      },
+      {
+        "id": "slope_panel",
+        "label": "流動—驅動關係圖示"
+      },
+      {
+        "id": "scope_notice",
+        "label": "模型適用範圍提示"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "map_ohm_law",
+        "formal_id": "ohm_law",
+        "analogy_id": "relation_panel",
+        "fidelity": 0.82,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_voltage",
+        "formal_id": "voltage_v",
+        "analogy_id": "belt_drive",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_current",
+        "formal_id": "current_i",
+        "analogy_id": "cargo_stream",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_resistance",
+        "formal_id": "resistance_r",
+        "analogy_id": "resistance_gate",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_series",
+        "formal_id": "series_circuit",
+        "analogy_id": "single_lane",
+        "fidelity": 0.72,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_rules_drive",
+        "formal_id": "parameter_rules",
+        "analogy_id": "relation_panel",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_slope",
+        "formal_id": "iv_slope",
+        "analogy_id": "slope_panel",
+        "fidelity": 0.74,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_scope",
+        "formal_id": "model_scope",
+        "analogy_id": "scope_notice",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      }
+    ],
+    "parameters": [
+      {
+        "id": "drive_level",
+        "mapping_id": "map_voltage",
+        "formal_target": "",
+        "min": 0,
+        "max": 24,
+        "default": 12,
+        "scale": 1,
+        "offset": 0
+      },
+      {
+        "id": "gate_resistance",
+        "mapping_id": "map_resistance",
+        "formal_target": "",
+        "min": 1,
+        "max": 20,
+        "default": 6,
+        "scale": 1,
+        "offset": 0
+      }
+    ],
+    "primitives": [
+      {
+        "id": "belt_body",
+        "entity_id": "single_lane",
+        "type": "rectangle",
+        "control_parameter": ""
+      },
+      {
+        "id": "drive_marker",
+        "entity_id": "belt_drive",
+        "type": "segment",
+        "control_parameter": "drive_level"
+      },
+      {
+        "id": "gate_body",
+        "entity_id": "resistance_gate",
+        "type": "rectangle",
+        "control_parameter": "gate_resistance"
+      },
+      {
+        "id": "cargo_tokens",
+        "entity_id": "cargo_stream",
+        "type": "tokens",
+        "control_parameter": ""
+      },
+      {
+        "id": "flow_meter",
+        "entity_id": "cargo_stream",
+        "type": "meter",
+        "control_parameter": ""
+      },
+      {
+        "id": "relation_marker",
+        "entity_id": "relation_panel",
+        "type": "rectangle",
+        "control_parameter": ""
+      }
+    ]
+  },
+  "normalized": {
+    "version": "1.1",
+    "suitable": true,
+    "reason": "「單向輸送帶與可調阻力閘門」能清楚對應驅動、流動與阻礙三者，並以同一條通道呈現理想串聯電路；調整類比控制時，也能直觀看到流動代理量隨驅動增加、隨阻礙增加而改變。它仍需明確標示為教學類比，避免把電壓直接等同於流體壓力或把類比比例當成所有電性元件的物理定律。",
+    "formal_focus": "ohm_law",
+    "selected_candidate": "candidate_conveyor_gate",
+    "analogy_domain": "單向貨物流動的輸送帶與可調阻力閘門",
+    "candidates": [
+      {
+        "id": "candidate_water_pipe",
+        "title": "水管中的水流與閥門",
+        "clarity": 0.88,
+        "visualizability": 0.91,
+        "interaction": 0.86,
+        "fidelity": 0.78,
+        "misconception_risk": 0.43
+      },
+      {
+        "id": "candidate_conveyor_gate",
+        "title": "輸送帶上的貨物流動與阻力閘門",
+        "clarity": 0.9,
+        "visualizability": 0.9,
+        "interaction": 0.88,
+        "fidelity": 0.82,
+        "misconception_risk": 0.34
+      },
+      {
+        "id": "candidate_crowd_corridor",
+        "title": "人群通過狹窄通道",
+        "clarity": 0.76,
+        "visualizability": 0.82,
+        "interaction": 0.79,
+        "fidelity": 0.68,
+        "misconception_risk": 0.48
+      }
+    ],
+    "formal_entities": [
+      {
+        "id": "ohm_law",
+        "source_pages": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "voltage_v",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "current_i",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "resistance_r",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "series_circuit",
+        "source_pages": [
+          1
+        ]
+      },
+      {
+        "id": "parameter_rules",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "iv_slope",
+        "source_pages": [
+          2
+        ]
+      },
+      {
+        "id": "model_scope",
+        "source_pages": [
+          2
+        ]
+      }
+    ],
+    "analogy_entities": [
+      {
+        "id": "belt_drive",
+        "label": "輸送帶的推動條件"
+      },
+      {
+        "id": "cargo_stream",
+        "label": "單位時間通過的貨物流動"
+      },
+      {
+        "id": "resistance_gate",
+        "label": "可調阻力閘門"
+      },
+      {
+        "id": "single_lane",
+        "label": "單一路徑輸送帶"
+      },
+      {
+        "id": "relation_panel",
+        "label": "驅動、流動與阻礙關係板"
+      },
+      {
+        "id": "slope_panel",
+        "label": "流動—驅動關係圖示"
+      },
+      {
+        "id": "scope_notice",
+        "label": "模型適用範圍提示"
+      }
+    ],
+    "mappings": [
+      {
+        "id": "map_ohm_law",
+        "formal_id": "ohm_law",
+        "analogy_id": "relation_panel",
+        "fidelity": 0.82,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_voltage",
+        "formal_id": "voltage_v",
+        "analogy_id": "belt_drive",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_current",
+        "formal_id": "current_i",
+        "analogy_id": "cargo_stream",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_resistance",
+        "formal_id": "resistance_r",
+        "analogy_id": "resistance_gate",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_series",
+        "formal_id": "series_circuit",
+        "analogy_id": "single_lane",
+        "fidelity": 0.72,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_rules_drive",
+        "formal_id": "parameter_rules",
+        "analogy_id": "relation_panel",
+        "fidelity": 0.8,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_slope",
+        "formal_id": "iv_slope",
+        "analogy_id": "slope_panel",
+        "fidelity": 0.74,
+        "mode": "qualitative"
+      },
+      {
+        "id": "map_scope",
+        "formal_id": "model_scope",
+        "analogy_id": "scope_notice",
+        "fidelity": 0.78,
+        "mode": "qualitative"
+      }
+    ],
+    "parameters": [
+      {
+        "id": "drive_level",
+        "mapping_id": "map_voltage",
+        "formal_target": "",
+        "min": 0,
+        "max": 24,
+        "default": 12,
+        "scale": 1,
+        "offset": 0
+      },
+      {
+        "id": "gate_resistance",
+        "mapping_id": "map_resistance",
+        "formal_target": "",
+        "min": 1,
+        "max": 20,
+        "default": 6,
+        "scale": 1,
+        "offset": 0
+      }
+    ],
+    "primitives": [
+      {
+        "id": "belt_body",
+        "entity_id": "single_lane",
+        "type": "rectangle",
+        "control_parameter": ""
+      },
+      {
+        "id": "drive_marker",
+        "entity_id": "belt_drive",
+        "type": "segment",
+        "control_parameter": "drive_level"
+      },
+      {
+        "id": "gate_body",
+        "entity_id": "resistance_gate",
+        "type": "rectangle",
+        "control_parameter": "gate_resistance"
+      },
+      {
+        "id": "cargo_tokens",
+        "entity_id": "cargo_stream",
+        "type": "tokens",
+        "control_parameter": ""
+      },
+      {
+        "id": "flow_meter",
+        "entity_id": "cargo_stream",
+        "type": "meter",
+        "control_parameter": ""
+      },
+      {
+        "id": "relation_marker",
+        "entity_id": "relation_panel",
+        "type": "rectangle",
+        "control_parameter": ""
+      }
+    ]
+  },
+  "recoveries": []
+}

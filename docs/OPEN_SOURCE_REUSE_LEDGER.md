@@ -64,3 +64,76 @@ link, inspect exact file/package/model licenses, assess portability and measured
 benefit, and record why custom implementation remains necessary. Unknown dates,
 licenses or accuracy are unknown, not favorable evidence. Recheck this ledger
 when integrating a newer artifact. See landscape scorecard and Day 21–30 roadmap.
+
+
+## Day 21 — workspace orchestration (2026-10-03)
+
+Reuse the Day 20 primary-source inspections; no second landscape study or code/asset download.
+
+| Alternative | Decision and concrete application | Cost / provenance / license boundary |
+|---|---|---|
+| H5P Interactive Book / Question | LEARN: one active activity; explicit checked feedback and retry; reuse existing quizzes | Existing Day 20 repository/semantics links; independent Python implementation, no H5P code/assets copied; prior component-specific license audit still applies |
+| PhET Joist | LEARN: screen switching retains the system state; keep reset separate from navigation | Existing Joist/Projectile Motion sources in landscape; no dependency or assets added; Joist MIT is not a blanket simulation/assets permission |
+| LearnHouse | LEARN / DEFER: activity navigation; defer LMS backend | Existing Day 20 maintenance/source evidence; do not copy AGPL platform code, no service deployment |
+| Augmented Physics | LEARN: source selection is an entry into interaction; do not claim novelty | Existing primary source in landscape; no generated executable code or models adopted |
+| Existing VLL scene reducer, Atlas, Lens, quizzes, Plotly | REUSE: route active views and existing stable IDs; small public internal contract | No package, renderer, parser, weights or notices added; existing PyMuPDF obligations remain unresolved |
+
+AlgeBench semantic graph and ViviDoc State/Render/Transition/Constraint remain close prior art, not imported infrastructure. Formal/Analogy/Compare can become Explore activities later without changing top-level navigation. No renderer registry added without two production alternatives.
+
+# Day 21 Ultra — targeted analogy decision (2026-10-03)
+
+Eight systems/papers were inspected; no additional broad landscape scan. **REUSE** the existing safe_math AST evaluator, world reducer, semantic catalog, Streamlit component transport and installed Plotly public APIs (core [MIT license](https://github.com/plotly/plotly.js/blob/main/LICENSE)); no new dependency, upstream source, weights or artwork. **WRAP** a locally authored fixed SVG renderer receiving bounded numeric projections only. **LEARN** candidate assessment and explicit correspondences from [AnalogyMate](https://arxiv.org/abs/2401.17856), cross-domain metaphors from [Cao et al.](https://arxiv.org/abs/2308.10454), and the dynamic/static distinction from [Trey & Khan](https://www.sciencedirect.com/science/article/pii/S036013150700070X) (publisher abstract; full text unavailable). These studies do not establish this product's learning efficacy.
+
+**LEARN** coordinated textbook interactions from [Augmented Physics](https://github.com/adigunturu/AugmentedPhysics), declarative decomposition from [ViviDoc](https://github.com/MisterBrookT/vividoc), and linked controls from [PhET Ohm's Law](https://phet.colorado.edu/en/simulations/ohms-law). No simulation assets/code are copied; framework licenses do not imply asset/model permission. **DEFER** [JSXGraph](https://github.com/jsxgraph/jsxgraph/blob/main/LICENSE.MIT): another frontend bundle adds deployment/maintenance cost without a needed capability for this bounded vocabulary. Existing PyMuPDF AGPL/commercial deployment obligations remain unresolved. The new renderer is independently written; existing notices remain applicable.
+
+## Day 21 live mapping repair (2026-10-04)
+
+REUSE the existing semantic catalog, canonical workspace reducer, fixed disc primitives and safe numeric projection. The repair extends correspondence cardinality and trusted normalization; it adds no parser, renderer dependency, assets, copied upstream code, weights or second graph subsystem. Earlier Day21 comparison/reuse decisions and license boundaries remain applicable. A bounded schematic is derived from validated model concepts, never a topic-specific physics fallback.
+
+### Primitive-slot continuation (2026-10-04)
+
+REUSE the existing fixed primitive vocabulary, safe AST interpreter, numeric projection and bounded material-specific cache for trusted empty-slot defaults and developer-only local candidate revalidation. This is normalization/diagnostics work: no parser, new renderer library, copied code, assets or executable model output; the previous Day21 upstream/license decisions remain applicable.
+
+## Day 22 — focused representation/runtime comparison (2026-10-05)
+
+Incremental review, not a repeat of the 30-project survey. Primary repositories,
+docs, exact license files and available changelogs inspected before implementation.
+No code, assets, weights or generated executables imported. Maintenance evidence
+below means maintained repository/docs/changelog surfaces, not a service SLA.
+
+| Candidate / exact license scope | Decision | Capability, deployment cost, provenance and maintenance evidence |
+|---|---|---|
+| [XState core LICENSE](https://github.com/statelyai/xstate/blob/main/LICENSE), MIT | LEARN | Pure synchronous [guards](https://stately.ai/docs/guards) and explicit [actions](https://stately.ai/docs/actions). Maintained v5 docs and core repo. JS actor/statechart bundle is unnecessary for bounded server-side single-step sequence mutations; callbacks still need a trusted adapter. Stately hosted services are not licensed by this file. |
+| [transitions LICENSE](https://github.com/pytransitions/transitions/blob/master/LICENSE), MIT | LEARN / DEFER integration | Python FSM with optional graph/async extensions, [changelog](https://github.com/pytransitions/transitions/blob/master/Changelog.md). Lightweight alternative if hierarchical state machines become necessary. Today's operations are ordered data plus five fixed mutations; dynamic method/callback machinery adds no capability needed by acceptance. |
+| [SimPy license](https://simpy.readthedocs.io/en/latest/about/license.html), MIT | DEFER | Maintained [official docs](https://simpy.readthedocs.io/en/latest/) describe Python generators and resource/event scheduling. Useful for interacting timed resources; discrete learner button operations require no scheduler. Generated generators are forbidden. No alternate GitHub fork imported. |
+| [Penrose LICENSE](https://github.com/penrose/penrose/blob/main/LICENSE), MIT | LEARN / DEFER | [Core repository](https://github.com/penrose/penrose) separates domain/substance/style and constraint layout. Strong diagram grammar prior art, but a compiler/optimizer/browser stack and another DSL to bound. No copy of example diagrams or assets; those would require path-level review. |
+| [bpmn-js LICENSE](https://github.com/bpmn-io/bpmn-js/blob/develop/LICENSE), bpmn.io custom MIT-like terms with mandatory watermark | IGNORE for this sprint | Maintained BPMN XML viewer/modeler [repository](https://github.com/bpmn-io/bpmn-js). Excellent business process diagrams, not ordered collection mutation. Additional browser/XML adapter and watermark obligation; do not call it unqualified MIT. |
+| [JSXGraph LICENSE.MIT](https://github.com/jsxgraph/jsxgraph/blob/main/LICENSE.MIT), MIT option | DEFER | Established numeric direct manipulation. Existing world gestures already cover phase/projectile; it would not solve discrete transitions. No new offline bundle, external CDN, copied examples or assets. |
+| [XYFlow LICENSE](https://github.com/xyflow/xyflow/blob/main/LICENSE), MIT core | REUSE existing wrapper | Existing pinned streamlit-flow-component already handles read-only semantic networks. Core license does not cover Pro assets. Do not add an editor or overwrite semantic data with layout events. |
+| [Cytoscape.js LICENSE](https://github.com/cytoscape/cytoscape.js/blob/master/LICENSE), MIT core | DEFER | Maintained semantic graph/layout engine; no graph-scale blocker in <=16 items. Extension packages have their own licenses. No new bundle needed. |
+| [Mermaid LICENSE](https://github.com/mermaid-js/mermaid/blob/develop/LICENSE), MIT | DEFER | Maintained declarative diagram syntax; another parser/security boundary and browser bundle for a small sequence. Existing graphviz Python public API quotes trusted local DOT construction and provides an accessible text fallback. No generated diagram code accepted. |
+| [Plotly.js LICENSE](https://github.com/plotly/plotly.js/blob/main/LICENSE), MIT core | REUSE | Existing offline numeric projection/frame runtime, no additional download or integration. Existing world and analogy tests exercise it. Plotly commercial services are outside this license. |
+
+Architecture: independently authored small semantic feature plan, capability adapter
+and bounded process reducer. Trusted fixed operations are not a replacement for a
+general FSM library: hierarchical/parallel/timed machines remain unsupported.
+Reuse canonical workspace focus, Source Atlas formal IDs, existing Graphviz public
+API (Python package MIT; renderer receives DOT through Streamlit), world quantity
+DAG, probability engine, Analogy World and safe_math. Existing [Streamlit LICENSE](https://github.com/streamlit/streamlit/blob/develop/LICENSE)
+is Apache-2.0 and [graphviz Python LICENSE.txt](https://github.com/xflr6/graphviz/blob/master/LICENSE.txt)
+is MIT. Preserve installed distribution notices; the existing THIRD_PARTY_NOTICES.md
+is a Day20 parser notice, not a full dependency audit. No new notice obligations
+introduced. No dependency added. Existing PyMuPDF AGPL/commercial
+deployment review remains unresolved; this decision does not remove it.
+
+PhET, H5P, Augmented Physics and ViviDoc remain Day20/21 architectural references;
+no simulation assets or executable-document model adopted. Docling/Docling Graph,
+PageIndex, OpenSeadragon and RAGFlow stay deferred: none of the six required
+generality cases needs another parser, retrieval service or viewport.
+
+Day22 live Queue repair: WRAP the existing generic reducer and Graphviz adapter
+with trusted semantic/runtime ID normalization; REUSE the existing explicit
+compiler/cache and canonical Workspace focus. No additional parser, graph/FSM
+package, external code, asset, model weight or dependency. This repair changes
+the declaration boundary and diagnostics, not the prior license decisions.
+Exact real production acceptance and its limits: [repair evidence](DAY22_LIVE_QUEUE_FIX.md).

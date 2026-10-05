@@ -224,7 +224,9 @@ class DocumentProductTests(unittest.TestCase):
             document = at.session_state["source_atlas_state"]["document_model"]
             formula = at.session_state["source_atlas_state"]["atlas"]["regions"][0]
             self.assertEqual(formula["bbox"], document["atlas"]["regions"][0]["bbox"])
+            at.radio(key="workspace-mode-pdf19").set_value("explore").run()
             at.selectbox(key="world-widget-pdf19-focus").set_value("ib").run()
+            at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertFalse(at.exception)
             self.assertEqual(client.responses.create.call_count, 1)
             self.assertEqual(parse.call_count, 1)

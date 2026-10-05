@@ -189,6 +189,7 @@ class Day15InteractionTests(unittest.TestCase):
         if analysis is not None:
             at.session_state["analysis"] = analysis
             at.session_state["analysis_id"] = "lab-material"
+            at.session_state["learning_workspace"] = dict(material_id="lab-material", mode="explore", focus=None)
             at.session_state["allowed_source_pages"] = [1, 2]
             at.session_state["source_context"] = source_fixture()
         if language:
@@ -259,6 +260,7 @@ class Day15InteractionTests(unittest.TestCase):
 
     def test_lesson_inspector_review_links_select_real_demo(self):
         at = self.app(learning_fixture(two=True))
+        at.radio(key="workspace-mode-lab-material").set_value("practice").run()
         self.click(at, "開始引導學習")
         self.click(at, "下一步")
         at.button(key="lab-open-guided-lab-material-damped_wave").click().run()
@@ -267,19 +269,21 @@ class Day15InteractionTests(unittest.TestCase):
         lesson_button = next(button for button in at.button if "-lesson-s2" in str(button.key))
         lesson_button.click().run()
         self.assertEqual(at.session_state["guided_learning_step_id"], "s2")
+        at.radio(key="workspace-mode-lab-material").set_value("explore").run()
         at.selectbox(key="canvas-list-lab-material-concept_map").select("transform").run()
         at.button(key="lab-open-inspector-transform-lab-material-wave_parameters").click().run()
         self.assertEqual(at.session_state["interactive_lab_state"]["selected_id"], "wave_parameters")
+        at.radio(key="workspace-mode-lab-material").set_value("practice").run()
         self.click(at, "下一步")
         for i in range(3):
-            at.radio[i].set_value("b" if i == 1 else "a").run()
+            at.radio(key=f"guided-quiz-option-lab-material-q{i+1}").set_value("b" if i == 1 else "a").run()
             at.button(key=f"guided-quiz-check-lab-material-q{i+1}").click().run()
         at.button(key="lab-open-review-queue-lab-material-damped_wave").click().run()
         self.assertEqual(at.session_state["interactive_lab_state"]["selected_id"], "damped_wave")
         pattern = at.session_state["adaptive_review_state"]["pattern_key"]
         at.session_state["adaptive_review_state"]["focused_review"] = focused_fixture()
         at.session_state["focused_review_cache"][pattern] = focused_fixture()
-        at.run()
+        at.radio(key="workspace-mode-lab-material").set_value("practice").run()
         at.button(key="lab-open-focused-review-lab-material-wave_parameters").click().run()
         self.assertEqual(at.session_state["interactive_lab_state"]["selected_id"], "wave_parameters")
         self.assertFalse(at.exception)
@@ -302,9 +306,10 @@ class Day15InteractionTests(unittest.TestCase):
         at.session_state["guided_learning_step_id"] = "s3"
         at.session_state["guided_quiz_answers"] = {"q1": "a", "q2": "b", "q3": "a"}
         at.session_state["guided_quiz_checked"] = {"q1": True, "q2": True, "q3": True}
-        at.run()
+        at.radio(key="workspace-mode-lab-material").set_value("practice").run()
         self.click(at, "Build focused review")
         self.assertEqual(json.loads(self.client.responses.create.call_args.kwargs["input"])["response_language"], "Traditional Chinese")
+        at.radio(key="workspace-mode-lab-material").set_value("explore").run()
         at.slider[0].set_value(2.0).run()
         self.assertEqual(self.client.responses.create.call_count, 2)
 
@@ -315,7 +320,9 @@ class Day15InteractionTests(unittest.TestCase):
         at.slider[0].set_value(.5).run()
         self.assertFalse(at.exception)
         self.assertTrue(any("無法產生有效" in item.value for item in at.info))
+        at.radio(key="workspace-mode-lab-material").set_value("practice").run()
         self.assertTrue(any("引導學習" in item.value for item in at.markdown))
+        at.radio(key="workspace-mode-lab-material").set_value("explore").run()
         with patch.object(lab, "build_lab_chart", side_effect=RuntimeError("simulated plot failure")):
             at.run()
         self.assertFalse(at.exception)
@@ -323,6 +330,7 @@ class Day15InteractionTests(unittest.TestCase):
         at.session_state["analysis"] = learning_fixture()
         at.session_state["analysis_id"] = "new-material"
         at.run()
+        at.radio(key="workspace-mode-new-material").set_value("explore").run()
         self.assertEqual(at.slider[0].value, 1)
         self.assertEqual(at.session_state["interactive_lab_state"]["material_id"], "new-material")
         at.session_state["analysis"]["interactive_lab"]["demos"][0]["series"][0]["expression"] = '__import__("os")'
@@ -333,6 +341,7 @@ class Day15InteractionTests(unittest.TestCase):
         at.session_state["analysis"]["interactive_lab"] = {"suitable": False, "reason": "", "demos": []}
         at.run()
         self.assertFalse(any(item.value == "互動實驗室" for item in at.subheader))
+        at.radio(key="workspace-mode-new-material").set_value("practice").run()
         self.assertTrue(any(item.value == "### 引導學習" for item in at.markdown))
         self.client.responses.create.assert_not_called()
 

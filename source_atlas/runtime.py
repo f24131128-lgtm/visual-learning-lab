@@ -43,7 +43,8 @@ def render_atlas(bundle):
         st.caption(tr("Pause world playback before selecting a source object; source navigation uses committed state."))
     page_key = prefix+"page"
     st.session_state[page_key] = state["page"]
-    st.selectbox(tr("Source page"), atlas["processed_pages"], format_func=lambda p: tr("Page {page}", page=p),
+    page_labels = {p: tr("Page {page}", page=p) for p in atlas["processed_pages"]}
+    st.selectbox(tr("Source page"), atlas["processed_pages"], format_func=lambda p, labels=page_labels: labels[p],
         key=page_key, on_change=lambda: state.update(page=st.session_state[page_key]))
     available = [r for r in atlas["regions"] if r["page"] == state["page"]]
     ids = [r["region_id"] for r in available]
@@ -74,7 +75,7 @@ def render_atlas(bundle):
         if links:
             st.caption(tr("Linked meaning")+": "+" · ".join(catalog[i]["label"] for i in links))
             focusable = [i for i in links if catalog[i]["kind"] not in ("parameter", "time")]
-            if scene and focusable:
+            if scene and focusable and not st.session_state.get("learning_workspace"):
                 from .state import set_focus
                 chosen = st.selectbox(tr("Explore linked meaning"), focusable, format_func=lambda i: catalog[i]["label"], key=prefix+"meaning")
                 st.button(tr("Open as interactive scene"), key=prefix+"open", on_click=set_focus, args=(wrapper, chosen, catalog))
@@ -92,6 +93,8 @@ def render_atlas(bundle):
                          "sample_space": "Sample Space", "set": "Set View", "formula": "Formula Lens", "probability_tree": "Probability Tree", "monte_carlo": "Monte Carlo"}
                 views = list(dict.fromkeys(tr(names.get(v["kind"], v["kind"])) for v in trace["representations"]))
                 st.caption(tr("Driven representations")+": "+" · ".join(views))
+    from workspace.ui import render_source_actions
+    render_source_actions(bundle)
     focus = current_focus(wrapper)
     matches = anchors(atlas, focus) if focus else []
     if matches:
