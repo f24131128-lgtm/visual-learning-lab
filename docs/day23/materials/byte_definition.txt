@@ -1,0 +1,1 @@
+Python bytes is an immutable sequence of integers in the range 0 through 255. An individual integer identifies one byte value; the sequence itself does not specify a text encoding. Decoding bytes as text requires choosing an encoding. This short lesson only distinguishes byte values from interpreted text; it supplies no evolving process or numeric experiment.

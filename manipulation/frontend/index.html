@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="jsxgraph.css">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#30264d;background:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(170px,1fr);gap:14px}.board{position:relative;height:365px;border:1px solid #e3dcec;border-radius:14px;background:linear-gradient(135deg,#fcfaff,#f6fbfc);touch-action:none;overflow:hidden}.side{min-width:0}#wave{height:190px;border:1px solid #e3dcec;border-radius:12px;overflow:hidden}.metric{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee8f3;padding:9px 2px;font-size:13px}.metric b{color:#6750c5;font-variant-numeric:tabular-nums}.state{padding:8px 0;color:#6750c5;font-size:13px;min-height:34px}.provenance{font-size:12px;color:#746985;line-height:1.6;margin:8px 0}.board svg{touch-action:none}svg circle{cursor:grab}svg circle:hover{filter:drop-shadow(0 0 4px #9d80dc)}@media(max-width:620px){.layout{grid-template-columns:1fr}.board{height:325px}}
+</style></head><body>
+<div class="state" id="status" role="status" aria-live="polite"></div>
+<div class="layout"><div id="board" class="board" role="group"></div><div class="side"><div id="wave"></div><div id="metrics"></div></div></div>
+<div class="provenance" id="provenance"></div>
+<script src="jsxgraphcore.js"></script><script src="adapter.js"></script>
+<script>
+"use strict";
+const $=id=>document.getElementById(id),say=(type,data)=>parent.postMessage({isStreamlitMessage:true,type,...data},'*');
+const fmt=v=>Number(v).toLocaleString(undefined,{maximumSignificantDigits:5});
+let P=null,controller=null,waveBoard=null,waveCurves=[],waveDots=[],pending=false,stamp=null,paths=[],focusPending=false,releaseBuffer=null;
+function send(data){say('streamlit:setComponentValue',{dataType:'json',value:{scene:P.identity,revision:P.revision,token:Date.now()+'-'+Math.random().toString(36).slice(2),...data}})}
+function release(data){if(pending)return;if(focusPending){releaseBuffer=data;return}pending=true;status('Release to apply');$('board').style.pointerEvents='none';send(data)}
+function height(){say('streamlit:setFrameHeight',{height:document.body.scrollHeight+8})}
+function label(k){return P.labels[k]||k}
+function status(k){$('status').textContent=label(k)}
+function renderValues(data,values,tentative){
+ status(tentative?'Tentative preview · release to validate':'Local exploration');
+ const metrics=$('metrics');metrics.replaceChildren();
+ for(const p of P.parameters){
+  const factor=p.display?.factor||1,unit=p.display?.unit??p.unit;
+  const row=document.createElement('div');row.className='metric';
+  const name=document.createElement('span'),value=document.createElement('b');
+  name.textContent=p.label;value.textContent=fmt(values[p.id]*factor)+' '+unit;row.append(name,value);metrics.append(row);
+ }
+ for(const metric of P.metrics){const row=document.createElement('div');row.className='metric';const name=document.createElement('span'),value=document.createElement('b');name.textContent=metric.label;value.textContent=fmt(!tentative&&P.committed?P.committed.metrics[metric.id]:DirectManipulation.sample(data.metrics[metric.id],data.times,P.time))+' '+metric.unit;row.append(name,value);metrics.append(row)}
+ if(waveBoard){
+  waveBoard.suspendUpdate();
+  if(paths.length){
+   paths.forEach((c,i)=>{const rows=data.objects[c.id];waveCurves[i].dataX=rows[0];waveCurves[i].dataY=rows[1];waveDots[i].setPosition(JXG.COORDS_BY_USER,!tentative&&P.committed?P.committed.objects[c.id]:rows.map(row=>DirectManipulation.sample(row,data.times,P.time)))});
+   waveBoard.setBoundingBox(DirectManipulation.bounds({...data,objects:Object.fromEntries(paths.map(o=>[o.id,data.objects[o.id]])),curves:{}},[]),true);
+  }else{
+   P.curves.forEach((c,i)=>{const ys=data.curves[c.id];waveCurves[i].dataX=data.times;waveCurves[i].dataY=ys;waveDots[i].setPosition(JXG.COORDS_BY_USER,[Math.min(P.time,data.domain[1]),DirectManipulation.sample(ys,data.times,P.time)])});
+   const ys=Object.values(data.curves).flat(),lo=Math.min(...ys),hi=Math.max(...ys),pad=Math.max(.1,(hi-lo)*.15);
+   waveBoard.setBoundingBox([data.times[0],hi+pad,data.times.at(-1),lo-pad],false);
+  }waveBoard.unsuspendUpdate();
+ }
+ height();
+}
+window.addEventListener('message',event=>{
+ if(event.source!==parent||event.data.type!=='streamlit:render')return;
+ const next=event.data.args.payload;if(!next||next.version!=='1.0')return;
+ const key=JSON.stringify([next.identity,next.revision,next.ack,next.labels]);if(key===stamp)return;
+ // A canonical focus acknowledgment can arrive mid-drag. Preserve the board,
+ // pointer capture and numeric tentative preview only if formal state is equal.
+ // A parameter/time/spec change cancels the gesture instead of rebasing it.
+ if(focusPending&&controller&&next.identity===P.identity&&JSON.stringify(next.values)===JSON.stringify(P.values)&&next.time===P.time&&JSON.stringify(next.labels)===JSON.stringify(P.labels)){
+  P=next;stamp=key;focusPending=false;if(releaseBuffer){const data=releaseBuffer;releaseBuffer=null;release(data)}return;
+ }
+ focusPending=false;releaseBuffer=null;
+ stamp=key;P=next;pending=false;
+ controller?.destroy();if(waveBoard)JXG.JSXGraph.freeBoard(waveBoard);waveBoard=null;waveCurves=[];waveDots=[];
+ const world=P.objects.length>0;paths=P.objects.filter(o=>o.type==='trajectory');$('wave').style.display=world?'block':'none';
+ if(world){
+  const ys=Object.values(P.current.curves).flat(),lo=Math.min(...ys),hi=Math.max(...ys);
+  waveBoard=JXG.JSXGraph.initBoard('wave',{boundingbox:[P.current.times[0],hi+.2,P.current.times.at(-1),lo-.2],axis:true,showCopyright:false,showLogo:false,showNavigation:false,pan:{enabled:false},zoom:{enabled:false},keepaspectratio:false});
+  (paths.length?paths:P.curves).forEach((c,i)=>{const color=['#087e8b','#b85b17','#6750c5'][i%3],rows=paths.length?P.current.objects[c.id]:[P.current.times,P.current.curves[c.id]];waveCurves.push(waveBoard.create('curve',rows,{strokeColor:color,strokeWidth:2,highlight:false}));waveDots.push(waveBoard.create('point',paths.length?rows.map(row=>DirectManipulation.sample(row,P.current.times,P.time)):[P.time,DirectManipulation.sample(rows[1],P.current.times,P.time)],{fixed:true,withLabel:false,size:3,fillColor:color,strokeColor:color,name:''}))});
+ }
+ $('board').setAttribute('aria-label',label(world?'Drag the highlighted endpoint':'Drag an anchor vertically'));
+ $('provenance').textContent=label('Current exploration value')+' · '+label('Exploration changes do not change the source.')+' '+label('Compiled baseline value')+': '+P.parameters.map(p=>p.label+' '+fmt(P.baseline[p.id]*(p.display?.factor||1))).join(' · ');
+ controller=DirectManipulation.mount($('board'),P,{
+  begin(target){if(pending||focusPending)return;status('Release to apply');focusPending=true;send({kind:'manipulation_focus',target:target.id,time:P.time})},preview:renderValues,
+  commit:release
+ });$('board').style.pointerEvents='auto';height();
+});
+new ResizeObserver(height).observe(document.body);say('streamlit:componentReady',{apiVersion:1});height();
+</script></body></html>

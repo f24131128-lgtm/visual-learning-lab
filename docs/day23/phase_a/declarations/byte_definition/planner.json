@@ -1,0 +1,46 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_01776e764dc13a76006ac3cdf1f0ec87d0af85873808bdaf7c",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "bytes",
+      "byte_value",
+      "integer_range",
+      "raw_data",
+      "encoding",
+      "decoding",
+      "text"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": false
+    },
+    "preferred": "static",
+    "reason": "The source defines bytes as an immutable ordered sequence whose elements are finite integer byte values from 0 through 255. It distinguishes raw byte data from interpreted text and identifies encoding selection as necessary for decoding, but provides no evolving process, experiment, or useful interaction.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    }
+  },
+  "usage": {
+    "input_tokens": 1243,
+    "output_tokens": 401,
+    "total_tokens": 1644
+  }
+}

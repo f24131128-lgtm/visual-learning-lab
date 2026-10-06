@@ -1,0 +1,14 @@
+test_bounds_diagnostics_keep_numeric_evidence_without_expression_or_source (test_analogy_geometry.GeometryTests.test_bounds_diagnostics_keep_numeric_evidence_without_expression_or_source) ... Analogy rejected stage=normalize code=geometry_bounds path=$.primitives[2].x
+ok
+test_captured_third_trace_passed_core_and_blank_radius_checks_only (test_analogy_geometry.GeometryTests.test_captured_third_trace_passed_core_and_blank_radius_checks_only) ... ok
+test_nonwrapped_oversized_position_is_still_fatal_with_exact_field_and_range (test_analogy_geometry.GeometryTests.test_nonwrapped_oversized_position_is_still_fatal_with_exact_field_and_range) ... ok
+test_other_geometry_and_wrap_interval_limits_are_not_relaxed (test_analogy_geometry.GeometryTests.test_other_geometry_and_wrap_interval_limits_are_not_relaxed) ... ok
+test_raw_travel_beyond_viewport_wraps_into_the_unchanged_bounded_geometry (test_analogy_geometry.GeometryTests.test_raw_travel_beyond_viewport_wraps_into_the_unchanged_bounded_geometry) ... ok
+test_saved_failed_candidate_rechecks_locally_without_another_model_response (test_analogy_geometry.GeometryTests.test_saved_failed_candidate_rechecks_locally_without_another_model_response) ... Analogy rejected stage=normalize code=geometry_bounds path=$.primitives
+ok
+test_wrap_does_not_hide_unsafe_math_or_excessive_raw_arithmetic (test_analogy_geometry.GeometryTests.test_wrap_does_not_hide_unsafe_math_or_excessive_raw_arithmetic) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.343s
+
+OK

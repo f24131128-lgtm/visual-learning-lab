@@ -39,7 +39,7 @@ def representation(analysis, material, source, pages, model, workspace, wrapper,
                     from openai import OpenAI
                     result = compiler.build(store, key, OpenAI(api_key=st.secrets["OPENAI_API_KEY"], max_retries=0), model, data, catalog, pages, caps, force_new=regenerate)
             if result:
-                workspace["representation"] = "process" if result["family"] == "process" else "analogy" if result["family"] == "analogy" else "formal"
+                workspace["representation"] = result["family"] if result["family"] in ("process", "execution", "analogy") else "formal"
         except Exception as error:
             record(store, key, "context", error)
     if key in store["errors"]: st.info(tr("The representation could not be built safely. Existing learning remains available; retry explicitly."))
@@ -50,14 +50,17 @@ def representation(analysis, material, source, pages, model, workspace, wrapper,
         if store["active"] not in store["diagnostics"]:
             record(store, store["active"], "cached_before_diagnostics", normalized=plan)
         st.caption(plan["reason"])
-        if plan["adapted"]: st.caption(tr("A simpler supported representation is used."))
+        if plan["adapted"]:
+            st.caption(tr("A simpler supported representation is used.") if plan.get("degraded", True)
+                       else tr("A supported interactive representation is used."))
     options = ["formal"]
     if plan and plan["family"] == "process": options.append("process")
+    if plan and plan["family"] == "execution": options.append("execution")
     if catalog and (not plan or plan["family"] == "analogy" or ready_analogy(material)): options.append("analogy")
     if ready_analogy(material): options.append("compare")
     current = workspace.setdefault("representation", "formal")
     if current not in options: workspace["representation"] = "formal"
-    labels = {"formal": tr("Formal model"), "process": tr("Interactive process"), "analogy": tr("Analogy World"), "compare": tr("Compare")}
+    labels = {"formal": tr("Formal model"), "process": tr("Interactive process"), "execution": tr("Interactive execution"), "analogy": tr("Analogy World"), "compare": tr("Compare")}
     widget = "workspace-representation-"+material
     st.session_state[widget] = workspace["representation"]
     st.radio(tr("Representation"), options, horizontal=True, key=widget, format_func=lambda i: labels[i],

@@ -1,0 +1,104 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0bfea9061ecf9540006ac46524478487d09827ac45979a3643",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "concept_dc25d74306266826080cf26e",
+      "concept_dc8884b6103d80b5086409d5",
+      "concept_0078f1a064cba5c53f4f3a91",
+      "concept_bdcba443c023d12347f2dff9",
+      "concept_35d5bb723f9b2627ccfd0642",
+      "concept_c72d7db44aaa1565a1dd000f"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": true,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "process",
+    "reason": "The source describes one finite status variable with three legal values and explicit state transitions. A process representation can show the current status and let learners explore Review, Release, and Reset while preserving the restriction that Draft cannot jump directly to Released and Released is terminal for Review and Release. No equations, continuous parameters, timing, collections, or free",
+    "process": {
+      "collections": [],
+      "states": [
+        {
+          "id": "concept_dc25d74306266826080cf26e_status",
+          "semantic_id": "concept_dc25d74306266826080cf26e",
+          "label": "Current status",
+          "values": [
+            "Draft",
+            "Reviewed",
+            "Released"
+          ],
+          "initial": "Draft"
+        }
+      ],
+      "transitions": [
+        {
+          "id": "concept_0078f1a064cba5c53f4f3a91_review",
+          "semantic_id": "concept_0078f1a064cba5c53f4f3a91",
+          "label": "Review",
+          "explanation": "Move the item from Draft to Reviewed.",
+          "operation": "set_state",
+          "target_id": "concept_dc25d74306266826080cf26e_status",
+          "from_state": "Draft",
+          "to_state": "Reviewed"
+        },
+        {
+          "id": "concept_bdcba443c023d12347f2dff9_release",
+          "semantic_id": "concept_bdcba443c023d12347f2dff9",
+          "label": "Release",
+          "explanation": "Move the item from Reviewed to Released.",
+          "operation": "set_state",
+          "target_id": "concept_dc25d74306266826080cf26e_status",
+          "from_state": "Reviewed",
+          "to_state": "Released"
+        },
+        {
+          "id": "concept_35d5bb723f9b2627ccfd0642_reset_reviewed",
+          "semantic_id": "concept_35d5bb723f9b2627ccfd0642",
+          "label": "Reset",
+          "explanation": "Restore the status from Reviewed to Draft.",
+          "operation": "set_state",
+          "target_id": "concept_dc25d74306266826080cf26e_status",
+          "from_state": "Reviewed",
+          "to_state": "Draft"
+        },
+        {
+          "id": "concept_35d5bb723f9b2627ccfd0642_reset_released",
+          "semantic_id": "concept_35d5bb723f9b2627ccfd0642",
+          "label": "Reset",
+          "explanation": "Restore the status from Released to Draft.",
+          "operation": "set_state",
+          "target_id": "concept_dc25d74306266826080cf26e_status",
+          "from_state": "Released",
+          "to_state": "Draft"
+        }
+      ],
+      "annotations": [
+        {
+          "semantic_id": "concept_c72d7db44aaa1565a1dd000f",
+          "text": "There is no direct transition from Draft to Released; Release is available only after Review."
+        }
+      ]
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2383,
+    "output_tokens": 1427,
+    "total_tokens": 3810
+  }
+}

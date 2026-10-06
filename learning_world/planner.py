@@ -5,6 +5,7 @@ import re
 import hashlib
 from .schema import VERSION, MAX_PAYLOAD, FEATURES, FAMILIES, OPS, MAX_ITEMS
 from .diagnostics import Rejection
+from .capabilities import eligible
 
 
 def plain(value, bound=400, empty=False):
@@ -92,21 +93,51 @@ def choose(features, preferred, capabilities, process):
     """Trusted mechanics use validated semantic flags and runtime contracts only."""
     if not features["interaction_value"]:
         return "static" if features["structure"] else "none"
-    eligible = []
-    if features["transitions"] and process and (features["ordered_collection"] or process["states"]): eligible.append("process")
-    if features["equations"] and features["continuous_parameters"]:
-        if features["spatial_relations"] and capabilities.get("spatial"): eligible.append("spatial")
-        if features["time_dynamics"] and (capabilities.get("spatial") or capabilities.get("lab")): eligible.append("dynamic")
-    if features["finite_outcomes"] and features["set_relations"] and capabilities.get("structural"): eligible.append("structural")
-    if features["analogy_suitable"] and capabilities.get("analogy"): eligible.append("analogy")
-    if features["structure"] and capabilities.get("graph"): eligible.append("static")
-    return preferred if preferred in eligible else next(iter(eligible), "static" if features["structure"] else "none")
+    choices = eligible(features, capabilities, process)
+    # A static diagram cannot deliver declared useful continuous manipulation.
+    # Use an already validated numeric lab when those exact needs are supported.
+    if preferred == "static" and "dynamic" in choices and capabilities.get("lab"):
+        return "dynamic"
+    return preferred if preferred in choices else next(iter(choices), "static" if features["structure"] else "none")
+
+
+def check_unused_process(raw):
+    """Discard only bounded inert decorations, never a failed required process.
+
+    Required envelope, field/type/count/text/operation security checks still
+    apply. Semantic/runtime references and legal finite-state mechanics are not
+    interpreted for an artifact that will never run or publish those fields.
+    """
+    fields = {
+        "collections": ("id", "semantic_id", "label", "initial", "capacity", "first_label", "last_label"),
+        "states": ("id", "semantic_id", "label", "values", "initial"),
+        "transitions": ("id", "semantic_id", "label", "explanation", "operation", "target_id", "from_state", "to_state"),
+    }
+    for group in fields:
+        for n, item in enumerate(raw[group]):
+            exact(item, fields[group])
+            path = f"$.process.{group}[{n}]"
+            for key in ("id", "semantic_id"):
+                if not identifier(item[key]): raise Rejection("identity", path + "." + key)
+            if not plain(item["label"], 160, True): raise Rejection("label", path + ".label")
+            if group == "collections":
+                if type(item["capacity"]) is not int or not 1 <= item["capacity"] <= MAX_ITEMS: raise ValueError("capacity")
+                if any(not plain(v, 64) for v in bounded_list(item["initial"], MAX_ITEMS)): raise ValueError("items")
+                if not all(plain(item[k], 80, True) for k in ("first_label", "last_label")): raise ValueError("endpoint")
+            elif group == "states":
+                if any(not plain(v, 64) for v in bounded_list(item["values"], 12)) or not plain(item["initial"], 64, True): raise ValueError("states")
+            else:
+                if item["operation"] not in OPS: raise Rejection("unsafe_operation", path + ".operation")
+                if not identifier(item["target_id"]) or not all(plain(item[k], 400 if k == "explanation" else 64, True)
+                        for k in ("explanation", "from_state", "to_state")): raise Rejection("transition", path)
 
 
 def normalize(raw, catalog, pages, capabilities):
     if len(json.dumps(raw, ensure_ascii=False, allow_nan=False).encode()) > MAX_PAYLOAD: raise ValueError("payload")
-    exact(raw, ("version", "focus_ids", "source_pages", "features", "preferred", "reason", "process"))
-    if raw["version"] != VERSION or raw["preferred"] not in FAMILIES or not plain(raw["reason"]): raise ValueError("plan")
+    legacy = isinstance(raw, dict) and raw.get("version") == "1.0"
+    fields = ("version", "focus_ids", "source_pages", "features", "preferred", "reason", "process")
+    exact(raw, fields if legacy else fields + ("execution",))
+    if raw["version"] not in ("1.0", VERSION) or raw["preferred"] not in FAMILIES or not plain(raw["reason"]): raise ValueError("plan")
     exact(raw["features"], FEATURES)
     if any(type(v) is not bool for v in raw["features"].values()): raise ValueError("features")
     ids = bounded_list(raw["focus_ids"], 16)
@@ -119,12 +150,28 @@ def normalize(raw, catalog, pages, capabilities):
     exact(raw["process"], ("collections", "states", "transitions", "annotations"))
     for field, maximum in (("collections", 3), ("states", 3), ("transitions", 12), ("annotations", 8)):
         bounded_list(raw["process"][field], maximum)
-    process = normalize_process(raw["process"], catalog) if any(raw["process"].values()) else None
+    recovery = []
+    if raw["preferred"] == "process":
+        process = normalize_process(raw["process"], catalog) if any(raw["process"].values()) else None
+    else:
+        process = None
+        check_unused_process(raw["process"])
+        if any(raw["process"].values()): recovery.append("unused_process_omitted")
     if raw["preferred"] == "process" and process is None: raise ValueError("missing_process")
     if process:
         mapped = {v["semantic_id"] for k in ("collections", "states", "transitions") for v in process[k]}
         if not mapped <= set(ids): raise ValueError("process_focus")
     family = choose(raw["features"], raw["preferred"], capabilities, process)
-    return dict(version=VERSION, focus_ids=list(ids), source_pages=list(refs), features=dict(raw["features"]),
+    execution = None
+    if raw["preferred"] == "execution":
+        from .execution import normalize as normalize_execution
+        execution = normalize_execution(raw.get("execution"), catalog, ids)
+        family = "execution" if raw["features"]["interaction_value"] and capabilities.get("process", True) else "static"
+    elif not legacy and raw["execution"] is not None:
+        # Never silently run an execution payload for an unrelated family.
+        raise ValueError("unused_execution")
+    return dict(version=raw["version"], focus_ids=list(ids), source_pages=list(refs), features=dict(raw["features"]),
                 family=family, reason=raw["reason"], process=process if family == "process" else None,
-                adapted=family != raw["preferred"])
+                execution=execution if family == "execution" else None,
+                adapted=family != raw["preferred"], requested_family=raw["preferred"],
+                degraded=family in ("static", "none") and family != raw["preferred"], recovery_codes=recovery)

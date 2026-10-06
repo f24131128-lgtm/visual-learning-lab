@@ -1,0 +1,47 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_056bef80c80d8d7c006ac46475f42c87d09ea21a20efcabb89",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "sample_space",
+      "assembly_ready",
+      "inspection_ready",
+      "distinct_identity",
+      "intersection_q",
+      "union_pqr",
+      "probabilities"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": true,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "structural",
+    "reason": "A structural representation best fits the finite sample space and the set relationships. It can keep the two distinct Ready events selectable, compare their memberships, and show their intersection, union, and probabilities without incorrectly merging the identical printed labels. Local interaction adds useful insight through membership selection and set-operation comparison. There is no supported",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2414,
+    "output_tokens": 331,
+    "total_tokens": 2745
+  }
+}

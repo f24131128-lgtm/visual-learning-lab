@@ -1,0 +1,8 @@
+frame.evaluate: TypeError: Cannot read properties of undefined (reading 'coords')
+    at eval (eval at evaluate (:311:30), <anonymous>:3:32)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at drag (C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:18:24)
+    at async C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:46:14 {
+  log: []
+}

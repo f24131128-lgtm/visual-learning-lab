@@ -1,0 +1,44 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_02e43316671aaa33006ac4f93a007487d081f33d94cbd3a5db",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "phase_input",
+      "angle_calc",
+      "coordinate_calc",
+      "pointer_endpoint"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": true,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "A parameterized numeric lab is the strongest representation: learners can vary phase continuously from −π to π and compare how θ = time + phase changes the cosine and sine coordinates. The same equations connect the signal to the geometric endpoint (cos(θ), sin(θ)); a separate spatial or analogy build could be useful, but is not selected as the primary representation.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2305,
+    "output_tokens": 482,
+    "total_tokens": 2787
+  }
+}

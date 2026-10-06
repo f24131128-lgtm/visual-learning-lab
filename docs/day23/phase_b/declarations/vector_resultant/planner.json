@@ -1,0 +1,47 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0d2c799211e21471006ac3d18e6db887d0b8f4361748fab521",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "resultant_system",
+      "horizontal_vector",
+      "vertical_vector",
+      "resultant_vector",
+      "length_formula",
+      "three_four_five",
+      "parameter_range",
+      "geometry_change"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "A parameterized numeric lab is the most useful representation because the source provides an explicit length equation and bounded continuous parameters a and b. Learners can compare how changing either component from 1 to 5 changes the resultant length, while the perpendicular-vector geometry remains visible conceptually. No time-dependent motion or animation is supported by the source, so this is",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    }
+  },
+  "usage": {
+    "input_tokens": 1870,
+    "output_tokens": 403,
+    "total_tokens": 2273
+  }
+}

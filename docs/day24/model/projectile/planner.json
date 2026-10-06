@@ -1,0 +1,45 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0fd1386e506a2397006ac4f976b5e887d080d755f139795306",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "launch_conditions",
+      "launch_vector",
+      "time_evolution",
+      "projectile_trajectory",
+      "same_height_landing"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "A parameterized numeric lab is the most useful representation because the source provides explicit equations and continuous ranges for speed, angle, and gravity. Learners can compare how these parameters change the horizontal and vertical launch components, the trajectory x(t), y(t), and the same-height flight duration. The source explicitly supports time evolution and planar projectile relations,",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2395,
+    "output_tokens": 389,
+    "total_tokens": 2784
+  }
+}

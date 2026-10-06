@@ -1,0 +1,441 @@
+{
+  "stage": "analysis",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_02049ada286c45af006ac4f9962e4487d0b1bf293e7c7b2943",
+  "raw": {
+    "quick_summary": "The material describes the affine relation y = gain*x + offset. Gain controls the slope, offset controls the vertical shift, and the values at x = 0 and x = 2 provide useful anchors for observing how these parameters change the same equation.",
+    "key_concepts": [
+      {
+        "concept": "Affine relation",
+        "explanation": "The output is defined by y = gain*x + offset.",
+        "source_pages": []
+      },
+      {
+        "concept": "Gain",
+        "explanation": "Gain is the coefficient of x and controls how strongly y changes as x changes; it can range from -3 to 3.",
+        "source_pages": []
+      },
+      {
+        "concept": "Offset",
+        "explanation": "Offset is the constant term and equals the value of y when x = 0; it can range from -4 to 4.",
+        "source_pages": []
+      },
+      {
+        "concept": "Anchor at x = 0",
+        "explanation": "Substituting x = 0 gives y = offset.",
+        "source_pages": []
+      },
+      {
+        "concept": "Anchor at x = 2",
+        "explanation": "Substituting x = 2 gives y = 2*gain + offset.",
+        "source_pages": []
+      },
+      {
+        "concept": "Baseline parameters",
+        "explanation": "The source baseline is gain = 1 and offset = 0, giving y = x.",
+        "source_pages": []
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Affine relation",
+        "relation": "is defined by",
+        "target": "y = gain*x + offset",
+        "source_pages": []
+      },
+      {
+        "source": "Gain",
+        "relation": "is the coefficient of",
+        "target": "x",
+        "source_pages": []
+      },
+      {
+        "source": "Offset",
+        "relation": "is the constant term in",
+        "target": "Affine relation",
+        "source_pages": []
+      },
+      {
+        "source": "Affine relation",
+        "relation": "has value at x = 0 equal to",
+        "target": "offset",
+        "source_pages": []
+      },
+      {
+        "source": "Affine relation",
+        "relation": "has value at x = 2 equal to",
+        "target": "2*gain + offset",
+        "source_pages": []
+      },
+      {
+        "source": "Baseline parameters",
+        "relation": "set",
+        "target": "gain = 1 and offset = 0",
+        "source_pages": []
+      },
+      {
+        "source": "Gain",
+        "relation": "and",
+        "target": "Offset",
+        "source_pages": []
+      }
+    ],
+    "visual_evidence": [],
+    "visual_flow": {
+      "suitable": false,
+      "reason": "The material explains parameter relationships and anchor values, but it does not present a central multi-stage process.",
+      "nodes": [],
+      "edges": []
+    },
+    "concept_map": {
+      "suitable": true,
+      "reason": "Understanding depends mainly on how the affine relation, its two parameters, and its anchor values are connected.",
+      "nodes": [
+        {
+          "id": "affine_relation",
+          "label": "Affine relation: y = gain*x + offset",
+          "role": "central",
+          "source_pages": []
+        },
+        {
+          "id": "gain",
+          "label": "Gain",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "offset",
+          "label": "Offset",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "anchor_x0",
+          "label": "Value at x = 0",
+          "role": "supporting",
+          "source_pages": []
+        },
+        {
+          "id": "anchor_x2",
+          "label": "Value at x = 2",
+          "role": "supporting",
+          "source_pages": []
+        },
+        {
+          "id": "baseline",
+          "label": "Baseline: gain = 1, offset = 0",
+          "role": "supporting",
+          "source_pages": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "affine_relation",
+          "target": "gain",
+          "label": "uses parameter"
+        },
+        {
+          "source": "affine_relation",
+          "target": "offset",
+          "label": "uses parameter"
+        },
+        {
+          "source": "affine_relation",
+          "target": "anchor_x0",
+          "label": "evaluates to offset at x = 0"
+        },
+        {
+          "source": "affine_relation",
+          "target": "anchor_x2",
+          "label": "evaluates to 2*gain + offset at x = 2"
+        },
+        {
+          "source": "baseline",
+          "target": "affine_relation",
+          "label": "is the default instance"
+        },
+        {
+          "source": "gain",
+          "target": "anchor_x2",
+          "label": "contributes 2*gain"
+        },
+        {
+          "source": "offset",
+          "target": "anchor_x0",
+          "label": "determines its value"
+        },
+        {
+          "source": "offset",
+          "target": "anchor_x2",
+          "label": "contributes additively"
+        }
+      ]
+    },
+    "comparison": {
+      "suitable": false,
+      "reason": "",
+      "title": "",
+      "items": [],
+      "criteria": [],
+      "takeaway": ""
+    },
+    "learning_path": {
+      "suitable": true,
+      "title": "Understanding and Exploring an Affine Relation",
+      "reason": "The source supports a short progression from the equation and baseline to parameter effects and anchor-based evaluation.",
+      "steps": [
+        {
+          "id": "step_equation",
+          "title": "Start with the affine equation",
+          "learning_goal": "Recognize the roles of gain and offset in y = gain*x + offset.",
+          "explanation": "The equation has a variable-dependent term, gain*x, and a constant term, offset. Together they define the output for every x.",
+          "source_pages": [],
+          "connection_to_previous": "This is the foundation for interpreting all later parameter changes.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "affine_relation"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "gain"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "offset"
+            }
+          ]
+        },
+        {
+          "id": "step_baseline",
+          "title": "Identify the baseline",
+          "learning_goal": "Understand the default case gain = 1 and offset = 0.",
+          "explanation": "With gain = 1 and offset = 0, the relation becomes y = x. This provides the reference case for exploring other parameter values.",
+          "source_pages": [],
+          "connection_to_previous": "Once the equation is understood, the baseline gives a concrete starting instance.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "baseline"
+            }
+          ]
+        },
+        {
+          "id": "step_parameter_effects",
+          "title": "Separate gain and offset effects",
+          "learning_goal": "Distinguish how gain and offset change the relation.",
+          "explanation": "Changing gain changes the coefficient of x, while changing offset changes the constant vertical level. The allowed exploration ranges are gain from -3 to 3 and offset from -4 to 4.",
+          "source_pages": [],
+          "connection_to_previous": "The baseline makes it easier to see what changes when one parameter is varied at a time.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "gain"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "offset"
+            }
+          ]
+        },
+        {
+          "id": "step_anchors",
+          "title": "Use anchor values",
+          "learning_goal": "Evaluate the relation at x = 0 and x = 2.",
+          "explanation": "At x = 0, y = offset. At x = 2, y = 2*gain + offset. Comparing these anchors shows the combined effect of both parameters.",
+          "source_pages": [],
+          "connection_to_previous": "After identifying parameter roles, anchor evaluations make those roles numerically observable.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "anchor_x0"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "anchor_x2"
+            }
+          ]
+        }
+      ],
+      "checkpoint_questions": [
+        {
+          "id": "q_parameter_role",
+          "question": "In y = gain*x + offset, which parameter is the value of y when x = 0?",
+          "options": [
+            {
+              "id": "q1_a",
+              "text": "gain"
+            },
+            {
+              "id": "q1_b",
+              "text": "offset"
+            },
+            {
+              "id": "q1_c",
+              "text": "2*gain"
+            },
+            {
+              "id": "q1_d",
+              "text": "x"
+            }
+          ],
+          "correct_option_id": "q1_b",
+          "explanation": "Setting x = 0 removes the gain*x term, leaving y = offset.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_equation",
+            "step_anchors"
+          ]
+        },
+        {
+          "id": "q_baseline",
+          "question": "What equation results from the baseline values gain = 1 and offset = 0?",
+          "options": [
+            {
+              "id": "q2_a",
+              "text": "y = x"
+            },
+            {
+              "id": "q2_b",
+              "text": "y = x + 1"
+            },
+            {
+              "id": "q2_c",
+              "text": "y = 0"
+            },
+            {
+              "id": "q2_d",
+              "text": "y = 2*x"
+            }
+          ],
+          "correct_option_id": "q2_a",
+          "explanation": "Substituting gain = 1 and offset = 0 gives y = 1*x + 0 = x.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_baseline"
+          ]
+        },
+        {
+          "id": "q_anchor",
+          "question": "If gain = -1 and offset = 3, what is the value at x = 2?",
+          "options": [
+            {
+              "id": "q3_a",
+              "text": "1"
+            },
+            {
+              "id": "q3_b",
+              "text": "3"
+            },
+            {
+              "id": "q3_c",
+              "text": "5"
+            },
+            {
+              "id": "q3_d",
+              "text": "-1"
+            }
+          ],
+          "correct_option_id": "q3_a",
+          "explanation": "Using y = 2*gain + offset gives y = 2*(-1) + 3 = 1.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_parameter_effects",
+            "step_anchors"
+          ]
+        }
+      ]
+    },
+    "interactive_lab": {
+      "suitable": true,
+      "reason": "The explicit affine equation supports a direct 2D parameter experiment over the supplied x, gain, and offset ranges.",
+      "demos": [
+        {
+          "id": "affine_parameter_explorer",
+          "title": "Explore gain and offset",
+          "learning_goal": "Observe how gain and offset change the affine relation and its values at x = 0 and x = 2.",
+          "formula_display": "y = gain·x + offset",
+          "x": {
+            "id": "x",
+            "label": "x",
+            "min": -2,
+            "max": 2,
+            "points": 401
+          },
+          "parameters": [
+            {
+              "id": "gain",
+              "label": "gain",
+              "min": -3,
+              "max": 3,
+              "default": 1,
+              "step": 0.1,
+              "unit": ""
+            },
+            {
+              "id": "offset",
+              "label": "offset",
+              "min": -4,
+              "max": 4,
+              "default": 0,
+              "step": 0.1,
+              "unit": ""
+            }
+          ],
+          "series": [
+            {
+              "id": "affine_y",
+              "label": "y = gain·x + offset",
+              "expression": "gain*x+offset"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "value_at_zero",
+              "label": "y at x = 0",
+              "expression": "offset",
+              "unit": ""
+            },
+            {
+              "id": "value_at_two",
+              "label": "y at x = 2",
+              "expression": "2*gain+offset",
+              "unit": ""
+            }
+          ],
+          "try_this": [
+            "Hold offset at 0 and vary gain from negative to positive.",
+            "Hold gain at 1 and vary offset to see the anchor at x = 0 move.",
+            "Compare the displayed values at x = 0 and x = 2 for several parameter pairs."
+          ],
+          "source_pages": [],
+          "related_step_ids": [
+            "step_parameter_effects",
+            "step_anchors"
+          ]
+        }
+      ]
+    },
+    "learning_scene_candidate": {
+      "suitable": false,
+      "domain": "none",
+      "reason": "The material is a one-dimensional affine function, not a finite probability/set model or a spatial-dynamics model."
+    },
+    "primary_visualization": {
+      "type": "concept_map",
+      "reason": "The key learning task is understanding the relationships among the equation, its parameters, the baseline, and the two anchor values rather than following a multi-stage process."
+    },
+    "suggested_visualizations": [
+      "Concept Map",
+      "Image / Diagram",
+      "Comparison"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3629,
+    "output_tokens": 2332,
+    "total_tokens": 5961
+  }
+}

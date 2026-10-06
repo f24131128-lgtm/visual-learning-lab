@@ -1,0 +1,67 @@
+2026-10-06 21:41:41.423 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+{
+  "scope": "small generated-declaration probe on existing synthetic acceptance texts",
+  "rows": [
+    {
+      "case": "phase",
+      "phase": "complete",
+      "target_count": 2,
+      "postcompile_calls": 0,
+      "source_fidelity": "human review pending",
+      "selected_family": "dynamic",
+      "planner_safe": true,
+      "scene_valid": true,
+      "gestures": [
+        "drag_on_circle",
+        "drag_on_circle"
+      ],
+      "local_commit": true,
+      "committed_parameters": {
+        "phase": 0.25
+      },
+      "focus": "horizontal_coordinate"
+    },
+    {
+      "case": "projectile",
+      "phase": "complete",
+      "target_count": 1,
+      "postcompile_calls": 0,
+      "source_fidelity": "human review pending",
+      "selected_family": "dynamic",
+      "planner_safe": true,
+      "scene_valid": true,
+      "gestures": [
+        "drag_vector_endpoint"
+      ],
+      "local_commit": true,
+      "committed_parameters": {
+        "speed": 20.0,
+        "angle": 1.0471975511965976,
+        "gravity": 9.8
+      },
+      "focus": "launch_velocity_x"
+    },
+    {
+      "case": "math",
+      "phase": "complete",
+      "target_count": 2,
+      "postcompile_calls": 0,
+      "source_fidelity": "human review pending",
+      "selected_family": "dynamic",
+      "planner_safe": true,
+      "local_commit": true,
+      "committed_parameters": {
+        "gain": 1.0,
+        "offset": 0.0
+      },
+      "focus": "affine_relation",
+      "lab_valid": true
+    }
+  ],
+  "paid_attempts": 8,
+  "tokens": {
+    "input_tokens": 24759,
+    "output_tokens": 13233,
+    "total_tokens": 37992
+  }
+}

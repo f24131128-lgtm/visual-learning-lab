@@ -1,0 +1,59 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_03e54d30dba6649d006ac3cd02e2b887d083d66baea5519635",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "sample_space",
+      "event_r",
+      "event_n",
+      "intersection",
+      "union",
+      "overlap_rule",
+      "sampling"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": true,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": false
+    },
+    "preferred": "structural",
+    "reason": "The source defines a finite sample space and relates events through set membership, intersection, union, and overlap correction. A structural representation best highlights how the four outcomes determine the event probabilities. Repeated sampling is mentioned only as an estimation method, without enough procedural detail to justify a dynamic process.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": [
+        {
+          "semantic_id": "sample_space",
+          "text": "Treat the four labeled tokens as equally likely outcomes."
+        },
+        {
+          "semantic_id": "intersection",
+          "text": "The intersection contains outcomes belonging to both events; the shared outcome must be counted only once in the union."
+        },
+        {
+          "semantic_id": "overlap_rule",
+          "text": "The union probability requires an overlap correction rather than simple addition."
+        }
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 1361,
+    "output_tokens": 521,
+    "total_tokens": 1882
+  }
+}

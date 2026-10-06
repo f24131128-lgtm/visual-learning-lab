@@ -1,0 +1,10 @@
+{"target":"pointer","expected":[0,1],"values":{"phase":1.5711728839709505},"afterFocus":{"x":451,"y":308.1875,"width":848,"height":434},"end":[262.5,71.30000000000001],"afterMove":{"x":451,"y":308.1875,"width":848,"height":434},"lastPointer":{"client":[262.5,71.29998779296875],"rect":[0,34,525.109375,365],"origin":[1,261.5,181.5],"unit":[145.2,145.2]}}
+AssertionError [ERR_ASSERTION]: {"values":{"phase":1.5711728839709505},"revision":2,"targets":[{"id":"pointer","object_id":"pointer","semantic_id":"angle","label":"旋轉指針","gesture":"drag_on_circle","coordinate_space":"world","dimensions":2,"parameter_ids":["phase"],"inverse":{"kind":"circular","origin":[0,0],"angle_id":"phase","angle_scale":1,"offset":0},"bounds":[-1,-1,1,1],"position":[-0.0003765571671548254,0.9999999291023475],"source_pages":[1]}],"committed":{"objects":{"pointer":[0,0,-0.0003765571671548254,0.9999999291023475]},"metrics":{"wave_value":0.9999999291023475}}}
+    at C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:43:49 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

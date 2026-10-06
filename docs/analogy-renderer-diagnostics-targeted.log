@@ -1,0 +1,48 @@
+test_accepted_trace_and_bounded_records (test_analogy_diagnostics.DiagnosticTests.test_accepted_trace_and_bounded_records) ... Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+Analogy rejected stage=normalize code=mapping path=$
+ok
+test_refusal_incomplete_and_decode_identified_without_provider_text (test_analogy_diagnostics.DiagnosticTests.test_refusal_incomplete_and_decode_identified_without_provider_text) ... Analogy rejected stage=response code=incomplete_response path=$
+Analogy rejected stage=response code=model_refusal path=$
+Analogy rejected stage=response code=invalid_json path=$
+ok
+test_sanitizer_no_source_code_credentials_or_unbounded_objects (test_analogy_diagnostics.DiagnosticTests.test_sanitizer_no_source_code_credentials_or_unbounded_objects) ... ok
+test_schema_provider_classification_is_allowlisted (test_analogy_diagnostics.DiagnosticTests.test_schema_provider_classification_is_allowlisted) ... Analogy rejected stage=request code=RuntimeError path=$
+ok
+test_sdk_messages_never_retained (test_analogy_diagnostics.DiagnosticTests.test_sdk_messages_never_retained) ... Analogy rejected stage=request code=RuntimeError path=$
+ok
+test_shape_path_and_structural_candidate_preserved (test_analogy_diagnostics.DiagnosticTests.test_shape_path_and_structural_candidate_preserved) ... Analogy rejected stage=normalize code=numeric_bounds path=$.parameters[0].step
+ok
+test_first_renderer_failure_is_downloadable_and_recovers_without_a_request (test_analogy_diagnostics.RendererDiagnosticTests.test_first_renderer_failure_is_downloadable_and_recovers_without_a_request) ... 2026-10-04 23:00:06.062 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:06.077 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Analogy rejected stage=renderer code=RuntimeError path=$
+ok
+test_reused_build_renderer_failure_is_visible_under_a_different_mapped_focus (test_analogy_diagnostics.RendererDiagnosticTests.test_reused_build_renderer_failure_is_visible_under_a_different_mapped_focus) ... 2026-10-04 23:00:08.673 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.673 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 23:00:08.674 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Analogy rejected stage=renderer code=RuntimeError path=$
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 6.231s
+
+OK

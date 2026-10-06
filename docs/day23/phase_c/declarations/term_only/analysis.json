@@ -1,0 +1,265 @@
+{
+  "stage": "analysis",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_09f177027012507a006ac465355c9c87d0959e8d8fba58f3b4",
+  "raw": {
+    "quick_summary": "A token is the local name assigned to a small named item. The note provides a definition only and does not specify processes, formulas, geometry, randomness, or execution behavior.",
+    "key_concepts": [
+      {
+        "concept": "Token",
+        "explanation": "A token is the local name used for a small named item.",
+        "source_pages": []
+      },
+      {
+        "concept": "Local name",
+        "explanation": "The naming role of a token: it identifies an item within the relevant local context.",
+        "source_pages": []
+      },
+      {
+        "concept": "Small named item",
+        "explanation": "The entity to which a token refers; the note does not further specify its type or behavior.",
+        "source_pages": []
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Token",
+        "relation": "is the local name for",
+        "target": "Small named item",
+        "source_pages": []
+      },
+      {
+        "source": "Token",
+        "relation": "has the naming role of",
+        "target": "Local name",
+        "source_pages": []
+      }
+    ],
+    "visual_evidence": [],
+    "visual_flow": {
+      "suitable": false,
+      "reason": "The note explicitly provides no ordered process, state transition, or execution sequence.",
+      "nodes": [],
+      "edges": []
+    },
+    "concept_map": {
+      "suitable": true,
+      "reason": "The material is a compact definition whose meaning depends on the relationship between a token, its local naming role, and the item it identifies.",
+      "nodes": [
+        {
+          "id": "token",
+          "label": "Token",
+          "role": "central",
+          "source_pages": []
+        },
+        {
+          "id": "local_name",
+          "label": "Local name",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "named_item",
+          "label": "Small named item",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "scope",
+          "label": "Local context",
+          "role": "supporting",
+          "source_pages": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "token",
+          "target": "local_name",
+          "label": "serves as"
+        },
+        {
+          "source": "token",
+          "target": "named_item",
+          "label": "identifies"
+        },
+        {
+          "source": "local_name",
+          "target": "scope",
+          "label": "is interpreted within"
+        }
+      ]
+    },
+    "comparison": {
+      "suitable": false,
+      "reason": "The note does not present distinct alternatives or items to compare.",
+      "title": "",
+      "items": [],
+      "criteria": [],
+      "takeaway": ""
+    },
+    "learning_path": {
+      "suitable": true,
+      "title": "Understanding the term token",
+      "reason": "The note supports a short conceptual lesson focused on definition, naming role, and scope rather than a process or calculation.",
+      "steps": [
+        {
+          "id": "define_token",
+          "title": "Define token",
+          "learning_goal": "Recognize the core meaning of token.",
+          "explanation": "A token is simply a local name used for a small named item. It is a naming term, not a prescribed operation or process.",
+          "source_pages": [],
+          "connection_to_previous": "This is the starting definition for the term.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "token"
+            }
+          ]
+        },
+        {
+          "id": "identify_role",
+          "title": "Identify the naming role",
+          "learning_goal": "Distinguish the token from the item it names.",
+          "explanation": "The token is the name or label; the small named item is the thing being referred to. Keeping these roles distinct prevents treating the token as the item itself.",
+          "source_pages": [],
+          "connection_to_previous": "Once the term is defined, separate its naming role from its referent.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "local_name"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "named_item"
+            }
+          ]
+        },
+        {
+          "id": "understand_scope",
+          "title": "Understand local scope",
+          "learning_goal": "Understand why the name is described as local.",
+          "explanation": "The token functions as a name within a relevant local context. The note does not specify a broader execution model, state change, formula, or geometry.",
+          "source_pages": [],
+          "connection_to_previous": "The naming relationship is clarified further by identifying the context in which the name is used.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "scope"
+            }
+          ]
+        }
+      ],
+      "checkpoint_questions": [
+        {
+          "id": "q_definition",
+          "question": "What is a token according to the note?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A local name for a small named item"
+            },
+            {
+              "id": "b",
+              "text": "A formula that changes state"
+            },
+            {
+              "id": "c",
+              "text": "A random outcome in a sample space"
+            },
+            {
+              "id": "d",
+              "text": "A geometric representation"
+            }
+          ],
+          "correct_option_id": "a",
+          "explanation": "The note defines a token as the local name used for a small named item.",
+          "source_pages": [],
+          "related_step_ids": [
+            "define_token"
+          ]
+        },
+        {
+          "id": "q_distinction",
+          "question": "Which distinction is correct?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The token is the item, and the local name is unrelated"
+            },
+            {
+              "id": "b",
+              "text": "The token is the local name, while the small named item is what it identifies"
+            },
+            {
+              "id": "c",
+              "text": "The token is always a state transition"
+            },
+            {
+              "id": "d",
+              "text": "The small named item is necessarily a formula"
+            }
+          ],
+          "correct_option_id": "b",
+          "explanation": "A token performs the naming role, while the small named item is the referent.",
+          "source_pages": [],
+          "related_step_ids": [
+            "identify_role"
+          ]
+        },
+        {
+          "id": "q_scope",
+          "question": "What does the word local indicate in this terminology?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The token is interpreted within a relevant local context"
+            },
+            {
+              "id": "b",
+              "text": "The token must describe a geometric location"
+            },
+            {
+              "id": "c",
+              "text": "The token automatically executes a call"
+            },
+            {
+              "id": "d",
+              "text": "The token represents a random event"
+            }
+          ],
+          "correct_option_id": "a",
+          "explanation": "Local describes the context in which the name is used; the note does not add geometry, execution, or probability behavior.",
+          "source_pages": [],
+          "related_step_ids": [
+            "understand_scope"
+          ]
+        }
+      ]
+    },
+    "interactive_lab": {
+      "suitable": false,
+      "reason": "The source is purely definitional and specifies no equation, parameterized relationship, process, or quantitative behavior for an interactive experiment.",
+      "demos": []
+    },
+    "learning_scene_candidate": {
+      "suitable": false,
+      "domain": "none",
+      "reason": "The note defines terminology but contains no probability/set structure or quantitative spatial dynamics."
+    },
+    "primary_visualization": {
+      "type": "concept_map",
+      "reason": "The core learning task is understanding a definition and the naming relationship between a token, its local context, and the item it identifies; no ordered process or comparison is present."
+    },
+    "suggested_visualizations": [
+      "Concept Map",
+      "Analogy"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3615,
+    "output_tokens": 1329,
+    "total_tokens": 4944
+  }
+}

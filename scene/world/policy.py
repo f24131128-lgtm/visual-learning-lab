@@ -9,6 +9,7 @@ import copy
 import math
 
 import numpy as np
+from semantic_contract import numeric_domain
 
 MAX_TIME = 10_000.
 
@@ -35,10 +36,9 @@ def declaration_defaults(raw):
 def normalize_parameter(p):
     # Reject malformed input before applying a fallback; a policy is not repair
     # permission for NaN, reversed bounds, an illegal baseline or absurd values.
-    if not p["min"] < p["max"] or not p["min"] <= p["default"] <= p["max"] or not 1e-9 <= p["step"] <= p["max"]-p["min"] or (p["max"]-p["min"])/p["step"] > 10_000:
-        raise ValueError("Invalid parameter bounds: " + p["id"])
+    mode = numeric_domain(p, minimum_step=1e-9)
     kind, baseline = p["quantity_kind"], p["default"]
-    if p["range_source"] == "semantic_default":
+    if mode != "fixed" and p["range_source"] == "semantic_default":
         if kind == "inclination_angle":
             low, high = math.radians(5), math.radians(85)
         elif kind in ("length", "speed", "frequency", "acceleration"):
@@ -54,10 +54,16 @@ def normalize_parameter(p):
         p.update(min=low, max=high, step=(high-low)/200)
     if kind in ("length", "speed", "frequency", "acceleration") and p["min"] <= 0:
         raise ValueError("Positive semantic parameter has a non-positive range: " + p["id"])
-    if kind == "inclination_angle" and not 0 < p["min"] < p["max"] < math.pi/2:
+    if kind == "inclination_angle" and not 0 < p["min"] <= p["max"] < math.pi/2:
         raise ValueError("Inclination angle must be strictly between 0 and pi/2.")
     if p["display_unit"] == "degrees" and (kind not in ("angle", "inclination_angle") or p["unit"] not in ("rad", "radian", "radians")):
         raise ValueError("Degree display requires a declared radian angular parameter.")
+    # Preserve the exact existing adjustable representation/cache identity.
+    # Singleton domains alone need the new trusted read-only discriminator.
+    if numeric_domain(p, minimum_step=1e-9) == "fixed":
+        p["parameter_kind"] = "fixed"
+    else:
+        p.pop("parameter_kind", None)
     return p
 
 

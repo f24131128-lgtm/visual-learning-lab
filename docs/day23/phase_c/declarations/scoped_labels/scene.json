@@ -1,0 +1,295 @@
+{
+  "stage": "scene",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_07f1bb35dbc659cf006ac4647aaad087d085994f5940d263fd",
+  "raw": {
+    "scene_version": "1.1",
+    "scene_id": "ready_events_ticket_sets",
+    "title": "Two Distinct Ready Events on Four Tickets",
+    "domain": "probability_sets",
+    "learning_goal": "Represent two department-specific Ready events, compare their memberships, and calculate their intersection, union, and probabilities.",
+    "source_pages": [],
+    "equally_likely": true,
+    "outcomes": [
+      {
+        "id": "ticket_p",
+        "label": "p",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "ticket_q",
+        "label": "q",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "ticket_r",
+        "label": "r",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "ticket_s",
+        "label": "s",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      }
+    ],
+    "events": [
+      {
+        "id": "assembly_ready",
+        "label": "Assembly Ready {p,q}",
+        "outcome_ids": [
+          "ticket_p",
+          "ticket_q"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "inspection_ready",
+        "label": "Inspection Ready {q,r}",
+        "outcome_ids": [
+          "ticket_q",
+          "ticket_r"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "ready_intersection",
+        "label": "Assembly Ready and Inspection Ready {q}",
+        "outcome_ids": [
+          "ticket_q"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "ready_union",
+        "label": "Assembly Ready or Inspection Ready {p,q,r}",
+        "outcome_ids": [
+          "ticket_p",
+          "ticket_q",
+          "ticket_r"
+        ],
+        "source_pages": []
+      }
+    ],
+    "parameters": [],
+    "states": [
+      {
+        "id": "state_sample_space_focus",
+        "label": "Focus on the four tickets",
+        "kind": "focus",
+        "semantic_ids": [
+          "ticket_p",
+          "ticket_q",
+          "ticket_r",
+          "ticket_s"
+        ]
+      },
+      {
+        "id": "state_event_selection",
+        "label": "Select the two Ready events",
+        "kind": "selection",
+        "semantic_ids": [
+          "assembly_ready",
+          "inspection_ready"
+        ]
+      },
+      {
+        "id": "state_set_operations",
+        "label": "Compare the Ready events",
+        "kind": "event_expression",
+        "semantic_ids": [
+          "ready_intersection",
+          "ready_union"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel_ready_distinct",
+        "type": "related",
+        "source_event_id": "assembly_ready",
+        "target_event_id": "inspection_ready",
+        "source_pages": []
+      },
+      {
+        "id": "rel_intersection_subset_assembly",
+        "type": "subset",
+        "source_event_id": "ready_intersection",
+        "target_event_id": "assembly_ready",
+        "source_pages": []
+      },
+      {
+        "id": "rel_intersection_subset_inspection",
+        "type": "subset",
+        "source_event_id": "ready_intersection",
+        "target_event_id": "inspection_ready",
+        "source_pages": []
+      },
+      {
+        "id": "rel_assembly_subset_union",
+        "type": "subset",
+        "source_event_id": "assembly_ready",
+        "target_event_id": "ready_union",
+        "source_pages": []
+      },
+      {
+        "id": "rel_inspection_subset_union",
+        "type": "subset",
+        "source_event_id": "inspection_ready",
+        "target_event_id": "ready_union",
+        "source_pages": []
+      }
+    ],
+    "experiment": {
+      "staged": false,
+      "stages": []
+    },
+    "views": [
+      {
+        "id": "view_ticket_space",
+        "type": "sample_space",
+        "title": "Four equally likely tickets",
+        "semantic_ids": [
+          "ticket_p",
+          "ticket_q",
+          "ticket_r",
+          "ticket_s"
+        ]
+      },
+      {
+        "id": "view_ready_sets",
+        "type": "set",
+        "title": "Department-specific Ready sets",
+        "semantic_ids": [
+          "assembly_ready",
+          "inspection_ready",
+          "ready_intersection",
+          "ready_union"
+        ]
+      },
+      {
+        "id": "view_set_formulas",
+        "type": "formula",
+        "title": "Intersection and union expressions",
+        "semantic_ids": [
+          "ready_intersection_focus",
+          "ready_union_focus"
+        ]
+      },
+      {
+        "id": "view_probability_simulation",
+        "type": "monte_carlo",
+        "title": "Probability comparison by simulation",
+        "semantic_ids": [
+          "assembly_ready",
+          "inspection_ready",
+          "ready_intersection",
+          "ready_union"
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "id": "binding_assembly_ready",
+        "semantic_id": "assembly_ready",
+        "view_ids": [
+          "view_ready_sets",
+          "view_probability_simulation"
+        ]
+      },
+      {
+        "id": "binding_inspection_ready",
+        "semantic_id": "inspection_ready",
+        "view_ids": [
+          "view_ready_sets",
+          "view_probability_simulation"
+        ]
+      },
+      {
+        "id": "binding_ready_intersection",
+        "semantic_id": "ready_intersection",
+        "view_ids": [
+          "view_ready_sets",
+          "view_probability_simulation"
+        ]
+      },
+      {
+        "id": "binding_ready_union",
+        "semantic_id": "ready_union",
+        "view_ids": [
+          "view_ready_sets",
+          "view_probability_simulation"
+        ]
+      },
+      {
+        "id": "binding_ready_intersection_focus",
+        "semantic_id": "ready_intersection_focus",
+        "view_ids": [
+          "view_set_formulas"
+        ]
+      },
+      {
+        "id": "binding_ready_union_focus",
+        "semantic_id": "ready_union_focus",
+        "view_ids": [
+          "view_set_formulas"
+        ]
+      }
+    ],
+    "focus_targets": [
+      {
+        "id": "ready_intersection_focus",
+        "label": "Intersection of the two Ready events",
+        "expression": "(assembly_ready & inspection_ready)",
+        "source_pages": []
+      },
+      {
+        "id": "ready_union_focus",
+        "label": "Union of the two Ready events",
+        "expression": "(assembly_ready | inspection_ready)",
+        "source_pages": []
+      }
+    ],
+    "source_refs": [
+      {
+        "id": "ref_tickets",
+        "semantic_id": "ticket_p",
+        "source_pages": []
+      },
+      {
+        "id": "ref_assembly_ready",
+        "semantic_id": "assembly_ready",
+        "source_pages": []
+      },
+      {
+        "id": "ref_inspection_ready",
+        "semantic_id": "inspection_ready",
+        "source_pages": []
+      },
+      {
+        "id": "ref_ready_intersection",
+        "semantic_id": "ready_intersection",
+        "source_pages": []
+      },
+      {
+        "id": "ref_ready_union",
+        "semantic_id": "ready_union",
+        "source_pages": []
+      }
+    ]
+  },
+  "usage": {
+    "input_tokens": 2225,
+    "output_tokens": 1527,
+    "total_tokens": 3752
+  }
+}

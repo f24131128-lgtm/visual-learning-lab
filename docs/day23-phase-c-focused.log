@@ -1,0 +1,253 @@
+test_canonical_hash_ignores_dict_insertion_order (test_day23.CorpusTests.test_canonical_hash_ignores_dict_insertion_order) ... ok
+test_frozen_hash_provenance_gold_and_diversity (test_day23.CorpusTests.test_frozen_hash_provenance_gold_and_diversity) ... ok
+test_real_production_prompt_without_gold (test_day23.CorpusTests.test_real_production_prompt_without_gold) ... ok
+test_tamper_refuses_execution (test_day23.CorpusTests.test_tamper_refuses_execution) ... ok
+test_actual_comparison_only_analysis_now_has_canonical_catalog (test_day23.GeneralBoundaryTests.test_actual_comparison_only_analysis_now_has_canonical_catalog) ... 2026-10-06 10:59:37.461 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_capability_contracts_cache_revision_and_language (test_day23.GeneralBoundaryTests.test_capability_contracts_cache_revision_and_language) ... ok
+test_comparison_ids_pages_and_reordering (test_day23.GeneralBoundaryTests.test_comparison_ids_pages_and_reordering) ... ok
+test_concept_fallback_is_stable_only_when_no_structured_ids (test_day23.GeneralBoundaryTests.test_concept_fallback_is_stable_only_when_no_structured_ids) ... ok
+test_labels_are_not_routes_and_no_topic_conditions (test_day23.GeneralBoundaryTests.test_labels_are_not_routes_and_no_topic_conditions) ... ok
+test_numeric_capability_absence_cannot_promise_interaction (test_day23.GeneralBoundaryTests.test_numeric_capability_absence_cannot_promise_interaction) ... ok
+test_parameterized_numeric_interaction_needs_no_time (test_day23.GeneralBoundaryTests.test_parameterized_numeric_interaction_needs_no_time) ... ok
+test_required_invalid_process_semantics_stay_rejected (test_day23.GeneralBoundaryTests.test_required_invalid_process_semantics_stay_rejected) ... ok
+test_unused_process_cannot_hide_security_or_workload_violations (test_day23.GeneralBoundaryTests.test_unused_process_cannot_hide_security_or_workload_violations) ... ok
+test_unused_process_fault_isolation_uses_captured_responses (test_day23.GeneralBoundaryTests.test_unused_process_fault_isolation_uses_captured_responses) ... ok
+test_comparison_numeric_controls_round_trip_zero_requests (test_day23.ProductIntegrationTests.test_comparison_numeric_controls_round_trip_zero_requests) ... 2026-10-06 10:59:39.484 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.485 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.485 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.485 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.485 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.485 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.486 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:39.486 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:43.956 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:44.306 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:45.485 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_explicit_comparison_plan_has_catalog_and_one_request (test_day23.ProductIntegrationTests.test_explicit_comparison_plan_has_catalog_and_one_request) ... 2026-10-06 10:59:45.503 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.503 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.503 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.503 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.504 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.504 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.504 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:45.504 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.189 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:46.567 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:46.813 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_normal_pdf_comparison_cta_source_and_page_whitelist (test_day23.ProductIntegrationTests.test_normal_pdf_comparison_cta_source_and_page_whitelist) ... 2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:46.848 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:47.587 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:47.842 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:48.519 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_required_process_failure_preserves_product_learning (test_day23.ProductIntegrationTests.test_required_process_failure_preserves_product_learning) ... 2026-10-06 10:59:48.534 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:48.535 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Learning representation rejected stage=normalize code=duplicate_runtime_id path=$.process.transitions[0].id
+ok
+test_local_interaction_guard (test_day23.RunnerTests.test_local_interaction_guard) ... ok
+test_missing_replay_is_unmeasured_not_synthetic_success (test_day23.RunnerTests.test_missing_replay_is_unmeasured_not_synthetic_success) ... ok
+test_paid_budget_and_raw_persist_before_normalization (test_day23.RunnerTests.test_paid_budget_and_raw_persist_before_normalization) ... ok
+test_process_probe_uses_actual_reducer (test_day23.RunnerTests.test_process_probe_uses_actual_reducer) ... ok
+test_replay_resume_no_network_and_no_overwrite (test_day23.RunnerTests.test_replay_resume_no_network_and_no_overwrite) ... ok
+test_sdk_failure_never_dumps_secret_or_source (test_day23.RunnerTests.test_sdk_failure_never_dumps_secret_or_source) ... ok
+test_summary_separates_missing_fail_and_local_observation (test_day23.RunnerTests.test_summary_separates_missing_fail_and_local_observation) ... ok
+test_misleading_recursion_is_not_promoted_to_meaningful_success (test_day23.SemanticReviewTests.test_misleading_recursion_is_not_promoted_to_meaningful_success) ... ok
+test_ready_numeric_lab_does_not_require_optional_spatial_request (test_day23.SemanticReviewTests.test_ready_numeric_lab_does_not_require_optional_spatial_request) ... ok
+test_recorded_product_three_cases_run_with_no_requests (test_day23.SemanticReviewTests.test_recorded_product_three_cases_run_with_no_requests) ... 2026-10-06 10:59:50.399 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:50.399 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:50.954 The widget with key "product_language" was created with a default value but also had its value set via the Session State API.
+Stack (most recent call last):
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\local_script_runner.py", line 144, in _run_script_thread
+    super()._run_script_thread()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 423, in _run_script_thread
+    self._run_script(request.rerun_data)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 934, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 909, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\manual_day23.py", line 42, in <module>
+    runpy.run_path(str(ROOT / "app.py"), run_name="__main__")
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\app.py", line 2788, in <module>
+    render_header()
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\presentation.py", line 55, in render_header
+    st.selectbox("語言 / Language", options=list(LANGUAGE_NAMES),
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\metrics_util.py", line 725, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\widgets\selectbox.py", line 636, in selectbox
+    return self._selectbox(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\widgets\selectbox.py", line 685, in _selectbox
+    check_widget_policies(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\lib\policies.py", line 146, in check_widget_policies
+    check_session_state_rules(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\lib\policies.py", line 90, in check_session_state_rules
+    _LOGGER.warning(
+2026-10-06 10:59:51.000 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 10:59:51.017 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:51.017 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:51.857 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:51.857 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_source_equations_and_actual_operations (test_day23.SemanticReviewTests.test_source_equations_and_actual_operations) ... ok
+test_depth_counts_cycles_unknown_references_and_executable_syntax (test_day23_phase_c.ContractSecurityTests.test_depth_counts_cycles_unknown_references_and_executable_syntax) ... ok
+test_fixed_domains_reject_fabricated_change_and_malformed_bounds (test_day23_phase_c.ContractSecurityTests.test_fixed_domains_reject_fabricated_change_and_malformed_bounds) ... ok
+test_forged_state_stale_duplicate_events_and_reset (test_day23_phase_c.ContractSecurityTests.test_forged_state_stale_duplicate_events_and_reset) ... ok
+test_multiple_children_return_to_distinct_bindings (test_day23_phase_c.ContractSecurityTests.test_multiple_children_return_to_distinct_bindings) ... ok
+test_no_topic_routing_and_unchanged_recorded_b_choices (test_day23_phase_c.ContractSecurityTests.test_no_topic_routing_and_unchanged_recorded_b_choices) ... ok
+test_optional_annotations_drop_but_bad_core_rejects (test_day23_phase_c.ContractSecurityTests.test_optional_annotations_drop_but_bad_core_rejects) ... ok
+test_phase_c_frozen_gold_and_runner_execution_probe (test_day23_phase_c.ContractSecurityTests.test_phase_c_frozen_gold_and_runner_execution_probe) ... ok
+test_retained_real_candidates_revalidate_separately_from_history (test_day23_phase_c.ContractSecurityTests.test_retained_real_candidates_revalidate_separately_from_history) ... ok
+test_same_expression_keeps_selected_source_identity (test_day23_phase_c.ContractSecurityTests.test_same_expression_keeps_selected_source_identity) ... ok
+test_duplicate_labels_preserve_formal_identity (test_day23_phase_c.FrozenRegressionShapes.test_duplicate_labels_preserve_formal_identity) ... ok
+test_early_return_wrong_caller_and_cycles_are_rejected (test_day23_phase_c.FrozenRegressionShapes.test_early_return_wrong_caller_and_cycles_are_rejected) ... ok
+test_invalid_fixed_value_still_rejected (test_day23_phase_c.FrozenRegressionShapes.test_invalid_fixed_value_still_rejected) ... ok
+test_recursive_and_nonidentical_nested_call_return_contract (test_day23_phase_c.FrozenRegressionShapes.test_recursive_and_nonidentical_nested_call_return_contract) ... ok
+test_unused_process_recovery_remains (test_day23_phase_c.FrozenRegressionShapes.test_unused_process_recovery_remains) ... ok
+test_zero_width_source_value_is_fixed_not_an_invented_range (test_day23_phase_c.FrozenRegressionShapes.test_zero_width_source_value_is_fixed_not_an_invented_range) ... ok
+test_fixed_lab_has_read_only_value_no_slider (test_day23_phase_c.ProductContractTests.test_fixed_lab_has_read_only_value_no_slider) ... 2026-10-06 10:59:52.914 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.714 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_fixed_world_frontend_uses_read_only_output (test_day23_phase_c.ProductContractTests.test_fixed_world_frontend_uses_read_only_output) ... 2026-10-06 10:59:54.943 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.955 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.955 Session state does not function when running a script without `streamlit run`
+2026-10-06 10:59:54.956 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.956 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.956 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.956 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.956 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.957 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.958 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.958 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.959 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.960 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.960 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.960 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.960 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.961 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.962 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.962 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.962 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.962 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.963 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:54.964 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_local_execution_navigation_focus_and_reset_preserve_learning (test_day23_phase_c.ProductContractTests.test_local_execution_navigation_focus_and_reset_preserve_learning) ... 2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.239 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:55.241 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_one_explicit_execution_compile_and_local_cached_rerun (test_day23_phase_c.ProductContractTests.test_one_explicit_execution_compile_and_local_cached_rerun) ... 2026-10-06 10:59:59.296 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.296 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.296 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 10:59:59.297 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 48 tests in 25.272s
+
+OK

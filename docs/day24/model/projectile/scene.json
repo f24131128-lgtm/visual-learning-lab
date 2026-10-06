@@ -1,0 +1,383 @@
+{
+  "stage": "scene",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0ad50edcbe947005006ac4f97c7ea887d0a43b0ddbdc829b1b",
+  "raw": {
+    "scene_version": "2.2",
+    "domain": "spatial_dynamics",
+    "scene_id": "ideal_same_height_projectile",
+    "title": "Ideal Same-Height Projectile Motion",
+    "learning_goal": "Explore how launch speed, launch angle, and gravity determine the launch velocity components, trajectory, and flight duration.",
+    "assumptions": [
+      "Air resistance is ignored.",
+      "The gravitational acceleration is constant and downward.",
+      "Launch and landing occur at the same vertical height.",
+      "The projectile starts at the origin at time zero."
+    ],
+    "source_pages": [],
+    "time": {
+      "min": 0,
+      "max": 200,
+      "frames": 120,
+      "unit": "s",
+      "strategy": "derived_duration",
+      "duration_expression": "2*speed*sin(angle)/gravity",
+      "periods": 1
+    },
+    "axes": {
+      "x_min": -100,
+      "x_max": 10500,
+      "y_min": -100,
+      "y_max": 5500,
+      "x_label": "Horizontal position x (m)",
+      "y_label": "Vertical position y (m)"
+    },
+    "parameters": [
+      {
+        "id": "speed",
+        "label": "Launch speed",
+        "unit": "m/s",
+        "min": 5,
+        "max": 100,
+        "default": 20,
+        "step": 1,
+        "source_pages": [],
+        "quantity_kind": "speed",
+        "range_source": "source",
+        "display_unit": "native"
+      },
+      {
+        "id": "angle",
+        "label": "Launch angle",
+        "unit": "rad",
+        "min": 0.08726646259971647,
+        "max": 1.4835298641951802,
+        "default": 0.7853981633974483,
+        "step": 0.017453292519943295,
+        "source_pages": [],
+        "quantity_kind": "inclination_angle",
+        "range_source": "source",
+        "display_unit": "degrees"
+      },
+      {
+        "id": "gravity",
+        "label": "Gravitational acceleration",
+        "unit": "m/s^2",
+        "min": 1,
+        "max": 20,
+        "default": 9.8,
+        "step": 0.1,
+        "source_pages": [],
+        "quantity_kind": "acceleration",
+        "range_source": "source",
+        "display_unit": "native"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "launch_velocity_x",
+        "label": "Initial horizontal velocity",
+        "unit": "m/s",
+        "expression": "speed*cos(angle)",
+        "source_pages": []
+      },
+      {
+        "id": "launch_velocity_y",
+        "label": "Initial vertical velocity",
+        "unit": "m/s",
+        "expression": "speed*sin(angle)",
+        "source_pages": []
+      },
+      {
+        "id": "horizontal_position",
+        "label": "Horizontal position",
+        "unit": "m",
+        "expression": "launch_velocity_x*time",
+        "source_pages": []
+      },
+      {
+        "id": "vertical_position",
+        "label": "Vertical position",
+        "unit": "m",
+        "expression": "launch_velocity_y*time-gravity*time**2/2",
+        "source_pages": []
+      },
+      {
+        "id": "flight_duration",
+        "label": "Flight duration",
+        "unit": "s",
+        "expression": "2*speed*sin(angle)/gravity",
+        "source_pages": []
+      },
+      {
+        "id": "vertical_velocity",
+        "label": "Vertical velocity",
+        "unit": "m/s",
+        "expression": "launch_velocity_y-gravity*time",
+        "source_pages": []
+      }
+    ],
+    "objects": [
+      {
+        "id": "launch_velocity_vector",
+        "label": "Launch velocity vector",
+        "type": "vector",
+        "semantic_id": "launch_velocity_x",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "projectile_trajectory",
+        "label": "Projectile trajectory",
+        "type": "trajectory",
+        "semantic_id": "horizontal_position",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      }
+    ],
+    "series": [
+      {
+        "id": "horizontal_position_series",
+        "label": "Horizontal position x(time)",
+        "semantic_id": "horizontal_position",
+        "source_pages": []
+      },
+      {
+        "id": "vertical_position_series",
+        "label": "Vertical position y(time)",
+        "semantic_id": "vertical_position",
+        "source_pages": []
+      }
+    ],
+    "metrics": [
+      {
+        "id": "flight_duration_metric",
+        "label": "Flight duration",
+        "semantic_id": "flight_duration",
+        "unit": "s",
+        "source_pages": []
+      }
+    ],
+    "bindings": [
+      {
+        "id": "bind_launch_velocity_vector",
+        "type": "vector_components",
+        "target_id": "launch_velocity_vector",
+        "quantity_ids": [
+          "launch_velocity_x",
+          "launch_velocity_y"
+        ]
+      },
+      {
+        "id": "bind_projectile_trajectory",
+        "type": "point_position",
+        "target_id": "projectile_trajectory",
+        "quantity_ids": [
+          "horizontal_position",
+          "vertical_position"
+        ]
+      },
+      {
+        "id": "bind_horizontal_position_series",
+        "type": "curve_value",
+        "target_id": "horizontal_position_series",
+        "quantity_ids": [
+          "horizontal_position"
+        ]
+      },
+      {
+        "id": "bind_vertical_position_series",
+        "type": "curve_value",
+        "target_id": "vertical_position_series",
+        "quantity_ids": [
+          "vertical_position"
+        ]
+      },
+      {
+        "id": "bind_flight_duration_metric",
+        "type": "metric_value",
+        "target_id": "flight_duration_metric",
+        "quantity_ids": [
+          "flight_duration"
+        ]
+      }
+    ],
+    "inverse_bindings": [
+      {
+        "id": "inverse_nearest_projectile_time",
+        "type": "nearest_path_time",
+        "object_id": "projectile_trajectory",
+        "target_id": "time",
+        "rate_expression": null,
+        "offset_expression": null,
+        "scale": 1
+      }
+    ],
+    "invariants": [
+      {
+        "id": "launch_speed_components_relation",
+        "label": "Launch velocity magnitude equals launch speed",
+        "type": "vector_relation",
+        "left_expression": "sqrt(launch_velocity_x**2+launch_velocity_y**2)",
+        "right_expression": "speed",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-07,
+        "samples": 8
+      },
+      {
+        "id": "horizontal_velocity_constant",
+        "label": "Horizontal velocity remains constant",
+        "type": "constant_over_time",
+        "left_expression": "launch_velocity_x",
+        "right_expression": "launch_velocity_x",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-07,
+        "samples": 8
+      }
+    ],
+    "experiments": [
+      {
+        "id": "experiment_baseline_trajectory",
+        "title": "Explore the baseline trajectory",
+        "learning_goal": "Connect the launch conditions to the velocity components, path, and landing time.",
+        "steps": [
+          {
+            "op": "set_parameter",
+            "target_id": "speed",
+            "value": 20
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "angle",
+            "value": 0.7853981633974483
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "gravity",
+            "value": 9.8
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_focus",
+            "target_id": "launch_velocity_x",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 2.038735983690112
+          },
+          {
+            "op": "set_focus",
+            "target_id": "flight_duration",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "launch_velocity_x",
+          "launch_velocity_y",
+          "horizontal_position",
+          "vertical_position",
+          "flight_duration"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "experiment_angle_effect",
+        "title": "Change the launch angle",
+        "learning_goal": "Observe how launch angle changes the horizontal and vertical components and the flight duration.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "angle",
+            "value": 0.2617993877991494
+          },
+          {
+            "op": "set_focus",
+            "target_id": "launch_velocity_y",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "angle",
+            "value": 1.3089969389957472
+          },
+          {
+            "op": "set_focus",
+            "target_id": "flight_duration",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "launch_velocity_x",
+          "launch_velocity_y",
+          "flight_duration"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "experiment_gravity_effect",
+        "title": "Change gravitational acceleration",
+        "learning_goal": "Observe how gravity bends the trajectory and changes the same-height flight duration.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "gravity",
+            "value": 1
+          },
+          {
+            "op": "set_focus",
+            "target_id": "vertical_position",
+            "value": null
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "gravity",
+            "value": 20
+          },
+          {
+            "op": "set_focus",
+            "target_id": "flight_duration",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "vertical_position",
+          "flight_duration"
+        ],
+        "source_pages": []
+      }
+    ]
+  },
+  "usage": {
+    "input_tokens": 3550,
+    "output_tokens": 2677,
+    "total_tokens": 6227
+  }
+}

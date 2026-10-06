@@ -16,7 +16,7 @@ def empty_process(): return dict(collections=[], states=[], transitions=[], anno
 def plan(preferred, ids, flags, pages=(1,), process=None):
     return dict(version=VERSION, focus_ids=list(ids), source_pages=list(pages),
                 features={k: k in flags for k in FEATURES}, preferred=preferred,
-                reason="The source structure supports this representation.", process=process or empty_process())
+                reason="The source structure supports this representation.", process=process or empty_process(), execution=None)
 
 
 def discrete(kind="fifo"):

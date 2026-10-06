@@ -1,0 +1,1 @@
+Actual JSXGraph browser pointer drags passed for three cases; no pointermove commits; rejection restores canonical positions.

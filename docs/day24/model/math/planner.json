@@ -1,0 +1,46 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_025080d9e6153c2b006ac4f9ac381087d099b3ce989c2df464",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "affine_relation",
+      "gain",
+      "offset",
+      "anchor_x0",
+      "anchor_x2",
+      "baseline"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "A parameterized numeric lab is the most useful representation because the source gives the equation y = gain*x + offset, continuous ranges for gain and offset, and a bounded x-range. Learners can compare function curves while changing gain and offset, and observe the anchor values y(0) = offset and y(2) = 2*gain + offset against the baseline gain = 1, offset = 0. This uses meaningful parameter and",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2384,
+    "output_tokens": 356,
+    "total_tokens": 2740
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0655f0e7e1b72475006ac3cd8c085087d0970532d166ed218e",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "reference",
+      "error",
+      "controller",
+      "plant",
+      "output"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "The source describes a continuous-time feedback system governed by differential equations. The useful learning representation is dynamic: learners can relate the reference, error, proportional controller, plant response, and output while varying K and observing response speed and steady-state error. A finite-state process would not faithfully represent the continuous equation or time response.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    }
+  },
+  "usage": {
+    "input_tokens": 1276,
+    "output_tokens": 459,
+    "total_tokens": 1735
+  }
+}

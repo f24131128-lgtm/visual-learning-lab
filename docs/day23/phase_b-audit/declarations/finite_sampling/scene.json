@@ -1,0 +1,348 @@
+{
+  "stage": "scene",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_00a409142cf108c6006ac3d1b6b97c87d08987f67a59ac31e4",
+  "raw": {
+    "scene_version": "1.1",
+    "scene_id": "four_tokens_union_overlap",
+    "title": "Four Tokens: Events, Overlap, and Union",
+    "domain": "probability_sets",
+    "learning_goal": "Use equally likely outcomes to represent events, find intersections and unions, and correct for overlap when adding probabilities.",
+    "source_pages": [],
+    "equally_likely": true,
+    "outcomes": [
+      {
+        "id": "outcome_r1",
+        "label": "r1",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "outcome_r2",
+        "label": "r2",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "outcome_b1",
+        "label": "b1",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      },
+      {
+        "id": "outcome_b2",
+        "label": "b2",
+        "path": [],
+        "weight": 1,
+        "source_pages": []
+      }
+    ],
+    "events": [
+      {
+        "id": "event_r",
+        "label": "R: red token",
+        "outcome_ids": [
+          "outcome_r1",
+          "outcome_r2"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "event_n",
+        "label": "N: label ends in 1",
+        "outcome_ids": [
+          "outcome_r1",
+          "outcome_b1"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "event_intersection",
+        "label": "R and N",
+        "outcome_ids": [
+          "outcome_r1"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "event_union",
+        "label": "R or N",
+        "outcome_ids": [
+          "outcome_r1",
+          "outcome_r2",
+          "outcome_b1"
+        ],
+        "source_pages": []
+      }
+    ],
+    "parameters": [],
+    "states": [
+      {
+        "id": "state_outcomes",
+        "label": "List the equally likely outcomes",
+        "kind": "focus",
+        "semantic_ids": [
+          "outcome_r1",
+          "outcome_r2",
+          "outcome_b1",
+          "outcome_b2"
+        ]
+      },
+      {
+        "id": "state_events",
+        "label": "Translate conditions into events",
+        "kind": "selection",
+        "semantic_ids": [
+          "event_r",
+          "event_n"
+        ]
+      },
+      {
+        "id": "state_overlap",
+        "label": "Find the shared outcome",
+        "kind": "event_expression",
+        "semantic_ids": [
+          "event_intersection"
+        ]
+      },
+      {
+        "id": "state_union",
+        "label": "Compute the union with overlap correction",
+        "kind": "event_expression",
+        "semantic_ids": [
+          "event_union",
+          "focus_inclusion_exclusion"
+        ]
+      },
+      {
+        "id": "state_sampling",
+        "label": "Compare exact counting with repeated sampling",
+        "kind": "focus",
+        "semantic_ids": [
+          "event_r",
+          "event_n",
+          "event_intersection",
+          "event_union"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "relation_intersection_subset_r",
+        "type": "subset",
+        "source_event_id": "event_intersection",
+        "target_event_id": "event_r",
+        "source_pages": []
+      },
+      {
+        "id": "relation_intersection_subset_n",
+        "type": "subset",
+        "source_event_id": "event_intersection",
+        "target_event_id": "event_n",
+        "source_pages": []
+      },
+      {
+        "id": "relation_r_subset_union",
+        "type": "subset",
+        "source_event_id": "event_r",
+        "target_event_id": "event_union",
+        "source_pages": []
+      },
+      {
+        "id": "relation_n_subset_union",
+        "type": "subset",
+        "source_event_id": "event_n",
+        "target_event_id": "event_union",
+        "source_pages": []
+      },
+      {
+        "id": "relation_r_related_n",
+        "type": "related",
+        "source_event_id": "event_r",
+        "target_event_id": "event_n",
+        "source_pages": []
+      }
+    ],
+    "experiment": {
+      "staged": false,
+      "stages": []
+    },
+    "views": [
+      {
+        "id": "view_outcomes",
+        "type": "sample_space",
+        "title": "Equally likely outcomes",
+        "semantic_ids": [
+          "outcome_r1",
+          "outcome_r2",
+          "outcome_b1",
+          "outcome_b2"
+        ]
+      },
+      {
+        "id": "view_sets",
+        "type": "set",
+        "title": "Events and their overlap",
+        "semantic_ids": [
+          "event_r",
+          "event_n",
+          "event_intersection",
+          "event_union"
+        ]
+      },
+      {
+        "id": "view_formula",
+        "type": "formula",
+        "title": "Union probability with overlap correction",
+        "semantic_ids": [
+          "focus_inclusion_exclusion",
+          "event_r",
+          "event_n",
+          "event_intersection",
+          "event_union"
+        ]
+      },
+      {
+        "id": "view_monte_carlo",
+        "type": "monte_carlo",
+        "title": "Repeated-sampling estimate",
+        "semantic_ids": [
+          "event_r",
+          "event_n",
+          "event_intersection",
+          "event_union"
+        ]
+      }
+    ],
+    "bindings": [
+      {
+        "id": "binding_event_r",
+        "semantic_id": "event_r",
+        "view_ids": [
+          "view_sets",
+          "view_formula",
+          "view_monte_carlo"
+        ]
+      },
+      {
+        "id": "binding_event_n",
+        "semantic_id": "event_n",
+        "view_ids": [
+          "view_sets",
+          "view_formula",
+          "view_monte_carlo"
+        ]
+      },
+      {
+        "id": "binding_event_intersection",
+        "semantic_id": "event_intersection",
+        "view_ids": [
+          "view_sets",
+          "view_formula",
+          "view_monte_carlo"
+        ]
+      },
+      {
+        "id": "binding_event_union",
+        "semantic_id": "event_union",
+        "view_ids": [
+          "view_sets",
+          "view_formula",
+          "view_monte_carlo"
+        ]
+      },
+      {
+        "id": "binding_focus_inclusion_exclusion",
+        "semantic_id": "focus_inclusion_exclusion",
+        "view_ids": [
+          "view_formula"
+        ]
+      }
+    ],
+    "focus_targets": [
+      {
+        "id": "focus_r_probability",
+        "label": "Probability of R",
+        "expression": "event_r",
+        "source_pages": []
+      },
+      {
+        "id": "focus_n_probability",
+        "label": "Probability of N",
+        "expression": "event_n",
+        "source_pages": []
+      },
+      {
+        "id": "focus_intersection_probability",
+        "label": "Probability of R and N",
+        "expression": "event_r & event_n",
+        "source_pages": []
+      },
+      {
+        "id": "focus_union_probability",
+        "label": "Probability of R or N",
+        "expression": "event_r | event_n",
+        "source_pages": []
+      },
+      {
+        "id": "focus_inclusion_exclusion",
+        "label": "Union correction",
+        "expression": "event_r | event_n",
+        "source_pages": []
+      }
+    ],
+    "source_refs": [
+      {
+        "id": "source_outcome_space",
+        "semantic_id": "outcome_r1",
+        "source_pages": []
+      },
+      {
+        "id": "source_outcome_space_2",
+        "semantic_id": "outcome_r2",
+        "source_pages": []
+      },
+      {
+        "id": "source_outcome_space_3",
+        "semantic_id": "outcome_b1",
+        "source_pages": []
+      },
+      {
+        "id": "source_outcome_space_4",
+        "semantic_id": "outcome_b2",
+        "source_pages": []
+      },
+      {
+        "id": "source_event_r",
+        "semantic_id": "event_r",
+        "source_pages": []
+      },
+      {
+        "id": "source_event_n",
+        "semantic_id": "event_n",
+        "source_pages": []
+      },
+      {
+        "id": "source_intersection",
+        "semantic_id": "event_intersection",
+        "source_pages": []
+      },
+      {
+        "id": "source_union",
+        "semantic_id": "event_union",
+        "source_pages": []
+      }
+    ]
+  },
+  "usage": {
+    "input_tokens": 2104,
+    "output_tokens": 1713,
+    "total_tokens": 3817
+  },
+  "replayed_from": "docs\\day23\\phase_b\\declarations\\finite_sampling\\scene.json"
+}

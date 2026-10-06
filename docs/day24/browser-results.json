@@ -1,0 +1,60 @@
+{
+  "profile": "fresh isolated headless Edge",
+  "results": [
+    {
+      "case": 1,
+      "event": {
+        "scene": "ba74aacf449e6896e060d55c63bd7934fa28ed6817d510b558a2f86acdb1fd41",
+        "revision": 1,
+        "token": "1791295102359-3500t3soydq",
+        "kind": "manipulate",
+        "target": "pointer",
+        "x": 6.123233995736766e-17,
+        "y": 1,
+        "time": 0
+      },
+      "drag_ms": 787,
+      "value_commits": 1,
+      "focus_commits": 1,
+      "move_commits": 0,
+      "rejection_restored": true
+    },
+    {
+      "case": 2,
+      "event": {
+        "scene": "dcb977e90e52fdc07e34512e2ca3e8196f413e13d56023eca7376a7ae851644c",
+        "revision": 1,
+        "token": "1791295103735-6qwapr5puxv",
+        "kind": "manipulate",
+        "target": "launch",
+        "x": 15.000000000000002,
+        "y": 25.980759297520663,
+        "time": 0
+      },
+      "drag_ms": 1481,
+      "value_commits": 1,
+      "focus_commits": 1,
+      "move_commits": 0,
+      "rejection_restored": true
+    },
+    {
+      "case": 3,
+      "event": {
+        "scene": "6eeb8f3d3cb2996acae5453192017d269a37c17f5865aa926103ba7c91841f85",
+        "revision": 1,
+        "token": "1791295105189-6lo71jrqn53",
+        "kind": "manipulate",
+        "target": "relation_curve_anchor_offset",
+        "x": 0,
+        "y": 2,
+        "time": 0
+      },
+      "drag_ms": 463,
+      "value_commits": 1,
+      "focus_commits": 1,
+      "move_commits": 0,
+      "rejection_restored": true
+    }
+  ],
+  "page_errors": []
+}

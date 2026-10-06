@@ -1,0 +1,42 @@
+{
+  "scope": "offline declarations in normal app; real pointer events and reducer reruns",
+  "results": [
+    {
+      "case": "phase",
+      "values": {
+        "phase": 1.5707963267948966
+      },
+      "source_roundtrip": true,
+      "exact_signal": 1
+    },
+    {
+      "case": "projectile",
+      "values": {
+        "speed": 29.999997561261676,
+        "angle": 1.0471975042630524,
+        "grav": 9.8
+      },
+      "source_roundtrip": true,
+      "exact_horizontal": 15.000000000000002
+    },
+    {
+      "case": "math",
+      "values": {
+        "gain": 1,
+        "offset": 2.0000001511706653
+      },
+      "source_roundtrip": true,
+      "positions": [
+        [
+          0,
+          2.0000001511706653
+        ],
+        [
+          2,
+          4.000000151170665
+        ]
+      ]
+    }
+  ],
+  "page_errors": []
+}

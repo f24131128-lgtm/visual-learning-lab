@@ -1,0 +1,46 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_033a6cd7df11b0f4006ac4650fca6887d0807cdbfae9ed812b",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "calibration_model",
+      "response_equation",
+      "adjustable_gain",
+      "fixed_reference",
+      "comparison_metric",
+      "endpoint_responses"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": false,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "A parameterized numeric lab is the best representation because the source provides an explicit equation, response(x) = gain·x, and a continuous adjustable gain over the narrow interval 2.0000–2.0002. Learners can compare function curves, inspect the derived metric gain−2, and observe endpoint responses while preserving the fixed reference gain of 2. No time-based animation, spatial layout, analogy",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2383,
+    "output_tokens": 347,
+    "total_tokens": 2730
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_005db1b44d7939ae006ac464e3452c87d0a76008c782f41099",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "initial_state",
+      "decay_evolution",
+      "later_state",
+      "later_rate"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "dynamic",
+    "reason": "The source provides an explicit exponential function with a continuous independent variable, time evolution, and a derived rate. A numeric lab can show the function curve and compare y(t) and -0.25y(t) as t varies, while keeping the supplied constants fixed and read-only. A dynamic representation is more useful than a passive diagram because local parameter exploration of time directly reveals the",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2373,
+    "output_tokens": 400,
+    "total_tokens": 2773
+  }
+}

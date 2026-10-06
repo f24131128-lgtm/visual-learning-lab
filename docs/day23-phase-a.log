@@ -1,0 +1,58 @@
+2026-10-06 00:12:35.633 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+{"material_id": "damped_motion", "proposal_family": null, "selected_family": null, "selection_pass": null, "compilation_pass": null, "runtime_pass": null, "failure_category": "P3"}
+{"material_id": "vector_resultant", "proposal_family": "static", "selected_family": "static", "selection_pass": false, "compilation_pass": true, "runtime_pass": false, "failure_category": "P1"}
+Learning representation rejected stage=normalize code=duplicate_runtime_id path=$.process.transitions[1].id
+{"material_id": "rc_charging", "proposal_family": "dynamic", "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+{"material_id": "quadratic_shape", "proposal_family": null, "selected_family": null, "selection_pass": null, "compilation_pass": null, "runtime_pass": null, "failure_category": "P3"}
+Learning representation rejected stage=normalize code=required_process path=$
+{"material_id": "finite_sampling", "proposal_family": "structural", "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+{"material_id": "undo_history", "proposal_family": "process", "selected_family": "process", "selection_pass": true, "compilation_pass": true, "runtime_pass": false, "failure_category": "R2"}
+Learning representation rejected stage=normalize code=duplicate_runtime_id path=$.process.transitions[0].id
+{"material_id": "future_lifecycle", "proposal_family": "process", "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+Learning representation rejected stage=normalize code=duplicate_runtime_id path=$.process.transitions[0].id
+{"material_id": "recursive_calls", "proposal_family": "process", "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+{"material_id": "feedback_response", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": false, "failure_category": "R2"}
+{"material_id": "market_equilibrium", "proposal_family": null, "selected_family": null, "selection_pass": null, "compilation_pass": null, "runtime_pass": null, "failure_category": "P3"}
+{"material_id": "cell_cycle", "proposal_family": "process", "selected_family": "static", "selection_pass": true, "compilation_pass": true, "runtime_pass": false, "failure_category": "R2"}
+{"material_id": "byte_definition", "proposal_family": "static", "selected_family": "static", "selection_pass": true, "compilation_pass": true, "runtime_pass": false, "failure_category": "R2"}
+{
+  "total": 12,
+  "proposal_selection_pass": {
+    "pass": 8,
+    "fail": 1,
+    "not_evaluated": 3
+  },
+  "selection_pass": {
+    "pass": 4,
+    "fail": 1,
+    "not_evaluated": 7
+  },
+  "compilation_pass": {
+    "pass": 5,
+    "fail": 4,
+    "not_evaluated": 3
+  },
+  "runtime_pass": {
+    "pass": 0,
+    "fail": 5,
+    "not_evaluated": 7
+  },
+  "grounding_pass": {
+    "pass": 5,
+    "fail": 0,
+    "not_evaluated": 7
+  },
+  "safe_fallback": {
+    "pass": 12,
+    "fail": 0,
+    "not_evaluated": 0
+  },
+  "post_compile_api_calls": 0,
+  "local_api_observed_cases": 5,
+  "failure_categories": {
+    "C1": 4,
+    "P1": 1,
+    "P3": 3,
+    "R2": 4
+  }
+}

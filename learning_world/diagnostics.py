@@ -44,6 +44,9 @@ def record(store, key, stage, error=None, raw=None, normalized=None):
         process_runtime_reached=False, legacy_visual_flow_used=False)
     if normalized and normalized.get("process"):
         entry["normalized_entity_ids"] = [safe_id(i["id"]) for g in ("collections", "states", "transitions") for i in normalized["process"][g]]
+    if normalized:
+        entry["recovery_codes"] = list(normalized.get("recovery_codes", []))[:8]
+        entry["degraded"] = normalized.get("degraded", False)
     status = getattr(error, "status_code", None)
     if type(status) is int: entry["http_status"] = status
     body = getattr(error, "body", None)

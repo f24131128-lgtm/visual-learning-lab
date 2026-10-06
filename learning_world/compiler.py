@@ -5,6 +5,7 @@ from scene.state import fingerprint
 from .schema import VERSION, SCHEMA, INSTRUCTIONS, MAX_PAYLOAD
 from .planner import normalize
 from .diagnostics import record, Rejection, safe_id
+from .capabilities import contracts, POLICY_REVISION
 
 
 def capabilities(analysis, wrapper, lab, analogy=None):
@@ -32,7 +33,8 @@ def context(analysis, source, catalog, pages, caps, focus):
     if not text.strip(): raise ValueError("source")
     result = dict(analysis_language=analysis.get("analysis_language", "zh-TW"),
         catalog=bounded_catalog, focus=focus if focus in bounded_catalog else None, allowed_pages=list(pages)[:8],
-        capabilities=caps, quick_summary=str(analysis.get("quick_summary", ""))[:1200], source_context=text)
+        capabilities=caps, runtime_contracts=contracts(caps),
+        quick_summary=str(analysis.get("quick_summary", ""))[:1200], source_context=text)
     if len(json.dumps(result, ensure_ascii=False).encode()) > 24000: raise ValueError("context_bound")
     return result
 
@@ -41,7 +43,7 @@ def identity(material, language, source, catalog, caps, focus):
     # The always-present process adapter was omitted from the old request hints.
     # Advertising it must not invalidate an already safe v1 process or pending
     # candidate. Variable specialized capabilities retain their existing identity.
-    return (material, language, VERSION, fingerprint([source, catalog, {k: v for k, v in caps.items() if k != "process"}]), focus)
+    return (material, language, VERSION, fingerprint([source, catalog, {k: v for k, v in caps.items() if k != "process"}, POLICY_REVISION]), focus)
 
 
 def ensure(store, material):
@@ -75,7 +77,8 @@ def build(store, key, client, model, data, catalog, pages, caps, force_new=False
             if any(getattr(c, "type", None) == "refusal" for o in getattr(response, "output", []) or [] for c in getattr(o, "content", []) or []): raise Rejection("refusal")
             if not isinstance(response.output_text, str) or len(response.output_text.encode()) > MAX_PAYLOAD: raise Rejection("response_bound")
             raw = json.loads(response.output_text)
-            if isinstance(raw, dict) and set(raw) == set(SCHEMA["properties"]):
+            if isinstance(raw, dict) and (set(raw) == set(SCHEMA["properties"]) or
+                    (raw.get("version") == "1.0" and set(raw) == set(SCHEMA["properties"]) - {"execution"})):
                 pending[key] = raw
                 while len(pending) > 2: pending.pop(next(iter(pending)))
         stage = "normalize"

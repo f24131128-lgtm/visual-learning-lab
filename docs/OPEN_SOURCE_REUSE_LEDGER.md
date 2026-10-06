@@ -137,3 +137,74 @@ compiler/cache and canonical Workspace focus. No additional parser, graph/FSM
 package, external code, asset, model weight or dependency. This repair changes
 the declaration boundary and diagnostics, not the prior license decisions.
 Exact real production acceptance and its limits: [repair evidence](DAY22_LIVE_QUEUE_FIX.md).
+
+## Day 23 — targeted investigation after frozen Phase A (client date 2026-10-05)
+
+Measured trigger: three Comparison-only catalogs unavailable, two irrelevant
+process payloads fatal, two malformed finite-state declarations, and one
+parameterized numeric relationship incorrectly treated as needing time motion.
+This is a four-candidate investigation, not another landscape survey.
+
+| Candidate / exact license | Decision | Measured fit, costs, provenance and maintenance evidence |
+|---|---|---|
+| [Plotly.py public API/repository](https://github.com/plotly/plotly.py), [MIT code license](https://github.com/plotly/plotly.py/blob/main/LICENSE.txt); [Plotly.js core MIT](https://github.com/plotly/plotly.js/blob/main/LICENSE) | **REUSE** | Installed numeric-chart adapter already supports parameterized functions without time. No bundle/dependency/CDN needed. Repository exposes changelog/releases and existing VLL tests exercise local curves. Python docs prose has a separate CC license; commercial services are outside the core license. No upstream code or examples copied. |
+| [JSXGraph repository](https://github.com/jsxgraph/jsxgraph), [exact MIT option](https://github.com/jsxgraph/jsxgraph/blob/main/LICENSE.MIT) | **LEARN FROM / DEFER integration** | Function plotting and interactive geometry confirm that parameter interaction need not mean animation. Another browser bundle, bounded numeric/gesture adapter and offline asset maintenance would not fix today's planner/catalog failures. Repo/license inspected; no independently measured installation or latency. No assets/examples imported. |
+| [XState finite-state documentation](https://stately.ai/docs/finite-states), [core MIT](https://github.com/statelyai/xstate/blob/main/LICENSE), [release history](https://github.com/statelyai/xstate/releases) | **LEARN FROM** | Explicit distinction between one active state, legal state values and extended context informs neutral process prompt/contracts. Adding a JS actor runtime cannot repair invalid initial/from/to declarations and would add transport/state ownership complexity. Maintained documentation and releases visible; services and assets require separate audit. No code copied. |
+| [Cytoscape.js element data/identity API](https://js.cytoscape.org/#notation/elements-json), [MIT core](https://github.com/cytoscape/cytoscape.js/blob/master/LICENSE), [release history](https://github.com/cytoscape/cytoscape.js/releases) | **LEARN FROM / DEFER integration** | Reuse existing stable element IDs independently of renderer choice. Another graph engine would still need the missing Comparison catalog adapter; current small graphs use existing Graphviz/flow wrapper. Extensions have independent licenses. No package/assets/code imported. |
+
+No new renderer is written: existing safe_math, Plotly, Graphviz, canonical
+semantic_catalog, process reducer and Workspace state are reused. Independently
+written normalization/capability code only; requirements and notices unchanged.
+The existing PyMuPDF AGPL/commercial deployment review remains unresolved.
+
+Corpus provenance is separately bounded. Python documentation [license](https://docs.python.org/3/license.html)
+was checked for three independent factual paraphrases (no copied code/assets).
+OpenStax [damped-oscillation page](https://openstax.org/books/university-physics-volume-1/pages/15-5-damped-oscillations)
+currently states restrictions on generative-AI ingestion and CC-BY-NC-SA content;
+its prose/assets were excluded. Nine new excerpts are original problems, with
+this substitution declared before evaluation. Do not call them retrieved PDFs
+or a representative real-document corpus.
+
+## Day 23 Phase C — semantic execution contract (2026-10-06)
+
+Incremental investigation only; Phase A/B corpus/results remain frozen. Existing
+XState/JSXGraph/Cytoscape decisions above are reused, not another broad survey.
+
+| Candidate / exact license evidence | Decision and measured fit |
+|---|---|
+| [XState guards](https://stately.ai/docs/guards), [MIT core](https://github.com/statelyai/xstate/blob/main/LICENSE) | **LEARN FROM** pure enabling guards and explicit legal transitions. Existing Python reducer owns shared state; adding a JS actor service would duplicate ownership without validating numeric returns. Current official docs/license inspected. |
+| [Python Tutor](https://pythontutor.com/) | **LEARN FROM UX ONLY / DEFER code** stack-frame/current-caller/value display. Repository/code/license retrieval failed; current exact reusable license unverified. No code, assets or arbitrary execution adopted. |
+| [JSAV repository](https://github.com/vkaravir/JSAV), [MIT-license.txt](https://github.com/vkaravir/JSAV/blob/master/MIT-license.txt) | **LEARN FROM / DEFER integration** bounded stepping and algorithm-state presentation. Repository/changelog/tests inspected, not an independently measured deployment. Browser bundle/legacy build dependencies do not enforce source-grounded call/result contracts. OpenDSA content/extensions need separate audit. |
+| [Penrose core MIT](https://github.com/penrose/penrose/blob/main/LICENSE) | **DEFER** declarative diagrams do not themselves guarantee caller-specific result routing. License inspected; detailed docs retrieval failed, so no claimed deep architecture review or asset reuse. |
+
+**REUSE** existing safe_math AST interpreter, semantic_catalog, canonical workspace
+focus, process/cache infrastructure, Plotly and Graphviz. Independently implement a
+small resolved-call-tree reducer and parameter/label helpers. No new dependency,
+upstream code, execution service, assets or model weights. Requirements/notices
+unchanged; earlier PyMuPDF deployment obligations still apply. Same labels are a
+selection contract problem, not a reason to replace the working graph renderer.
+# Day 24 — direct manipulation implementation decision (2026-10-06)
+
+Focused review, not a new Day20 landscape or benchmark. Existing Spatial World
+quantity DAG/reducer/frame engine and Numeric Lab/safe_math remain the formal
+engines. Analogy, probability, process, execution and Atlas remain intact.
+
+| Candidate / exact scope | Decision | Real burden / integration / cost |
+|---|---|---|
+| [JSXGraph 1.13.3](https://github.com/jsxgraph/jsxgraph/releases/tag/v1.13.3), npm `jsxgraph@1.13.3/distrib/jsxgraphcore.js` + CSS | **ADAPT / WRAP NOW** | Public `initBoard`, numeric points/curves, coordinate transforms, point events, keyboard support. Removes hit-testing and board/point geometry machinery in the new adapter. One offline vanilla component, no React/npm runtime/CDN. Bundle measured locally below. Only fixed application callbacks and numeric arrays; never JessieCode, string function parents, readers, imported constructions or generated code. Canonical reducers remain Python-owned. |
+| [Konva 10.0.12](https://github.com/konvajs/konva/blob/10.0.12/package.json), core browser renderer, [MIT](https://github.com/konvajs/konva/blob/10.0.12/LICENSE) | **LEARN FROM / DEFER** | Mature canvas dragstart/dragmove/dragend, transform and scene-graph support; easy vanilla iframe. Still needs mathematical constraints, axes and inverse semantics. Upstream size-limit is a build budget, not our measured deployed size. No canvas native/server package needed for browser use. No React bindings/examples/assets copied. |
+| [PixiJS 8.14.3](https://github.com/pixijs/pixijs/tree/v8.14.3), browser core, [MIT](https://github.com/pixijs/pixijs/blob/v8.14.3/LICENSE) | **DEFER** | Federated events and WebGL/WebGPU suit large animated scenes; these few semantic handles do not justify GPU/canvas lifecycle, accessibility overlay or additional maths/constraint adapter. No extensions/assets installed; no package-size/performance claim measured. |
+| Existing Plotly MIT browser bundle + Python API; [events](https://plotly.com/javascript/plotlyjs-events/), [editable shapes](https://plotly.com/javascript/shapes/) | **REUSE NOW** for linked charts/camera, **DEFER** drag shapes as inverse control | Already deployed. Relayout gives chart/layout updates rather than canonical formal parameter events. Shape edit does not remove our inverse, semantic focus, rejection/ack and constraints work. Keep Plotly and existing browser clock. |
+| Current fixed Spatial World SVG frontend / reducers | **REUSE NOW / LEARN FROM** | Existing equal physical scale, letterboxing, release commits, revision/token rejection, frames, replay and fallbacks remain. New bounded JSXGraph component opts in only when analytic recognition proves an inverse. No universal canvas replacement. |
+
+License choice explicitly **MIT**, per pinned [package declaration](https://raw.githubusercontent.com/jsxgraph/jsxgraph/v1.13.3/package.json)
+and [LICENSE.MIT](https://raw.githubusercontent.com/jsxgraph/jsxgraph/v1.13.3/LICENSE.MIT).
+Only published core JS and CSS are vendored, unchanged, with all embedded notices,
+including Bjoern Hoehrmann's MIT UTF-8 decoder notice. Core JS includes the
+upstream logo; not used by our boards (`showCopyright=false`, `showLogo=false`).
+No examples, optional assets, readers/extensions, weights or copied handler code.
+Runtime dependencies: no new Python package; one offline JS bundle 969,075 bytes,
+CSS 4,767 bytes; hash manifest and notices retained beside the bundle.
+Upstream releases show current maintenance and point/board APIs were inspected;
+not proof of source fidelity, performance or universal formula coverage.
+Existing PyMuPDF AGPL/commercial obligations remain unresolved deployment review.

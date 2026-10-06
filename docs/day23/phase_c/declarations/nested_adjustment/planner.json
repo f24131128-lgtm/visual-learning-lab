@@ -1,0 +1,105 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_03a284785757c082006ac464c2285c87d0b789871c31f8cea6",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "adjust_started",
+      "triple_invoked",
+      "triple_completed",
+      "result_returned",
+      "adjust_completed"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": true,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "execution",
+    "reason": "A bounded nested call tree is fully specified: Adjust(offset=5) invokes Triple(input=4), waits for its returned value 12, and then completes with 17. Execution directly represents caller, active child invocation, return binding, ordered completion, and the dependency that the outer call cannot finish before the inner result arrives.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": {
+      "root_id": "call_adjust",
+      "calls": [
+        {
+          "id": "call_adjust",
+          "semantic_id": "adjust_started",
+          "label": "Adjust(offset=5)",
+          "arguments": [
+            {
+              "id": "offset",
+              "label": "offset",
+              "value": 5
+            }
+          ],
+          "children": [
+            {
+              "call_id": "call_triple",
+              "result_id": "triple_result",
+              "result_label": "returned Triple result",
+              "semantic_id": "result_returned",
+              "label": "12 returns to waiting Adjust"
+            }
+          ],
+          "result_expression": "offset + triple_result",
+          "return_semantic_id": "adjust_completed"
+        },
+        {
+          "id": "call_triple",
+          "semantic_id": "triple_invoked",
+          "label": "Triple(input=4)",
+          "arguments": [
+            {
+              "id": "input",
+              "label": "input",
+              "value": 4
+            }
+          ],
+          "children": [],
+          "result_expression": "3 * input",
+          "return_semantic_id": "triple_completed"
+        }
+      ],
+      "annotations": [
+        {
+          "semantic_id": "adjust_started",
+          "text": "The outer Adjust invocation starts with offset 5 and waits for its nested call."
+        },
+        {
+          "semantic_id": "triple_invoked",
+          "text": "Triple receives input 4 and completes with 3 × 4 = 12 before Adjust can finish."
+        },
+        {
+          "semantic_id": "result_returned",
+          "text": "The value 12 is routed back to the waiting Adjust invocation."
+        },
+        {
+          "semantic_id": "adjust_completed",
+          "text": "Adjust combines offset 5 with the returned 12 and completes with 17."
+        }
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 2349,
+    "output_tokens": 886,
+    "total_tokens": 3235
+  }
+}

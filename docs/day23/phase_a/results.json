@@ -1,0 +1,1110 @@
+{
+  "phase": "a",
+  "execution": "live",
+  "started_at_utc": "2026-10-05T16:12:33.223508+00:00",
+  "base_commit": "b6b39c5b1888d1094b3e3a446751ce02644d3114",
+  "production_sha256": "f557d1adbe531f1ef06e6e7dc59d19888bcbed02a37efb4eb62f2b770d43671c",
+  "corpus_sha256": "0bee312246242b6e2f76446ab8dc900f56c6d72bec6cecc4743832986559027f",
+  "model": "gpt-5.6-luna",
+  "gold_status": "agent_authored_before_execution__human_review_pending",
+  "rows": [
+    {
+      "material_id": "damped_motion",
+      "acceptable_families": [
+        "dynamic",
+        "spatial"
+      ],
+      "proposal_family": null,
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": null,
+      "compilation_pass": null,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "P3",
+      "failure_detail": "No canonical selectable catalog; production planner CTA is disabled",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": true,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "vector_resultant",
+      "acceptable_families": [
+        "spatial",
+        "dynamic"
+      ],
+      "proposal_family": "static",
+      "selected_family": "static",
+      "selection_pass": false,
+      "proposal_selection_pass": false,
+      "compilation_pass": true,
+      "runtime_pass": false,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "P1",
+      "failure_detail": {
+        "type": "AssertionError"
+      },
+      "interaction": {
+        "static_or_none": true,
+        "dynamic_controls": false
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 385,
+          "reason_fingerprint": "481a86fb8e02f7f7",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "spatial_relations",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "resultant_system",
+            "horizontal_vector",
+            "vertical_vector",
+            "resultant_vector",
+            "length_formula",
+            "three_four_five",
+            "parameter_range",
+            "geometry_change"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "resultant_system",
+          "horizontal_vector",
+          "vertical_vector",
+          "resultant_vector",
+          "length_formula",
+          "three_four_five",
+          "parameter_range",
+          "geometry_change"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "The source defines a static geometric relationship between two perpendicular vectors and their resultant, including a length equation, a numerical example, and a bounded parameter range. Changing a or b is useful for exploring the resulting geometry, but no time evolution or transition process is specified. A static representation is therefore preferable to a process representation.",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "rc_charging",
+      "acceptable_families": [
+        "dynamic"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": true,
+      "compilation_pass": false,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "C1",
+      "failure_detail": "duplicate_runtime_id",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "normalize",
+        "code": "duplicate_runtime_id",
+        "path": "$.process.transitions[1].id",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 356,
+          "reason_fingerprint": "752a040b0ed33cba",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "voltage_step",
+            "initial_response",
+            "exponential_transient",
+            "steady_state"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "initial_response",
+                "semantic_id": "initial_response"
+              },
+              {
+                "id": "exponential_transient",
+                "semantic_id": "exponential_transient"
+              },
+              {
+                "id": "steady_state",
+                "semantic_id": "steady_state"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "voltage_step",
+                "semantic_id": "voltage_step",
+                "operation": "set_state",
+                "target_id": "initial_response"
+              },
+              {
+                "id": "initial_response",
+                "semantic_id": "initial_response",
+                "operation": "set_state",
+                "target_id": "exponential_transient"
+              },
+              {
+                "id": "exponential_transient",
+                "semantic_id": "exponential_transient",
+                "operation": "set_state",
+                "target_id": "steady_state"
+              }
+            ]
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "voltage_step",
+          "initial_response",
+          "exponential_transient",
+          "steady_state"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "quadratic_shape",
+      "acceptable_families": [
+        "dynamic",
+        "spatial"
+      ],
+      "proposal_family": null,
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": null,
+      "compilation_pass": null,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "P3",
+      "failure_detail": "No canonical selectable catalog; production planner CTA is disabled",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "finite_sampling",
+      "acceptable_families": [
+        "structural"
+      ],
+      "proposal_family": "structural",
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": true,
+      "compilation_pass": false,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "C1",
+      "failure_detail": "required_process",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": true,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "normalize",
+        "code": "required_process",
+        "path": "$",
+        "generated": {
+          "planner_family": "structural",
+          "reason_length": 353,
+          "reason_fingerprint": "ac5bc488c97610d1",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "set_relations",
+            "analogy_suitable",
+            "structure"
+          ],
+          "focus_ids": [
+            "sample_space",
+            "event_r",
+            "event_n",
+            "intersection",
+            "union",
+            "overlap_rule",
+            "sampling"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "sample_space",
+          "event_r",
+          "event_n",
+          "intersection",
+          "union",
+          "overlap_rule",
+          "sampling"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": true,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "undo_history",
+      "acceptable_families": [
+        "process"
+      ],
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": false,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "R2",
+      "failure_detail": {
+        "type": "AssertionError"
+      },
+      "interaction": {
+        "operations": [
+          {
+            "transition_id": "process_4651f3b42dd93c8a477408ef",
+            "operation": "append",
+            "semantic_id": "append_action"
+          },
+          {
+            "transition_id": "process_92d9bdafb02520aeeed0f908",
+            "operation": "remove_last",
+            "semantic_id": "undo_rightmost"
+          }
+        ],
+        "reset": true,
+        "stale_event_rejected": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 400,
+          "reason_fingerprint": "b7fca4477a0de175",
+          "required_capabilities": [
+            "time_dynamics",
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "start_history",
+            "append_action",
+            "history_state",
+            "undo_rightmost",
+            "empty_check"
+          ],
+          "entities": {
+            "collections": [
+              {
+                "id": "history_state",
+                "semantic_id": "history_state"
+              }
+            ],
+            "states": [],
+            "transitions": [
+              {
+                "id": "append_action",
+                "semantic_id": "append_action",
+                "operation": "append",
+                "target_id": "history_state"
+              },
+              {
+                "id": "undo_rightmost",
+                "semantic_id": "undo_rightmost",
+                "operation": "remove_last",
+                "target_id": "history_state"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "process_38bdfe3cec9a8ab073f22a7a",
+          "process_4651f3b42dd93c8a477408ef",
+          "process_92d9bdafb02520aeeed0f908"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "start_history",
+          "append_action",
+          "history_state",
+          "undo_rightmost",
+          "empty_check"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "The source explicitly describes a bounded ordered history whose state changes through append and rightmost-removal operations. A process representation can demonstrate the initial actions, insertion of a new action, undo behavior, and the unavailable operation when the collection is empty. The deque comparison also supports a limited structural analogy, but no spatial or equation-based model is'nt",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "future_lifecycle",
+      "acceptable_families": [
+        "process",
+        "static"
+      ],
+      "proposal_family": "process",
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": true,
+      "compilation_pass": false,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "C1",
+      "failure_detail": "duplicate_runtime_id",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "normalize",
+        "code": "duplicate_runtime_id",
+        "path": "$.process.transitions[0].id",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 282,
+          "reason_fingerprint": "52566e960dbe34a9",
+          "required_capabilities": [
+            "time_dynamics",
+            "finite_outcomes",
+            "transitions",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "pending_state",
+            "running_state",
+            "finished_state",
+            "cancelled_state"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "pending_state",
+                "semantic_id": "pending_state"
+              },
+              {
+                "id": "running_state",
+                "semantic_id": "running_state"
+              },
+              {
+                "id": "finished_state",
+                "semantic_id": "finished_state"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "running_state",
+                "semantic_id": "running_state",
+                "operation": "set_state",
+                "target_id": "running_state"
+              },
+              {
+                "id": "finished_state",
+                "semantic_id": "finished_state",
+                "operation": "set_state",
+                "target_id": "finished_state"
+              },
+              {
+                "id": "cancelled_state",
+                "semantic_id": "cancelled_state",
+                "operation": "set_state",
+                "target_id": "cancelled_state"
+              }
+            ]
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "pending_state",
+          "running_state",
+          "finished_state",
+          "cancelled_state"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "recursive_calls",
+      "acceptable_families": [
+        "process",
+        "static"
+      ],
+      "proposal_family": "process",
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": true,
+      "compilation_pass": false,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "C1",
+      "failure_detail": "duplicate_runtime_id",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "normalize",
+        "code": "duplicate_runtime_id",
+        "path": "$.process.transitions[0].id",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 283,
+          "reason_fingerprint": "0a964837cd6d5c8e",
+          "required_capabilities": [
+            "equations",
+            "time_dynamics",
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "start_call",
+            "descend_calls",
+            "base_case",
+            "unwind_frames",
+            "final_result",
+            "missing_base_case",
+            "unbounded_descent",
+            "growing_stack"
+          ],
+          "entities": {
+            "collections": [
+              {
+                "id": "unwind_frames",
+                "semantic_id": "unwind_frames"
+              }
+            ],
+            "states": [
+              {
+                "id": "base_case",
+                "semantic_id": "base_case"
+              },
+              {
+                "id": "missing_base_case",
+                "semantic_id": "missing_base_case"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "unwind_frames",
+                "semantic_id": "unwind_frames",
+                "operation": "remove_last",
+                "target_id": "unwind_frames"
+              },
+              {
+                "id": "base_case",
+                "semantic_id": "base_case",
+                "operation": "set_state",
+                "target_id": "base_case"
+              },
+              {
+                "id": "final_result",
+                "semantic_id": "final_result",
+                "operation": "set_state",
+                "target_id": "base_case"
+              },
+              {
+                "id": "missing_base_case",
+                "semantic_id": "missing_base_case",
+                "operation": "set_state",
+                "target_id": "missing_base_case"
+              },
+              {
+                "id": "unbounded_descent",
+                "semantic_id": "unbounded_descent",
+                "operation": "set_state",
+                "target_id": "missing_base_case"
+              },
+              {
+                "id": "growing_stack",
+                "semantic_id": "growing_stack",
+                "operation": "set_state",
+                "target_id": "missing_base_case"
+              }
+            ]
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "start_call",
+          "descend_calls",
+          "base_case",
+          "unwind_frames",
+          "final_result",
+          "missing_base_case",
+          "unbounded_descent",
+          "growing_stack"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "feedback_response",
+      "acceptable_families": [
+        "dynamic"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": false,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "R2",
+      "failure_detail": {
+        "type": "AssertionError"
+      },
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "gain_response_demo",
+            "changed_parameters": [
+              "K"
+            ],
+            "lesson_refs": [
+              "step_closed_loop_response",
+              "step_gain_effects",
+              "step_limits_behavior"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 396,
+          "reason_fingerprint": "a8c8e8251070b701",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "reference",
+            "error",
+            "controller",
+            "plant",
+            "output"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "reference",
+          "error",
+          "controller",
+          "plant",
+          "output"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "The source describes a continuous-time feedback system governed by differential equations. The useful learning representation is dynamic: learners can relate the reference, error, proportional controller, plant response, and output while varying K and observing response speed and steady-state error. A finite-state process would not faithfully represent the continuous equation or time response.",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "market_equilibrium",
+      "acceptable_families": [
+        "dynamic",
+        "static"
+      ],
+      "proposal_family": null,
+      "selected_family": null,
+      "selection_pass": null,
+      "proposal_selection_pass": null,
+      "compilation_pass": null,
+      "runtime_pass": null,
+      "grounding_pass": null,
+      "safe_fallback": true,
+      "failure_category": "P3",
+      "failure_detail": "No canonical selectable catalog; production planner CTA is disabled",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "cell_cycle",
+      "acceptable_families": [
+        "static",
+        "process"
+      ],
+      "proposal_family": "process",
+      "selected_family": "static",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": false,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "R2",
+      "failure_detail": {
+        "type": "AssertionError"
+      },
+      "interaction": {
+        "static_or_none": true,
+        "dynamic_controls": false
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 347,
+          "reason_fingerprint": "ee072932ed61d0ed",
+          "required_capabilities": [
+            "finite_outcomes",
+            "transitions",
+            "analogy_suitable",
+            "structure"
+          ],
+          "focus_ids": [
+            "g1_growth",
+            "s_replication",
+            "g2_preparation",
+            "m_division"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "g1_growth",
+                "semantic_id": "g1_growth"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "g1_to_s",
+                "semantic_id": "s_replication",
+                "operation": "set_state",
+                "target_id": "g1_growth"
+              },
+              {
+                "id": "s_to_g2",
+                "semantic_id": "g2_preparation",
+                "operation": "set_state",
+                "target_id": "g1_growth"
+              },
+              {
+                "id": "g2_to_m",
+                "semantic_id": "m_division",
+                "operation": "set_state",
+                "target_id": "g1_growth"
+              }
+            ]
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "g1_growth",
+          "s_replication",
+          "g2_preparation",
+          "m_division"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": true,
+      "reason": "The source describes a finite repeating sequence of four cell-cycle phases and explicitly identifies the transition from M back to G1. A finite-state process represents the phase order and distinguishes DNA replication in S from chromosome separation and cell division in M without inventing durations, equations, checkpoints, or spatial behavior.",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "byte_definition",
+      "acceptable_families": [
+        "none",
+        "static"
+      ],
+      "proposal_family": "static",
+      "selected_family": "static",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": false,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "R2",
+      "failure_detail": {
+        "type": "AssertionError"
+      },
+      "interaction": {
+        "static_or_none": true,
+        "dynamic_controls": false
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 306,
+          "reason_fingerprint": "d83a27bb74761c1d",
+          "required_capabilities": [
+            "finite_outcomes",
+            "ordered_collection",
+            "structure"
+          ],
+          "focus_ids": [
+            "bytes",
+            "byte_value",
+            "integer_range",
+            "raw_data",
+            "encoding",
+            "decoding",
+            "text"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "bytes",
+          "byte_value",
+          "integer_range",
+          "raw_data",
+          "encoding",
+          "decoding",
+          "text"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "The source defines bytes as an immutable ordered sequence whose elements are finite integer byte values from 0 through 255. It distinguishes raw byte data from interpreted text and identifies encoding selection as necessary for decoding, but provides no evolving process, experiment, or useful interaction.",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "proposal_selection_pass": {
+      "pass": 8,
+      "fail": 1,
+      "not_evaluated": 3
+    },
+    "selection_pass": {
+      "pass": 4,
+      "fail": 1,
+      "not_evaluated": 7
+    },
+    "compilation_pass": {
+      "pass": 5,
+      "fail": 4,
+      "not_evaluated": 3
+    },
+    "runtime_pass": {
+      "pass": 0,
+      "fail": 5,
+      "not_evaluated": 7
+    },
+    "grounding_pass": {
+      "pass": 5,
+      "fail": 0,
+      "not_evaluated": 7
+    },
+    "safe_fallback": {
+      "pass": 12,
+      "fail": 0,
+      "not_evaluated": 0
+    },
+    "post_compile_api_calls": 0,
+    "local_api_observed_cases": 5,
+    "failure_categories": {
+      "C1": 4,
+      "P1": 1,
+      "P3": 3,
+      "R2": 4
+    }
+  },
+  "evidence_scope": "Mechanical interactions and canonical references; visual quality/source fidelity need human review",
+  "paid_request_attempts": 21,
+  "tokens": {
+    "input_tokens": 54747,
+    "output_tokens": 36588,
+    "total_tokens": 91335
+  },
+  "updated_at_utc": "2026-10-05T16:19:03.961375+00:00"
+}

@@ -1,0 +1,349 @@
+{
+  "stage": "analysis",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0f4b2b1853b8ba37006ac465151a6887d09cb1b3d36cb48319",
+  "raw": {
+    "quick_summary": "This is a finite state-transition workflow with three statuses: Draft, Reviewed, and Released. Review moves Draft to Reviewed; Release moves Reviewed to Released; Released is terminal for those actions; Reset restores Draft.",
+    "key_concepts": [
+      {
+        "concept": "Finite state workflow",
+        "explanation": "The workflow has a finite set of statuses and explicitly defined actions that determine permitted transitions.",
+        "source_pages": []
+      },
+      {
+        "concept": "Draft status",
+        "explanation": "Draft is the initial status. Review is legal from Draft and changes the status to Reviewed.",
+        "source_pages": []
+      },
+      {
+        "concept": "Reviewed status",
+        "explanation": "Reviewed is reached by reviewing a Draft. Release is legal from Reviewed and changes the status to Released.",
+        "source_pages": []
+      },
+      {
+        "concept": "Released status",
+        "explanation": "Released is a terminal status for Review and Release; neither action is legal there.",
+        "source_pages": []
+      },
+      {
+        "concept": "Reset action",
+        "explanation": "Reset restores the workflow to Draft.",
+        "source_pages": []
+      },
+      {
+        "concept": "No direct release",
+        "explanation": "There is no action that jumps directly from Draft to Released; the Reviewed state must occur first.",
+        "source_pages": []
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Draft",
+        "relation": "is the initial status of",
+        "target": "Finite state workflow",
+        "source_pages": []
+      },
+      {
+        "source": "Review",
+        "relation": "is legal from",
+        "target": "Draft",
+        "source_pages": []
+      },
+      {
+        "source": "Review",
+        "relation": "transitions to",
+        "target": "Reviewed",
+        "source_pages": []
+      },
+      {
+        "source": "Release",
+        "relation": "is legal from",
+        "target": "Reviewed",
+        "source_pages": []
+      },
+      {
+        "source": "Release",
+        "relation": "transitions to",
+        "target": "Released",
+        "source_pages": []
+      },
+      {
+        "source": "Released",
+        "relation": "is terminal for",
+        "target": "Review and Release",
+        "source_pages": []
+      },
+      {
+        "source": "Reset",
+        "relation": "restores",
+        "target": "Draft",
+        "source_pages": []
+      },
+      {
+        "source": "Draft",
+        "relation": "cannot transition directly to",
+        "target": "Released",
+        "source_pages": []
+      }
+    ],
+    "visual_evidence": [],
+    "visual_flow": {
+      "suitable": true,
+      "reason": "The material centers on an explicit ordered state process from Draft through Review to Reviewed and then through Release to Released, with terminal behavior and reset as supporting transitions.",
+      "nodes": [
+        {
+          "id": "draft",
+          "label": "Draft (initial)",
+          "source_pages": []
+        },
+        {
+          "id": "reviewed",
+          "label": "Reviewed",
+          "source_pages": []
+        },
+        {
+          "id": "released",
+          "label": "Released (terminal)",
+          "source_pages": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "draft",
+          "target": "reviewed",
+          "label": "Review"
+        },
+        {
+          "source": "reviewed",
+          "target": "released",
+          "label": "Release"
+        },
+        {
+          "source": "released",
+          "target": "draft",
+          "label": "Reset"
+        },
+        {
+          "source": "draft",
+          "target": "draft",
+          "label": "Reset"
+        },
+        {
+          "source": "reviewed",
+          "target": "draft",
+          "label": "Reset"
+        }
+      ]
+    },
+    "concept_map": {
+      "suitable": false,
+      "reason": "",
+      "nodes": [],
+      "edges": []
+    },
+    "comparison": {
+      "suitable": false,
+      "reason": "",
+      "title": "",
+      "items": [],
+      "criteria": [],
+      "takeaway": ""
+    },
+    "learning_path": {
+      "suitable": true,
+      "title": "Trace the finite status workflow",
+      "reason": "The source supports a short lesson that starts with the initial state, follows the legal transitions, and then checks terminal and reset behavior.",
+      "steps": [
+        {
+          "id": "identify_states",
+          "title": "Identify the statuses",
+          "learning_goal": "Recognize the finite set of statuses and the initial status.",
+          "explanation": "The workflow contains Draft, Reviewed, and Released. The current status initially starts at Draft.",
+          "source_pages": [],
+          "connection_to_previous": "This establishes the state space before examining actions.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "draft"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "reviewed"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "released"
+            }
+          ]
+        },
+        {
+          "id": "apply_review",
+          "title": "Apply Review",
+          "learning_goal": "Determine when Review is legal and what state it produces.",
+          "explanation": "Review is legal only when the current status is Draft. Applying it changes Draft to Reviewed.",
+          "source_pages": [],
+          "connection_to_previous": "Once the statuses are known, the first legal transition can be traced from the initial state.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "draft"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "reviewed"
+            }
+          ]
+        },
+        {
+          "id": "apply_release",
+          "title": "Apply Release",
+          "learning_goal": "Determine when Release is legal and what state it produces.",
+          "explanation": "Release is legal only when the current status is Reviewed. Applying it changes Reviewed to Released; it cannot skip directly from Draft to Released.",
+          "source_pages": [],
+          "connection_to_previous": "This continues the required sequence after Review and explains why the intermediate state matters.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "reviewed"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "released"
+            }
+          ]
+        },
+        {
+          "id": "handle_terminal_reset",
+          "title": "Handle terminal and reset behavior",
+          "learning_goal": "Distinguish terminal behavior from restoration by Reset.",
+          "explanation": "At Released, neither Review nor Release is legal. Reset restores Draft, allowing the workflow to begin again.",
+          "source_pages": [],
+          "connection_to_previous": "After reaching Released, inspect which actions remain available and how Reset changes the current status.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "released"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "draft"
+            }
+          ]
+        }
+      ],
+      "checkpoint_questions": [
+        {
+          "id": "q_initial_action",
+          "question": "The current status is Draft. Which action is legal?",
+          "options": [
+            {
+              "id": "a_review",
+              "text": "Review"
+            },
+            {
+              "id": "a_release",
+              "text": "Release"
+            },
+            {
+              "id": "a_none",
+              "text": "Neither Review nor Release"
+            },
+            {
+              "id": "a_jump",
+              "text": "Directly release"
+            }
+          ],
+          "correct_option_id": "a_review",
+          "explanation": "Review is legal from Draft and moves the workflow to Reviewed.",
+          "source_pages": [],
+          "related_step_ids": [
+            "identify_states",
+            "apply_review"
+          ]
+        },
+        {
+          "id": "q_sequence",
+          "question": "Which sequence reaches Released from the initial status without using Reset?",
+          "options": [
+            {
+              "id": "a_review_release",
+              "text": "Review, then Release"
+            },
+            {
+              "id": "a_release_review",
+              "text": "Release, then Review"
+            },
+            {
+              "id": "a_direct_release",
+              "text": "Release directly from Draft"
+            },
+            {
+              "id": "a_review_reset",
+              "text": "Review, then Reset"
+            }
+          ],
+          "correct_option_id": "a_review_release",
+          "explanation": "The required path is Draft, Review, Reviewed, Release, Released.",
+          "source_pages": [],
+          "related_step_ids": [
+            "apply_review",
+            "apply_release"
+          ]
+        },
+        {
+          "id": "q_terminal",
+          "question": "What happens when the current status is Released?",
+          "options": [
+            {
+              "id": "a_review_only",
+              "text": "Only Review is legal"
+            },
+            {
+              "id": "a_release_only",
+              "text": "Only Release is legal"
+            },
+            {
+              "id": "a_both",
+              "text": "Both Review and Release are legal"
+            },
+            {
+              "id": "a_neither_reset",
+              "text": "Neither Review nor Release is legal; Reset restores Draft"
+            }
+          ],
+          "correct_option_id": "a_neither_reset",
+          "explanation": "Released is terminal for Review and Release, while Reset restores Draft.",
+          "source_pages": [],
+          "related_step_ids": [
+            "handle_terminal_reset"
+          ]
+        }
+      ]
+    },
+    "interactive_lab": {
+      "suitable": false,
+      "reason": "This is a qualitative finite-state exercise with discrete statuses and actions, not a numeric relationship suitable for a 2D parameter experiment.",
+      "demos": []
+    },
+    "learning_scene_candidate": {
+      "suitable": false,
+      "domain": "none",
+      "reason": "The material defines a finite state machine, not probability/set operations or a quantitative spatial-dynamics model."
+    },
+    "primary_visualization": {
+      "type": "flow",
+      "reason": "The central learning task is tracing the ordered legal transitions from the initial Draft state to Reviewed and Released, including terminal and reset behavior."
+    },
+    "suggested_visualizations": [
+      "Flow",
+      "Concept Map"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3650,
+    "output_tokens": 1698,
+    "total_tokens": 5348
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_0b4cdf6408da4313006ac3cd36e97487d0873ca6e47da97cb0",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "pending_state",
+      "running_state",
+      "finished_state",
+      "cancelled_state"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": true,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": true,
+      "analogy_suitable": false,
+      "structure": false,
+      "interaction_value": true
+    },
+    "preferred": "process",
+    "reason": "The source defines a finite asynchronous lifecycle with meaningful state transitions and terminal states. A finite-state process is more useful than an analogy because the source explicitly limits the model to lifecycle states and excludes scheduling or actual concurrent execution.",
+    "process": {
+      "collections": [],
+      "states": [
+        {
+          "id": "pending_state",
+          "semantic_id": "pending_state",
+          "label": "Pending",
+          "values": [
+            "pending"
+          ],
+          "initial": "pending"
+        },
+        {
+          "id": "running_state",
+          "semantic_id": "running_state",
+          "label": "Running",
+          "values": [
+            "running"
+          ],
+          "initial": ""
+        },
+        {
+          "id": "finished_state",
+          "semantic_id": "finished_state",
+          "label": "Finished",
+          "values": [
+            "finished"
+          ],
+          "initial": ""
+        }
+      ],
+      "transitions": [
+        {
+          "id": "running_state",
+          "semantic_id": "running_state",
+          "label": "Start",
+          "explanation": "Starting changes a pending Future to running.",
+          "operation": "set_state",
+          "target_id": "running_state",
+          "from_state": "pending_state",
+          "to_state": "running_state"
+        },
+        {
+          "id": "finished_state",
+          "semantic_id": "finished_state",
+          "label": "Complete successfully",
+          "explanation": "Successful completion changes a running Future to finished.",
+          "operation": "set_state",
+          "target_id": "finished_state",
+          "from_state": "running_state",
+          "to_state": "finished_state"
+        },
+        {
+          "id": "cancelled_state",
+          "semantic_id": "cancelled_state",
+          "label": "Cancel",
+          "explanation": "A pending Future may be cancelled before it starts running.",
+          "operation": "set_state",
+          "target_id": "cancelled_state",
+          "from_state": "pending_state",
+          "to_state": "cancelled_state"
+        }
+      ],
+      "annotations": [
+        {
+          "semantic_id": "finished_state",
+          "text": "Finished and cancelled are terminal states in this simplified lifecycle."
+        },
+        {
+          "semantic_id": "cancelled_state",
+          "text": "Running or finished computations cannot be cancelled in this model."
+        }
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 1179,
+    "output_tokens": 833,
+    "total_tokens": 2012
+  },
+  "replayed_from": "docs\\day23\\phase_a\\declarations\\future_lifecycle\\planner.json"
+}

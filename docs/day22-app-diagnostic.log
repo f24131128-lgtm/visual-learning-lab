@@ -1,0 +1,34 @@
+Failed to find real location of C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\python.exe
+2026-10-05 22:16:22.775 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.776 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.776 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.776 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.776 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.777 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.777 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:16:22.777 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Timeout (0:00:20)!
+Thread 0x000087f4 (most recent call first):
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 298 in accept
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 633 in _fallback_socketpair
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\proactor_events.py", line 781 in _make_self_pipe
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\proactor_events.py", line 635 in __init__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\windows_events.py", line 316 in __init__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\events.py", line 735 in new_event_loop
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\events.py", line 847 in new_event_loop
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\local_script_runner.py", line 62 in __init__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\app_test.py", line 488 in _run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 2693 in run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\app_test.py", line 568 in run
+  File "C:\Users\88690\OneDrive\\u684c\u9762\visual-learning-lab\tests\test_day22.py", line 290 in test_explicit_build_selects_process_once_and_switching_is_local
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\case.py", line 615 in _callTestMethod
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\case.py", line 669 in run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\case.py", line 725 in __call__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\suite.py", line 122 in run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\suite.py", line 84 in __call__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\suite.py", line 122 in run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\suite.py", line 84 in __call__
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\runner.py", line 257 in run
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\main.py", line 270 in runTests
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\main.py", line 104 in __init__
+  File "<string>", line 1 in <module>

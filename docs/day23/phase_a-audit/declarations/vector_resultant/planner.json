@@ -1,0 +1,48 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_0214658b24645438006ac3cca7474887d0b23b9dd2735bcfc2",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "resultant_system",
+      "horizontal_vector",
+      "vertical_vector",
+      "resultant_vector",
+      "length_formula",
+      "three_four_five",
+      "parameter_range",
+      "geometry_change"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "static",
+    "reason": "The source defines a static geometric relationship between two perpendicular vectors and their resultant, including a length equation, a numerical example, and a bounded parameter range. Changing a or b is useful for exploring the resulting geometry, but no time evolution or transition process is specified. A static representation is therefore preferable to a process representation.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    }
+  },
+  "usage": {
+    "input_tokens": 1374,
+    "output_tokens": 359,
+    "total_tokens": 1733
+  },
+  "replayed_from": "docs\\day23\\phase_a\\declarations\\vector_resultant\\planner.json"
+}

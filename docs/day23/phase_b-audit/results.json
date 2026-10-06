@@ -1,0 +1,1455 @@
+{
+  "phase": "b-audit",
+  "execution": "replay",
+  "started_at_utc": "2026-10-05T16:40:47.801100+00:00",
+  "base_commit": "b6b39c5b1888d1094b3e3a446751ce02644d3114",
+  "production_sha256": "f41904654dbd95eb55754eab97b85d806a1e934230a946dfd1d2009dcb64f1ea",
+  "corpus_sha256": "0bee312246242b6e2f76446ab8dc900f56c6d72bec6cecc4743832986559027f",
+  "model": "gpt-5.6-luna",
+  "gold_status": "agent_authored_before_execution__human_review_pending",
+  "rows": [
+    {
+      "material_id": "damped_motion",
+      "acceptable_families": [
+        "dynamic",
+        "spatial"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "damped_oscillation",
+            "changed_parameters": [
+              "amplitude",
+              "decay_rate",
+              "angular_frequency"
+            ],
+            "lesson_refs": [
+              "step_envelope",
+              "step_fixed_frequency",
+              "step_compare_decay"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": true,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "5ee47c5cca9bd7ab",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "beta_low",
+            "beta_high"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "beta_low",
+          "beta_high"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "A ready numeric lab is well suited because the source provides an explicit equation with continuous time and a meaningful parameter comparison. Learners can compare the function curves for β=0.1 and β=0.5 while keeping A=1 and ω=3 fixed, making the faster amplitude decay directly observable. No process declaration is needed because the useful representation is parameterized curve exploration, not ",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "vector_resultant",
+      "acceptable_families": [
+        "spatial",
+        "dynamic"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "resultant_length_curve",
+            "changed_parameters": [
+              "b"
+            ],
+            "lesson_refs": [
+              "calculate_magnitude",
+              "apply_example_and_parameters"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "3af9292716c34f89",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "resultant_system",
+            "horizontal_vector",
+            "vertical_vector",
+            "resultant_vector",
+            "length_formula",
+            "three_four_five",
+            "parameter_range",
+            "geometry_change"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "resultant_system",
+          "horizontal_vector",
+          "vertical_vector",
+          "resultant_vector",
+          "length_formula",
+          "three_four_five",
+          "parameter_range",
+          "geometry_change"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "A parameterized numeric lab is the most useful representation because the source provides an explicit length equation and bounded continuous parameters a and b. Learners can compare how changing either component from 1 to 5 changes the resultant length, while the perpendicular-vector geometry remains visible conceptually. No time-dependent motion or animation is supported by the source, so this is",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "rc_charging",
+      "acceptable_families": [
+        "dynamic"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "rc_response_vs_resistance",
+            "changed_parameters": [
+              "resistance"
+            ],
+            "lesson_refs": [
+              "step_exponential_laws",
+              "step_time_constant",
+              "step_resistance_effect"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "09bcea388ca950d5",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "voltage_step",
+            "initial_response",
+            "exponential_transient",
+            "steady_state"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "voltage_step",
+          "initial_response",
+          "exponential_transient",
+          "steady_state"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "A dynamic numeric representation is best supported: the source provides explicit exponential equations, time evolution, and continuous parameter comparison. Learners can compare how changing R affects the time constant, charging curve, and initial current while C and Vs remain fixed. The process runtime is not used because the behavior requires continuous arithmetic and function curves rather than",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "quadratic_shape",
+      "acceptable_families": [
+        "dynamic",
+        "spatial"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "quadratic_transform",
+            "changed_parameters": [
+              "scale_a",
+              "shift_h",
+              "shift_k"
+            ],
+            "lesson_refs": [
+              "step_scale_a",
+              "step_horizontal_translation",
+              "step_vertex_minimum"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 309,
+          "reason_fingerprint": "7e843de8043363bc",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "scale_half",
+            "scale_two",
+            "shift_left",
+            "shift_right"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "scale_half",
+          "scale_two",
+          "shift_left",
+          "shift_right"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "A parameterized numeric lab is the most useful representation: learners can continuously compare the given quadratic curves and observe how a changes vertical scale and opening while h changes the vertex and symmetry line. The independent variable x is a coordinate, not time, so time dynamics are not needed.",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "finite_sampling",
+      "acceptable_families": [
+        "structural"
+      ],
+      "proposal_family": "structural",
+      "selected_family": "structural",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": false,
+      "runtime_pass": null,
+      "grounding_pass": true,
+      "safe_fallback": true,
+      "failure_category": "C1",
+      "failure_detail": "Focus target labels must be unique.",
+      "interaction": null,
+      "post_compile_api_calls": null,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": true,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "structural",
+          "reason_length": 373,
+          "reason_fingerprint": "d3a93471f0cb3f63",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "set_relations",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "sample_space",
+            "event_r",
+            "event_n",
+            "intersection",
+            "union",
+            "overlap_rule",
+            "sampling"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "structural",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "sample_space",
+          "event_r",
+          "event_n",
+          "intersection",
+          "union",
+          "overlap_rule",
+          "sampling"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": true,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "A structured finite-set representation best supports selecting outcomes, comparing event membership, computing the intersection and union, and observing why overlap must be corrected. Local sampling can provide useful estimation, while exact probabilities come from the four equally likely outcomes. No continuous parameter, temporal process, or spatial layout is required.",
+      "fallback_evidence": "validated_analysis_retained; product UI requires separate AppTest"
+    },
+    {
+      "material_id": "undo_history",
+      "acceptable_families": [
+        "process"
+      ],
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "operations": [
+          {
+            "transition_id": "append",
+            "operation": "append",
+            "semantic_id": "append_action"
+          },
+          {
+            "transition_id": "undo",
+            "operation": "remove_last",
+            "semantic_id": "undo_rightmost"
+          }
+        ],
+        "reset": true,
+        "stale_event_rejected": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 400,
+          "reason_fingerprint": "46cb45d11a2bc0d7",
+          "required_capabilities": [
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "start_history",
+            "append_action",
+            "history_state",
+            "undo_rightmost",
+            "empty_check"
+          ],
+          "entities": {
+            "collections": [
+              {
+                "id": "history",
+                "semantic_id": "history_state"
+              }
+            ],
+            "states": [],
+            "transitions": [
+              {
+                "id": "append",
+                "semantic_id": "append_action",
+                "operation": "append",
+                "target_id": "history"
+              },
+              {
+                "id": "undo",
+                "semantic_id": "undo_rightmost",
+                "operation": "remove_last",
+                "target_id": "history"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "history",
+          "append",
+          "undo"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "start_history",
+          "append_action",
+          "history_state",
+          "undo_rightmost",
+          "empty_check"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "The source explicitly describes a bounded ordered history: actions are appended on the right, and undo removes the most recent rightmost action. A process representation supports meaningful learner exploration of append and undo operations, including the unavailable-undo condition when the history is empty. No equation, continuous parameter, spatial relation, or timed animation is supported by the",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "future_lifecycle",
+      "acceptable_families": [
+        "process",
+        "static"
+      ],
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "operations": [
+          {
+            "transition_id": "start_future",
+            "operation": "set_state",
+            "semantic_id": "running_state"
+          },
+          {
+            "transition_id": "complete_future",
+            "operation": "set_state",
+            "semantic_id": "finished_state"
+          }
+        ],
+        "reset": true,
+        "stale_event_rejected": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 357,
+          "reason_fingerprint": "49f108aa795918a5",
+          "required_capabilities": [
+            "time_dynamics",
+            "finite_outcomes",
+            "transitions",
+            "analogy_suitable",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "pending_state",
+            "running_state",
+            "finished_state",
+            "cancelled_state"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "lifecycle_state",
+                "semantic_id": "pending_state"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "start_future",
+                "semantic_id": "running_state",
+                "operation": "set_state",
+                "target_id": "lifecycle_state"
+              },
+              {
+                "id": "complete_future",
+                "semantic_id": "finished_state",
+                "operation": "set_state",
+                "target_id": "lifecycle_state"
+              },
+              {
+                "id": "cancel_future",
+                "semantic_id": "cancelled_state",
+                "operation": "set_state",
+                "target_id": "lifecycle_state"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "lifecycle_state",
+          "start_future",
+          "complete_future",
+          "cancel_future"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "pending_state",
+          "running_state",
+          "finished_state",
+          "cancelled_state"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "The source defines a finite Future lifecycle with meaningful state transitions: pending can become running or cancelled, and running can become finished. Finished and cancelled are terminal states. A bounded finite-state process representation supports learning these allowed and disallowed transitions without inventing scheduling or concurrency mechanics.",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "recursive_calls",
+      "acceptable_families": [
+        "process",
+        "static"
+      ],
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "operations": [
+          {
+            "transition_id": "push_f2",
+            "operation": "append",
+            "semantic_id": "descend_calls"
+          },
+          {
+            "transition_id": "push_f1",
+            "operation": "append",
+            "semantic_id": "descend_calls"
+          },
+          {
+            "transition_id": "push_f0",
+            "operation": "append",
+            "semantic_id": "descend_calls"
+          },
+          {
+            "transition_id": "reach_base",
+            "operation": "set_state",
+            "semantic_id": "base_case"
+          },
+          {
+            "transition_id": "begin_unwind",
+            "operation": "set_state",
+            "semantic_id": "unwind_frames"
+          },
+          {
+            "transition_id": "pop_f0",
+            "operation": "remove_last",
+            "semantic_id": "unwind_frames"
+          },
+          {
+            "transition_id": "pop_f1",
+            "operation": "remove_last",
+            "semantic_id": "unwind_frames"
+          },
+          {
+            "transition_id": "pop_f2",
+            "operation": "remove_last",
+            "semantic_id": "unwind_frames"
+          },
+          {
+            "transition_id": "pop_f3",
+            "operation": "remove_last",
+            "semantic_id": "final_result"
+          },
+          {
+            "transition_id": "finish_evaluation",
+            "operation": "set_state",
+            "semantic_id": "final_result"
+          }
+        ],
+        "reset": true,
+        "stale_event_rejected": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 389,
+          "reason_fingerprint": "84a30505d34bf273",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "start_call",
+            "descend_calls",
+            "base_case",
+            "unwind_frames",
+            "final_result",
+            "missing_base_case",
+            "unbounded_descent",
+            "growing_stack"
+          ],
+          "entities": {
+            "collections": [
+              {
+                "id": "stack_main",
+                "semantic_id": "growing_stack"
+              }
+            ],
+            "states": [
+              {
+                "id": "call_phase",
+                "semantic_id": "base_case"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "push_f2",
+                "semantic_id": "descend_calls",
+                "operation": "append",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "push_f1",
+                "semantic_id": "descend_calls",
+                "operation": "append",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "push_f0",
+                "semantic_id": "descend_calls",
+                "operation": "append",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "reach_base",
+                "semantic_id": "base_case",
+                "operation": "set_state",
+                "target_id": "call_phase"
+              },
+              {
+                "id": "begin_unwind",
+                "semantic_id": "unwind_frames",
+                "operation": "set_state",
+                "target_id": "call_phase"
+              },
+              {
+                "id": "pop_f0",
+                "semantic_id": "unwind_frames",
+                "operation": "remove_last",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "pop_f1",
+                "semantic_id": "unwind_frames",
+                "operation": "remove_last",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "pop_f2",
+                "semantic_id": "unwind_frames",
+                "operation": "remove_last",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "pop_f3",
+                "semantic_id": "final_result",
+                "operation": "remove_last",
+                "target_id": "stack_main"
+              },
+              {
+                "id": "finish_evaluation",
+                "semantic_id": "final_result",
+                "operation": "set_state",
+                "target_id": "call_phase"
+              },
+              {
+                "id": "remove_base_case",
+                "semantic_id": "missing_base_case",
+                "operation": "set_state",
+                "target_id": "call_phase"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "stack_main",
+          "call_phase",
+          "push_f2",
+          "push_f1",
+          "push_f0",
+          "reach_base",
+          "begin_unwind",
+          "pop_f0",
+          "pop_f1",
+          "pop_f2",
+          "pop_f3",
+          "finish_evaluation",
+          "remove_base_case"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "start_call",
+          "descend_calls",
+          "base_case",
+          "unwind_frames",
+          "final_result",
+          "missing_base_case",
+          "unbounded_descent",
+          "growing_stack"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "A bounded process representation is most useful because the source explicitly describes a last-in-first-out call stack, descent to a base case, reverse-order unwinding, and a contrasting nonterminating path when the base case is removed. Learners can inspect stack order and switch between terminating and nonterminating states without inventing automatic recursion or unbounded execution.",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "feedback_response",
+      "acceptable_families": [
+        "dynamic"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "gain_response_demo",
+            "changed_parameters": [
+              "K"
+            ],
+            "lesson_refs": [
+              "step_closed_loop_response",
+              "step_gain_effects",
+              "step_limits_behavior"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "b6b231f185b97bc0",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "reference",
+            "error",
+            "controller",
+            "plant",
+            "output"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "reference",
+          "error",
+          "controller",
+          "plant",
+          "output"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "The source provides a first-order differential equation and a closed-loop response with meaningful continuous parameters K and t. A numeric lab can compare response curves as K varies from 0.5 to 4, showing faster settling and smaller steady-state error without inventing overshoot or oscillation. Local parameter exploration directly supports the stated learning goals, so a dynamic representation (",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "market_equilibrium",
+      "acceptable_families": [
+        "dynamic",
+        "static"
+      ],
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "demos": [
+          {
+            "demo_id": "demand_intercept_lab",
+            "changed_parameters": [
+              "demand_intercept"
+            ],
+            "lesson_refs": [
+              "shift_demand",
+              "solve_new",
+              "interpret_comparison"
+            ],
+            "source_pages": []
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 330,
+          "reason_fingerprint": "c713848517b80c09",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "initial",
+            "raised_demand"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "initial",
+          "raised_demand"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "adapted": false,
+      "reason": "A parameterized numeric lab is appropriate because the source provides linear demand and supply equations and compares two demand-intercept values, 12 and 15. Learners can vary the demand intercept and observe how the equilibrium price and quantity change. This represents comparative statics, not a time-based adjustment process.",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "cell_cycle",
+      "acceptable_families": [
+        "static",
+        "process"
+      ],
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "operations": [
+          {
+            "transition_id": "g1_to_s",
+            "operation": "set_state",
+            "semantic_id": "s_replication"
+          },
+          {
+            "transition_id": "s_to_g2",
+            "operation": "set_state",
+            "semantic_id": "g2_preparation"
+          },
+          {
+            "transition_id": "g2_to_m",
+            "operation": "set_state",
+            "semantic_id": "m_division"
+          },
+          {
+            "transition_id": "m_to_g1",
+            "operation": "set_state",
+            "semantic_id": "g1_growth"
+          }
+        ],
+        "reset": true,
+        "stale_event_rejected": true
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 369,
+          "reason_fingerprint": "60205b1344d2c50b",
+          "required_capabilities": [
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "g1_growth",
+            "s_replication",
+            "g2_preparation",
+            "m_division"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "cell_cycle_phase",
+                "semantic_id": "g1_growth"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "g1_to_s",
+                "semantic_id": "s_replication",
+                "operation": "set_state",
+                "target_id": "cell_cycle_phase"
+              },
+              {
+                "id": "s_to_g2",
+                "semantic_id": "g2_preparation",
+                "operation": "set_state",
+                "target_id": "cell_cycle_phase"
+              },
+              {
+                "id": "g2_to_m",
+                "semantic_id": "m_division",
+                "operation": "set_state",
+                "target_id": "cell_cycle_phase"
+              },
+              {
+                "id": "m_to_g1",
+                "semantic_id": "g1_growth",
+                "operation": "set_state",
+                "target_id": "cell_cycle_phase"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "cell_cycle_phase",
+          "g1_to_s",
+          "s_to_g2",
+          "g2_to_m",
+          "m_to_g1"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "g1_growth",
+          "s_replication",
+          "g2_preparation",
+          "m_division"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "The source describes a finite ordered cycle with four named phases and explicit transitions, including the return from M to G1. A finite-state process representation supports learning the phase order and distinguishing DNA replication in S from chromosome separation and cell division in M, without inventing durations, checkpoints, equations, or unsupported mechanics.",
+      "fallback_evidence": null
+    },
+    {
+      "material_id": "byte_definition",
+      "acceptable_families": [
+        "none",
+        "static"
+      ],
+      "proposal_family": "static",
+      "selected_family": "static",
+      "selection_pass": true,
+      "proposal_selection_pass": true,
+      "compilation_pass": true,
+      "runtime_pass": true,
+      "grounding_pass": true,
+      "safe_fallback": null,
+      "failure_category": null,
+      "failure_detail": null,
+      "interaction": {
+        "static_or_none": true,
+        "dynamic_controls": false
+      },
+      "post_compile_api_calls": 0,
+      "source_fidelity": "human_review_pending",
+      "visual_quality": "human_review_pending",
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "b694f8ffb1534308",
+          "required_capabilities": [
+            "finite_outcomes",
+            "ordered_collection",
+            "analogy_suitable",
+            "structure"
+          ],
+          "focus_ids": [
+            "bytes",
+            "byte_value",
+            "integer_range",
+            "raw_data",
+            "encoding",
+            "decoding",
+            "text"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "bytes",
+          "byte_value",
+          "integer_range",
+          "raw_data",
+          "encoding",
+          "decoding",
+          "text"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "adapted": false,
+      "reason": "Use a structured static comparison showing that Python bytes is an immutable ordered sequence of byte values, each in the finite range 0–255, and that the sequence is raw data rather than interpreted text. Encoding selection and decoding can be shown as conceptual relations, but the source provides no evolving process, equation, or numeric experiment. An analogy could help distinguish stored byte⁠",
+      "fallback_evidence": null
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "proposal_selection_pass": {
+      "pass": 12,
+      "fail": 0,
+      "not_evaluated": 0
+    },
+    "selection_pass": {
+      "pass": 12,
+      "fail": 0,
+      "not_evaluated": 0
+    },
+    "compilation_pass": {
+      "pass": 11,
+      "fail": 1,
+      "not_evaluated": 0
+    },
+    "runtime_pass": {
+      "pass": 11,
+      "fail": 0,
+      "not_evaluated": 1
+    },
+    "grounding_pass": {
+      "pass": 12,
+      "fail": 0,
+      "not_evaluated": 0
+    },
+    "safe_fallback": {
+      "pass": 1,
+      "fail": 0,
+      "not_evaluated": 11
+    },
+    "post_compile_api_calls": 0,
+    "local_api_observed_cases": 11,
+    "failure_categories": {
+      "C1": 1
+    }
+  },
+  "evidence_scope": "Mechanical interactions and canonical references; visual quality/source fidelity need human review",
+  "paid_request_attempts": 0,
+  "tokens": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0
+  },
+  "updated_at_utc": "2026-10-05T16:40:51.129485+00:00"
+}

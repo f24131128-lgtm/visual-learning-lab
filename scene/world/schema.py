@@ -61,6 +61,11 @@ WORLD_SCHEMA = obj({
 
 INSTRUCTIONS = """Compile the source into a generic spatial_dynamics Learning World 2.2.
 Return only strict declarative data. Do not emit code, HTML, JavaScript, URLs or renderer instructions.
+Direct manipulation is negotiated locally from exact forward bindings, never by title or label.
+A vector with components R*cos(A), R*sin(A), where R is constant or affine in one adjustable
+parameter and A is affine in one adjustable parameter plus constant/time, can be dragged.
+Reuse existing canonical quantities for these bindings. Do not invent parameters or formulas
+to force dragging; ambiguous, nonlinear, fixed or ungrounded mappings retain normal controls.
 Only compile a source-supported quantitative physical system. Parameters have finite, meaningful legal ranges.
 Use canonical time (seconds unless source says otherwise), <=4 parameters, <=24 derived scalar quantities.
 The expression variable is exactly time, NOT t. A source formula using t must be written with time.
@@ -73,6 +78,8 @@ Safe arithmetic only: + - * / **, unary signs, pi, e, sin/cos/tan/exp/log/sqrt/a
 Angles are radians internally; use display_unit degrees for natural educational angular controls.
 Parameter range priority: source explicit valid range (range_source source), then useful source-supported
 pedagogical ranges (pedagogical), then semantic_default derived locally from quantity_kind and baseline.
+If a quantity is fixed by the source, declare min=max=default and step=0; it is a read-only value,
+never an invented slider range. Derived values belong in the quantity DAG, not adjustable parameters.
 Do not invent a source range. Scalar/length/speed/acceleration/frequency/angle/inclination_angle are safe
 quantity kinds, not renderer modes. Inclination means a strictly positive angle below pi/2.
 For an ideal same-height flight, useful pedagogical ranges can be speed 5..100 m/s,

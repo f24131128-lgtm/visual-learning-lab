@@ -281,8 +281,7 @@ def normalize_scene(raw, allowed_pages=()):
                               "expression": expression.strip(), "source_pages": _pages(item.get("source_pages"), allowed_pages)})
     if not focus_targets:
         raise SceneValidationError("At least one focus target is required.")
-    if len({item["label"] for item in focus_targets}) != len(focus_targets):
-        raise SceneValidationError("Focus target labels must be unique.")
+    # Canonical IDs own identity and provenance; equal display labels are valid.
     semantic_ids |= {item["id"] for item in focus_targets}
     for view in views:
         if any(ref not in semantic_ids for ref in view["semantic_ids"]):

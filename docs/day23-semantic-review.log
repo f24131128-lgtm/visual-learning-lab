@@ -1,0 +1,6 @@
+2026-10-06 00:44:09.131 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+{
+  "meaningful_runtime_pass": 10,
+  "meaningful_runtime_fail": 1,
+  "unavailable_artifact": 1
+}

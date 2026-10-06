@@ -9,6 +9,7 @@ import numpy as np
 import streamlit as st
 
 from i18n import FONT_STACK, tr
+from semantic_contract import numeric_domain
 from safe_math import MAX_POINTS, MathExpressionError, evaluate_expression, valid_identifier, valid_variable, validate_expression
 
 
@@ -60,7 +61,10 @@ LAB_INSTRUCTIONS = """
   code, imports, or assignments. Do not name variables after functions/pi/e.
   A metric may reference parameters and pi/e, but NOT x, series or other metrics.
   Limit each expression to 400 characters; keep it shallow and simple.
-  Choose finite readable ranges with min < max and defaults within range, positive
+  Fixed source constants may use min=max=default and step=0; they render read-only.
+  Do not invent source-supported variation. Other controls are generated exploration
+  ranges unless the source explicitly supplies them. Derived metrics are not sliders.
+  Choose finite readable adjustable ranges with min < max and defaults within range, positive
   steps no larger than the range, at most 10,000 slider increments; values must be
   within +/-1e9. Use 50–1000 x points, normally about 400. Choose parameter ranges
   and x domains that avoid singularities, invalid logs/roots and overflow. Defaults
@@ -133,11 +137,7 @@ def _clean_demo(raw, allowed_pages, valid_steps, validate_pages):
         parameter = {"id": _id(raw_parameter.get("id"), symbols, True),
                      "label": _text(raw_parameter.get("label"), 100), "unit": _text(raw_parameter.get("unit"), 40, True)}
         parameter.update({field: _finite(raw_parameter.get(field)) for field in ("min", "max", "default", "step")})
-        span = parameter["max"] - parameter["min"]
-        if (span <= 0 or not parameter["min"] <= parameter["default"] <= parameter["max"]
-                or not 0 < parameter["step"] <= span or span / parameter["step"] > 10000
-                or parameter["min"] + parameter["step"] == parameter["min"]):
-            raise ValueError("Invalid slider range.")
+        parameter["parameter_kind"] = numeric_domain(parameter)
         demo["parameters"].append(parameter)
     for field, minimum, maximum in (("series", 1, 3), ("derived_metrics", 0, 4)):
         entries = raw[field]
@@ -300,6 +300,11 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
             key = f"{prefix}-{parameter['id']}"
             st.session_state[key] = saved["values"][parameter["id"]]
             label = parameter["label"] + (f" ({parameter['unit']})" if parameter["unit"] else "")
+            if parameter.get("parameter_kind") == "fixed":
+                st.text(label+": "+f"{parameter['default']:.5g}")
+                st.caption(tr("Fixed value"))
+                continue
+            st.caption(tr("Generated exploration range"))
             st.slider(label, min_value=parameter["min"], max_value=parameter["max"], step=parameter["step"],
                       key=key, on_change=_save_parameter, args=(state, demo["id"], parameter["id"], key))
         compare_key = f"{prefix}-compare"
@@ -307,6 +312,8 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
         st.checkbox(tr("Compare with default"), key=compare_key, on_change=_save_compare, args=(state, demo["id"], compare_key))
     with plot:
         try:
+            from manipulation.runtime import render_lab as render_manipulation
+            render_manipulation(demo, saved, state["material_id"], learning_path)
             chart = build_lab_chart(demo, saved["values"], saved["compare"])
             st.plotly_chart(chart, use_container_width=True, key=f"{prefix}-chart", config={"displaylogo": False})
         except MathExpressionError:

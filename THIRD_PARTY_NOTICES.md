@@ -47,3 +47,14 @@ Existing PyMuPDF remains AGPL/commercial: choosing a permissive native-text pars
 does not erase the application's existing raster-library obligations. Resolve
 the intended deployment/distribution license before public delivery. No AGPL,
 GPL, custom-licensed competitor code or models were copied in this sprint.
+# JSXGraph direct manipulation — Day 24
+
+Vendored browser core **JSXGraph 1.13.3** and its CSS, chosen under the **MIT**
+option of `(MIT OR LGPL-3.0-or-later)`; no npm/build dependency at deployment.
+Source tag: https://github.com/jsxgraph/jsxgraph/tree/v1.13.3.
+Distribution: https://cdn.jsdelivr.net/npm/jsxgraph@1.13.3/distrib/jsxgraphcore.js.
+Files/notices: `manipulation/frontend/jsxgraphcore.js`, `jsxgraph.css`,
+`LICENSE.jsxgraph.txt`, `vendor-manifest.json`. Preserve all embedded notices,
+including the MIT UTF-8 decoder copyright of Bjoern Hoehrmann (2008–2009).
+The complete JSXGraph MIT text is retained in `LICENSE.jsxgraph.txt`.
+This does not relicense existing dependencies, optional upstream assets or models.

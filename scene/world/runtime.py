@@ -72,7 +72,7 @@ def payload(scene, wrapper, replay=None):
         "inverse": [{k: b[k] for k in ("id", "type", "object_id", "target_id")} for b in scene["inverse_bindings"]],
         "experiments": [{k: e[k] for k in ("id", "title", "learning_goal")} for e in scene["experiments"]],
         "recording": {"active": state["recording"], "count": len(state["recorded"])},
-        "labels": {label: tr(label) for label in LABELS}, "data": dataset(state), "replay": [], "tables": tables,
+        "labels": {label: tr(label) for label in LABELS+("Fixed value", "Generated exploration range")}, "data": dataset(state), "replay": [], "tables": tables,
         "replay_generation": state["replay_generation"], "replay_indices": [], "replay_summaries": [],
     }
     if replay:
@@ -141,7 +141,12 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
             display = parameter_display(p)
             st.session_state[key] = float(state["parameters"][p["id"]]*display["factor"])
             with col:
-                st.slider(p["label"]+(" ("+display["unit"]+")" if display["unit"] else ""), float(display["min"]), float(display["max"]), step=float(display["step"]), key=key, on_change=parameter_changed, args=(p["id"], key))
+                if p.get("parameter_kind") == "fixed":
+                    st.text(p["label"]+": "+f"{display['default']:.5g} {display['unit']}".strip())
+                    st.caption(tr("Fixed value"))
+                else:
+                    st.slider(p["label"]+(" ("+display["unit"]+")" if display["unit"] else ""), float(display["min"]), float(display["max"]), step=float(display["step"]), key=key, on_change=parameter_changed, args=(p["id"], key))
+                    if p["range_source"] != "source": st.caption(tr("Generated exploration range"))
         with cols[-1]:
             focus_ids = [q["id"] for q in scene["quantities"]]
             focus_key = prefix+"focus"
@@ -161,7 +166,13 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
         st.markdown("**"+tr("Spatial Scene")+" · "+tr("Signal / Waveform")+" · "+tr("Vector / Phasor")+" · "+tr("Equation / State Lens")+"**")
         try:
             data = payload(scene, wrapper, replay)
-            event = _component(payload=data, key=prefix+"coordinated", default=None)
+            from manipulation.runtime import render_world as render_manipulation
+            direct = render_manipulation(scene, wrapper)
+            if direct:
+                with st.expander(tr("Playback and comparison workspace")):
+                    event = _component(payload=data, key=prefix+"coordinated", default=None)
+            else:
+                event = _component(payload=data, key=prefix+"coordinated", default=None)
             if consume_event(scene, state, data["identity"], event):
                 st.rerun()
             if acknowledge_rejection(state, data["identity"], event):

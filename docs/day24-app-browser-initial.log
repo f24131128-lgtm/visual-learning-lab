@@ -1,0 +1,139 @@
+locator.check: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('radio', { name: '來源', exact: true })
+    - locator resolved to <input title="" value="1" type="radio" tabindex="-1" data-react-aria-pressable="true" name="react-aria6457157080-:r40:"/>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events
+  - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events
+  2 × retrying click action
+      - waiting 100ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events
+  13 × retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+       - waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+
+    at roundtrip (C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:21:56)
+    at C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:30:15 {
+  log: [
+    "  - waiting for getByRole('radio', { name: '來源', exact: true })",
+    '    - locator resolved to <input title="" value="1" type="radio" tabindex="-1" data-react-aria-pressable="true" name="react-aria6457157080-:r40:"/>',
+    '  - attempting click action',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is visible, enabled and stable',
+    '    - scrolling into view if needed',
+    '    - done scrolling',
+    '    - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events',
+    '  - retrying click action',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is visible, enabled and stable',
+    '    - scrolling into view if needed',
+    '    - done scrolling',
+    '    - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events',
+    '  - retrying click action',
+    '    - waiting 20ms',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is visible, enabled and stable',
+    '    - scrolling into view if needed',
+    '    - done scrolling',
+    '    - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events',
+    '  2 × retrying click action',
+    '      - waiting 100ms',
+    '      - waiting for element to be visible, enabled and stable',
+    '      - element is visible, enabled and stable',
+    '      - scrolling into view if needed',
+    '      - done scrolling',
+    '      - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events',
+    '  13 × retrying click action',
+    '       - waiting 500ms',
+    '       - waiting for element to be visible, enabled and stable',
+    '       - element is visible, enabled and stable',
+    '       - scrolling into view if needed',
+    '       - done scrolling',
+    '       - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events',
+    '     - retrying click action',
+    '       - waiting 500ms',
+    '       - waiting for element to be visible, enabled and stable',
+    '       - element is visible, enabled and stable',
+    '       - scrolling into view if needed',
+    '       - done scrolling',
+    '       - <div class="st-emotion-cache-19nzcwv e1mpz0hj3">…</div> intercepts pointer events',
+    '     - retrying click action',
+    '       - waiting 500ms',
+    '       - waiting for element to be visible, enabled and stable',
+    '       - element is visible, enabled and stable',
+    '       - scrolling into view if needed',
+    '       - done scrolling',
+    '       - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events',
+    '     - retrying click action',
+    '       - waiting 500ms',
+    '       - waiting for element to be visible, enabled and stable',
+    '       - element is visible, enabled and stable',
+    '       - scrolling into view if needed',
+    '       - done scrolling',
+    '       - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-1up3yna e1yxiy6j1">…</header> subtree intercepts pointer events',
+    '  - retrying click action',
+    '    - waiting 500ms',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is visible, enabled and stable',
+    '    - scrolling into view if needed',
+    '    - done scrolling',
+    '    - <span aria-hidden="true">…</span> from <label data-testid="stWidgetLabel" class="st-emotion-cache-1s2v671 e1kt9bl70">…</label> subtree intercepts pointer events',
+    '  - retrying click action',
+    '    - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}

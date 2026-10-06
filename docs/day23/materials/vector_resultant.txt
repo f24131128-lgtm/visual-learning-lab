@@ -1,0 +1,1 @@
+Original problem: Two planar vectors are u=(a,0) and v=(0,b). Their resultant is r=(a,b), with length sqrt(a*a+b*b). Use a and b between 1 and 5. Starting at a=3,b=4 gives length 5. Draw both arrows from the same origin and the resultant from the origin. Changing a or b changes geometry; no time evolution or acceleration is asserted.

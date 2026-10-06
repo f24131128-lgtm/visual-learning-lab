@@ -1,0 +1,10 @@
+{"target":"pointer","expected":[0,1],"values":{"phase":1.480562844909351}}
+AssertionError [ERR_ASSERTION]: {"values":{"phase":1.480562844909351},"revision":2,"targets":[{"id":"pointer","object_id":"pointer","semantic_id":"angle","label":"旋轉指針","gesture":"drag_on_circle","coordinate_space":"world","dimensions":2,"parameter_ids":["phase"],"inverse":{"kind":"circular","origin":[0,0],"angle_id":"phase","angle_scale":1,"offset":0},"bounds":[-1,-1,1,1],"position":[0.09011108366810597,0.9959317208524687],"source_pages":[1]}],"committed":{"objects":{"pointer":[0,0,0.09011108366810597,0.9959317208524687]},"metrics":{"wave_value":0.9959317208524687}}}
+    at C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:42:49 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

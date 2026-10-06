@@ -1,0 +1,32 @@
+{
+  "scope": "three synthetic declarations; cold timings include tracemalloc overhead; Python allocation is not process RSS; seven hot repetitions",
+  "rows": [
+    {
+      "case": "phase",
+      "cold_payload_ms": 217.9924000520259,
+      "hot_payload_median_ms": 5.82570000551641,
+      "exact_commit_median_ms": 2.3417999036610126,
+      "python_allocation_peak_bytes": 885350,
+      "payload_bytes": 91574
+    },
+    {
+      "case": "projectile",
+      "cold_payload_ms": 1953.7540001329035,
+      "hot_payload_median_ms": 35.529399989172816,
+      "exact_commit_median_ms": 11.438600020483136,
+      "python_allocation_peak_bytes": 6254312,
+      "payload_bytes": 692807
+    },
+    {
+      "case": "math",
+      "cold_payload_ms": 129.14879992604256,
+      "hot_payload_median_ms": 3.2516000792384148,
+      "exact_commit_median_ms": 0.3474999684840441,
+      "python_allocation_peak_bytes": 623934,
+      "payload_bytes": 68074
+    }
+  ],
+  "vendor_bytes": 969075,
+  "vendor_gzip_bytes": 252302,
+  "model_calls": 0
+}

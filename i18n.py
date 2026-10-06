@@ -8,6 +8,18 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Choice {number}": "選項 {number}", "Call {number}": "呼叫 {number}",
+    "Fixed value": "固定值", "Generated exploration range": "生成的探索範圍",
+    "Interactive execution": "互動執行", "Call stack": "呼叫堆疊",
+    "Current call: {label}": "目前呼叫：{label}", "Caller: {label}": "呼叫者：{label}",
+    "Root call": "起始呼叫", "Active": "執行中", "Waiting": "等待子呼叫", "Completed": "已完成",
+    "Result: {value}": "結果：{value}", "Call child": "呼叫下一層",
+    "Complete current call": "完成目前呼叫", "Return to caller": "回傳給呼叫者",
+    "Reset execution": "重設執行", "Inspect a call": "檢視呼叫",
+    "All execution steps run locally; no AI request is made.": "所有執行步驟均在本地計算，不會呼叫 AI。",
+    "Generated bounded example · frames link to source concepts; they are not source facts.": "生成的有界範例 · 呼叫框架連結來源概念，本身不代表來源事實。",
+    "The execution state is unavailable. Existing learning remains available.": "目前無法使用執行狀態，原有學習內容仍可使用。",
+    "A supported interactive representation is used.": "已採用可用的互動學習表示。",
     "Animation uses a local teaching clock; formal time keeps its committed state.": "動畫使用本地教學時鐘；正式模型的時間保留已確認的狀態。",
     "Static view": "靜態檢視",
     "Animation is unavailable; use the static view and local controls.": "目前無法播放動畫，可使用靜態檢視與本地控制。",
@@ -290,6 +302,17 @@ UI_TEXT = {"zh-TW": {
     "Difference": "差距",
     "This workspace uses one validated semantic scene. All controls run locally after compilation.": "此工作區共用同一份已驗證語意場景；編譯完成後，所有操作都在本機執行。",
 }}
+UI_TEXT["zh-TW"].update({
+    "Drag the highlighted endpoint": "拖曳亮起的向量端點試試看",
+    "Drag an anchor vertically": "上下拖曳錨點，觀察公式與曲線一起改變",
+    "Tentative preview · release to validate": "拖曳預覽・放開後驗證並套用",
+    "Current exploration value": "目前探索值",
+    "Compiled baseline value": "模型初始值",
+    "Exploration changes do not change the source.": "探索變更不會改寫來源內容。",
+    "Release to apply": "放開以套用變更",
+    "Numeric preview unavailable; release still validates the change.": "此範圍無即時預覽；放開後仍會驗證變更。",
+    "Playback and comparison workspace": "播放、比較與記錄工作區",
+})
 UI_TEXT["en"] = {key: key for key in UI_TEXT["zh-TW"]}
 UI_TEXT["en"]["review.complete"] = "Knowledge Check complete. No review areas were identified."
 UI_TEXT["zh-TW"]["review.complete"] = "知識檢核已完成，目前沒有需要複習的項目。"

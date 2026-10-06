@@ -1,0 +1,51 @@
+2026-10-06 00:40:49.439 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+{"material_id": "damped_motion", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "vector_resultant", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "rc_charging", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "quadratic_shape", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "finite_sampling", "proposal_family": "structural", "selected_family": "structural", "selection_pass": true, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+{"material_id": "undo_history", "proposal_family": "process", "selected_family": "process", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "future_lifecycle", "proposal_family": "process", "selected_family": "process", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "recursive_calls", "proposal_family": "process", "selected_family": "process", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "feedback_response", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "market_equilibrium", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "cell_cycle", "proposal_family": "process", "selected_family": "process", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "byte_definition", "proposal_family": "static", "selected_family": "static", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{
+  "total": 12,
+  "proposal_selection_pass": {
+    "pass": 12,
+    "fail": 0,
+    "not_evaluated": 0
+  },
+  "selection_pass": {
+    "pass": 12,
+    "fail": 0,
+    "not_evaluated": 0
+  },
+  "compilation_pass": {
+    "pass": 11,
+    "fail": 1,
+    "not_evaluated": 0
+  },
+  "runtime_pass": {
+    "pass": 11,
+    "fail": 0,
+    "not_evaluated": 1
+  },
+  "grounding_pass": {
+    "pass": 12,
+    "fail": 0,
+    "not_evaluated": 0
+  },
+  "safe_fallback": {
+    "pass": 1,
+    "fail": 0,
+    "not_evaluated": 11
+  },
+  "post_compile_api_calls": 0,
+  "local_api_observed_cases": 11,
+  "failure_categories": {
+    "C1": 1
+  }
+}

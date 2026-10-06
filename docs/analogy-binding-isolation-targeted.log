@@ -1,0 +1,43 @@
+2026-10-04 22:58:24.996 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_duplicate_surviving_links_and_invalid_semantics_still_reject (test_analogy_slots.OptionalBindingIsolationTests.test_duplicate_surviving_links_and_invalid_semantics_still_reject) ... ok
+test_omitted_affine_link_does_not_reserve_a_formal_target_in_either_order (test_analogy_slots.OptionalBindingIsolationTests.test_omitted_affine_link_does_not_reserve_a_formal_target_in_either_order) ... ok
+test_failed_candidate_revalidates_same_data_without_client_context_or_request (test_analogy_slots.RetainedCandidateTests.test_failed_candidate_revalidates_same_data_without_client_context_or_request) ... Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+ok
+test_malformed_envelope_is_not_retained_as_a_replayable_candidate (test_analogy_slots.RetainedCandidateTests.test_malformed_envelope_is_not_retained_as_a_replayable_candidate) ... Analogy rejected stage=normalize code=envelope_fields path=$
+ok
+test_new_generation_is_explicit_pending_is_bounded_and_material_specific (test_analogy_slots.RetainedCandidateTests.test_new_generation_is_explicit_pending_is_bounded_and_material_specific) ... Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+ok
+test_streamlit_local_recheck_works_without_openai_initialization (test_analogy_slots.RetainedCandidateTests.test_streamlit_local_recheck_works_without_openai_initialization) ... 2026-10-04 22:58:26.155 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.155 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.155 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.155 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.156 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.156 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.156 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 22:58:26.156 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+ok
+test_unsafe_saved_candidate_stays_rejected_without_fresh_calls (test_analogy_slots.RetainedCandidateTests.test_unsafe_saved_candidate_stays_rejected_without_fresh_calls) ... Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+ok
+test_all_six_primitives_accept_blank_unused_fields_and_preserve_geometry (test_analogy_slots.VisualSlotTests.test_all_six_primitives_accept_blank_unused_fields_and_preserve_geometry) ... ok
+test_derived_schematic_cards_cannot_exceed_the_object_budget (test_analogy_slots.VisualSlotTests.test_derived_schematic_cards_cannot_exceed_the_object_budget) ... ok
+test_math_slot_diagnostics_have_lengths_hashes_and_no_expression_text (test_analogy_slots.VisualSlotTests.test_math_slot_diagnostics_have_lengths_hashes_and_no_expression_text) ... ok
+test_missing_quantitative_expression_is_still_fatal (test_analogy_slots.VisualSlotTests.test_missing_quantitative_expression_is_still_fatal) ... ok
+test_missing_used_geometry_omits_visual_and_retains_semantic_core (test_analogy_slots.VisualSlotTests.test_missing_used_geometry_omits_visual_and_retains_semantic_core) ... ok
+test_missing_visual_cannot_hide_unsafe_other_slots_or_numeric_bounds (test_analogy_slots.VisualSlotTests.test_missing_visual_cannot_hide_unsafe_other_slots_or_numeric_bounds) ... ok
+test_numeric_failure_retains_field_path_without_executing_or_dumping_text (test_analogy_slots.VisualSlotTests.test_numeric_failure_retains_field_path_without_executing_or_dumping_text) ... ok
+test_second_captured_structure_no_longer_depends_on_unused_rectangle_radius (test_analogy_slots.VisualSlotTests.test_second_captured_structure_no_longer_depends_on_unused_rectangle_radius) ... ok
+test_unsafe_nonempty_unused_slot_is_fatal_with_controlled_problem (test_analogy_slots.VisualSlotTests.test_unsafe_nonempty_unused_slot_is_fatal_with_controlled_problem) ... ok
+test_visible_default_and_whitespace_are_trusted_local_normalization (test_analogy_slots.VisualSlotTests.test_visible_default_and_whitespace_are_trusted_local_normalization) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 9.413s
+
+OK

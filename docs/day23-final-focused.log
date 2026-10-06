@@ -1,0 +1,149 @@
+2026-10-06 00:45:29.065 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.967 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:29.968 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:32.399 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 00:45:32.680 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 00:45:33.836 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:33.852 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:34.490 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 00:45:34.854 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-06 00:45:35.003 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-06 00:45:35.558 The widget with key "product_language" was created with a default value but also had its value set via the Session State API.
+Stack (most recent call last):
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082, in _bootstrap_inner
+    self._context.run(self.run)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\local_script_runner.py", line 144, in _run_script_thread
+    super()._run_script_thread()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 423, in _run_script_thread
+    self._run_script(request.rerun_data)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 934, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 909, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\manual_day23.py", line 42, in <module>
+    runpy.run_path(str(ROOT / "app.py"), run_name="__main__")
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\app.py", line 2788, in <module>
+    render_header()
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\presentation.py", line 55, in render_header
+    st.selectbox("語言 / Language", options=list(LANGUAGE_NAMES),
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\metrics_util.py", line 725, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\widgets\selectbox.py", line 636, in selectbox
+    return self._selectbox(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\widgets\selectbox.py", line 685, in _selectbox
+    check_widget_policies(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\lib\policies.py", line 146, in check_widget_policies
+    check_session_state_rules(
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\elements\lib\policies.py", line 90, in check_session_state_rules
+    _LOGGER.warning(
+2026-10-06 00:45:35.603 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+======================================================================
+ERROR: test_normal_pdf_comparison_cta_source_and_page_whitelist (test_day23.SemanticReviewTests.test_normal_pdf_comparison_cta_source_and_page_whitelist)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23.py", line 385, in test_normal_pdf_comparison_cta_source_and_page_whitelist
+    at, raw, catalog = self.app("damped_motion", source, [1], pdf, cached=False)
+                       ^^^^^^^^
+AttributeError: 'SemanticReviewTests' object has no attribute 'app'
+
+======================================================================
+ERROR: test_recorded_product_three_cases_run_with_no_requests (test_day23.SemanticReviewTests.test_recorded_product_three_cases_run_with_no_requests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\state\session_state.py", line 790, in __getitem__
+    base_value = self._getitem(widget_id, key)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\state\session_state.py", line 843, in _getitem
+    raise KeyError
+KeyError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23.py", line 363, in test_recorded_product_three_cases_run_with_no_requests
+    selector.set_value("byte_definition").run()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 223, in run
+    return self.root.run(timeout=timeout)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 2692, in run
+    widget_states = self.get_widget_states()
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 2675, in get_widget_states
+    w = get_widget_state(node)
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 2616, in get_widget_state
+    return node._widget_state
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 1587, in _widget_state
+    if self.index is not None and len(self.options) > 0:
+       ^^^^^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 1555, in index
+    if self.value is None:
+       ^^^^^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\testing\v1\element_tree.py", line 1567, in value
+    return cast("T", state[self.id])
+                     ~~~~~^^^^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 121, in __getitem__
+    return self._state[key]
+           ~~~~~~~~~~~^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\streamlit\runtime\state\session_state.py", line 797, in __getitem__
+    raise KeyError(_missing_key_error_message(key))
+KeyError: 'st.session_state has no key "workspace-mode-day23-recorded-rc_charging". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization'
+
+======================================================================
+ERROR: test_required_process_failure_preserves_product_learning (test_day23.SemanticReviewTests.test_required_process_failure_preserves_product_learning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23.py", line 402, in test_required_process_failure_preserves_product_learning
+    at, raw, _ = self.app("future_lifecycle", cached=False)
+                 ^^^^^^^^
+AttributeError: 'SemanticReviewTests' object has no attribute 'app'
+
+----------------------------------------------------------------------
+Ran 29 tests in 8.331s
+
+FAILED (errors=3)

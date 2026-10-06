@@ -1,0 +1,4 @@
+{"target":"pointer","expected":[0,1],"values":{"phase":1.5707963267948966}}
+{"target":"launch","expected":[15.000000000000004,25.980762113533157],"values":{"speed":29.999997561261676,"angle":1.0471975042630524,"grav":9.8}}
+{"target":"relation_curve_anchor_offset","expected":[0,2],"values":{"gain":1,"offset":2.0000001511706653}}
+Normal Streamlit app: 3 real pointer drags committed, exact formal metrics and all Source/Explore roundtrips passed.

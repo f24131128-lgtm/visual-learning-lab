@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from i18n import tr
+from semantic_contract import display_choices
 from .expressions import display_expression, evaluate_expression, expression_event_ids
 from .probability import MONTE_CARLO_COUNTS, de_morgan, inclusion_exclusion, monte_carlo, probability
 
@@ -38,9 +39,10 @@ def semantic_focus(scene, state):
     outcome_ids = evaluate_expression(
         expression, scene["event_sets"], [item["id"] for item in scene["outcomes"]]
     )
-    target = next(
-        (item for item in scene["focus_targets"] if item["expression"] == expression), None
-    )
+    target = next((item for item in scene["focus_targets"]
+                   if item["id"] == state.get("selected_focus_id") and item["expression"] == expression), None)
+    if target is None:
+        target = next((item for item in scene["focus_targets"] if item["expression"] == expression), None)
     pages = list(target["source_pages"]) if target else []
     if not pages:
         by_id = {event["id"]: event for event in scene["events"]}
@@ -103,15 +105,13 @@ def render_controls(scene, state):
     targets += [{"id": "source_event_"+event["id"], "label": event["label"], "expression": event["id"], "source_pages": event["source_pages"]}
                 for event in scene["events"] if event["id"] not in existing]
     options = [item["id"] for item in targets]
-    labels = {item["id"]: item["label"] for item in targets}
+    labels = display_choices(targets, lambda item, n: tr("Choice {number}", number=n))
     current = state.get("selected_focus_id")
     index = options.index(current) if current in options else 0
-    label_options = [labels[value] for value in options]
-    selected_label = st.selectbox(
-        tr("Event / operation"), label_options, index=index,
+    selected = st.selectbox(
+        tr("Event / operation"), options, index=index, format_func=labels.get,
         key=f"scene-widget-focus-{state['material_id']}",
     )
-    selected = options[label_options.index(selected_label)]
     target = next(item for item in targets if item["id"] == selected)
     if selected != state.get("selected_focus_id"):
         state.update(

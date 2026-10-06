@@ -1,0 +1,1 @@
+Original problem: Study y=a*(x-h)^2+k for x between -5 and 5. a is nonzero, h controls horizontal translation and k controls vertical translation. Start at a=1,h=0,k=0. Compare a=0.5 with a=2, and h=-2 with h=2. The vertex is (h,k), the symmetry line is x=h, and changing h does not change the minimum value when a is positive. x is an independent coordinate, not elapsed time.

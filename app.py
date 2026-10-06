@@ -3234,6 +3234,9 @@ if analysis:
     if mode == "explore" and representation == "process":
         from learning_world.runtime import render_process
         render_process(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
+    if mode == "explore" and representation == "execution":
+        from learning_world.execution_ui import render_execution
+        render_execution(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
 
     if mode == "explore" and representation in ("analogy", "compare"):
         from analogy.runtime import render as render_analogy

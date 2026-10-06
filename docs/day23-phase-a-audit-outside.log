@@ -1,0 +1,40 @@
+{
+  "total": 12,
+  "proposal_selection_pass": {
+    "pass": 8,
+    "fail": 1,
+    "not_evaluated": 3
+  },
+  "selection_pass": {
+    "pass": 4,
+    "fail": 1,
+    "not_evaluated": 7
+  },
+  "compilation_pass": {
+    "pass": 5,
+    "fail": 4,
+    "not_evaluated": 3
+  },
+  "runtime_pass": {
+    "pass": 4,
+    "fail": 1,
+    "not_evaluated": 7
+  },
+  "grounding_pass": {
+    "pass": 5,
+    "fail": 0,
+    "not_evaluated": 7
+  },
+  "safe_fallback": {
+    "pass": 8,
+    "fail": 0,
+    "not_evaluated": 4
+  },
+  "post_compile_api_calls": 0,
+  "local_api_observed_cases": 5,
+  "failure_categories": {
+    "C1": 4,
+    "P1": 1,
+    "P3": 3
+  }
+}

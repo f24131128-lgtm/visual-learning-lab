@@ -1,0 +1,26 @@
+2026-10-04 02:01:43.798 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+.Analogy rejected stage=normalize code=envelope_fields path=$
+.Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+Analogy rejected stage=normalize code=unsafe_expression path=$
+.2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 02:01:44.037 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+.Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+Analogy rejected stage=normalize code=unsafe_expression path=$.primitives[0].radius
+...........
+----------------------------------------------------------------------
+Ran 15 tests in 5.868s
+
+OK

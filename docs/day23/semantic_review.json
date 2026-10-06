@@ -1,0 +1,78 @@
+{
+  "corpus_sha256": "0bee312246242b6e2f76446ab8dc900f56c6d72bec6cecc4743832986559027f",
+  "gold_unchanged": true,
+  "review_kind": "agent_source_equation_and_operation_review; human review pending",
+  "numeric": [
+    {
+      "material_id": "damped_motion",
+      "source_equation_array_checks": true,
+      "parameter_samples": 7,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    },
+    {
+      "material_id": "vector_resultant",
+      "source_equation_array_checks": true,
+      "parameter_samples": 3,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    },
+    {
+      "material_id": "rc_charging",
+      "source_equation_array_checks": true,
+      "parameter_samples": 3,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    },
+    {
+      "material_id": "quadratic_shape",
+      "source_equation_array_checks": true,
+      "parameter_samples": 7,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    },
+    {
+      "material_id": "feedback_response",
+      "source_equation_array_checks": true,
+      "parameter_samples": 3,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    },
+    {
+      "material_id": "market_equilibrium",
+      "source_equation_array_checks": true,
+      "parameter_samples": 3,
+      "scope": "numeric consistency, not independent human fidelity/efficacy"
+    }
+  ],
+  "processes": [
+    {
+      "material_id": "future_lifecycle",
+      "source_supported_operations": true
+    },
+    {
+      "material_id": "undo_history",
+      "source_supported_operations": true
+    },
+    {
+      "material_id": "cell_cycle",
+      "source_supported_operations": true
+    }
+  ],
+  "semantic_failure": {
+    "material_id": "recursive_calls",
+    "failure_category": "R3",
+    "meaningful_runtime_pass": false,
+    "mechanical_runtime_pass": true,
+    "evidence": {
+      "named_call_accepts_unrelated_input": true,
+      "specific_result_return_enabled_before_base_case": true
+    },
+    "reason": "Buttons assert exact call/result semantics that generic unguarded list operations do not enforce. Valid DSL is insufficient for useful recursion teaching."
+  },
+  "meaningful_runtime_pass": 10,
+  "meaningful_runtime_fail": 1,
+  "unavailable_artifact": 1,
+  "notes": [
+    "byte_definition uses an acceptable static conceptual view without forced interaction",
+    "finite_sampling required scene rejected for duplicate focus labels; normal learning is retained",
+    "damped_motion uses its valid numeric lab; optional spatial attempt is separately rejected for zero-span parameters",
+    "damped beta=0 safely leaves the time-constant metric unavailable while curves remain defined",
+    "broader generated pedagogical slider ranges and overall visual/source fidelity still need human review"
+  ]
+}

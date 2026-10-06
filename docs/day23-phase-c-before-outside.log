@@ -1,0 +1,51 @@
+2026-10-06 10:34:09.042 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+======================================================================
+ERROR: test_duplicate_labels_preserve_formal_identity (test_day23_phase_c.FrozenRegressionShapes.test_duplicate_labels_preserve_formal_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23_phase_c.py", line 13, in test_duplicate_labels_preserve_formal_identity
+    scene = normalize_scene(equal_labels(), [1, 2])
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\scene\validator.py", line 285, in normalize_scene
+    raise SceneValidationError("Focus target labels must be unique.")
+scene.validator.SceneValidationError: Focus target labels must be unique.
+
+======================================================================
+ERROR: test_early_return_wrong_caller_and_cycles_are_rejected (test_day23_phase_c.FrozenRegressionShapes.test_early_return_wrong_caller_and_cycles_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23_phase_c.py", line 42, in test_early_return_wrong_caller_and_cycles_are_rejected
+    from learning_world import execution as engine
+ImportError: cannot import name 'execution' from 'learning_world' (C:\Users\88690\OneDrive\桌面\visual-learning-lab\learning_world\__init__.py)
+
+======================================================================
+ERROR: test_recursive_and_nonidentical_nested_call_return_contract (test_day23_phase_c.FrozenRegressionShapes.test_recursive_and_nonidentical_nested_call_return_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23_phase_c.py", line 27, in test_recursive_and_nonidentical_nested_call_return_contract
+    from learning_world import execution as engine
+ImportError: cannot import name 'execution' from 'learning_world' (C:\Users\88690\OneDrive\桌面\visual-learning-lab\learning_world\__init__.py)
+
+======================================================================
+ERROR: test_zero_width_source_value_is_fixed_not_an_invented_range (test_day23_phase_c.FrozenRegressionShapes.test_zero_width_source_value_is_fixed_not_an_invented_range)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\scene\world\validator.py", line 116, in normalize_world
+    normalize_parameter(p)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\scene\world\policy.py", line 39, in normalize_parameter
+    raise ValueError("Invalid parameter bounds: " + p["id"])
+ValueError: Invalid parameter bounds: scale
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_day23_phase_c.py", line 18, in test_zero_width_source_value_is_fixed_not_an_invented_range
+    scene = normalize_world(fixed_world(), [1])
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\scene\world\validator.py", line 229, in normalize_world
+    raise WorldValidationError(str(error)) from error
+scene.world.validator.WorldValidationError: Invalid parameter bounds: scale
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.909s
+
+FAILED (errors=4)

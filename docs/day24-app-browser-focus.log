@@ -1,0 +1,5 @@
+frame.waitForFunction: Frame was detached
+    at C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:32:38 {
+  log: [],
+  name: 'Error'
+}

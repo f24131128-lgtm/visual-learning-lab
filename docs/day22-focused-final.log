@@ -1,0 +1,44 @@
+test_explicit_build_selects_process_once_and_switching_is_local (test_day22.AppTests.test_explicit_build_selects_process_once_and_switching_is_local) ... 2026-10-05 22:17:56.933 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.935 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:17:56.936 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_normal_text_process_round_trip_zero_requests (test_day22.AppTests.test_normal_text_process_round_trip_zero_requests) ... 2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-05 22:18:04.061 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_cache_identity_material_language_semantics_not_local_values (test_day22.CompilerTests.test_cache_identity_material_language_semantics_not_local_values) ... ok
+test_failure_isolated_and_explicit_retry (test_day22.CompilerTests.test_failure_isolated_and_explicit_retry) ... ok
+test_one_request_and_local_operations_no_calls (test_day22.CompilerTests.test_one_request_and_local_operations_no_calls) ... ok
+test_refusal_incomplete_and_response_bounds (test_day22.CompilerTests.test_refusal_incomplete_and_response_bounds) ... ok
+test_source_required_bounded_and_page_whitelisted (test_day22.CompilerTests.test_source_required_bounded_and_page_whitelisted) ... ok
+test_unsuitable_cached (test_day22.CompilerTests.test_unsuitable_cached) ... ok
+test_core_ast_audit (test_day22.PlannerTests.test_core_ast_audit) ... ok
+test_lab_is_reused_without_second_spatial_engine (test_day22.PlannerTests.test_lab_is_reused_without_second_spatial_engine) ... ok
+test_labels_and_topic_names_cannot_change_routing (test_day22.PlannerTests.test_labels_and_topic_names_cannot_change_routing) ... ok
+test_malformed_plans_and_broken_provenance (test_day22.PlannerTests.test_malformed_plans_and_broken_provenance) ... ok
+test_no_interaction_cannot_force_animation (test_day22.PlannerTests.test_no_interaction_cannot_force_animation) ... ok
+test_optional_annotations_fail_independently (test_day22.PlannerTests.test_optional_annotations_fail_independently) ... ok
+test_six_families (test_day22.PlannerTests.test_six_families) ... ok
+test_strict_schema_has_no_open_objects (test_day22.PlannerTests.test_strict_schema_has_no_open_objects) ... ok
+test_unsupported_runtime_falls_back (test_day22.PlannerTests.test_unsupported_runtime_falls_back) ... ok
+test_capacity_empty_and_history_bounds (test_day22.ProcessTests.test_capacity_empty_and_history_bounds) ... ok
+test_commit_uses_canonical_focus_and_preserves_learning (test_day22.ProcessTests.test_commit_uses_canonical_focus_and_preserves_learning) ... ok
+test_fifo_and_identity_not_array_position (test_day22.ProcessTests.test_fifo_and_identity_not_array_position) ... ok
+test_malformed_state_rejected (test_day22.ProcessTests.test_malformed_state_rejected) ... ok
+test_reset_rejects_prior_events_preserves_focus_and_other_state (test_day22.ProcessTests.test_reset_rejects_prior_events_preserves_focus_and_other_state) ... ok
+test_same_reducer_handles_lifo_and_finite_states (test_day22.ProcessTests.test_same_reducer_handles_lifo_and_finite_states) ... ok
+test_stale_hostile_and_wrong_scene_are_atomic (test_day22.ProcessTests.test_stale_hostile_and_wrong_scene_are_atomic) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 12.464s
+
+OK

@@ -1,0 +1,32 @@
+2026-10-04 00:09:56.287 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_normal_pdf_source_analogy_source_shared_focus_no_compilers (test_analogy.AnalogyAppTests.test_normal_pdf_source_analogy_source_shared_focus_no_compilers) ... 2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.475 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.477 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.477 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.477 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:09:56.500 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+FAIL
+
+======================================================================
+FAIL: test_normal_pdf_source_analogy_source_shared_focus_no_compilers (test_analogy.AnalogyAppTests.test_normal_pdf_source_analogy_source_shared_focus_no_compilers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\test_analogy.py", line 301, in test_normal_pdf_source_analogy_source_shared_focus_no_compilers
+    self.assertTrue(any(s.label=="選取來源物件" for s in at.selectbox),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        str(at.session_state._state.filtered_state.get("source_atlas_state"))+str(list(at.session_state["source_atlas_cache"]))+
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        str((fingerprint(scene),fingerprint(at.session_state["learning_scene_state"]["scene"]))))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : {'key': ('a', 'f057b24aedb68a4b11bcb21eb16e1d7fd15f42ad15c836a1c36e322941d2a972', 'zh-TW', '1.0', (1,), 'a9227126fb5fcf86d3377ca79d22b1c1f9cb1e8f1629f2b6cca4f48967ef278d'), 'atlas': None, 'attempted': False, 'error': None, 'page': 1, 'region_hint': None, 'seen_focus': None, 'last_token': None, 'parser_available': True, 'document_available': False}[('a', 'f057b24aedb68a4b11bcb21eb16e1d7fd15f42ad15c836a1c36e322941d2a972', 'zh-TW', '1.0', (1,), '1f67a754af6e2478f5b40452c2482e2c65bac376d3a63c39ee2c3265aa7cd050')]('655a1114b59d35632ceedf6cf7e92a44e5ee7b6cc58e84247cd55d59620ee7a0', '4fbb90f54b8797fa03d4c57334647fbb336ad50cd9500e101ccce64ceb5e9bf7')
+
+----------------------------------------------------------------------
+Ran 1 test in 1.977s
+
+FAILED (failures=1)

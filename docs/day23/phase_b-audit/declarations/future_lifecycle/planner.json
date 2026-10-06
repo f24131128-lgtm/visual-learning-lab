@@ -1,0 +1,88 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_08285447555004f0006ac3d1d0addc87d0a251f3cbf6649eba",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "pending_state",
+      "running_state",
+      "finished_state",
+      "cancelled_state"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": true,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": true,
+      "analogy_suitable": true,
+      "structure": false,
+      "interaction_value": true
+    },
+    "preferred": "process",
+    "reason": "The source defines a finite Future lifecycle with meaningful state transitions: pending can become running or cancelled, and running can become finished. Finished and cancelled are terminal states. A bounded finite-state process representation supports learning these allowed and disallowed transitions without inventing scheduling or concurrency mechanics.",
+    "process": {
+      "collections": [],
+      "states": [
+        {
+          "id": "lifecycle_state",
+          "semantic_id": "pending_state",
+          "label": "Future lifecycle state",
+          "values": [
+            "pending",
+            "running",
+            "finished",
+            "cancelled"
+          ],
+          "initial": "pending"
+        }
+      ],
+      "transitions": [
+        {
+          "id": "start_future",
+          "semantic_id": "running_state",
+          "label": "Start",
+          "explanation": "Starting changes a pending Future to running.",
+          "operation": "set_state",
+          "target_id": "lifecycle_state",
+          "from_state": "pending",
+          "to_state": "running"
+        },
+        {
+          "id": "complete_future",
+          "semantic_id": "finished_state",
+          "label": "Successful completion",
+          "explanation": "Successful completion changes a running Future to finished.",
+          "operation": "set_state",
+          "target_id": "lifecycle_state",
+          "from_state": "running",
+          "to_state": "finished"
+        },
+        {
+          "id": "cancel_future",
+          "semantic_id": "cancelled_state",
+          "label": "Cancel",
+          "explanation": "Cancellation may change a pending Future to cancelled; running and finished Futures cannot be cancelled in this model.",
+          "operation": "set_state",
+          "target_id": "lifecycle_state",
+          "from_state": "pending",
+          "to_state": "cancelled"
+        }
+      ],
+      "annotations": []
+    }
+  },
+  "usage": {
+    "input_tokens": 1675,
+    "output_tokens": 777,
+    "total_tokens": 2452
+  },
+  "replayed_from": "docs\\day23\\phase_b\\declarations\\future_lifecycle\\planner.json"
+}

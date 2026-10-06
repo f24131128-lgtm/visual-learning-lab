@@ -1,0 +1,676 @@
+{
+  "scope": "Day23 Phase C prospective validation only",
+  "started_at_utc": "2026-10-06T03:05:32.132219+00:00",
+  "corpus_sha256": "9f77994ff317818df5b970bf2b1b1fb45f7ec99637eaa6c0003c2b7ae61a861e",
+  "production_sha256": "0d22f40d0d0d6c9274d14292f718c2cc089b74b7f421f87149d951adec17bbd8",
+  "model": "gpt-5.6-luna",
+  "rows": [
+    {
+      "material_id": "scoped_labels",
+      "contract": "identity",
+      "proposal_family": "structural",
+      "selected_family": "structural",
+      "selection_pass": true,
+      "compilation_pass": false,
+      "semantic_pass": null,
+      "reference_pass": true,
+      "post_compile_api_calls": null,
+      "analysis_retained": true,
+      "failure": "scene_rejected",
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "structural",
+          "reason_length": 400,
+          "reason_fingerprint": "b71d7e0e9558434e",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "set_relations",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "sample_space",
+            "assembly_ready",
+            "inspection_ready",
+            "distinct_identity",
+            "intersection_q",
+            "union_pqr",
+            "probabilities"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "structural",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "sample_space",
+          "assembly_ready",
+          "inspection_ready",
+          "distinct_identity",
+          "intersection_q",
+          "union_pqr",
+          "probabilities"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": true,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "optional_scene_rejection": "learning goal is empty or too long."
+    },
+    {
+      "material_id": "nested_sum",
+      "contract": "execution",
+      "proposal_family": "execution",
+      "selected_family": "execution",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": true,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": null,
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "execution",
+          "reason_length": 351,
+          "reason_fingerprint": "f00c918ac187a9b4",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "enter_s4",
+            "descend_calls",
+            "enter_s0",
+            "base_return",
+            "unwind_results",
+            "root_complete"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "execution",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "enter_s4",
+          "descend_calls",
+          "enter_s0",
+          "base_return",
+          "unwind_results",
+          "root_complete"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "interaction": {
+        "root_result": 10.0,
+        "steps": [
+          {
+            "operation": "call",
+            "semantic_id": "descend_calls",
+            "depth": 2
+          },
+          {
+            "operation": "call",
+            "semantic_id": "descend_calls",
+            "depth": 3
+          },
+          {
+            "operation": "call",
+            "semantic_id": "descend_calls",
+            "depth": 4
+          },
+          {
+            "operation": "call",
+            "semantic_id": "enter_s0",
+            "depth": 5
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "enter_s0",
+            "depth": 5
+          },
+          {
+            "operation": "return",
+            "semantic_id": "base_return",
+            "depth": 4
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "descend_calls",
+            "depth": 4
+          },
+          {
+            "operation": "return",
+            "semantic_id": "unwind_results",
+            "depth": 3
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "descend_calls",
+            "depth": 3
+          },
+          {
+            "operation": "return",
+            "semantic_id": "unwind_results",
+            "depth": 2
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "descend_calls",
+            "depth": 2
+          },
+          {
+            "operation": "return",
+            "semantic_id": "unwind_results",
+            "depth": 1
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "enter_s4",
+            "depth": 1
+          }
+        ],
+        "wrong_caller_early_return_stale_rejected": true,
+        "reset": true
+      }
+    },
+    {
+      "material_id": "nested_adjustment",
+      "contract": "execution",
+      "proposal_family": "execution",
+      "selected_family": "execution",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": true,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": null,
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "execution",
+          "reason_length": 334,
+          "reason_fingerprint": "d901dcff06c92e79",
+          "required_capabilities": [
+            "equations",
+            "finite_outcomes",
+            "ordered_collection",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "adjust_started",
+            "triple_invoked",
+            "triple_completed",
+            "result_returned",
+            "adjust_completed"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "execution",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "adjust_started",
+          "triple_invoked",
+          "triple_completed",
+          "result_returned",
+          "adjust_completed"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "interaction": {
+        "root_result": 17.0,
+        "steps": [
+          {
+            "operation": "call",
+            "semantic_id": "result_returned",
+            "depth": 2
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "triple_invoked",
+            "depth": 2
+          },
+          {
+            "operation": "return",
+            "semantic_id": "triple_completed",
+            "depth": 1
+          },
+          {
+            "operation": "complete",
+            "semantic_id": "adjust_started",
+            "depth": 1
+          }
+        ],
+        "wrong_caller_early_return_stale_rejected": true,
+        "reset": true
+      }
+    },
+    {
+      "material_id": "fixed_decay",
+      "contract": "fixed",
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": true,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": null,
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "4729b9a6df62fb7a",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "initial_state",
+            "decay_evolution",
+            "later_state",
+            "later_rate"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "initial_state",
+          "decay_evolution",
+          "later_state",
+          "later_rate"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "interaction": {
+        "parameter_domains": [
+          {
+            "id": "amp",
+            "min": 4.0,
+            "max": 4.0,
+            "default": 4.0,
+            "step": 0.0,
+            "parameter_kind": "fixed"
+          },
+          {
+            "id": "decay",
+            "min": 0.25,
+            "max": 0.25,
+            "default": 0.25,
+            "step": 0.0,
+            "parameter_kind": "fixed"
+          }
+        ],
+        "source_curve_samples_checked": 400
+      },
+      "spatial_interaction": {
+        "shared_numeric_projection": true,
+        "bounded_frames": true,
+        "time_and_parameters_local": true
+      }
+    },
+    {
+      "material_id": "narrow_gain",
+      "contract": "narrow",
+      "proposal_family": "dynamic",
+      "selected_family": "dynamic",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": true,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": null,
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "296dfd48f39db0fb",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "calibration_model",
+            "response_equation",
+            "adjustable_gain",
+            "fixed_reference",
+            "comparison_metric",
+            "endpoint_responses"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "calibration_model",
+          "response_equation",
+          "adjustable_gain",
+          "fixed_reference",
+          "comparison_metric",
+          "endpoint_responses"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "interaction": {
+        "parameter_domains": [
+          {
+            "id": "gain",
+            "min": 2.0,
+            "max": 2.0002,
+            "default": 2.0001,
+            "step": 1e-05,
+            "parameter_kind": "adjustable"
+          },
+          {
+            "id": "reference_gain",
+            "min": 2.0,
+            "max": 2.0,
+            "default": 2.0,
+            "step": 0.0,
+            "parameter_kind": "fixed"
+          }
+        ],
+        "source_curve_samples_checked": 401
+      }
+    },
+    {
+      "material_id": "guarded_workflow",
+      "contract": "legal",
+      "proposal_family": "process",
+      "selected_family": "process",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": false,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": {
+        "type": "AssertionError",
+        "contract_reason": ""
+      },
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "process",
+          "reason_length": 400,
+          "reason_fingerprint": "55950e3cb0a2b536",
+          "required_capabilities": [
+            "finite_outcomes",
+            "transitions",
+            "analogy_suitable",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "concept_dc25d74306266826080cf26e",
+            "concept_dc8884b6103d80b5086409d5",
+            "concept_0078f1a064cba5c53f4f3a91",
+            "concept_bdcba443c023d12347f2dff9",
+            "concept_35d5bb723f9b2627ccfd0642",
+            "concept_c72d7db44aaa1565a1dd000f"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [
+              {
+                "id": "concept_dc25d74306266826080cf26e_status",
+                "semantic_id": "concept_dc25d74306266826080cf26e"
+              }
+            ],
+            "transitions": [
+              {
+                "id": "concept_0078f1a064cba5c53f4f3a91_review",
+                "semantic_id": "concept_0078f1a064cba5c53f4f3a91",
+                "operation": "set_state",
+                "target_id": "concept_dc25d74306266826080cf26e_status"
+              },
+              {
+                "id": "concept_bdcba443c023d12347f2dff9_release",
+                "semantic_id": "concept_bdcba443c023d12347f2dff9",
+                "operation": "set_state",
+                "target_id": "concept_dc25d74306266826080cf26e_status"
+              },
+              {
+                "id": "concept_35d5bb723f9b2627ccfd0642_reset_reviewed",
+                "semantic_id": "concept_35d5bb723f9b2627ccfd0642",
+                "operation": "set_state",
+                "target_id": "concept_dc25d74306266826080cf26e_status"
+              },
+              {
+                "id": "concept_35d5bb723f9b2627ccfd0642_reset_released",
+                "semantic_id": "concept_35d5bb723f9b2627ccfd0642",
+                "operation": "set_state",
+                "target_id": "concept_dc25d74306266826080cf26e_status"
+              }
+            ]
+          }
+        },
+        "compiled_family": "process",
+        "normalized_entity_ids": [
+          "concept_dc25d74306266826080cf26e_status",
+          "concept_0078f1a064cba5c53f4f3a91_review",
+          "concept_bdcba443c023d12347f2dff9_release",
+          "concept_35d5bb723f9b2627ccfd0642_reset_reviewed",
+          "concept_35d5bb723f9b2627ccfd0642_reset_released"
+        ],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "concept_dc25d74306266826080cf26e",
+          "concept_dc8884b6103d80b5086409d5",
+          "concept_0078f1a064cba5c53f4f3a91",
+          "concept_bdcba443c023d12347f2dff9",
+          "concept_35d5bb723f9b2627ccfd0642",
+          "concept_c72d7db44aaa1565a1dd000f"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": false,
+          "lab": false
+        }
+      }
+    },
+    {
+      "material_id": "term_only",
+      "contract": "static",
+      "proposal_family": "static",
+      "selected_family": "static",
+      "selection_pass": true,
+      "compilation_pass": true,
+      "semantic_pass": true,
+      "reference_pass": true,
+      "post_compile_api_calls": 0,
+      "analysis_retained": true,
+      "failure": null,
+      "human_grounding": "pending",
+      "diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "4c08a9916ea5bf8c",
+          "required_capabilities": [
+            "structure"
+          ],
+          "focus_ids": [
+            "token",
+            "local_name",
+            "named_item",
+            "scope"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "token",
+          "local_name",
+          "named_item",
+          "scope"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      }
+    }
+  ],
+  "paid_request_attempts": 16,
+  "tokens": {
+    "input_tokens": 47888,
+    "output_tokens": 23481,
+    "total_tokens": 71369
+  },
+  "summary": {
+    "selection_pass": {
+      "pass": 7,
+      "fail": 0,
+      "not_evaluated": 0
+    },
+    "compilation_pass": {
+      "pass": 6,
+      "fail": 1,
+      "not_evaluated": 0
+    },
+    "semantic_pass": {
+      "pass": 5,
+      "fail": 1,
+      "not_evaluated": 1
+    },
+    "reference_pass": {
+      "pass": 7,
+      "fail": 0,
+      "not_evaluated": 0
+    }
+  },
+  "updated_at_utc": "2026-10-06T03:05:35.501948+00:00"
+}

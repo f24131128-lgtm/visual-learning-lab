@@ -1,0 +1,21 @@
+2026-10-06 00:31:51.084 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Learning representation rejected stage=request code=external_failure path=$
+{"material_id": "damped_motion", "proposal_family": null, "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+{"material_id": "vector_resultant", "proposal_family": "static", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+{"material_id": "rc_charging", "proposal_family": "dynamic", "selected_family": "dynamic", "selection_pass": true, "compilation_pass": true, "runtime_pass": true, "failure_category": null}
+Learning representation rejected stage=request code=external_failure path=$
+{"material_id": "quadratic_shape", "proposal_family": null, "selected_family": null, "selection_pass": null, "compilation_pass": false, "runtime_pass": null, "failure_category": "C1"}
+Traceback (most recent call last):
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day23_benchmark.py", line 437, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day23_benchmark.py", line 425, in main
+    save(result_file, result)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day23_benchmark.py", line 79, in save
+    temporary.replace(path)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\88690\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 1091, in replace
+    os.replace(self, target)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 存取被拒。: 'C:\\Users\\88690\\OneDrive\\桌面\\visual-learning-lab\\docs\\day23\\phase_b-replay\\results.json.tmp' -> 'C:\\Users\\88690\\OneDrive\\桌面\\visual-learning-lab\\docs\\day23\\phase_b-replay\\results.json'

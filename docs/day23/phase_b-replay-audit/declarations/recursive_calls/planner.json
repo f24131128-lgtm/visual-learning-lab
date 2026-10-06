@@ -1,0 +1,165 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_0624c63c3772bc47006ac3cd57d37087d0bc92b9e040b24105",
+  "raw": {
+    "version": "1.0",
+    "focus_ids": [
+      "start_call",
+      "descend_calls",
+      "base_case",
+      "unwind_frames",
+      "final_result",
+      "missing_base_case",
+      "unbounded_descent",
+      "growing_stack"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": false,
+      "time_dynamics": true,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": true,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "process",
+    "reason": "A process representation best matches the source: recursive calls descend through smaller arguments, suspended frames form a last-in-first-out call stack, the base case changes the computation from descent to unwinding, and removing it leads to unbounded descent and a growing stack.",
+    "process": {
+      "collections": [
+        {
+          "id": "unwind_frames",
+          "semantic_id": "unwind_frames",
+          "label": "Call stack frames",
+          "initial": [
+            "f(3)",
+            "f(2)",
+            "f(1)",
+            "f(0)"
+          ],
+          "capacity": 4,
+          "first_label": "Oldest caller frame",
+          "last_label": "Most recent frame"
+        }
+      ],
+      "states": [
+        {
+          "id": "base_case",
+          "semantic_id": "base_case",
+          "label": "Evaluation phase",
+          "values": [
+            "base case reached",
+            "unwinding",
+            "final result returned"
+          ],
+          "initial": "base case reached"
+        },
+        {
+          "id": "missing_base_case",
+          "semantic_id": "missing_base_case",
+          "label": "Termination status",
+          "values": [
+            "base case present",
+            "base case removed",
+            "unbounded descent",
+            "call stack keeps growing"
+          ],
+          "initial": "base case present"
+        }
+      ],
+      "transitions": [
+        {
+          "id": "unwind_frames",
+          "semantic_id": "unwind_frames",
+          "label": "Unwind the most recent frame",
+          "explanation": "Remove the last frame first, following last-in-first-out order.",
+          "operation": "remove_last",
+          "target_id": "unwind_frames",
+          "from_state": "",
+          "to_state": ""
+        },
+        {
+          "id": "base_case",
+          "semantic_id": "base_case",
+          "label": "Begin unwinding at f(0)=1",
+          "explanation": "Reaching the base case stops further recursive calls and allows suspended callers to resume.",
+          "operation": "set_state",
+          "target_id": "base_case",
+          "from_state": "base case reached",
+          "to_state": "unwinding"
+        },
+        {
+          "id": "final_result",
+          "semantic_id": "final_result",
+          "label": "Return f(3)=6",
+          "explanation": "After all suspended frames are resolved, the result returns to the original caller.",
+          "operation": "set_state",
+          "target_id": "base_case",
+          "from_state": "unwinding",
+          "to_state": "final result returned"
+        },
+        {
+          "id": "missing_base_case",
+          "semantic_id": "missing_base_case",
+          "label": "Remove the base case",
+          "explanation": "Without the stopping condition, recursive calls continue requesting smaller arguments.",
+          "operation": "set_state",
+          "target_id": "missing_base_case",
+          "from_state": "base case present",
+          "to_state": "base case removed"
+        },
+        {
+          "id": "unbounded_descent",
+          "semantic_id": "unbounded_descent",
+          "label": "Continue descending without a base case",
+          "explanation": "The computation does not reach a terminating condition.",
+          "operation": "set_state",
+          "target_id": "missing_base_case",
+          "from_state": "base case removed",
+          "to_state": "unbounded descent"
+        },
+        {
+          "id": "growing_stack",
+          "semantic_id": "growing_stack",
+          "label": "Observe continued stack growth",
+          "explanation": "Each unresolved recursive call adds another pending frame, so the call stack keeps growing.",
+          "operation": "set_state",
+          "target_id": "missing_base_case",
+          "from_state": "unbounded descent",
+          "to_state": "call stack keeps growing"
+        }
+      ],
+      "annotations": [
+        {
+          "semantic_id": "start_call",
+          "text": "The evaluation begins with f(3)."
+        },
+        {
+          "semantic_id": "descend_calls",
+          "text": "The recursive calls proceed through f(3), f(2), f(1), and f(0)."
+        },
+        {
+          "semantic_id": "unwind_frames",
+          "text": "Results return in reverse order because the call stack is last-in-first-out."
+        },
+        {
+          "semantic_id": "final_result",
+          "text": "The returned values resolve upward to f(3)=6."
+        }
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 1380,
+    "output_tokens": 1845,
+    "total_tokens": 3225
+  },
+  "replayed_from": "docs\\day23\\phase_a\\declarations\\recursive_calls\\planner.json"
+}

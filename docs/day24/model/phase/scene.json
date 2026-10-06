@@ -1,0 +1,291 @@
+{
+  "stage": "scene",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0a184b306b7eb40f006ac4f9415ac087d094158a16fc701b06",
+  "raw": {
+    "scene_version": "2.2",
+    "domain": "spatial_dynamics",
+    "scene_id": "phase_shifted_rotating_pointer",
+    "title": "Explore a Phase-Shifted Sinusoidal Pointer",
+    "learning_goal": "Understand how phase shifts the angular position of a rotating pointer and changes its cosine and sine coordinates.",
+    "assumptions": [
+      "The expression theta = time + phase implies a unit angular rate of 1 radian per second.",
+      "The time view spans one complete period of the sinusoidal signal.",
+      "The pointer has unit radius because its coordinates are cosine and sine of the same angle."
+    ],
+    "source_pages": [],
+    "time": {
+      "min": 0,
+      "max": 6.283185307179586,
+      "frames": 120,
+      "unit": "s",
+      "strategy": "periodic_duration",
+      "duration_expression": "2*pi",
+      "periods": 1
+    },
+    "axes": {
+      "x_min": -1.2,
+      "x_max": 1.2,
+      "y_min": -1.2,
+      "y_max": 1.2,
+      "x_label": "Horizontal coordinate",
+      "y_label": "Signal coordinate"
+    },
+    "parameters": [
+      {
+        "id": "phase",
+        "label": "Phase",
+        "unit": "rad",
+        "min": -3.141592653589793,
+        "max": 3.141592653589793,
+        "default": 0,
+        "step": 0.2617993877991494,
+        "source_pages": [],
+        "quantity_kind": "angle",
+        "range_source": "source",
+        "display_unit": "degrees"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "theta",
+        "label": "Phase angle",
+        "unit": "rad",
+        "expression": "time+phase",
+        "source_pages": []
+      },
+      {
+        "id": "horizontal_coordinate",
+        "label": "Horizontal coordinate",
+        "unit": "",
+        "expression": "cos(theta)",
+        "source_pages": []
+      },
+      {
+        "id": "signal_coordinate",
+        "label": "Signal coordinate",
+        "unit": "",
+        "expression": "sin(theta)",
+        "source_pages": []
+      }
+    ],
+    "objects": [
+      {
+        "id": "pointer_endpoint",
+        "label": "Pointer endpoint",
+        "type": "point",
+        "semantic_id": "horizontal_coordinate",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "rotating_pointer",
+        "label": "Rotating pointer",
+        "type": "vector",
+        "semantic_id": "horizontal_coordinate",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "pointer_path",
+        "label": "Pointer path",
+        "type": "trajectory",
+        "semantic_id": "horizontal_coordinate",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      }
+    ],
+    "series": [
+      {
+        "id": "horizontal_series",
+        "label": "Horizontal coordinate cos(theta)",
+        "semantic_id": "horizontal_coordinate",
+        "source_pages": []
+      },
+      {
+        "id": "signal_series",
+        "label": "Signal sin(theta)",
+        "semantic_id": "signal_coordinate",
+        "source_pages": []
+      }
+    ],
+    "metrics": [
+      {
+        "id": "phase_angle_metric",
+        "label": "Phase angle",
+        "semantic_id": "theta",
+        "unit": "rad",
+        "source_pages": []
+      }
+    ],
+    "bindings": [
+      {
+        "id": "bind_pointer_endpoint",
+        "type": "point_position",
+        "target_id": "pointer_endpoint",
+        "quantity_ids": [
+          "horizontal_coordinate",
+          "signal_coordinate"
+        ]
+      },
+      {
+        "id": "bind_rotating_pointer",
+        "type": "vector_components",
+        "target_id": "rotating_pointer",
+        "quantity_ids": [
+          "horizontal_coordinate",
+          "signal_coordinate"
+        ]
+      },
+      {
+        "id": "bind_pointer_path",
+        "type": "point_position",
+        "target_id": "pointer_path",
+        "quantity_ids": [
+          "horizontal_coordinate",
+          "signal_coordinate"
+        ]
+      },
+      {
+        "id": "bind_horizontal_series",
+        "type": "curve_value",
+        "target_id": "horizontal_series",
+        "quantity_ids": [
+          "horizontal_coordinate"
+        ]
+      },
+      {
+        "id": "bind_signal_series",
+        "type": "curve_value",
+        "target_id": "signal_series",
+        "quantity_ids": [
+          "signal_coordinate"
+        ]
+      },
+      {
+        "id": "bind_phase_angle_metric",
+        "type": "metric_value",
+        "target_id": "phase_angle_metric",
+        "quantity_ids": [
+          "theta"
+        ]
+      }
+    ],
+    "inverse_bindings": [
+      {
+        "id": "pointer_angle_to_time",
+        "type": "angle_to_time",
+        "object_id": "rotating_pointer",
+        "target_id": "time",
+        "rate_expression": "1",
+        "offset_expression": "phase",
+        "scale": 1
+      }
+    ],
+    "invariants": [
+      {
+        "id": "unit_pointer_radius",
+        "label": "The pointer endpoint remains on the unit circle",
+        "type": "approx_equal",
+        "left_expression": "horizontal_coordinate*horizontal_coordinate+signal_coordinate*signal_coordinate",
+        "right_expression": "1",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 8
+      }
+    ],
+    "experiments": [
+      {
+        "id": "baseline_phase_experiment",
+        "title": "Compare baseline and shifted phase",
+        "learning_goal": "Observe how changing phase shifts the pointer and both coordinate curves.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_focus",
+            "target_id": "theta",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 1.5707963267948966
+          },
+          {
+            "op": "set_parameter",
+            "target_id": "phase",
+            "value": 1.5707963267948966
+          }
+        ],
+        "observation_targets": [
+          "theta",
+          "horizontal_coordinate",
+          "signal_coordinate"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "coordinate_quadrature_experiment",
+        "title": "Read the pointer coordinates",
+        "learning_goal": "Relate the pointer angle to its horizontal cosine coordinate and vertical sine coordinate.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_focus",
+            "target_id": "horizontal_coordinate",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 1.5707963267948966
+          },
+          {
+            "op": "set_focus",
+            "target_id": "signal_coordinate",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "theta",
+          "horizontal_coordinate",
+          "signal_coordinate"
+        ],
+        "source_pages": []
+      }
+    ]
+  },
+  "usage": {
+    "input_tokens": 3242,
+    "output_tokens": 2009,
+    "total_tokens": 5251
+  }
+}

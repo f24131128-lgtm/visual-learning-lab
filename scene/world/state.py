@@ -37,6 +37,15 @@ def apply_patch(scene, state, patch, record=True):
         candidate.update(copy.deepcopy(candidate["baseline"]))
     else:
         candidate.update({"time": scene["time"]["min"], "parameters": {p["id"]: p["default"] for p in scene["parameters"]}})
+    _check_candidate(scene, state, candidate)
+    state["previous"] = semantic(state)
+    state.update(candidate)
+    state["revision"] += 1
+    if record: record_action(state, {"kind": "patch", "patch": patch})
+    return state
+
+
+def _check_candidate(scene, state, candidate):
     snapshot(scene, candidate)
     values = evaluate(scene, candidate["parameters"], candidate["time"])
     check_inverses(scene, candidate["parameters"], values, project(scene, values))
@@ -45,10 +54,27 @@ def apply_patch(scene, state, patch, record=True):
     if candidate["parameters"] != state["parameters"]:
         frames(scene, candidate["parameters"])
         invariant_report(scene, candidate["parameters"])
+
+
+def apply_parameters(scene, state, values, focus, record=True):
+    """Atomic <=2 parameter gesture/replay patch through existing validation."""
+    if not isinstance(values, dict) or not 1 <= len(values) <= 2:
+        raise ValueError("Invalid parameter batch")
+    candidate = semantic(state)
+    for target, value in values.items():
+        validate_patch(scene, dict(op="set_parameter", target_id=target, value=value))
+        p = next(p for p in scene["parameters"] if p["id"] == target)
+        if p["min"] == p["max"]: raise ValueError("Fixed parameter")
+        candidate["parameters"][target] = value
+    validate_patch(scene, dict(op="set_focus", target_id=focus, value=None))
+    candidate["focus"] = focus
+    domain = time_domain(scene, candidate["parameters"])
+    candidate["time"] = min(domain["max"], max(domain["min"], candidate["time"]))
+    _check_candidate(scene, state, candidate)
     state["previous"] = semantic(state)
     state.update(candidate)
     state["revision"] += 1
-    if record: record_action(state, {"kind": "patch", "patch": patch})
+    if record: record_action(state, dict(kind="parameters", values=dict(values), focus=focus, time=state["time"]))
     return state
 
 
@@ -117,6 +143,9 @@ def replay_states(scene, state):
         if not isinstance(action, dict): raise ValueError("Malformed recorded action.")
         if action.get("kind") == "patch" and set(action) == {"kind", "patch"}:
             apply_patch(scene, trial, action["patch"], record=False)
+        elif action.get("kind") == "parameters" and set(action) == {"kind", "values", "focus", "time"}:
+            apply_parameters(scene, trial, action["values"], action["focus"], record=False)
+            apply_patch(scene, trial, dict(op="set_time", target_id="time", value=action["time"]), record=False)
         elif action.get("kind") == "baseline" and set(action) == {"kind", "action"}:
             baseline_action(trial, action["action"], record=False)
         elif action == {"kind": "clear_focus"}:

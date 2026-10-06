@@ -1,0 +1,171 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_03e50d63fbc3d102006ac4649b373c87d0ba1a379b41f1a2e7",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "enter_s4",
+      "descend_calls",
+      "enter_s0",
+      "base_return",
+      "unwind_results",
+      "root_complete"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": true,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": true,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "preferred": "execution",
+    "reason": "Use a resolved execution tree because the source supplies a complete bounded nested call example for S(4), including fixed numeric arguments, child-return dependencies, base completion, and upward unwinding. This makes call ownership, waiting, completion, and result routing directly inspectable without inventing general recursion or executable code.",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": {
+      "root_id": "call_s4",
+      "calls": [
+        {
+          "id": "call_s4",
+          "semantic_id": "enter_s4",
+          "label": "S(4) calls S(3) and waits",
+          "arguments": [
+            {
+              "id": "arg_s4",
+              "label": "n",
+              "value": 4
+            }
+          ],
+          "children": [
+            {
+              "call_id": "call_s3",
+              "result_id": "result_s3",
+              "result_label": "S(3) returns 6",
+              "semantic_id": "descend_calls",
+              "label": "Child call S(3)"
+            }
+          ],
+          "result_expression": "4 + result_s3",
+          "return_semantic_id": "root_complete"
+        },
+        {
+          "id": "call_s3",
+          "semantic_id": "descend_calls",
+          "label": "S(3) calls S(2) and waits",
+          "arguments": [
+            {
+              "id": "arg_s3",
+              "label": "n",
+              "value": 3
+            }
+          ],
+          "children": [
+            {
+              "call_id": "call_s2",
+              "result_id": "result_s2",
+              "result_label": "S(2) returns 3",
+              "semantic_id": "descend_calls",
+              "label": "Child call S(2)"
+            }
+          ],
+          "result_expression": "3 + result_s2",
+          "return_semantic_id": "unwind_results"
+        },
+        {
+          "id": "call_s2",
+          "semantic_id": "descend_calls",
+          "label": "S(2) calls S(1) and waits",
+          "arguments": [
+            {
+              "id": "arg_s2",
+              "label": "n",
+              "value": 2
+            }
+          ],
+          "children": [
+            {
+              "call_id": "call_s1",
+              "result_id": "result_s1",
+              "result_label": "S(1) returns 1",
+              "semantic_id": "descend_calls",
+              "label": "Child call S(1)"
+            }
+          ],
+          "result_expression": "2 + result_s1",
+          "return_semantic_id": "unwind_results"
+        },
+        {
+          "id": "call_s1",
+          "semantic_id": "descend_calls",
+          "label": "S(1) calls S(0) and waits",
+          "arguments": [
+            {
+              "id": "arg_s1",
+              "label": "n",
+              "value": 1
+            }
+          ],
+          "children": [
+            {
+              "call_id": "call_s0",
+              "result_id": "result_s0",
+              "result_label": "S(0) returns 0",
+              "semantic_id": "enter_s0",
+              "label": "Base call S(0)"
+            }
+          ],
+          "result_expression": "1 + result_s0",
+          "return_semantic_id": "unwind_results"
+        },
+        {
+          "id": "call_s0",
+          "semantic_id": "enter_s0",
+          "label": "Base case S(0) completes",
+          "arguments": [
+            {
+              "id": "arg_s0",
+              "label": "n",
+              "value": 0
+            }
+          ],
+          "children": [],
+          "result_expression": "0",
+          "return_semantic_id": "base_return"
+        }
+      ],
+      "annotations": [
+        {
+          "semantic_id": "descend_calls",
+          "text": "Each caller waits for its immediate child before forming its own result."
+        },
+        {
+          "semantic_id": "unwind_results",
+          "text": "Returned values route upward one level at a time: 0, then 1, then 3, then 6."
+        },
+        {
+          "semantic_id": "root_complete",
+          "text": "The root combines 4 with the result from S(3), producing 10."
+        }
+      ]
+    }
+  },
+  "usage": {
+    "input_tokens": 2418,
+    "output_tokens": 1575,
+    "total_tokens": 3993
+  }
+}

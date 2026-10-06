@@ -1,0 +1,431 @@
+{
+  "stage": "analysis",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0c22b9db6e01686b006ac464fa8c0087d0a0ec54d38a1319cf",
+  "raw": {
+    "quick_summary": "The calibration model maps an input x in [0, 2] to response(x) = gain·x. The gain is adjustable only within the narrow interval 2.0000–2.0002, while the reference gain remains fixed at 2. The comparison metric gain−2 measures deviation from the reference.",
+    "key_concepts": [
+      {
+        "concept": "Calibration response model",
+        "explanation": "The response is calculated as response(x) = gain·x for inputs from 0 through 2.",
+        "source_pages": []
+      },
+      {
+        "concept": "Adjustable gain",
+        "explanation": "The gain is an adjustable parameter with minimum 2.0000, maximum 2.0002, default 2.0001, and increment 0.00001.",
+        "source_pages": []
+      },
+      {
+        "concept": "Fixed reference gain",
+        "explanation": "The reference gain is fixed at exactly 2 and does not change when the adjustable gain changes or is reset.",
+        "source_pages": []
+      },
+      {
+        "concept": "Gain comparison metric",
+        "explanation": "The derived metric gain−2 measures the adjustable gain's difference from the fixed reference gain; it is not an independent parameter.",
+        "source_pages": []
+      },
+      {
+        "concept": "Endpoint response range",
+        "explanation": "At x = 2, the default gain produces response 4.0002; the legal gain endpoints produce responses 4 and 4.0004.",
+        "source_pages": []
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Calibration response model",
+        "relation": "is defined by",
+        "target": "response(x) = gain·x",
+        "source_pages": []
+      },
+      {
+        "source": "Adjustable gain",
+        "relation": "controls",
+        "target": "Calibration response model",
+        "source_pages": []
+      },
+      {
+        "source": "Adjustable gain",
+        "relation": "is compared with",
+        "target": "Fixed reference gain",
+        "source_pages": []
+      },
+      {
+        "source": "Gain comparison metric",
+        "relation": "equals",
+        "target": "gain−2",
+        "source_pages": []
+      },
+      {
+        "source": "Gain comparison metric",
+        "relation": "uses",
+        "target": "Fixed reference gain",
+        "source_pages": []
+      },
+      {
+        "source": "Fixed reference gain",
+        "relation": "remains unchanged when",
+        "target": "Adjustable gain changes or resets",
+        "source_pages": []
+      },
+      {
+        "source": "Adjustable gain",
+        "relation": "produces at x = 2 the default response",
+        "target": "4.0002",
+        "source_pages": []
+      },
+      {
+        "source": "Adjustable gain",
+        "relation": "produces at x = 2 endpoint responses",
+        "target": "4 and 4.0004",
+        "source_pages": []
+      }
+    ],
+    "visual_evidence": [],
+    "visual_flow": {
+      "suitable": false,
+      "reason": "The material defines a parameterized relationship and a fixed reference rather than a multi-stage process.",
+      "nodes": [],
+      "edges": []
+    },
+    "concept_map": {
+      "suitable": true,
+      "reason": "The main learning challenge is understanding how the adjustable gain, fixed reference, response equation, and derived comparison metric relate.",
+      "nodes": [
+        {
+          "id": "calibration_model",
+          "label": "Calibration response model",
+          "role": "central",
+          "source_pages": []
+        },
+        {
+          "id": "response_equation",
+          "label": "response(x) = gain·x",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "adjustable_gain",
+          "label": "Adjustable gain",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "fixed_reference",
+          "label": "Fixed reference gain = 2",
+          "role": "primary",
+          "source_pages": []
+        },
+        {
+          "id": "comparison_metric",
+          "label": "Comparison metric = gain−2",
+          "role": "supporting",
+          "source_pages": []
+        },
+        {
+          "id": "endpoint_responses",
+          "label": "Responses at x = 2",
+          "role": "supporting",
+          "source_pages": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "calibration_model",
+          "target": "response_equation",
+          "label": "is defined by"
+        },
+        {
+          "source": "calibration_model",
+          "target": "adjustable_gain",
+          "label": "uses"
+        },
+        {
+          "source": "adjustable_gain",
+          "target": "fixed_reference",
+          "label": "is compared with"
+        },
+        {
+          "source": "comparison_metric",
+          "target": "adjustable_gain",
+          "label": "subtracts 2 from"
+        },
+        {
+          "source": "comparison_metric",
+          "target": "fixed_reference",
+          "label": "measures deviation from"
+        },
+        {
+          "source": "adjustable_gain",
+          "target": "endpoint_responses",
+          "label": "determines"
+        }
+      ]
+    },
+    "comparison": {
+      "suitable": false,
+      "reason": "",
+      "title": "",
+      "items": [],
+      "criteria": [],
+      "takeaway": ""
+    },
+    "learning_path": {
+      "suitable": true,
+      "title": "Understanding the Narrow-Gain Calibration Model",
+      "reason": "The lesson progresses from the response equation to parameter bounds, the fixed reference, and the resulting comparison and endpoint values.",
+      "steps": [
+        {
+          "id": "step_model",
+          "title": "Start with the response equation",
+          "learning_goal": "Understand how input and gain determine the calibration response.",
+          "explanation": "For every x from 0 to 2, calculate the response by multiplying x by the adjustable gain: response(x) = gain·x.",
+          "source_pages": [],
+          "connection_to_previous": "This is the foundational rule for all later parameter and comparison reasoning.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "calibration_model"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "response_equation"
+            }
+          ]
+        },
+        {
+          "id": "step_gain_bounds",
+          "title": "Identify the legal gain adjustment",
+          "learning_goal": "Use the exact allowed gain interval and increment.",
+          "explanation": "The gain can vary from 2.0000 through 2.0002 in increments of 0.00001, with default 2.0001. This narrow interval must be preserved without widening it.",
+          "source_pages": [],
+          "connection_to_previous": "Once the response rule is known, the gain bounds specify which response curves are legal.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "adjustable_gain"
+            }
+          ]
+        },
+        {
+          "id": "step_reference",
+          "title": "Keep the reference separate",
+          "learning_goal": "Distinguish the adjustable gain from the fixed reference gain.",
+          "explanation": "The reference gain is exactly 2. It remains fixed during parameter changes and reset, so it is not another adjustable control.",
+          "source_pages": [],
+          "connection_to_previous": "The legal adjustable range is interpreted relative to this unchanged reference.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "fixed_reference"
+            }
+          ]
+        },
+        {
+          "id": "step_comparison",
+          "title": "Interpret deviation and endpoint responses",
+          "learning_goal": "Relate gain−2 and the response values at x = 2.",
+          "explanation": "The derived metric gain−2 reports deviation from the reference. At x = 2, the default gain gives 4.0002, while the legal endpoints give 4 and 4.0004.",
+          "source_pages": [],
+          "connection_to_previous": "With the gain and reference distinguished, the comparison metric and endpoint consequences follow directly.",
+          "visual_refs": [
+            {
+              "type": "concept_map_node",
+              "id": "comparison_metric"
+            },
+            {
+              "type": "concept_map_node",
+              "id": "endpoint_responses"
+            }
+          ]
+        }
+      ],
+      "checkpoint_questions": [
+        {
+          "id": "q_equation",
+          "question": "Which expression gives the model response for an allowed input x?",
+          "options": [
+            {
+              "id": "a",
+              "text": "response(x) = gain + x"
+            },
+            {
+              "id": "b",
+              "text": "response(x) = gain·x"
+            },
+            {
+              "id": "c",
+              "text": "response(x) = gain−x"
+            },
+            {
+              "id": "d",
+              "text": "response(x) = x/gain"
+            }
+          ],
+          "correct_option_id": "b",
+          "explanation": "The model explicitly defines response(x) as gain multiplied by x.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_model"
+          ]
+        },
+        {
+          "id": "q_parameter_role",
+          "question": "What happens to the reference gain when the adjustable gain is changed or reset?",
+          "options": [
+            {
+              "id": "a",
+              "text": "It changes to match the adjustable gain"
+            },
+            {
+              "id": "b",
+              "text": "It is reset to the current default"
+            },
+            {
+              "id": "c",
+              "text": "It remains fixed at 2"
+            },
+            {
+              "id": "d",
+              "text": "It becomes gain−2"
+            }
+          ],
+          "correct_option_id": "c",
+          "explanation": "The reference gain is fixed at exactly 2 and remains unchanged by local changes or reset.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_reference"
+          ]
+        },
+        {
+          "id": "q_endpoint",
+          "question": "What is the response at x = 2 when gain is at its upper legal endpoint, 2.0002?",
+          "options": [
+            {
+              "id": "a",
+              "text": "4"
+            },
+            {
+              "id": "b",
+              "text": "4.0001"
+            },
+            {
+              "id": "c",
+              "text": "4.0002"
+            },
+            {
+              "id": "d",
+              "text": "4.0004"
+            }
+          ],
+          "correct_option_id": "d",
+          "explanation": "Multiplying the upper endpoint gain, 2.0002, by x = 2 gives 4.0004.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_model",
+            "step_gain_bounds",
+            "step_comparison"
+          ]
+        }
+      ]
+    },
+    "interactive_lab": {
+      "suitable": true,
+      "reason": "The explicit linear equation and narrow gain interval support a safe 2D experiment showing how gain changes the response while the reference remains fixed.",
+      "demos": [
+        {
+          "id": "gain_response_demo",
+          "title": "Explore the narrow gain interval",
+          "learning_goal": "See how small legal changes in gain alter the response curve and its deviation from the fixed reference.",
+          "formula_display": "response(x) = gain·x; reference(x) = 2·x; deviation = gain−2",
+          "x": {
+            "id": "x",
+            "label": "Input x",
+            "min": 0,
+            "max": 2,
+            "points": 401
+          },
+          "parameters": [
+            {
+              "id": "gain",
+              "label": "Adjustable gain",
+              "min": 2,
+              "max": 2.0002,
+              "default": 2.0001,
+              "step": 1e-05,
+              "unit": ""
+            },
+            {
+              "id": "reference_gain",
+              "label": "Fixed reference gain",
+              "min": 2,
+              "max": 2,
+              "default": 2,
+              "step": 0,
+              "unit": ""
+            }
+          ],
+          "series": [
+            {
+              "id": "response_curve",
+              "label": "response(x) = gain·x",
+              "expression": "gain*x"
+            },
+            {
+              "id": "reference_curve",
+              "label": "reference(x) = 2·x",
+              "expression": "reference_gain*x"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "gain_deviation",
+              "label": "gain−2",
+              "expression": "gain-2",
+              "unit": ""
+            },
+            {
+              "id": "default_endpoint_response",
+              "label": "response at x = 2",
+              "expression": "gain*2",
+              "unit": ""
+            }
+          ],
+          "try_this": [
+            "Move gain from its minimum to its maximum while keeping the reference fixed.",
+            "Reset and verify that the default gain is 2.0001 and the response at x = 2 is 4.0002.",
+            "Compare the two curves at x = 2 and observe the endpoint responses 4 and 4.0004."
+          ],
+          "source_pages": [],
+          "related_step_ids": [
+            "step_model",
+            "step_gain_bounds",
+            "step_reference",
+            "step_comparison"
+          ]
+        }
+      ]
+    },
+    "learning_scene_candidate": {
+      "suitable": false,
+      "domain": "none",
+      "reason": "The material supports a one-dimensional calibration curve, not a finite probability/set model or spatial dynamics with trajectories."
+    },
+    "primary_visualization": {
+      "type": "concept_map",
+      "reason": "The core structure is the relationship among the response equation, the adjustable gain, the fixed reference, and the derived comparison metric; no ordered multi-stage process dominates."
+    },
+    "suggested_visualizations": [
+      "Concept Map",
+      "Comparison",
+      "Image / Diagram"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3691,
+    "output_tokens": 2508,
+    "total_tokens": 6199
+  }
+}

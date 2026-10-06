@@ -1,0 +1,44 @@
+{
+  "stage": "planner",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0fd2125537dd1ffc006ac46540f0a487d098cf4f2f5bca709b",
+  "raw": {
+    "version": "1.1",
+    "focus_ids": [
+      "token",
+      "local_name",
+      "named_item",
+      "scope"
+    ],
+    "source_pages": [],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": false
+    },
+    "preferred": "static",
+    "reason": "The source gives a definitional relationship: a token is a local name assigned to a small named item within a local context. A structured static representation can show these semantic links clearly. The source provides no equations, parameterized behavior, ordering, state transitions, geometry, finite outcomes, or execution example, so animation and interaction would add little learning value. No:",
+    "process": {
+      "collections": [],
+      "states": [],
+      "transitions": [],
+      "annotations": []
+    },
+    "execution": null
+  },
+  "usage": {
+    "input_tokens": 2196,
+    "output_tokens": 423,
+    "total_tokens": 2619
+  }
+}

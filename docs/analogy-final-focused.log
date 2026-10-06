@@ -1,0 +1,87 @@
+2026-10-04 00:35:37.381 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+test_explicit_build_switch_focus_slider_compare_zero_additional_calls (test_analogy.AnalogyAppTests.test_explicit_build_switch_focus_slider_compare_zero_additional_calls) ... 2026-10-04 00:35:37.414 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.415 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.415 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.415 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.416 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:37.424 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:40.241 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-04 00:35:40.483 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_frontend_failure_retains_static_controls_and_mappings (test_analogy.AnalogyAppTests.test_frontend_failure_retains_static_controls_and_mappings) ... 2026-10-04 00:35:41.990 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:41.991 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:42.943 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+2026-10-04 00:35:43.180 Please replace `use_container_width` with `width`.
+
+`use_container_width` will be removed after 2025-12-31.
+
+For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`.
+ok
+test_non_electrical_and_unsuitable_views (test_analogy.AnalogyAppTests.test_non_electrical_and_unsuitable_views) ... 2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:43.188 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_normal_pdf_source_analogy_source_shared_focus_no_compilers (test_analogy.AnalogyAppTests.test_normal_pdf_source_analogy_source_shared_focus_no_compilers) ... 2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.532 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.541 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.541 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-04 00:35:44.542 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_actual_changes_fail_atomically (test_analogy.AnalogyLogicTests.test_actual_changes_fail_atomically) ... ok
+test_bidirectional_shared_focus_without_shadow (test_analogy.AnalogyLogicTests.test_bidirectional_shared_focus_without_shadow) ... ok
+test_binding_must_have_matching_ranges_and_semantics (test_analogy.AnalogyLogicTests.test_binding_must_have_matching_ranges_and_semantics) ... ok
+test_cache_bounded_and_identity_excludes_local_values (test_analogy.AnalogyLogicTests.test_cache_bounded_and_identity_excludes_local_values) ... ok
+test_compiler_one_request_cache_and_retry (test_analogy.AnalogyLogicTests.test_compiler_one_request_cache_and_retry) ... ok
+test_gesture_updates_formal_and_preserves_recording (test_analogy.AnalogyLogicTests.test_gesture_updates_formal_and_preserves_recording) ... ok
+test_lab_binding_uses_validated_lesson_ids_and_canonical_values (test_analogy.AnalogyLogicTests.test_lab_binding_uses_validated_lesson_ids_and_canonical_values) ... ok
+test_limitations_fidelity_and_markup_required (test_analogy.AnalogyLogicTests.test_limitations_fidelity_and_markup_required) ... ok
+test_local_event_stale_duplicate_and_hostile_ignore (test_analogy.AnalogyLogicTests.test_local_event_stale_duplicate_and_hostile_ignore) ... ok
+test_missing_source_and_oversized_response_isolate_existing_spec (test_analogy.AnalogyLogicTests.test_missing_source_and_oversized_response_isolate_existing_spec) ... ok
+test_numeric_payload_contains_no_model_expression (test_analogy.AnalogyLogicTests.test_numeric_payload_contains_no_model_expression) ... ok
+test_payload_count_numeric_and_slider_bounds (test_analogy.AnalogyLogicTests.test_payload_count_numeric_and_slider_bounds) ... ok
+test_phase_updates_pointer_and_wave (test_analogy.AnalogyLogicTests.test_phase_updates_pointer_and_wave) ... ok
+test_provenance_pages_and_missing_formal_are_rejected (test_analogy.AnalogyLogicTests.test_provenance_pages_and_missing_formal_are_rejected) ... ok
+test_queue_is_qualitative_and_uses_generic_tokens (test_analogy.AnalogyLogicTests.test_queue_is_qualitative_and_uses_generic_tokens) ... ok
+test_static_fallback_and_frontend_clock_transport (test_analogy.AnalogyLogicTests.test_static_fallback_and_frontend_clock_transport) ... ok
+test_three_sources_same_strict_schema_and_runtime (test_analogy.AnalogyLogicTests.test_three_sources_same_strict_schema_and_runtime) ... ok
+test_unknown_duplicate_ids_and_broken_refs (test_analogy.AnalogyLogicTests.test_unknown_duplicate_ids_and_broken_refs) ... ok
+test_unsafe_expressions_are_rejected (test_analogy.AnalogyLogicTests.test_unsafe_expressions_are_rejected) ... ok
+test_unsuitable_is_cached_and_no_scene (test_analogy.AnalogyLogicTests.test_unsuitable_is_cached_and_no_scene) ... ok
+test_unsupported_wrap_and_reserved_focus_rejected (test_analogy.AnalogyLogicTests.test_unsupported_wrap_and_reserved_focus_rejected) ... ok
+test_voltage_resistance_flow_are_bidirectional_and_local (test_analogy.AnalogyLogicTests.test_voltage_resistance_flow_are_bidirectional_and_local) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 12.204s
+
+OK

@@ -1,6 +1,7 @@
 """Pure validation, evidence graph, ranking and formula trace."""
 
 import copy
+import hashlib
 import math
 import re
 from collections import Counter
@@ -46,6 +47,42 @@ def semantic_catalog(scene=None, analysis=None):
                         and _text(item.get("label"), 160, False) and item["id"] not in result):
                     pages = item.get("source_pages", [])
                     result[item["id"]] = dict(label=item["label"], pages=[p for p in pages[:8] if type(p) is int and p > 0] if isinstance(pages, list) else [], kind=group, equation="", representations=[])
+        # Comparison items already have canonical IDs, just like graph nodes.
+        # Their provenance belongs to their actual cells, not every PDF page.
+        comparison = (analysis or {}).get("comparison")
+        if isinstance(comparison, dict) and comparison.get("suitable") is True:
+            items, criteria = comparison.get("items"), comparison.get("criteria")
+            if isinstance(items, list) and isinstance(criteria, list):
+                for item in items[:4]:
+                    if (not isinstance(item, dict) or not isinstance(item.get("id"), str)
+                            or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,63}", item["id"])
+                            or not _text(item.get("label"), 160, False) or item["id"] in result):
+                        continue
+                    pages = []
+                    for criterion in criteria[:8]:
+                        cells = criterion.get("values") if isinstance(criterion, dict) else None
+                        for cell in cells[:4] if isinstance(cells, list) else []:
+                            if not isinstance(cell, dict) or cell.get("item_id") != item["id"]:
+                                continue
+                            refs = cell.get("source_pages")
+                            if isinstance(refs, list):
+                                pages.extend(p for p in refs[:8] if type(p) is int and p > 0)
+                    result[item["id"]] = dict(label=item["label"], pages=list(dict.fromkeys(pages))[:8],
+                        kind="comparison", equation="", representations=[])
+        # Only when no structured identity exists, derive stable identities for
+        # already analyzed concepts. Never replace graph/comparison IDs with labels
+        # or positions. No fabricated pages or additional semantic interpretation.
+        if not result:
+            concepts = (analysis or {}).get("key_concepts")
+            for item in concepts[:24] if isinstance(concepts, list) else []:
+                if not isinstance(item, dict) or not _text(item.get("concept"), 160, False):
+                    continue
+                label = item["concept"]
+                identifier = "concept_" + hashlib.sha256(label.encode("utf-8")).hexdigest()[:24]
+                refs = item.get("source_pages")
+                pages = [p for p in refs[:8] if type(p) is int and p > 0] if isinstance(refs, list) else []
+                if identifier not in result:
+                    result[identifier] = dict(label=label, pages=pages, kind="key_concept", equation="", representations=[])
     return result
 
 

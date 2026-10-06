@@ -296,7 +296,8 @@ class LearningSceneAppTests(unittest.TestCase):
         self.assertIn("English", request["instructions"]); self.assertIsInstance(request["input"], str)
         self.assertTrue(at.session_state["learning_scene_state"]["scene"])
         at.button(key="scene-widget-outcome-probability-material-o_ht").click().run()
-        at.selectbox(key="scene-widget-focus-probability-material").select("E ∪ F").run()
+        # Widget values are stable IDs; rendered labels remain E ∪ F.
+        at.selectbox(key="scene-widget-focus-probability-material").select("focus_union").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("De Morgan").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("Inclusion–Exclusion").run()
         at.radio(key="scene-widget-lens-probability-material").set_value("Explore").run()

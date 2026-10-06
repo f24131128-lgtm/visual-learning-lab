@@ -1,0 +1,326 @@
+{
+  "stage": "scene",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": true,
+  "status": "completed",
+  "response_id": "resp_0275a7a0149fffe3006ac464e8fca487d0acd6d9240351b282",
+  "raw": {
+    "scene_version": "2.2",
+    "domain": "spatial_dynamics",
+    "scene_id": "exponential_decay_fixed_model",
+    "title": "Fixed Exponential Decay",
+    "learning_goal": "Understand how a fixed exponential decay model changes over time and how its instantaneous rate relates to the current magnitude.",
+    "assumptions": [
+      "The planar representation uses time in seconds as its horizontal coordinate and magnitude in units as its vertical coordinate.",
+      "The instantaneous rate is represented in units per second."
+    ],
+    "source_pages": [],
+    "time": {
+      "min": 0,
+      "max": 6,
+      "frames": 60,
+      "unit": "s",
+      "strategy": "fixed_duration",
+      "duration_expression": null,
+      "periods": 1
+    },
+    "axes": {
+      "x_min": 0,
+      "x_max": 6,
+      "y_min": 0,
+      "y_max": 4.2,
+      "x_label": "Time (s)",
+      "y_label": "Magnitude (units)"
+    },
+    "parameters": [
+      {
+        "id": "amplitude",
+        "label": "Initial amplitude",
+        "unit": "units",
+        "min": 4,
+        "max": 4,
+        "default": 4,
+        "step": 0,
+        "source_pages": [],
+        "quantity_kind": "length",
+        "range_source": "source",
+        "display_unit": "native"
+      },
+      {
+        "id": "decay",
+        "label": "Decay rate constant",
+        "unit": "1/s",
+        "min": 0.25,
+        "max": 0.25,
+        "default": 0.25,
+        "step": 0,
+        "source_pages": [],
+        "quantity_kind": "frequency",
+        "range_source": "source",
+        "display_unit": "native"
+      }
+    ],
+    "quantities": [
+      {
+        "id": "time_coordinate",
+        "label": "Time coordinate",
+        "unit": "s",
+        "expression": "time",
+        "source_pages": []
+      },
+      {
+        "id": "magnitude",
+        "label": "Magnitude",
+        "unit": "units",
+        "expression": "amplitude*exp(-decay*time)",
+        "source_pages": []
+      },
+      {
+        "id": "instantaneous_rate",
+        "label": "Instantaneous rate",
+        "unit": "units/s",
+        "expression": "-decay*magnitude",
+        "source_pages": []
+      }
+    ],
+    "objects": [
+      {
+        "id": "decay_point",
+        "label": "Current decay point",
+        "type": "point",
+        "semantic_id": "magnitude",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      },
+      {
+        "id": "decay_trajectory",
+        "label": "Magnitude trajectory",
+        "type": "trajectory",
+        "semantic_id": "magnitude",
+        "origin": [
+          0,
+          0
+        ],
+        "origin_quantity_ids": [],
+        "source_pages": []
+      }
+    ],
+    "series": [
+      {
+        "id": "magnitude_curve",
+        "label": "Magnitude y(time)",
+        "semantic_id": "magnitude",
+        "source_pages": []
+      },
+      {
+        "id": "rate_curve",
+        "label": "Instantaneous rate",
+        "semantic_id": "instantaneous_rate",
+        "source_pages": []
+      }
+    ],
+    "metrics": [
+      {
+        "id": "magnitude_metric",
+        "label": "Magnitude",
+        "semantic_id": "magnitude",
+        "unit": "units",
+        "source_pages": []
+      },
+      {
+        "id": "rate_metric",
+        "label": "Instantaneous rate",
+        "semantic_id": "instantaneous_rate",
+        "unit": "units/s",
+        "source_pages": []
+      }
+    ],
+    "bindings": [
+      {
+        "id": "binding_decay_point",
+        "type": "point_position",
+        "target_id": "decay_point",
+        "quantity_ids": [
+          "time_coordinate",
+          "magnitude"
+        ]
+      },
+      {
+        "id": "binding_decay_trajectory",
+        "type": "point_position",
+        "target_id": "decay_trajectory",
+        "quantity_ids": [
+          "time_coordinate",
+          "magnitude"
+        ]
+      },
+      {
+        "id": "binding_magnitude_curve",
+        "type": "curve_value",
+        "target_id": "magnitude_curve",
+        "quantity_ids": [
+          "magnitude"
+        ]
+      },
+      {
+        "id": "binding_rate_curve",
+        "type": "curve_value",
+        "target_id": "rate_curve",
+        "quantity_ids": [
+          "instantaneous_rate"
+        ]
+      },
+      {
+        "id": "binding_magnitude_metric",
+        "type": "metric_value",
+        "target_id": "magnitude_metric",
+        "quantity_ids": [
+          "magnitude"
+        ]
+      },
+      {
+        "id": "binding_rate_metric",
+        "type": "metric_value",
+        "target_id": "rate_metric",
+        "quantity_ids": [
+          "instantaneous_rate"
+        ]
+      }
+    ],
+    "inverse_bindings": [],
+    "invariants": [
+      {
+        "id": "rate_magnitude_relation",
+        "label": "Rate equals negative decay constant times magnitude",
+        "type": "approx_equal",
+        "left_expression": "instantaneous_rate",
+        "right_expression": "-decay*magnitude",
+        "lower": 0,
+        "upper": 0,
+        "tolerance": 1e-10,
+        "samples": 16
+      }
+    ],
+    "experiments": [
+      {
+        "id": "experiment_follow_decay",
+        "title": "Follow the magnitude over time",
+        "learning_goal": "Observe how increasing time reduces the magnitude in the fixed exponential model.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_focus",
+            "target_id": "magnitude",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 2
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 4
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 6
+          }
+        ],
+        "observation_targets": [
+          "magnitude"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "experiment_compare_rate",
+        "title": "Compare magnitude and instantaneous rate",
+        "learning_goal": "Relate the negative instantaneous rate to the current magnitude.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_focus",
+            "target_id": "instantaneous_rate",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 0
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 4
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 6
+          }
+        ],
+        "observation_targets": [
+          "magnitude",
+          "instantaneous_rate"
+        ],
+        "source_pages": []
+      },
+      {
+        "id": "experiment_reference_time",
+        "title": "Evaluate the model at 4 seconds",
+        "learning_goal": "Evaluate the magnitude and instantaneous rate at the specified reference time.",
+        "steps": [
+          {
+            "op": "restore_baseline",
+            "target_id": "",
+            "value": null
+          },
+          {
+            "op": "set_time",
+            "target_id": "time",
+            "value": 4
+          },
+          {
+            "op": "set_focus",
+            "target_id": "magnitude",
+            "value": null
+          },
+          {
+            "op": "set_focus",
+            "target_id": "instantaneous_rate",
+            "value": null
+          }
+        ],
+        "observation_targets": [
+          "magnitude",
+          "instantaneous_rate"
+        ],
+        "source_pages": []
+      }
+    ]
+  },
+  "usage": {
+    "input_tokens": 3426,
+    "output_tokens": 1671,
+    "total_tokens": 5097
+  }
+}

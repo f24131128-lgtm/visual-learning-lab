@@ -1,0 +1,346 @@
+{
+  "stage": "analysis",
+  "model": "gpt-5.6-luna",
+  "paid_this_run": false,
+  "status": "completed",
+  "response_id": "resp_0840227cccbed579006ac3cd26a4dc87d08ed589c5a2c8e295",
+  "raw": {
+    "quick_summary": "A Future follows a simplified asynchronous lifecycle: it begins pending, may start running, and can successfully finish. A pending Future may instead be cancelled. Finished and cancelled are terminal states; running or finished computations cannot be cancelled in this model.",
+    "key_concepts": [
+      {
+        "concept": "Future",
+        "explanation": "An abstraction representing an asynchronous computation.",
+        "source_pages": []
+      },
+      {
+        "concept": "Pending state",
+        "explanation": "The initial state of a Future before computation starts. It can transition to running or cancelled.",
+        "source_pages": []
+      },
+      {
+        "concept": "Running state",
+        "explanation": "The state of a Future after it has started computation. Successful completion moves it to finished.",
+        "source_pages": []
+      },
+      {
+        "concept": "Finished state",
+        "explanation": "A terminal state reached after successful completion.",
+        "source_pages": []
+      },
+      {
+        "concept": "Cancelled state",
+        "explanation": "A terminal state that may be reached by cancelling a pending Future.",
+        "source_pages": []
+      },
+      {
+        "concept": "Terminal state",
+        "explanation": "A state from which no further lifecycle transitions occur; finished and cancelled are terminal in this simplified model.",
+        "source_pages": []
+      },
+      {
+        "concept": "Cancellation restriction",
+        "explanation": "Cancellation may change pending to cancelled, but it cannot cancel a computation that is already running or finished.",
+        "source_pages": []
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Future",
+        "relation": "has lifecycle states",
+        "target": "pending, running, finished, and cancelled",
+        "source_pages": []
+      },
+      {
+        "source": "pending",
+        "relation": "transitions to running when started",
+        "target": "running",
+        "source_pages": []
+      },
+      {
+        "source": "running",
+        "relation": "transitions to finished after successful completion",
+        "target": "finished",
+        "source_pages": []
+      },
+      {
+        "source": "pending",
+        "relation": "may transition to cancelled through cancellation",
+        "target": "cancelled",
+        "source_pages": []
+      },
+      {
+        "source": "finished",
+        "relation": "is a terminal state",
+        "target": "no further transitions",
+        "source_pages": []
+      },
+      {
+        "source": "cancelled",
+        "relation": "is a terminal state",
+        "target": "no further transitions",
+        "source_pages": []
+      },
+      {
+        "source": "running",
+        "relation": "cannot be cancelled in this model",
+        "target": "cancellation restriction",
+        "source_pages": []
+      },
+      {
+        "source": "finished",
+        "relation": "cannot be cancelled in this model",
+        "target": "cancellation restriction",
+        "source_pages": []
+      }
+    ],
+    "visual_evidence": [],
+    "visual_flow": {
+      "suitable": true,
+      "reason": "The material is centered on an explicit lifecycle process with states and allowed transitions, including a cancellation branch and terminal outcomes.",
+      "nodes": [
+        {
+          "id": "pending_state",
+          "label": "Pending",
+          "source_pages": []
+        },
+        {
+          "id": "running_state",
+          "label": "Running",
+          "source_pages": []
+        },
+        {
+          "id": "finished_state",
+          "label": "Finished",
+          "source_pages": []
+        },
+        {
+          "id": "cancelled_state",
+          "label": "Cancelled",
+          "source_pages": []
+        }
+      ],
+      "edges": [
+        {
+          "source": "pending_state",
+          "target": "running_state",
+          "label": "start"
+        },
+        {
+          "source": "running_state",
+          "target": "finished_state",
+          "label": "successful completion"
+        },
+        {
+          "source": "pending_state",
+          "target": "cancelled_state",
+          "label": "cancel"
+        }
+      ]
+    },
+    "concept_map": {
+      "suitable": false,
+      "reason": "The lifecycle is better represented as an ordered state-transition flow than as a primarily non-sequential concept network.",
+      "nodes": [],
+      "edges": []
+    },
+    "comparison": {
+      "suitable": false,
+      "reason": "The material does not primarily compare alternative entities or parallel properties.",
+      "title": "",
+      "items": [],
+      "criteria": [],
+      "takeaway": ""
+    },
+    "learning_path": {
+      "suitable": true,
+      "title": "Understanding the Future Lifecycle",
+      "reason": "The lesson can be learned by following the allowed state transitions from initialization through completion or cancellation, then identifying terminal states and restrictions.",
+      "steps": [
+        {
+          "id": "step_initial_state",
+          "title": "Begin with the pending state",
+          "learning_goal": "Identify the initial state of a Future and its possible exits.",
+          "explanation": "A Future starts in pending. From this state, it may be started and become running, or it may be cancelled and become cancelled.",
+          "source_pages": [],
+          "connection_to_previous": "This establishes the starting point for the lifecycle before any transition occurs.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "pending_state"
+            }
+          ]
+        },
+        {
+          "id": "step_execution_transition",
+          "title": "Start the computation",
+          "learning_goal": "Understand the transition from pending to running.",
+          "explanation": "Starting a pending Future changes its state to running, indicating that the asynchronous computation has begun.",
+          "source_pages": [],
+          "connection_to_previous": "Once the initial pending state is known, the next step is the normal start transition.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "pending_state"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "running_state"
+            }
+          ]
+        },
+        {
+          "id": "step_successful_completion",
+          "title": "Reach successful completion",
+          "learning_goal": "Understand how a running Future becomes finished.",
+          "explanation": "If the running computation completes successfully, the Future changes to finished.",
+          "source_pages": [],
+          "connection_to_previous": "The running state is the prerequisite for the successful-completion transition.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "running_state"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "finished_state"
+            }
+          ]
+        },
+        {
+          "id": "step_cancellation_and_terminals",
+          "title": "Handle cancellation and terminal states",
+          "learning_goal": "Distinguish valid cancellation from terminal states.",
+          "explanation": "Cancellation can move a pending Future to cancelled, but it cannot cancel a running or finished computation. Both cancelled and finished are terminal states with no further transitions in this simplified model.",
+          "source_pages": [],
+          "connection_to_previous": "After understanding normal execution, compare it with the cancellation branch and identify where the lifecycle ends.",
+          "visual_refs": [
+            {
+              "type": "visual_flow_node",
+              "id": "pending_state"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "cancelled_state"
+            },
+            {
+              "type": "visual_flow_node",
+              "id": "finished_state"
+            }
+          ]
+        }
+      ],
+      "checkpoint_questions": [
+        {
+          "id": "q_start_transition",
+          "question": "What state does a pending Future enter when it is started?",
+          "options": [
+            {
+              "id": "opt_running",
+              "text": "Running"
+            },
+            {
+              "id": "opt_finished",
+              "text": "Finished"
+            },
+            {
+              "id": "opt_cancelled",
+              "text": "Cancelled"
+            },
+            {
+              "id": "opt_terminal",
+              "text": "A separate terminal state"
+            }
+          ],
+          "correct_option_id": "opt_running",
+          "explanation": "Starting changes the Future from pending to running.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_initial_state",
+            "step_execution_transition"
+          ]
+        },
+        {
+          "id": "q_cancellation_rule",
+          "question": "Which cancellation transition is valid in the simplified lifecycle?",
+          "options": [
+            {
+              "id": "opt_pending_cancelled",
+              "text": "Pending to cancelled"
+            },
+            {
+              "id": "opt_running_cancelled",
+              "text": "Running to cancelled"
+            },
+            {
+              "id": "opt_finished_cancelled",
+              "text": "Finished to cancelled"
+            },
+            {
+              "id": "opt_any_cancelled",
+              "text": "Any state to cancelled"
+            }
+          ],
+          "correct_option_id": "opt_pending_cancelled",
+          "explanation": "Only a pending Future may be changed to cancelled; running and finished computations cannot be cancelled in this model.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_cancellation_and_terminals"
+          ]
+        },
+        {
+          "id": "q_terminal_states",
+          "question": "A Future is running and then completes successfully. What is true afterward?",
+          "options": [
+            {
+              "id": "opt_finished_terminal",
+              "text": "It is finished and terminal."
+            },
+            {
+              "id": "opt_pending_again",
+              "text": "It returns to pending."
+            },
+            {
+              "id": "opt_cancelled_after",
+              "text": "It becomes cancelled."
+            },
+            {
+              "id": "opt_running_forever",
+              "text": "It remains running indefinitely."
+            }
+          ],
+          "correct_option_id": "opt_finished_terminal",
+          "explanation": "Successful completion changes running to finished, and finished is terminal.",
+          "source_pages": [],
+          "related_step_ids": [
+            "step_successful_completion",
+            "step_cancellation_and_terminals"
+          ]
+        }
+      ]
+    },
+    "interactive_lab": {
+      "suitable": false,
+      "reason": "The material defines a qualitative finite-state lifecycle but provides no numeric equation or parameterized relationship suitable for a mathematical experiment.",
+      "demos": []
+    },
+    "learning_scene_candidate": {
+      "suitable": false,
+      "domain": "none",
+      "reason": "The material describes a qualitative state machine, not a probability/set model or a quantitative spatial-dynamics model."
+    },
+    "primary_visualization": {
+      "type": "flow",
+      "reason": "The core structure is an ordered lifecycle with a normal execution path and a cancellation branch leading to terminal states."
+    },
+    "suggested_visualizations": [
+      "Flow",
+      "Image / Diagram"
+    ]
+  },
+  "usage": {
+    "input_tokens": 3575,
+    "output_tokens": 1788,
+    "total_tokens": 5363
+  },
+  "replayed_from": "phase_a"
+}

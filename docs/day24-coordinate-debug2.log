@@ -1,0 +1,14 @@
+{"target":"pointer","expected":[0,1],"values":{"phase":1.5707976178481324},"debug":{"end":[262.5,71.30000000000001],"afterFocus":{"x":451,"y":308.1875,"width":848,"height":434},"box":{"x":451,"y":308.1875,"width":848,"height":434},"trace":[{"client":[262.5,71.29998779296875],"rect":[0,34,525.109375,365],"origin":[1,261.5,181.5],"unit":[145.2,145.2]}],"point":[-0.0000012910532358129376,0.9999999999991666]}}
+{"target":"launch","expected":[15.000000000000004,25.980762113533157],"values":{"speed":29.999930234895295,"angle":1.047201391374331,"grav":9.8},"debug":{"end":[285.1875,177.20409730328112],"afterFocus":{"x":451,"y":251.1875,"width":848,"height":547},"box":{"x":451,"y":251.1875,"width":848,"height":547},"trace":[{"client":[285.1875,177.2041015625],"rect":[0,34,525.109375,365],"origin":[1,261.5,181.5],"unit":[1.5125,1.5125]}],"point":[14.999865346824903,25.980759297520663]}}
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(Math.abs(projectile.committed.metrics.metric_vx-15)<1e-4)
+
+    at C:\Users\88690\OneDrive\桌面\visual-learning-lab\tests\day24_app_browser.cjs:53:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

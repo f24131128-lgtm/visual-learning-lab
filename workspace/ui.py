@@ -53,7 +53,7 @@ def render_source_actions(bundle):
     region = sync_region(bundle["state"], get_workspace_focus(state, wrapper))
     plans = st.session_state.get("learning_world_plans", {})
     plan = plans.get("cache", {}).get(plans.get("active")) if plans.get("material") == state["material_id"] else None
-    process_ids = plan["focus_ids"] if plan and plan["family"] == "process" else []
+    process_ids = plan["focus_ids"] if plan and plan["family"] in ("process", "execution") else []
     supported = actions(region, catalog, wrapper, st.session_state.get("workspace_learning_path"), process_ids)
     prefix = "workspace-action-"+bundle["material_id"]
     if "explore" in supported:
