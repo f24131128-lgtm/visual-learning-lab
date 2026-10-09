@@ -13,6 +13,7 @@ const ctx=vm.createContext({console,JXG,getComputedStyle:e=>e.style,requestAnima
 vm.runInContext(fs.readFileSync(path.join(root,'adapter.js'),'utf8'),ctx);
 const D=ctx.DirectManipulation;
 for(const p of payloads){
+ const original=JSON.parse(JSON.stringify(p));
  const commits=[],previews=[];
  const host={id:'board',addEventListener(){},removeEventListener(){}};
  const c=D.mount(host,p,{commit:e=>commits.push(e),preview:(data,values)=>previews.push({data,values})});
@@ -37,6 +38,22 @@ for(const p of payloads){
  handle.handlers.up();handle.handlers.up();assert.equal(commits.length,1);
  assert.equal(commits[0].target,target.id);assert.equal(commits[0].kind,'manipulate');
  assert(!('semantic_id' in commits[0]));assert(!('patches' in commits[0]));
+ // Rejected release: restore every canonical value without replacing the board.
+ const mounted=c.board,created=boards.length;
+ c.restore(original);
+ assert.equal(c.board,mounted);assert.equal(boards.length,created);
+ assert(Math.abs(handle.Y()-D.position(target,original.values)[1])<1e-10);
+ // Cancel stays cancelled through further pointer motion until a new gesture.
+ handle.handlers.down();handle.xy=[target.position[0],1];handle.handlers.drag();c.cancel();
+ handle.xy=[target.position[0],2];handle.handlers.drag();handle.handlers.up();
+ assert.equal(commits.length,1,'cancelled preview must never commit');
+ c.restore(original);
+ const accepted=JSON.parse(JSON.stringify(original));accepted.values=inverse;
+ accepted.targets=accepted.targets.map(t=>({...t,position:D.position(t,inverse)}));
+ c.restore(accepted);
+ assert.equal(c.board,mounted);assert.equal(boards.length,created);
+ assert(Math.abs(handle.Y()-D.position(target,inverse)[1])<1e-10);
+ c.restore(original);
  c.destroy();
  // State -> visual: constructing from the authoritative new values updates it.
  const next=JSON.parse(JSON.stringify(p));next.values=inverse;next.targets[0].position=D.position(target,inverse);

@@ -245,7 +245,7 @@ def ensure_scene_state(material_id, analysis, domain=DOMAIN):
     return ensure_state(material_id, language, domain)
 
 
-def render_scene_builder(analysis, material_id, source_context, allowed_pages, model, format_pages, workspace_mode=None):
+def render_scene_builder(analysis, material_id, source_context, allowed_pages, model, format_pages, workspace_mode=None, context_panel=None):
     """Show the explicit compiler action and the cached local runtime."""
     domain = scene_domain(analysis, source_context)
     state = ensure_scene_state(material_id, analysis, domain or DOMAIN)
@@ -253,7 +253,7 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
         from source_atlas.compiler import render_atlas_builder
         from source_atlas.runtime import render_atlas
         bundle = render_atlas_builder(analysis, material_id, source_context, allowed_pages, model, state)
-        if bundle: render_atlas(bundle)
+        if bundle: render_atlas(bundle, context_panel=context_panel)
         return bundle
     evidence = scene_candidate_evidence(analysis, source_context)
     candidate = domain is not None

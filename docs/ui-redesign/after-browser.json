@@ -1,0 +1,39 @@
+{
+  "phase": "after",
+  "result": {
+    "values": {
+      "phase": 1.5707963267948966
+    },
+    "metrics": {
+      "wave_value": 1
+    },
+    "mounts": 0,
+    "sameBoard": true,
+    "messages": 2,
+    "bytes": 76559
+  },
+  "payloadBefore": 76531,
+  "localPreviewNoCommit": true,
+  "sourceUnchanged": true,
+  "scrollBefore": 0,
+  "scrollAfter": 0,
+  "responsive": [
+    {
+      "width": 1280,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "overflow": false
+    }
+  ],
+  "pageErrors": []
+}

@@ -224,7 +224,7 @@ class TwinProductTests(unittest.TestCase):
         with patch("source_atlas.compiler.OpenAI",return_value=client), patch("scene.compiler.OpenAI",return_value=client):
             for kind in ("phase","projectile","math"):
                 at=self.app(kind);self.choose(at,"source_object")
-                self.assertTrue(any("可探索的互動分身" in t.value for t in at.text))
+                self.assertTrue(any("來源 ↔ 互動分身" in t.value for t in at.markdown))
                 source=copy.deepcopy(at.session_state["source_atlas_state"]["atlas"])
                 at.button(key="workspace-twin-explore").click().run();self.assertFalse(at.exception)
                 fired=[]

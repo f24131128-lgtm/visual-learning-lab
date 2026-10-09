@@ -5,6 +5,19 @@
 *{box-sizing:border-box}body{margin:0}button,select,input{font:inherit}button,select{border:1px solid #d7dbe5;border-radius:7px;background:#fff;color:inherit;padding:6px 10px;cursor:pointer}button:hover{background:#eeeafb}button:focus-visible,svg:focus-visible{outline:3px solid #8b6cda}
 .grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:10px}.panel{border:1px solid #e0e3eb;border-radius:12px;padding:10px;min-width:0}.panel h3{font-size:15px;margin:0 0 6px}.panel > svg{width:100%;height:270px;display:block;touch-action:none;background:#f9faff;border-radius:8px}.bottom > svg{height:230px}.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 0}.controls input{flex:1;min-width:150px}#timeLabel{font-variant-numeric:tabular-nums}.hint{font-size:12px;color:#68728a;margin:6px 0}.metric{padding:7px 8px;background:#f6f7fb;margin:4px 0;border-radius:7px;border-left:3px solid transparent}.metric.focus{border-left-color:#7150bd;background:#eee8fa}.value{float:right;font-variant-numeric:tabular-nums}#metrics{max-height:238px;overflow:auto}.equation{font-size:12px;overflow-wrap:anywhere;margin:4px 0;color:#53617a}.delta{font-size:11px;color:#6a7087}.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;margin:4px 0}.legend button{font-size:12px;padding:3px 5px}.handle{cursor:grab}.trajectory{cursor:crosshair}.ghost{opacity:.25;stroke-dasharray:5 5}.label{font-size:11px;pointer-events:none}.cursor{stroke:#7150bd;stroke-width:2}.axis{stroke:#c9cfdd;stroke-width:1}.gridline{stroke:#e8ebf2;stroke-width:1}
 @media(max-width:650px){.grid{grid-template-columns:1fr}.panel > svg{height:230px}#metrics{max-height:200px}}
+</style><style id="product-tokens"></style><style>
+:root{color:var(--vll-fg,#26332e);background:var(--vll-page,#f8f9f6)}
+button,select{border-color:var(--vll-border,#d9dfd9);border-radius:4px;min-height:36px}
+button:hover{background:var(--vll-accent-subtle,#e4efe9)}
+button:focus-visible,svg:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--vll-focus,#26745f);outline-offset:2px}
+.grid{grid-template-columns:minmax(0,2.5fr) minmax(0,1fr);gap:16px}
+.panel{border:0;border-radius:0;padding:8px 0}.panel>svg{height:330px;border-radius:4px;background:var(--vll-raised,#fff);border:1px solid var(--vll-border,#d9dfd9)}
+.panel h3{font-weight:500;color:var(--vll-muted,#59675f)}
+.metric{padding:10px 4px;background:transparent;border-radius:0;border-bottom:1px solid var(--vll-border,#d9dfd9)}
+.metric.focus{border-left-color:var(--vll-accent,#216653);background:var(--vll-accent-subtle,#e4efe9)}
+#metrics{max-height:none;overflow:visible}.hint,.equation{color:var(--vll-muted,#59675f)}.bottom>svg{height:230px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}button,select{min-height:44px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style></head><body>
 <div id="parameters" class="controls"></div>
 <div class="controls"><button id="play"></button><button id="pause"></button><button id="reset"></button><select id="speed" aria-label="Playback speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><input id="timeline" type="range" aria-label="Time"><span id="timeLabel"></span></div>
@@ -125,6 +138,7 @@ for(const svg of [$("space"),$("vectors")]){svg.onpointermove=e=>{if(!drag||drag
 if(drag.inverse.type==="angle_to_time"){let best=0,error=Infinity;f.projections[obj.id][2].forEach((dx,i)=>{const dy=f.projections[obj.id][3][i],diff=Math.atan2(Math.sin(Math.atan2(dy,dx)-angle),Math.cos(Math.atan2(dy,dx)-angle)),score=Math.abs(diff)+Math.abs(f.times[i]-S.time)*1e-5;if(score<error){error=score;best=i}});chooseTime(f.times[best])}
 text($("status"),obj.label+": "+fmt(angle)+" rad")};svg.onpointerup=e=>{if(!drag||drag.svg!==svg)return;const saved=drag;drag=null;svg.releasePointerCapture(e.pointerId);if(saved.angle!==undefined)emit("inverse",{binding_id:saved.inverse.id,value:saved.angle,time:S.time});else patch("set_focus",saved.object.semantic_id,null)};svg.onpointercancel=()=>{drag=null;draw()}}
 window.addEventListener("message",event=>{if(event.source!==parent||event.data.type!=="streamlit:render")return;const next=event.data.args.payload;if(!next||!next.identity)return;
+ $('product-tokens').textContent=next.theme_css||'';
 // Streamlit may resend identical args after an iframe height/layout update.
 // These are not semantic updates and must not reset the local animation clock.
 if(P&&next.identity===P.identity&&next.revision===P.revision&&next.replay_generation===P.replay_generation&&JSON.stringify(next.recording)===JSON.stringify(P.recording)&&JSON.stringify(next.labels)===JSON.stringify(P.labels))return;

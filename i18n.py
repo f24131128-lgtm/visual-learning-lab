@@ -8,6 +8,19 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Turn complex material into something you can explore.": "把教材變成可以探索的理解空間",
+    "Change material": "更換教材",
+    "Read. Explore. Understand.": "閱讀・探索・理解",
+    "Source ↔ Live Twin": "來源 ↔ 互動分身",
+    "Support details": "來源支持詳情",
+    "Compiled baseline": "編譯初始值",
+    "Current exploration": "目前探索",
+    "More source controls": "更多來源工具",
+    "Source preparation": "來源準備工具",
+    "Related learning": "延伸學習",
+    "Parameters and comparison": "參數與對照",
+    "Curve and default comparison": "曲線與初始值對照",
+    "Explore the model. Changes are computed locally.": "直接操作模型，觀察變化。探索在本機計算。",
     "Live Twin available": "可探索的互動分身",
     "Source ↔ formal representation": "來源 ↔ 正式表示",
     "Open interactive twin": "開啟互動分身",
@@ -49,7 +62,7 @@ UI_TEXT = {"zh-TW": {
     "Correspondence schematic · positions illustrate concepts, not physical motion.": "概念對應示意 · 位置用來呈現概念，不表示物理運動。",
     "Some optional visuals or links were omitted. Correspondences remain available; independent teaching controls do not synchronize formal values.": "部分非必要圖形或連動已省略。對應關係仍可查看；獨立教學控制不會同步正式模型的數值。",
     "No detailed trace was retained for this attempt. A new explicit build records one.": "這次嘗試未保留詳細紀錄；重新按一次建立按鈕後會留下診斷。",
-    "Generated analogy · an explanatory aid, not source evidence or physical identity.": "AI 生成譬喻 · 用於輔助理解，不是原文證據，也不代表物理上的同一事物。",
+    "Generated analogy · an explanatory aid, not source evidence or physical identity.": "譬喻 · 用於輔助理解，不是原文證據，也不代表物理上的同一事物。",
     "Choose a source-supported concept in the formal model before building an analogy.": "請先在正式模型選取有來源支持的概念，再建立譬喻。",
     "Choose a concept": "選取概念",
     "The analogy could not be built safely. Your formal learning remains available. You may retry explicitly.": "這次無法安全建立譬喻。正式模型仍可使用，可按按鈕重試。",

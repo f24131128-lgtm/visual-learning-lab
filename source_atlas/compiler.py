@@ -64,7 +64,9 @@ def _render_atlas_builder(analysis, material_id, source_context, allowed, model,
     source = source_for(material_id)
     if not suitable(analysis, source_context, source, allowed, catalog): return None
     ranked = rank_pages(analysis, catalog, allowed, current_focus(wrapper))
-    with st.container(border=True):
+    existing = st.session_state.get("source_atlas_state", {})
+    ready = bool(existing.get("atlas") and existing.get("key", [None])[0] == material_id)
+    with st.expander(tr("Source preparation"), expanded=not ready):
         st.markdown("### "+tr("Source Atlas"))
         st.caption(tr("Connect original formulas and diagrams to the same learning-world focus."))
         page_labels = {p: tr("Page {page}", page=p) for p in ranked}

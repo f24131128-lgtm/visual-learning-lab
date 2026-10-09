@@ -1,5 +1,6 @@
 """Compact source/current inspector within the existing Workspace."""
 import streamlit as st
+from html import escape
 
 from i18n import tr
 from manipulation import lab as direct_lab, world as direct_world
@@ -51,27 +52,22 @@ def render_grounded_twin(workspace, analysis, wrapper, catalog, lab, path, allow
         selected = sync_region(data["state"], focus)
         link = data["links"].get(focus)
         if not link or selected and focus not in selected["semantic_ids"]: return
-        with st.container(border=True):
-            st.text(tr("Live Twin available" if link["manipulable"] else "Source ↔ formal representation") + " · " + catalog[focus]["label"])
+        with st.container():
+            st.markdown('<div class="vll-twin-title">'+escape(tr("Source ↔ Live Twin" if link["manipulable"] else "Source ↔ formal representation"))+'</div>', unsafe_allow_html=True)
+            st.text(catalog[focus]["label"])
             support = next((s for s in link["support"] if selected and s["region_id"] == selected["region_id"]), link["support"][0])
             st.caption(tr(KINDS[support["kind"]]) + " · " + tr("Page {page}", page=support["page"]))
-            st.caption(tr("Source support is estimated. A safe handle is a model capability, not proof of source fidelity."))
             if link["manipulable"]:
                 ids = link["manipulation_target_ids"]
                 owned = [t for t in data["targets"] if t["id"] in ids]
-                st.caption(tr("Explore with validated controls: {parameters}", parameters=" · ".join(
-                    p["label"] for p in data["owners"][ids[0]][0] if p["id"] in link["formal_parameter_ids"])))
                 rows, seen = [], set()
                 for target in owned:
                     parameters, values, _ = data["owners"][target["id"]]
                     for row in comparison_rows(parameters, values, target["parameter_ids"]):
                         if row["id"] not in seen: rows.append(row); seen.add(row["id"])
                 # Fixed text values; no source excerpt is rewritten or interpreted.
-                st.caption(tr("Compiled baseline · Current exploration · Delta"))
-                for row in rows[:4]:
-                    st.text(f"{row['label']}: {row['baseline']:.5g} → {row['current']:.5g} ({row['delta']:+.5g}) {row['unit']}")
+                st.markdown(comparison_table(rows), unsafe_allow_html=True)
                 st.caption(tr("Compiled defaults are model values; verify them against the unchanged original source."))
-                if any(r["generated_range"] for r in rows): st.caption(tr("Generated exploration range"))
                 if workspace["mode"] != "explore":
                     def explore():
                         demo_id = data["owners"][ids[0]][2]
@@ -80,11 +76,25 @@ def render_grounded_twin(workspace, analysis, wrapper, catalog, lab, path, allow
                             select_demo(st.session_state["interactive_lab_state"], demo_id)
                         workspace["representation"] = "formal"
                         open_workspace(workspace, "explore", focus, catalog, wrapper)
-                    st.button(tr("Open interactive twin"), key="workspace-twin-explore", on_click=explore)
+                    st.button(tr("Open interactive twin"), key="workspace-twin-explore", type="primary", use_container_width=True, on_click=explore)
             else: st.caption(tr(link["reason_not_manipulable"]))
             if workspace["mode"] != "source":
                 st.button(tr("Return to supporting source"), key="workspace-twin-source", on_click=open_workspace,
                           args=(workspace, "source", focus, catalog, wrapper))
+            with st.expander(tr("Support details")):
+                st.caption(tr("Source support is estimated. A safe handle is a model capability, not proof of source fidelity."))
+                if link["manipulable"] and any(r["generated_range"] for r in rows):
+                    st.caption(tr("Generated exploration range"))
     except (ValueError, TypeError, KeyError, OverflowError):
         # Optional evidence joins cannot invalidate a working formal engine.
         return
+
+
+def comparison_table(rows):
+    """Fixed markup only; source/model labels and units are always escaped."""
+    headings = ("", tr("Compiled baseline"), tr("Current exploration"), tr("Delta"))
+    head = "".join("<th scope='col'>"+escape(value)+"</th>" for value in headings)
+    body = "".join("<tr><td>"+escape(row["label"])+"<br>"+escape(row["unit"])+"</td>"
+                   + f"<td>{row['baseline']:.5g}</td><td>{row['current']:.5g}</td><td>{row['delta']:+.5g}</td></tr>"
+                   for row in rows[:4])
+    return '<table class="vll-readout"><thead><tr>'+head+'</tr></thead><tbody>'+body+'</tbody></table>'

@@ -335,7 +335,7 @@ class LearningSceneAppTests(unittest.TestCase):
         at.run(); self.assertFalse(at.exception)
         self.client.responses.create.assert_not_called()
         self.assertTrue(any(item.label == "概念關係" for item in at.expander))
-        self.assertTrue(any("Day 20 / 30" in item.value for item in at.markdown))
+        self.assertTrue(any("Visual Learning Lab" in item.value for item in at.markdown))
         at.radio(key="workspace-mode-real-probability-pdf").set_value("explore").run()
         build = next(button for button in at.button if button.label == "建立互動學習場景")
         self.assertFalse(any("學習概覽" in item.value for item in at.markdown))

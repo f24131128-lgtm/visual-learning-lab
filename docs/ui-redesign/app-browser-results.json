@@ -1,0 +1,55 @@
+{
+  "scope": "original synthetic 3-page PDFs in normal app, real pointer drags and source iframe clicks; paid SDK blocked",
+  "rows": [
+    {
+      "case": "phase",
+      "values": {
+        "phase": 1.5707963267948966
+      },
+      "metrics": {
+        "wave_value": 1
+      },
+      "source_roundtrip": true,
+      "source_unchanged": true,
+      "exact_target_highlight": true,
+      "interaction_api_delta": 0
+    },
+    {
+      "case": "projectile",
+      "values": {
+        "speed": 29.99998898770927,
+        "angle": 1.047197339264873,
+        "grav": 9.8
+      },
+      "metrics": {
+        "metric_px": 0,
+        "metric_py": 0,
+        "metric_vx": 15.000000000000002,
+        "metric_vy": 25.980749397634344,
+        "metric_energy": 449.99966963133875
+      },
+      "source_roundtrip": true,
+      "source_unchanged": true,
+      "exact_target_highlight": true,
+      "interaction_api_delta": 0
+    },
+    {
+      "case": "math",
+      "values": {
+        "gain": 1,
+        "offset": 2.000000144461908
+      },
+      "source_roundtrip": true,
+      "source_unchanged": true,
+      "exact_target_highlight": true,
+      "interaction_api_delta": 0
+    },
+    {
+      "case": "non_manipulable",
+      "page_only": true,
+      "fake_handle": false,
+      "interaction_api_delta": 0
+    }
+  ],
+  "page_errors": []
+}

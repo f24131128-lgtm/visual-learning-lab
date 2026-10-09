@@ -261,7 +261,7 @@ class NormalPDFTests(unittest.TestCase):
         client=MagicMock();client.responses.create.return_value=SimpleNamespace(output_text=json.dumps(atlas_fixture()))
         with patch.object(compiler,"OpenAI",return_value=client),patch.object(canvas,"streamlit_flow",side_effect=lambda key,state,**kw:state):
             at=self.app().run();self.assertFalse(at.exception)
-            self.assertTrue(any("Day 20 / 30" in str(e.value) for e in at.markdown))
+            self.assertTrue(any("Visual Learning Lab" in str(e.value) for e in at.markdown))
             self.assertEqual(client.responses.create.call_count,0)
             at.button(key="atlas-widget-build-pdf19").click().run();self.assertFalse(at.exception)
             self.assertTrue(any("原始來源" in str(e.value) for e in at.markdown));self.assertFalse(any("互動理解" in str(e.value) for e in at.markdown))

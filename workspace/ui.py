@@ -14,16 +14,17 @@ def render_navigation(material_id):
     key = "workspace-mode-"+material_id
     st.session_state[key] = state["mode"]
     labels = {mode: tr(label) for mode, label in LABELS.items()}
-    st.radio(tr("Learning Workspace"), MODES, key=key, horizontal=True,
-             format_func=lambda m, names=labels: names[m],
-             on_change=lambda: open_workspace(state, st.session_state[key]))
+    with st.container(key="workspace-nav"):
+        st.radio(tr("Learning Workspace"), MODES, key=key, horizontal=True,
+                 label_visibility="collapsed", format_func=lambda m, names=labels: names[m],
+                 on_change=lambda: open_workspace(state, st.session_state[key]))
     return state
 
 
 def render_focus(state, catalog, wrapper, allowed):
     focus = get_workspace_focus(state, wrapper)
     item = catalog.get(focus)
-    left, right = st.columns([5, 1])
+    left, right = st.container(), st.container()
     with left:
         name = item["label"] if item else tr("Choose a concept or source object")
         details = []
@@ -43,7 +44,7 @@ def render_focus(state, catalog, wrapper, allowed):
         st.text(tr("Current focus: {name}", name=name))
         if details: st.caption(" · ".join(details))
     with right:
-        if item: st.button(tr("Clear focus"), key="workspace-clear", on_click=clear_workspace_focus, args=(state, wrapper))
+        if item: st.button(tr("Clear focus"), key="workspace-clear", type="tertiary", on_click=clear_workspace_focus, args=(state, wrapper))
 
 
 def render_source_actions(bundle):

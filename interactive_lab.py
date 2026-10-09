@@ -266,6 +266,7 @@ def _reset_parameters(state, demo, prefix):
 def build_lab_chart(demo, values, compare):
     # Optional chart imports stay within the isolated rendering boundary.
     import plotly.graph_objects as go
+    from presentation import PLOT_STYLE
 
     x, current = compute_curves(demo, values)
     baseline = compute_curves(demo, default_values(demo))[1] if compare else {}
@@ -280,13 +281,14 @@ def build_lab_chart(demo, values, compare):
         figure.add_trace(go.Scatter(x=x, y=current[series["id"]], name=f"{label} · {tr('Current')}" if compare else label,
                                    mode="lines", line={"color": color, "width": 3}))
     figure.update_layout(template="plotly_white", height=390, margin={"l": 12, "r": 12, "t": 20, "b": 12},
-                         font={"family": FONT_STACK, "size": 15, "color": "#30264D"}, hovermode="x unified",
+                         font={"family": FONT_STACK, "size": 14, "color": PLOT_STYLE["foreground"]}, hovermode="x unified",
+                         paper_bgcolor="rgba(0,0,0,0)",
                          xaxis_title=html.escape(demo["x"]["label"]), yaxis_title=tr("Value"),
                          showlegend=compare or len(demo["series"]) > 1,
                          legend={"orientation": "h", "y": -0.22},
                          uirevision=demo["id"])
-    figure.update_xaxes(showgrid=True, gridcolor="#EEEAF5", zerolinecolor="#B7ADCB")
-    figure.update_yaxes(showgrid=True, gridcolor="#EEEAF5", zerolinecolor="#B7ADCB")
+    figure.update_xaxes(showgrid=True, gridcolor=PLOT_STYLE["grid"], zerolinecolor=PLOT_STYLE["axis"])
+    figure.update_yaxes(showgrid=True, gridcolor=PLOT_STYLE["grid"], zerolinecolor=PLOT_STYLE["axis"])
     return figure
 
 
@@ -298,7 +300,8 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
     st.latex(demo["formula_display"])
     if demo["source_pages"]:
         st.caption(tr("Source: {pages}", pages=format_pages(demo["source_pages"])))
-    controls, plot = st.columns([1, 2], gap="large")
+    plot = st.container()
+    controls = st.expander(tr("Parameters and comparison"))
     with controls:
         st.button(tr("Reset parameters"), key=f"{prefix}-reset", on_click=_reset_parameters, args=(state, demo, prefix))
         for parameter in demo["parameters"]:
@@ -320,9 +323,10 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
     with plot:
         try:
             from manipulation.runtime import render_lab as render_manipulation
-            render_manipulation(demo, saved, state["material_id"], learning_path)
+            direct = render_manipulation(demo, saved, state["material_id"], learning_path)
             chart = build_lab_chart(demo, saved["values"], saved["compare"])
-            st.plotly_chart(chart, use_container_width=True, key=f"{prefix}-chart", config={"displaylogo": False})
+            with st.expander(tr("Curve and default comparison"), expanded=saved["compare"]) if direct else st.container():
+                st.plotly_chart(chart, use_container_width=True, key=f"{prefix}-chart", config={"displaylogo": False})
         except MathExpressionError:
             st.info(tr("This experiment is undefined for these values. Adjust the parameters or reset to defaults."))
         except Exception:
@@ -352,7 +356,7 @@ def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format
         return  # No empty panel for conceptual material or legacy analyses.
     # A single stable anchor survives both UI languages.
     st.subheader(tr("Interactive Lab"), anchor="interactive-lab")
-    st.caption(tr("Move a slider to explore. Changes are computed locally; no AI request is made."))
+    st.caption(tr("Explore the model. Changes are computed locally."))
     state = ensure_lab_state(material_id, lab)
     if len(lab["demos"]) > 1:
         columns = st.columns(len(lab["demos"]))
@@ -361,7 +365,7 @@ def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format
                           type="primary" if state["selected_id"] == demo["id"] else "secondary",
                           on_click=select_demo, args=(state, demo["id"]))
     demo = next(demo for demo in lab["demos"] if demo["id"] == state["selected_id"])
-    with st.container(border=True):
+    with st.container():
         try:
             _render_demo(demo, state, learning_path, go_to_lesson, format_pages)
         except Exception:

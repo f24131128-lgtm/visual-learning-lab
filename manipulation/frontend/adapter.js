@@ -71,8 +71,8 @@ function makeBoard(element,box,equal){
 }
 function mount(element,payload,hooks){
  const p=payload,parameters=Object.fromEntries(p.parameters.map(v=>[v.id,v])),points=new Map(),curves=new Map(),objects=new Map(),labels=new Map();
- let values={...p.values},data=p.current,active=null,frame=0,blocked=false;
- const colors=['#6750c5','#087e8b','#b85b17','#4262ad'];
+ let values={...p.values},data=p.current,active=null,frame=0,blocked=false,cancelled=false;
+ const colors=['#216653','#087e8b','#b85b17','#4262ad'];
  const visibleObjects=p.objects.filter(o=>p.targets.some(t=>t.object_id===o.id));
  const viewData={...data,objects:Object.fromEntries(visibleObjects.map(o=>[o.id,data.objects[o.id]])),curves:p.objects.length?{}:data.curves};
  const fitTargets=p.objects.length?p.targets:p.targets.map(t=>({...t,bounds:[...t.position,...t.position]}));
@@ -107,51 +107,66 @@ function mount(element,payload,hooks){
  function finish(){
   if(!active||blocked)return;
   const target=active,xy=position(target,values);active=null;blocked=true;
-  for(const point of points.values())point.setAttribute({fixed:true});
+  for(const point of points.values()){point.setAttribute({fixed:true});point.rendNode?.setAttribute('aria-disabled','true')}
   cancelAnimationFrame(frame);frame=0;
   // Send only one bounded semantic gesture on release, not arbitrary patches.
   hooks.commit({kind:'manipulate',target:target.id,x:xy[0],y:xy[1],time:p.time});
  }
  for(const target of p.targets){
-  const point=board.create('point',target.position,{name:'',withLabel:false,size:8,face:'o',fixed:false,
-   fillColor:'#6750c5',strokeColor:'white',strokeWidth:3,highlightFillColor:'#b59aff',highlightStrokeColor:'#6750c5',highlightSize:11,
+  const point=board.create('point',target.position,{name:'',withLabel:false,size:6,face:'o',fixed:false,
+   precision:{mouse:20,touch:22,pen:20},
+   fillColor:'#216653',strokeColor:'white',strokeWidth:3,highlightFillColor:'#348169',highlightStrokeColor:'#216653',highlightSize:8,
    snapToGrid:false,showInfobox:false,ariaLabel:target.label});
   points.set(target.id,point);
-  if((p.focused_target_ids||[]).includes(target.id))point.setAttribute({fillColor:'#087e8b',strokeColor:'#ffd166',strokeWidth:4});
+  if((p.focused_target_ids||[]).includes(target.id))point.setAttribute({fillColor:'#216653',strokeColor:'#26332e',strokeWidth:3});
   // Plain DOM text bypasses the library's text/JessieCode/markup facilities.
-  if(global.document){const label=global.document.createElement('span');label.textContent=target.label;label.style.cssText='position:absolute;pointer-events:none;font:13px system-ui;color:#6750c5';element.append(label);labels.set(target.id,label)}
+  if(global.document){const label=global.document.createElement('span');label.textContent=target.label;label.style.cssText='position:absolute;pointer-events:none;font:13px system-ui;color:#216653';element.append(label);labels.set(target.id,label)}
   point.rendNode?.setAttribute('aria-label',target.label);
-  point.on('down',()=>{if(blocked)return;active=target;hooks.begin?.(target)});
+  point.rendNode?.setAttribute('tabindex','0');
+  point.rendNode?.setAttribute('class','vll-handle');
+  point.on('down',()=>{if(blocked)return;cancelled=false;active=target;element.classList?.remove('invalid');element.classList?.add('dragging');hooks.begin?.(target)});
   function move(event){
-   if(blocked)return;if(!active)active=target;
+   if(blocked||cancelled)return;if(!active)active=target;
    let x=point.X(),y=point.Y();
-   if(event&&Number.isFinite(event.clientX)&&Number.isFinite(event.clientY)){
+   const pointer=event?.touches?.[0]||event?.changedTouches?.[0]||event;
+   if(pointer&&Number.isFinite(pointer.clientX)&&Number.isFinite(pointer.clientY)){
     // Streamlit can move the iframe while acknowledging focus. Use the live
     // DOM transform rather than the library's pointer-down offset cache.
     // origin/unit account for equal-scale board letterboxing; CSS borders and
     // scale are removed before converting to physical coordinates.
     const rect=element.getBoundingClientRect(),style=global.getComputedStyle(element);
     const sx=style.transform==='none'?1:rect.width/parseFloat(style.width),sy=style.transform==='none'?1:rect.height/parseFloat(style.height);
-    const px=(event.clientX-rect.left)/sx-element.clientLeft,py=(event.clientY-rect.top)/sy-element.clientTop;
+    const px=(pointer.clientX-rect.left)/sx-element.clientLeft,py=(pointer.clientY-rect.top)/sy-element.clientTop;
     x=(px-board.origin.scrCoords[1])/board.unitX;y=(board.origin.scrCoords[2]-py)/board.unitY;
    }
    const next=inverse(target,parameters,p.values,x,y);
-   if(!next){point.setPosition(global.JXG.COORDS_BY_USER,position(target,values));return}
+   element.classList?.toggle('invalid',!next);
+   if(!next){point.setPosition(global.JXG.COORDS_BY_USER,position(target,values));hooks.invalid?.();return}
    values=next;point.setPosition(global.JXG.COORDS_BY_USER,position(target,values));
    const projected=interpolate(p.previews[target.id],values);if(projected)data=projected;
    // Stable gesture viewport; the separate linked view fits complete paths.
    if(!frame)frame=requestAnimationFrame(()=>{frame=0;update()});
   }
   point.on('drag',move);point.on('up',finish);
-  point.on('keydrag',()=>{active=target;move();finish()});
+  point.on('keydrag',()=>{cancelled=false;active=target;move();finish()});
  }
- const cancel=()=>{if(blocked)return;active=null;values={...p.values};data=p.current;update()};
- const setFocus=ids=>{for(const [id,point]of points)point.setAttribute(ids.includes(id)?{fillColor:'#087e8b',strokeColor:'#ffd166',strokeWidth:4}:{fillColor:'#6750c5',strokeColor:'white',strokeWidth:3})};
+ const cancel=()=>{if(blocked)return;cancelled=true;active=null;element.classList?.remove('dragging','invalid');values={...p.values};data=p.current;update()};
+ const setFocus=ids=>{for(const [id,point]of points)point.setAttribute(ids.includes(id)?{fillColor:'#216653',strokeColor:'#26332e',strokeWidth:3}:{fillColor:'#216653',strokeColor:'white',strokeWidth:3})};
+ // Called only after the owner verifies identical scene/representation structure.
+ // Restore all canonical numeric values, including rejected releases, in place.
+ const restore=next=>{
+  cancelAnimationFrame(frame);frame=0;active=null;blocked=false;cancelled=false;element.classList?.remove('dragging','invalid');
+  for(const target of p.targets)Object.assign(target,next.targets.find(t=>t.id===target.id));
+  const targets=p.targets;Object.assign(p,next);p.targets=targets;
+  values={...p.values};data=p.current;
+  for(const point of points.values()){point.setAttribute({fixed:false});point.rendNode?.setAttribute('aria-disabled','false')}
+  setFocus(p.focused_target_ids||[]);update();
+ };
  element.addEventListener('pointercancel',cancel);
  const escape=e=>{if(e.key==='Escape')cancel()};
  element.addEventListener('keydown',escape);
  update();
- return {board,points,update,finish,cancel,setFocus,destroy(){cancelAnimationFrame(frame);element.removeEventListener('pointercancel',cancel);element.removeEventListener('keydown',escape);for(const label of labels.values())label.remove();global.JXG.JSXGraph.freeBoard(board)}};
+ return {board,points,update,finish,cancel,setFocus,restore,destroy(){cancelAnimationFrame(frame);element.removeEventListener('pointercancel',cancel);element.removeEventListener('keydown',escape);for(const label of labels.values())label.remove();global.JXG.JSXGraph.freeBoard(board)}};
 }
 global.DirectManipulation={mount,inverse,position,interpolate,sample,bounds};
 })(globalThis);

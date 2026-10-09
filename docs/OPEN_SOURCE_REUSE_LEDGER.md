@@ -231,3 +231,24 @@ This review supports keeping the current bounded viewer; it does not establish
 accessibility certification, high-DPI/touch equivalence to OSD, or universal 3D
 performance. Source raster payloads remain dominant; a new viewport would not
 reduce those payloads without a separate image/tile pipeline.
+
+## Product experience redesign (2026-10-09)
+
+**LEARN, not integrate:** Linear's quiet hierarchy, Raycast's contextual actions,
+Brilliant's interaction-led learning, shadcn/ui and Radix's control states,
+Mantine's consistent density, Open Props' token scales and Spectrum's professional
+tool conventions. Primary source URLs, exact code-license boundaries and the
+reference/learn/do-not-copy table are in [UI_REDESIGN_CHECKPOINT.md](UI_REDESIGN_CHECKPOINT.md).
+
+**REUSE:** existing Streamlit containers/widgets, fixed Source Atlas SVG,
+offline JSXGraph 1.13.3 under its existing MIT option, existing Plotly and canonical
+projection/reducer contracts. Independently authored CSS tokens and adapter edits;
+no copied library styles, icons, fonts, example code, assets or new dependency.
+No React/build-system migration, CDN, telemetry or model request. No upstream
+version newly installed; checked live docs are design references, not a pinned
+software supply chain. Third-party notices/vendor hashes remain unchanged.
+
+**DEFER:** broad dark-theme work, replacement document/3D viewers and animation
+frameworks. Existing PyMuPDF AGPL/commercial deployment review is unchanged.
+Practical gains are measured in the existing adapter (same-scene board reuse),
+not claimed as a performance comparison with those reference products.

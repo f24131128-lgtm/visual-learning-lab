@@ -14,6 +14,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from i18n import tr
+from presentation import TOKENS
 from .engine import frames, references, snapshot
 from .schema import MAX_PAYLOAD_BYTES
 from .policy import parameter_display, time_domain, union_bounds
@@ -65,7 +66,7 @@ def payload(scene, wrapper, replay=None):
                 if ref not in found: found.add(ref); queue.append(ref)
         return sorted(found)
     result = {
-        "identity": scene_identity(scene), "revision": state["revision"], "axes": scene["axes"],
+        "identity": scene_identity(scene), "revision": state["revision"], "axes": scene["axes"], "theme_css": TOKENS,
         "time": time_domain(scene, {p["id"]: p["default"] for p in scene["parameters"]}),
         "objects": scene["objects"], "series": scene["series"], "metrics": scene["metrics"], "parameters": [p | {"display": parameter_display(p)} for p in scene["parameters"]],
         "quantities": [{"id": q["id"], "label": q["label"], "unit": q["unit"], "equation": human(q["expression"]), "family": family(q["id"])} for q in scene["quantities"]],
@@ -117,11 +118,10 @@ def plotly_fallback(scene, state):
 def render_world(scene, wrapper, format_pages, source_context=None, allowed_pages=()):
     state = wrapper.setdefault("world", new_state(scene))
     prefix = "world-widget-" + wrapper["material_id"] + "-"
-    with st.container(border=True):
-        st.markdown("### " + tr("Spatial Learning World"))
+    with st.container():
+        st.caption(tr("Spatial Learning World"))
         st.markdown("#### " + scene["title"])
         st.caption(scene["learning_goal"])
-        if scene["assumptions"]: st.caption(tr("Model assumptions") + ": " + " · ".join(scene["assumptions"]))
         replay = wrapper.pop("world_pending_replay", None)
         if state.pop("replay_requested", False): replay = replay_states(scene, state)
         control_error = wrapper.pop("world_control_error", None)
@@ -134,7 +134,31 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
             display = parameter_display(p)
             value = min(p["max"], max(p["min"], st.session_state[key]/display["factor"]))
             act(apply_patch, scene, state, {"op": "set_parameter", "target_id": identifier, "value": value})
+        if control_error: st.info(control_error)
+        # Headings are real Streamlit elements too: AppTest can verify the normal
+        # PDF render path; browser-only SVG interaction needs browser/live QA.
+        try:
+            data = payload(scene, wrapper, replay)
+            from manipulation.runtime import render_world as render_manipulation
+            direct = render_manipulation(scene, wrapper)
+            if direct:
+                with st.expander(tr("Playback and comparison workspace")):
+                    st.markdown("**"+tr("Spatial Scene")+" · "+tr("Signal / Waveform")+" · "+tr("Vector / Phasor")+" · "+tr("Equation / State Lens")+"**")
+                    event = _component(payload=data, key=prefix+"coordinated", default=None)
+            else:
+                st.markdown("**"+tr("Spatial Scene")+" · "+tr("Signal / Waveform")+" · "+tr("Vector / Phasor")+" · "+tr("Equation / State Lens")+"**")
+                event = _component(payload=data, key=prefix+"coordinated", default=None)
+            if consume_event(scene, state, data["identity"], event):
+                st.rerun()
+            if acknowledge_rejection(state, data["identity"], event):
+                wrapper["world_control_error"] = tr("That change is outside this validated model. The world was preserved.")
+                st.rerun()
+        except (ValueError, TypeError, KeyError):
+            st.info(tr("The coordinated browser view is unavailable. Local controls and the spatial fallback remain available."))
+            plotly_fallback(scene, state)
         keyboard = st.expander(tr("Keyboard parameter and focus controls"))
+        if scene["assumptions"]:
+            with keyboard: st.caption(tr("Model assumptions") + ": " + " · ".join(scene["assumptions"]))
         with keyboard: cols = st.columns(len(scene["parameters"])+1)
         for col, p in zip(cols, scene["parameters"]):
             key = prefix+"param-"+p["id"]
@@ -160,27 +184,6 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
         with st.expander(tr("Keyboard time control")):
             st.slider(tr("Time")+" ("+scene["time"]["unit"]+")", float(domain["min"]), float(domain["max"]), step=float((domain["max"]-domain["min"])/(scene["time"]["frames"]-1)), key=time_key, format="%.5f",
                       on_change=lambda: act(apply_patch, scene, state, {"op": "set_time", "target_id": "time", "value": st.session_state[time_key]}))
-        if control_error: st.info(control_error)
-        # Headings are real Streamlit elements too: AppTest can verify the normal
-        # PDF render path; browser-only SVG interaction needs browser/live QA.
-        st.markdown("**"+tr("Spatial Scene")+" · "+tr("Signal / Waveform")+" · "+tr("Vector / Phasor")+" · "+tr("Equation / State Lens")+"**")
-        try:
-            data = payload(scene, wrapper, replay)
-            from manipulation.runtime import render_world as render_manipulation
-            direct = render_manipulation(scene, wrapper)
-            if direct:
-                with st.expander(tr("Playback and comparison workspace")):
-                    event = _component(payload=data, key=prefix+"coordinated", default=None)
-            else:
-                event = _component(payload=data, key=prefix+"coordinated", default=None)
-            if consume_event(scene, state, data["identity"], event):
-                st.rerun()
-            if acknowledge_rejection(state, data["identity"], event):
-                wrapper["world_control_error"] = tr("That change is outside this validated model. The world was preserved.")
-                st.rerun()
-        except (ValueError, TypeError, KeyError):
-            st.info(tr("The coordinated browser view is unavailable. Local controls and the spatial fallback remain available."))
-            plotly_fallback(scene, state)
         with st.expander(tr("Keyboard comparison controls")):
             st.caption(tr("These controls use committed state. Pause playback before using keyboard fallbacks."))
             comparison = st.columns(3)

@@ -1,0 +1,130 @@
+{
+  "phase": "final",
+  "result": {
+    "values": {
+      "phase": 1.5707963267948966
+    },
+    "metrics": {
+      "wave_value": 1
+    },
+    "mounts": 0,
+    "sameBoard": true,
+    "messages": 2,
+    "bytes": 76559
+  },
+  "payloadBefore": 76531,
+  "localPreviewNoCommit": true,
+  "sourceUnchanged": true,
+  "scrollBefore": 180,
+  "scrollAfter": 180,
+  "stageBefore": {
+    "x": 340,
+    "y": 289.15625,
+    "width": 733.546875,
+    "height": 501
+  },
+  "stageAfter": {
+    "x": 340,
+    "y": 289.15625,
+    "width": 733.546875,
+    "height": 501
+  },
+  "layoutShifts": [],
+  "responsive": [
+    {
+      "mode": "source",
+      "width": 1280,
+      "sourceBox": {
+        "x": 340,
+        "y": 482.78125,
+        "width": 618,
+        "height": 627
+      },
+      "railBox": {
+        "x": 1022,
+        "y": 262,
+        "width": 218,
+        "height": 867.390625
+      },
+      "overflow": false
+    },
+    {
+      "mode": "source",
+      "width": 768,
+      "sourceBox": {
+        "x": 20,
+        "y": 482.78125,
+        "width": 728,
+        "height": 627
+      },
+      "railBox": {
+        "x": 20,
+        "y": 1180.375,
+        "width": 728,
+        "height": 802.046875
+      },
+      "overflow": false
+    },
+    {
+      "mode": "source",
+      "width": 390,
+      "sourceBox": {
+        "x": 16,
+        "y": 566.78125,
+        "width": 358,
+        "height": 585
+      },
+      "railBox": {
+        "x": 16,
+        "y": 1222.375,
+        "width": 358,
+        "height": 853.234375
+      },
+      "overflow": false
+    },
+    {
+      "mode": "source",
+      "width": 430,
+      "sourceBox": {
+        "x": 16,
+        "y": 566.78125,
+        "width": 398,
+        "height": 535
+      },
+      "railBox": {
+        "x": 16,
+        "y": 1172.375,
+        "width": 398,
+        "height": 834.046875
+      },
+      "overflow": false
+    },
+    {
+      "mode": "explore",
+      "width": 1280,
+      "overflow": false,
+      "componentOverflow": false
+    },
+    {
+      "mode": "explore",
+      "width": 768,
+      "overflow": false,
+      "componentOverflow": false
+    },
+    {
+      "mode": "explore",
+      "width": 390,
+      "overflow": false,
+      "componentOverflow": false
+    },
+    {
+      "mode": "explore",
+      "width": 430,
+      "overflow": false,
+      "componentOverflow": false
+    }
+  ],
+  "keyboardMode": true,
+  "reducedMotion": "0s",
+  "pageErrors": []
+}

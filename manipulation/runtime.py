@@ -6,6 +6,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from i18n import tr
+from presentation import TOKENS
 from scene.state import fingerprint
 from . import lab, world
 from .preview import bake, lab_projection, world_projection
@@ -26,7 +27,7 @@ def _cache(owner,key,build):
 def _payload(identity,revision,targets,parameters,values,baseline,objects,curves,metrics,current,previews,clock,**extra):
     result=dict(version="1.0",identity=identity,revision=revision,targets=targets,parameters=parameters,values=values,
         baseline=baseline,objects=objects,curves=curves,metrics=metrics,current=current,previews=previews,time=clock,
-        labels={k:tr(k) for k in LABELS},**extra)
+        labels={k:tr(k) for k in LABELS},theme_css=TOKENS,**extra)
     if len(json.dumps(result,ensure_ascii=False,allow_nan=False).encode())>1_500_000: raise ValueError("Manipulation payload bound")
     return result
 

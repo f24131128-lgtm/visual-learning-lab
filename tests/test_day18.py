@@ -372,7 +372,7 @@ class WorldProductTests(unittest.TestCase):
         self.assertEqual(at.button(key="scene-widget-build-physics-pdf").label, "建立空間學習場景")
         values = [m.value for m in at.markdown]
         self.assertFalse(any("學習概覽" in v for v in values))
-        self.assertTrue(any("Day 20 / 30" in v for v in values))
+        self.assertTrue(any("Visual Learning Lab" in v for v in values))
         self.build(at)
         for label in ("空間視圖", "訊號／波形", "向量／相量", "方程式／狀態视角".replace("视", "視")):
             self.assertTrue(any(label in m.value for m in at.markdown))

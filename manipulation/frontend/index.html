@@ -1,8 +1,11 @@
 <!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="jsxgraph.css">
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#30264d;background:#fff}
-.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(170px,1fr);gap:14px}.board{position:relative;height:365px;border:1px solid #e3dcec;border-radius:14px;background:linear-gradient(135deg,#fcfaff,#f6fbfc);touch-action:none;overflow:hidden}.side{min-width:0}#wave{height:190px;border:1px solid #e3dcec;border-radius:12px;overflow:hidden}.metric{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee8f3;padding:9px 2px;font-size:13px}.metric b{color:#6750c5;font-variant-numeric:tabular-nums}.state{padding:8px 0;color:#6750c5;font-size:13px;min-height:34px}.provenance{font-size:12px;color:#746985;line-height:1.6;margin:8px 0}.board svg{touch-action:none}svg circle{cursor:grab}svg circle:hover{filter:drop-shadow(0 0 4px #9d80dc)}@media(max-width:620px){.layout{grid-template-columns:1fr}.board{height:325px}}
+<style id="product-tokens"></style><style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Microsoft JhengHei",sans-serif;color:var(--vll-fg,#26332e);background:var(--vll-page,#f8f9f6)}
+.layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(150px,1fr);gap:16px}.board{position:relative;height:430px;border:1px solid var(--vll-border,#d9dfd9);border-radius:4px;background:var(--vll-raised,#fff);touch-action:none;overflow:hidden}.side{min-width:0}#wave{height:170px;border-bottom:1px solid var(--vll-border,#d9dfd9);overflow:hidden}.metric{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--vll-border,#d9dfd9);padding:12px 2px;font-size:12px}.metric b{color:var(--vll-exploration,#216653);font-variant-numeric:tabular-nums;font-weight:600}.state{padding:8px 0;color:var(--vll-muted,#59675f);font-size:12px;min-height:36px}.provenance{font-size:12px;color:var(--vll-muted,#59675f);line-height:1.6;margin:8px 0}.board svg{touch-action:none}.vll-handle{cursor:grab}.board.dragging,.board.dragging .vll-handle{cursor:grabbing}.vll-handle:focus-visible{stroke:#26332e;stroke-width:5;outline:none}.board[aria-busy=true]{opacity:.8;cursor:progress}
+@media(max-width:540px){.layout{grid-template-columns:1fr}.board{height:340px}.side{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,1fr);gap:12px}#wave{height:140px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.board.invalid{border-color:var(--vll-error,#ae3c37)}.vll-handle[aria-disabled=true]{opacity:.5}
 </style></head><body>
 <div class="state" id="status" role="status" aria-live="polite"></div>
 <div class="layout"><div id="board" class="board" role="group"></div><div class="side"><div id="wave"></div><div id="metrics"></div></div></div>
@@ -12,10 +15,11 @@
 "use strict";
 const $=id=>document.getElementById(id),say=(type,data)=>parent.postMessage({isStreamlitMessage:true,type,...data},'*');
 const fmt=v=>Number(v).toLocaleString(undefined,{maximumSignificantDigits:5});
-let P=null,controller=null,waveBoard=null,waveCurves=[],waveDots=[],pending=false,stamp=null,paths=[],focusPending=false,releaseBuffer=null;
+let P=null,controller=null,waveBoard=null,waveCurves=[],waveDots=[],pending=false,stamp=null,paths=[],focusPending=false,releaseBuffer=null,structure=null,lastHeight=0;
+function structureOf(p){return JSON.stringify([p.identity,p.parameters,p.objects,p.curves,p.metrics,p.labels,p.targets.map(({position,...t})=>t)])}
 function send(data){say('streamlit:setComponentValue',{dataType:'json',value:{scene:P.identity,revision:P.revision,token:Date.now()+'-'+Math.random().toString(36).slice(2),...data}})}
-function release(data){if(pending)return;if(focusPending){releaseBuffer=data;return}pending=true;status('Release to apply');$('board').style.pointerEvents='none';send(data)}
-function height(){say('streamlit:setFrameHeight',{height:document.body.scrollHeight+8})}
+function release(data){if(pending)return;if(focusPending){releaseBuffer=data;return}pending=true;status('Release to apply');$('board').setAttribute('aria-busy','true');$('board').style.pointerEvents='none';send(data)}
+function height(){const h=document.body.scrollHeight+8;if(h!==lastHeight){lastHeight=h;say('streamlit:setFrameHeight',{height:h})}}
 function label(k){return P.labels[k]||k}
 function status(k){$('status').textContent=label(k)}
 function renderValues(data,values,tentative){
@@ -44,6 +48,7 @@ function renderValues(data,values,tentative){
 window.addEventListener('message',event=>{
  if(event.source!==parent||event.data.type!=='streamlit:render')return;
  const next=event.data.args.payload;if(!next||next.version!=='1.0')return;
+ $('product-tokens').textContent=next.theme_css||'';
  const key=JSON.stringify([next.identity,next.revision,next.ack,next.labels,next.focused_target_ids]);if(key===stamp)return;
  // A canonical focus acknowledgment can arrive mid-drag. Preserve the board,
  // pointer capture and numeric tentative preview only if formal state is equal.
@@ -53,6 +58,10 @@ window.addEventListener('message',event=>{
  }
  focusPending=false;releaseBuffer=null;
  stamp=key;P=next;pending=false;
+ $('board').setAttribute('aria-busy','false');
+ const nextStructure=structureOf(next);
+ if(controller&&structure===nextStructure){controller.restore(next);$('board').style.pointerEvents='auto';height();return}
+ structure=nextStructure;
  controller?.destroy();if(waveBoard)JXG.JSXGraph.freeBoard(waveBoard);waveBoard=null;waveCurves=[];waveDots=[];
  const world=P.objects.length>0;paths=P.objects.filter(o=>o.type==='trajectory');$('wave').style.display=world?'block':'none';
  if(world){
@@ -64,7 +73,7 @@ window.addEventListener('message',event=>{
  $('provenance').textContent=label('Current exploration value')+' · '+label('Exploration changes do not change the source.')+' '+label('Compiled baseline value')+': '+P.parameters.map(p=>p.label+' '+fmt(P.baseline[p.id]*(p.display?.factor||1))).join(' · ');
  controller=DirectManipulation.mount($('board'),P,{
   begin(target){if(pending||focusPending)return;status('Release to apply');focusPending=true;send({kind:'manipulation_focus',target:target.id,time:P.time})},preview:renderValues,
-  commit:release
+  commit:release,invalid(){status('That change is outside this validated model. The world was preserved.')}
  });$('board').style.pointerEvents='auto';height();
 });
 new ResizeObserver(height).observe(document.body);say('streamlit:componentReady',{apiVersion:1});height();

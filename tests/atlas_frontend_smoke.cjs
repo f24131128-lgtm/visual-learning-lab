@@ -5,7 +5,7 @@ class E{constructor(){this.children=[];this.attrs={};this.style={};this.value=''
  setAttribute(k,v){this.attrs[k]=v}appendChild(e){this.children.push(e)}replaceChildren(){this.children=[]}scrollTo(){} addEventListener(){} getBoundingClientRect(){return {left:0,top:0,width:800,height:1000}} }
 const nodes=new Map(),el=id=>{if(!nodes.has(id))nodes.set(id,new E());return nodes.get(id)};
 el('zoom').value='1';const messages=[],parent={postMessage:m=>messages.push(m)},handlers={};
-const context=vm.createContext({document:{getElementById:el,createElementNS:()=>new E(),createElement:()=>new E(),querySelector:()=>new E()},parent,window:{addEventListener:(k,f)=>handlers[k]=f},Date,Math});
+const context=vm.createContext({ResizeObserver:class{observe(){}},document:{body:{scrollHeight:656},getElementById:el,createElementNS:()=>new E(),createElement:()=>new E(),querySelector:()=>new E()},parent,window:{addEventListener:(k,f)=>handlers[k]=f},Date,Math});
 vm.runInContext(script,context);const payload=JSON.parse(fs.readFileSync(0,'utf8'));
 const render=()=>handlers.message({source:parent,data:{type:'streamlit:render',args:{payload}}});render();
 assert(messages.some(m=>m.type==='streamlit:componentReady'));

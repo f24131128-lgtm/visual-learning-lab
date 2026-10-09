@@ -14,7 +14,7 @@ from interactive_lab import (
     INTERACTIVE_LAB_SCHEMA, LAB_INSTRUCTIONS, clean_interactive_lab,
     ensure_lab_state, render_interactive_lab, render_lab_links, reset_lab_state,
 )
-from presentation import render_header, render_footer
+from presentation import render_header, render_footer, material_input
 from dynamic_simulation import ensure_simulation_state, render_simulation_studio, reset_simulation_state
 from scene.compiler import render_scene_builder, reset_scene_state, scene_candidate
 from scene.schema import LEARNING_SCENE_CANDIDATE_SCHEMA
@@ -2783,13 +2783,11 @@ def build_concept_map_graph(concept_map):
 
     return graph
 
-st.set_page_config(page_title="Visual Learning Lab", page_icon="✦", layout="wide")
+st.set_page_config(page_title="Visual Learning Lab", layout="wide")
 
 render_header()
 
-with st.container(border=True):
-    st.subheader(tr("Start with what you’re learning"))
-    st.caption(tr("Bring a page, a chapter, or an idea you want to understand."))
+with material_input():
     uploaded_pdf = st.file_uploader(
         tr("Upload a PDF"),
         type=["pdf"], key="material-pdf",
@@ -3105,9 +3103,10 @@ if analysis:
     world_plan = None
     if mode == "explore":
         from learning_world.runtime import representation as render_representation
-        representation, world_plan = render_representation(
-            analysis, analysis_id, source_context, allowed_source_pages, MODEL,
-            workspace_state, wrapper, interactive_lab)
+        with st.expander(tr("Representation")):
+            representation, world_plan = render_representation(
+                analysis, analysis_id, source_context, allowed_source_pages, MODEL,
+                workspace_state, wrapper, interactive_lab)
     st.session_state["workspace_learning_path"] = learning_path
     def explain_source_region(region):
         target = dict(concept=region["label"], explanation=region["source_text_excerpt"][:1500],
@@ -3120,205 +3119,217 @@ if analysis:
                               button_label=tr("Explain this source"))
     st.session_state["workspace_explain"] = explain_source_region
     # The slot updates after local render events, keeping focus metadata current.
-    focus_slot = st.empty()
-    source_bundle = None
-    if mode == "source" or (mode == "explore" and representation == "formal"
-                            and (not world_plan or world_plan["family"] not in ("static", "none"))):
-        source_bundle = render_scene_builder(analysis, analysis_id, source_context, allowed_source_pages,
-                                            MODEL, format_page_references, workspace_mode=mode)
-    if mode == "source" and not source_bundle:
-        render_source_fallback(analysis_id, source_context, allowed_source_pages, analysis)
+    with st.container(key="learning-stage"):
+        if mode in ("source", "explore"):
+            stage, rail = st.columns([2.6, 1], gap="large")
+            with rail:
+                with st.container(key="context-rail"):
+                    focus_slot = st.empty()
+                    source_context_panel = st.container()
+        else:
+            stage = st.container()
+            focus_slot = st.empty()
+            source_context_panel = None
+    with stage:
+        source_bundle = None
+        if mode == "source" or (mode == "explore" and representation == "formal"
+                                and (not world_plan or world_plan["family"] not in ("static", "none"))):
+            source_bundle = render_scene_builder(analysis, analysis_id, source_context, allowed_source_pages,
+                                                MODEL, format_page_references, workspace_mode=mode,
+                                                context_panel=source_context_panel)
+        if mode == "source" and not source_bundle:
+            render_source_fallback(analysis_id, source_context, allowed_source_pages, analysis)
 
-    if mode == "learn":
-        with st.container(border=True):
-            st.markdown("### " + tr("Your learning snapshot"))
-            if source_info:
-                st.caption(
-                    tr("PDF source: text found on {found} of {total} page(s); analyzed {analyzed} page(s).", found=source_info["found_count"], total=source_info["total_count"], analyzed=source_info["analyzed_count"])
-                )
+        if mode == "learn":
+            with st.container(border=True):
+                st.markdown("### " + tr("Your learning snapshot"))
+                if source_info:
+                    st.caption(
+                        tr("PDF source: text found on {found} of {total} page(s); analyzed {analyzed} page(s).", found=source_info["found_count"], total=source_info["total_count"], analyzed=source_info["analyzed_count"])
+                    )
 
-            st.markdown("#### " + tr("Quick Summary"))
+                st.markdown("#### " + tr("Quick Summary"))
+                st.write(analysis.get("quick_summary", ""))
+
+                st.markdown("#### " + tr("Key Concepts"))
+                key_concepts = analysis.get("key_concepts", [])
+                if not isinstance(key_concepts, list):
+                    key_concepts = []
+                displayed_concept_count = 0
+                for index, item in enumerate(key_concepts):
+                    if isinstance(item, dict):
+                        concept = item.get("concept", "")
+                        explanation = item.get("explanation", "")
+                        pages = valid_source_pages(
+                            item.get("source_pages", []), allowed_source_pages
+                        )
+                    elif isinstance(item, str):
+                        concept = item
+                        explanation = ""
+                        pages = []
+                    else:
+                        continue
+
+                    if not isinstance(concept, str) or not concept.strip():
+                        continue
+                    concept = concept.strip()
+                    explanation = explanation.strip() if isinstance(explanation, str) else ""
+                    description = f" — {explanation}" if explanation else ""
+                    st.markdown(f"- **{concept}**{description}")
+                    if pages:
+                        st.caption(tr("Source: {pages}", pages=format_page_references(pages)))
+                    concept_target = {
+                        "concept": concept,
+                        "explanation": explanation,
+                        "source_pages": pages,
+                    }
+                    explanation_context = build_explanation_context(
+                        "key_concept",
+                        concept_target,
+                        analysis,
+                        source_context,
+                        allowed_source_pages,
+                    )
+                    render_explain_action(
+                        f"{analysis_id}:key-concept:{index}", explanation_context
+                    )
+                    displayed_concept_count += 1
+
+                if not displayed_concept_count:
+                    st.caption(tr("No key concepts were returned for this content."))
+
+                with st.expander(tr("Visual Evidence"), expanded=False):
+                    st.markdown("#### " + tr("Visual Evidence"))
+                    visual_evidence = clean_visual_evidence(
+                        analysis.get("visual_evidence", []), allowed_source_pages
+                    )
+                    if visual_evidence:
+                        for index, item in enumerate(visual_evidence):
+                            st.markdown(
+                                tr("{kind} — Page {page}", kind=tr(item["type"]).capitalize(), page=item["page"])
+                            )
+                            st.write(item["description"])
+                            st.markdown(tr("Learning value:"))
+                            st.write(item["learning_value"])
+                            explanation_context = build_explanation_context(
+                                "visual_evidence",
+                                item,
+                                analysis,
+                                source_context,
+                                allowed_source_pages,
+                            )
+                            render_explain_action(
+                                f"{analysis_id}:visual-evidence:{index}", explanation_context
+                            )
+                    else:
+                        st.caption(tr("No meaningful visual evidence was found in this content."))
+
+                relationship_lines = []
+                for item in relationships:
+                    relationship_lines.append(
+                        f"- **{item['source']}** — *{item['relation']}* → **{item['target']}**"
+                    )
+                    if item["source_pages"]:
+                        relationship_lines.append(
+                            "  - " + tr("Source: {pages}", pages=format_page_references(item["source_pages"]))
+                        )
+
+                with st.expander(tr("Relationships"), expanded=False):
+                    if relationship_lines:
+                        st.markdown("\n".join(relationship_lines))
+                    else:
+                        st.caption(tr("No explicit relationships were found in this content."))
+            st.button(tr("Continue with guided practice"), key="workspace-next-practice",
+                      on_click=open_workspace, args=(workspace_state, "practice"))
+
+        if mode == "explore" and representation == "process":
+            from learning_world.runtime import render_process
+            render_process(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
+        if mode == "explore" and representation == "execution":
+            from learning_world.execution_ui import render_execution
+            render_execution(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
+
+        if mode == "explore" and representation in ("analogy", "compare"):
+            from analogy.runtime import render as render_analogy
+            render_analogy(analysis, analysis_id, source_context, allowed_source_pages, MODEL,
+                           workspace_state, wrapper, interactive_lab, learning_path,
+                           st.session_state["interactive_lab_state"], compare=representation == "compare")
+
+        if mode == "explore" and representation == "formal" and world_plan and world_plan["family"] == "none":
             st.write(analysis.get("quick_summary", ""))
 
-            st.markdown("#### " + tr("Key Concepts"))
-            key_concepts = analysis.get("key_concepts", [])
-            if not isinstance(key_concepts, list):
-                key_concepts = []
-            displayed_concept_count = 0
-            for index, item in enumerate(key_concepts):
-                if isinstance(item, dict):
-                    concept = item.get("concept", "")
-                    explanation = item.get("explanation", "")
-                    pages = valid_source_pages(
-                        item.get("source_pages", []), allowed_source_pages
+        if mode == "explore" and representation == "formal" and (not world_plan or world_plan["family"] != "none"):
+            with st.expander(tr("Suggested Visualization")):
+                suggestions = analysis.get("suggested_visualizations", [])
+                if isinstance(suggestions, list):
+                    st.caption(", ".join(tr(value) for value in suggestions if isinstance(value, str)))
+            selection_reason = primary_visualization["reason"]
+
+            if primary_visualization["type"] == "flow":
+                st.markdown("### " + tr("Visual Flow"))
+                if not visual_flow or not visual_flow["suitable"]:
+                    st.info(
+                        tr("The selected Visual Flow could not be rendered because its structured data was incomplete.")
                     )
-                elif isinstance(item, str):
-                    concept = item
-                    explanation = ""
-                    pages = []
-                else:
-                    continue
-
-                if not isinstance(concept, str) or not concept.strip():
-                    continue
-                concept = concept.strip()
-                explanation = explanation.strip() if isinstance(explanation, str) else ""
-                description = f" — {explanation}" if explanation else ""
-                st.markdown(f"- **{concept}**{description}")
-                if pages:
-                    st.caption(tr("Source: {pages}", pages=format_page_references(pages)))
-                concept_target = {
-                    "concept": concept,
-                    "explanation": explanation,
-                    "source_pages": pages,
-                }
-                explanation_context = build_explanation_context(
-                    "key_concept",
-                    concept_target,
-                    analysis,
-                    source_context,
-                    allowed_source_pages,
-                )
-                render_explain_action(
-                    f"{analysis_id}:key-concept:{index}", explanation_context
-                )
-                displayed_concept_count += 1
-
-            if not displayed_concept_count:
-                st.caption(tr("No key concepts were returned for this content."))
-
-            with st.expander(tr("Visual Evidence"), expanded=False):
-                st.markdown("#### " + tr("Visual Evidence"))
-                visual_evidence = clean_visual_evidence(
-                    analysis.get("visual_evidence", []), allowed_source_pages
-                )
-                if visual_evidence:
-                    for index, item in enumerate(visual_evidence):
-                        st.markdown(
-                            tr("{kind} — Page {page}", kind=tr(item["type"]).capitalize(), page=item["page"])
-                        )
-                        st.write(item["description"])
-                        st.markdown(tr("Learning value:"))
-                        st.write(item["learning_value"])
-                        explanation_context = build_explanation_context(
-                            "visual_evidence",
-                            item,
-                            analysis,
-                            source_context,
-                            allowed_source_pages,
-                        )
-                        render_explain_action(
-                            f"{analysis_id}:visual-evidence:{index}", explanation_context
-                        )
-                else:
-                    st.caption(tr("No meaningful visual evidence was found in this content."))
-
-            relationship_lines = []
-            for item in relationships:
-                relationship_lines.append(
-                    f"- **{item['source']}** — *{item['relation']}* → **{item['target']}**"
-                )
-                if item["source_pages"]:
-                    relationship_lines.append(
-                        "  - " + tr("Source: {pages}", pages=format_page_references(item["source_pages"]))
+                if selection_reason:
+                    st.caption(selection_reason)
+            elif primary_visualization["type"] == "concept_map":
+                st.markdown("### " + tr("Concept Map"))
+                if not concept_map or not concept_map["suitable"]:
+                    st.info(
+                        tr("The selected Concept Map could not be rendered because its structured data was incomplete.")
                     )
-
-            with st.expander(tr("Relationships"), expanded=False):
-                if relationship_lines:
-                    st.markdown("\n".join(relationship_lines))
+                if selection_reason:
+                    st.caption(selection_reason)
+            elif primary_visualization["type"] == "comparison":
+                st.markdown("### " + tr("Comparison"))
+                comparison_rows = build_comparison_table(comparison)
+                if comparison_rows:
+                    st.markdown(f"#### {comparison['title']}")
+                    st.table(comparison_rows)
+                    st.markdown("**" + tr("Takeaway") + "**")
+                    st.write(comparison["takeaway"])
                 else:
-                    st.caption(tr("No explicit relationships were found in this content."))
-        st.button(tr("Continue with guided practice"), key="workspace-next-practice",
-                  on_click=open_workspace, args=(workspace_state, "practice"))
-
-    if mode == "explore" and representation == "process":
-        from learning_world.runtime import render_process
-        render_process(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
-    if mode == "explore" and representation == "execution":
-        from learning_world.execution_ui import render_execution
-        render_execution(world_plan, analysis_id, workspace_state, wrapper, analysis, allowed_source_pages)
-
-    if mode == "explore" and representation in ("analogy", "compare"):
-        from analogy.runtime import render as render_analogy
-        render_analogy(analysis, analysis_id, source_context, allowed_source_pages, MODEL,
-                       workspace_state, wrapper, interactive_lab, learning_path,
-                       st.session_state["interactive_lab_state"], compare=representation == "compare")
-
-    if mode == "explore" and representation == "formal" and world_plan and world_plan["family"] == "none":
-        st.write(analysis.get("quick_summary", ""))
-
-    if mode == "explore" and representation == "formal" and (not world_plan or world_plan["family"] != "none"):
-        with st.expander(tr("Suggested Visualization")):
-            suggestions = analysis.get("suggested_visualizations", [])
-            if isinstance(suggestions, list):
-                st.caption(", ".join(tr(value) for value in suggestions if isinstance(value, str)))
-        selection_reason = primary_visualization["reason"]
-
-        if primary_visualization["type"] == "flow":
-            st.markdown("### " + tr("Visual Flow"))
-            if not visual_flow or not visual_flow["suitable"]:
-                st.info(
-                    tr("The selected Visual Flow could not be rendered because its structured data was incomplete.")
-                )
-            if selection_reason:
-                st.caption(selection_reason)
-        elif primary_visualization["type"] == "concept_map":
-            st.markdown("### " + tr("Concept Map"))
-            if not concept_map or not concept_map["suitable"]:
-                st.info(
-                    tr("The selected Concept Map could not be rendered because its structured data was incomplete.")
-                )
-            if selection_reason:
-                st.caption(selection_reason)
-        elif primary_visualization["type"] == "comparison":
-            st.markdown("### " + tr("Comparison"))
-            comparison_rows = build_comparison_table(comparison)
-            if comparison_rows:
-                st.markdown(f"#### {comparison['title']}")
-                st.table(comparison_rows)
-                st.markdown("**" + tr("Takeaway") + "**")
-                st.write(comparison["takeaway"])
+                    st.info(
+                        tr("The selected Comparison could not be rendered because its structured data was incomplete.")
+                    )
+                if selection_reason:
+                    st.caption(selection_reason)
             else:
+                st.markdown("### " + tr("Primary Visualization"))
                 st.info(
-                    tr("The selected Comparison could not be rendered because its structured data was incomplete.")
+                    tr("No strong primary visualization was detected for this material.")
                 )
-            if selection_reason:
-                st.caption(selection_reason)
-        else:
-            st.markdown("### " + tr("Primary Visualization"))
-            st.info(
-                tr("No strong primary visualization was detected for this material.")
-            )
-            if selection_reason:
-                st.caption(selection_reason)
+                if selection_reason:
+                    st.caption(selection_reason)
 
-        if primary_visualization["type"] != "none":
-            render_learning_canvas(
-                primary_visualization["type"], selected_visualization, learning_path,
-                analysis, source_context, allowed_source_pages, analysis_id,
-                build_flow_graph if primary_visualization["type"] == "flow" else build_concept_map_graph,
-                build_explanation_context, render_explain_action, format_page_references,
+            if primary_visualization["type"] != "none":
+                render_learning_canvas(
+                    primary_visualization["type"], selected_visualization, learning_path,
+                    analysis, source_context, allowed_source_pages, analysis_id,
+                    build_flow_graph if primary_visualization["type"] == "flow" else build_concept_map_graph,
+                    build_explanation_context, render_explain_action, format_page_references,
+                    interactive_lab,
+                )
+
+            if not world_plan or world_plan["family"] not in ("static", "none"):
+                render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+                render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+
+        if mode == "explore":
+            from learning_world.runtime import render_diagnostics
+            render_diagnostics(analysis_id)
+
+        if mode == "practice":
+            render_guided_learning(
+                learning_path,
+                analysis,
+                primary_visualization,
+                source_context,
+                allowed_source_pages,
+                analysis_id,
                 interactive_lab,
             )
-
-        if not world_plan or world_plan["family"] not in ("static", "none"):
-            render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
-            render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
-
-    if mode == "explore":
-        from learning_world.runtime import render_diagnostics
-        render_diagnostics(analysis_id)
-
-    if mode == "practice":
-        render_guided_learning(
-            learning_path,
-            analysis,
-            primary_visualization,
-            source_context,
-            allowed_source_pages,
-            analysis_id,
-            interactive_lab,
-        )
     with focus_slot.container():
         catalog = semantic_catalog(wrapper.get("scene"), analysis)
         render_focus(workspace_state, catalog, wrapper, allowed_source_pages)
