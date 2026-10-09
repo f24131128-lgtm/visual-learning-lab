@@ -93,13 +93,18 @@ def set_focus(wrapper, identifier, catalog):
 
 
 def select_region(atlas_state, region_id, catalog, wrapper=None):
+    if isinstance(wrapper, dict) and atlas_state.get("key") and atlas_state["key"][0] != wrapper.get("material_id"): return False
     atlas = atlas_state["atlas"]
     region = next((r for r in atlas["regions"] if r["region_id"] == region_id), None)
     if region is None: return False
-    candidates = sorted(region["semantic_ids"], key=lambda i: catalog[i]["kind"] in ("parameter", "time"))
+    if any(i not in catalog for i in region["semantic_ids"]): return False
+    from workspace.state import focusable
+    candidates = [i for i in region["semantic_ids"] if focusable(i, catalog, wrapper)]
     if wrapper:
-        for identifier in candidates:
-            if set_focus(wrapper, identifier, catalog): break
+        # Multiple meanings need a deliberate learner choice, not array order.
+        identifier = current_focus(wrapper)
+        if len(candidates) == 1: identifier = candidates[0]
+        if identifier in candidates: set_focus(wrapper, identifier, catalog)
     atlas_state.update(region_hint=region_id, seen_focus=current_focus(wrapper), page=region["page"])
     return True
 
@@ -111,7 +116,7 @@ def sync_region(atlas_state, focus):
     hinted = next((r for r in matches if r["region_id"] == atlas_state["region_hint"]), None)
     # Unmapped source regions may be inspected, without claiming a semantic link.
     if not hinted and not changed:
-        hinted = next((r for r in atlas_state["atlas"]["regions"] if r["region_id"] == atlas_state["region_hint"] and (not r["semantic_ids"] or focus is None)), None)
+        hinted = next((r for r in atlas_state["atlas"]["regions"] if r["region_id"] == atlas_state["region_hint"]), None)
     selected = hinted if not changed and hinted else matches[0] if matches else None
     if changed:
         atlas_state.update(seen_focus=focus, region_hint=selected["region_id"] if selected else None)
@@ -125,6 +130,8 @@ def consume_event(atlas_state, event, catalog, wrapper=None):
     token = event["token"]
     if not isinstance(token, str) or not 1 <= len(token) <= 80 or token == atlas_state["last_token"]: return False
     if event["focus_stamp"] != fingerprint(current_focus(wrapper)): return False
+    from workspace.grounded_twin import supported_regions
+    if event["region_id"] not in {r["region_id"] for r in supported_regions(atlas_state, atlas_state["key"][0], atlas_state["key"][4], catalog)}: return False
     if not select_region(atlas_state, event["region_id"], catalog, wrapper): return False
     atlas_state["last_token"] = token
     return True

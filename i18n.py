@@ -8,6 +8,22 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Live Twin available": "可探索的互動分身",
+    "Source ↔ formal representation": "來源 ↔ 正式表示",
+    "Open interactive twin": "開啟互動分身",
+    "Return to supporting source": "回到支持此概念的來源",
+    "Focus source region": "聚焦來源區域",
+    "Choose linked meaning": "選擇此來源的概念",
+    "Native text geometry · meaning remains estimated": "原生文字座標 · 語意支持仍為估計",
+    "Estimated visual region": "估計的視覺區域",
+    "Page-level support only": "僅有頁級來源支持",
+    "Source support is estimated. A safe handle is a model capability, not proof of source fidelity.": "來源支持為估計。安全的操作目標代表模型能力，仍需核對它是否忠於原文。",
+    "Explore with validated controls: {parameters}": "透過已驗證的操作探索：{parameters}",
+    "Compiled baseline · Current exploration · Delta": "編譯初始值 · 目前探索 · 差值",
+    "Compiled defaults are model values; verify them against the unchanged original source.": "編譯初始值來自學習模型，請與保留原貌的來源核對。探索不會修改原文。",
+    "No validated direct manipulation is available; use the formal view and existing controls.": "此概念沒有已驗證的直接操作，可使用正式表示與既有控制。",
+    "This quantity is derived from the current state; no validated direct manipulation is available.": "這個量由目前狀態推導，沒有已驗證的直接操作目標。",
+    "This source value has no direct handle. Existing validated controls remain available.": "這個來源值沒有直接操作目標；仍可使用既有的已驗證控制。",
     "Choice {number}": "選項 {number}", "Call {number}": "呼叫 {number}",
     "Fixed value": "固定值", "Generated exploration range": "生成的探索範圍",
     "Interactive execution": "互動執行", "Call stack": "呼叫堆疊",

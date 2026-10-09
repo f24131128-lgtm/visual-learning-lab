@@ -1,0 +1,2 @@
+TypeError: Cannot read properties of undefined (reading 'region_id')
+    at D:\Projects\visual-learning-lab\tests\day25_touch_browser.cjs:21:94

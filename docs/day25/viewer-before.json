@@ -1,0 +1,27 @@
+{
+  "scope": "single fixed viewer isolated browser; 60 overlays stress exceeds per-page production bound",
+  "rows": [
+    {
+      "count": 20,
+      "render_ms": 3.299999952316284,
+      "overlay_bytes": 3718,
+      "production_bound": true,
+      "programmatic_zoom": 1
+    },
+    {
+      "count": 24,
+      "render_ms": 1.8999998569488525,
+      "overlay_bytes": 4503,
+      "production_bound": true,
+      "programmatic_zoom": 1
+    },
+    {
+      "count": 60,
+      "render_ms": 2.299999952316284,
+      "overlay_bytes": 11488,
+      "production_bound": false,
+      "programmatic_zoom": 1
+    }
+  ],
+  "errors": []
+}

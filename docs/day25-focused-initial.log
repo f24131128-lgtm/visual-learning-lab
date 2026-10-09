@@ -1,0 +1,49 @@
+2026-10-09 16:41:33.589 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-09 16:41:35.349 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-09 16:41:41.706 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+======================================================================
+ERROR: test_non_manipulable_page_only_and_frontend_failure_isolation (test_day25.TwinProductTests.test_non_manipulable_page_only_and_frontend_failure_isolation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 206, in test_non_manipulable_page_only_and_frontend_failure_isolation
+    self.choose(at,"derived_source")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 175, in choose
+    widget=next(w for w in at.selectbox if w.label=="選擇來源物件")
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+======================================================================
+ERROR: test_normal_pdf_source_to_twin_drag_reverse_and_zero_calls (test_day25.TwinProductTests.test_normal_pdf_source_to_twin_drag_reverse_and_zero_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 182, in test_normal_pdf_source_to_twin_drag_reverse_and_zero_calls
+    at=self.app(kind);self.choose(at,"source_object")
+                      ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 175, in choose
+    widget=next(w for w in at.selectbox if w.label=="選擇來源物件")
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+======================================================================
+FAIL: test_ambiguous_region_preserves_focus_until_explicit_choice (test_day25.TwinLogicTests.test_ambiguous_region_preserves_focus_until_explicit_choice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 128, in test_ambiguous_region_preserves_focus_until_explicit_choice
+    self.assertIsNone(wrapper["world"]["focus"])
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'angle' is not None
+
+======================================================================
+FAIL: test_source_event_stale_token_focus_page_and_target_spoof (test_day25.TwinLogicTests.test_source_event_stale_token_focus_page_and_target_spoof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day25.py", line 137, in test_source_event_stale_token_focus_page_and_target_spoof
+    self.assertTrue(consume_event(s,event,d["catalog"],wrapper))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 15 tests in 8.439s
+
+FAILED (failures=2, errors=2)

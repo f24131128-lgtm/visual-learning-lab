@@ -1,8 +1,8 @@
 // Execute fixed source viewer code against a DOM spy, not model code.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const html=fs.readFileSync(process.argv[2],'utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
-class E{constructor(){this.children=[];this.attrs={};this.style={};this.value='';this.checked=false;}
- setAttribute(k,v){this.attrs[k]=v}appendChild(e){this.children.push(e)}replaceChildren(){this.children=[]}scrollTo(){} }
+class E{constructor(){this.children=[];this.attrs={};this.style={};this.value='';this.checked=false;this.clientWidth=800;this.clientHeight=540;this.scrollLeft=0;this.scrollTop=0;}
+ setAttribute(k,v){this.attrs[k]=v}appendChild(e){this.children.push(e)}replaceChildren(){this.children=[]}scrollTo(){} addEventListener(){} getBoundingClientRect(){return {left:0,top:0,width:800,height:1000}} }
 const nodes=new Map(),el=id=>{if(!nodes.has(id))nodes.set(id,new E());return nodes.get(id)};
 el('zoom').value='1';const messages=[],parent={postMessage:m=>messages.push(m)},handlers={};
 const context=vm.createContext({document:{getElementById:el,createElementNS:()=>new E(),createElement:()=>new E(),querySelector:()=>new E()},parent,window:{addEventListener:(k,f)=>handlers[k]=f},Date,Math});

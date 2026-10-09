@@ -203,6 +203,9 @@ class AtlasTests(unittest.TestCase):
         self.local["atlas"]=atlas
         wrapper=dict(material_id="m",scene=world,world=new_state(world))
         self.assertTrue(state.select_region(self.local,"velocity_arrow",catalog,wrapper))
+        # Several linked meanings no longer silently choose array position zero.
+        self.assertEqual(wrapper["world"]["focus"],"px")
+        self.assertTrue(state.set_focus(wrapper,"vx",catalog))
         self.assertEqual(wrapper["world"]["focus"],"vx")
         self.assertIn("Launch speed",formula_trace(atlas["regions"][0],catalog)["parameters"])
 

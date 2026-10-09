@@ -1,0 +1,23 @@
+{
+  "scope": "original synthetic 3-page PDFs in normal app, real pointer drags and source iframe clicks; paid SDK blocked",
+  "rows": [
+    {
+      "case": "math",
+      "values": {
+        "gain": 1,
+        "offset": 2.0000001511706653
+      },
+      "source_roundtrip": true,
+      "source_unchanged": true,
+      "exact_target_highlight": true,
+      "interaction_api_delta": 0
+    },
+    {
+      "case": "non_manipulable",
+      "page_only": true,
+      "fake_handle": false,
+      "interaction_api_delta": 0
+    }
+  ],
+  "page_errors": []
+}

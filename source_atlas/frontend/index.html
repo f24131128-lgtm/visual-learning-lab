@@ -10,7 +10,7 @@ svg{display:block;margin:auto;background:white;touch-action:pan-x pan-y}.region{
 .region:focus{stroke:#dc2626;stroke-width:3;outline:none}.note{padding:8px;color:#aebdd1;font-size:12px}
 </style></head><body>
 <div class="bar"><label id="zoomLabel" for="zoom"></label><input id="zoom" type="range" min="1" max="3" step=".1" value="1"><button id="reset"></button>
-<label id="breakdownLabel" for="layer"></label><select id="layer"></select>
+<button id="focusRegion"></button><label id="breakdownLabel" for="layer"></label><select id="layer"></select>
 <label><input id="focusOnly" type="checkbox"><span id="focusLabel"></span></label>
 <label><input id="hideLabels" type="checkbox"><span id="hideLabel"></span></label></div>
 <div class="viewport"><svg id="page" role="group"><image id="original" x="0" y="0"/><g id="overlays"></g></svg></div>
@@ -19,6 +19,18 @@ svg{display:block;margin:auto;background:white;touch-action:pan-x pan-y}.region{
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let D=null, signature='', revealed=new Set(), pending=false;
 const send=(type,extra={})=>parent.postMessage({isStreamlitMessage:true,type,...extra},'*');
 const text=(id,key)=>$(id).textContent=D.labels[key]||key;
+const viewport=document.querySelector('.viewport');
+function remember(){if(!D)return;try{sessionStorage.setItem('source-atlas-view',JSON.stringify({signature,selected:D.selected,zoom:Number($('zoom').value),x:viewport.scrollLeft,y:viewport.scrollTop}));}catch{}}
+function focusRegion(){
+ if(!D)return;const region=D.regions.find(r=>r.region_id===D.selected);
+ if(!region){$('zoom').value='1';draw();viewport.scrollTo(0,0);remember();return;}
+ const b=region.bbox,baseWidth=viewport.clientWidth-20;
+ const z=Math.max(1,Math.min(3,.75/(b.x1-b.x0),.75*viewport.clientHeight/(baseWidth*D.height/D.width*(b.y1-b.y0))));
+ $('zoom').value=String(Math.floor(z*10)/10);draw();
+ const rect=$('page').getBoundingClientRect(),v=viewport.getBoundingClientRect();
+ viewport.scrollTo({left:viewport.scrollLeft+rect.left-v.left+(b.x0+b.x1)*rect.width/2-viewport.clientWidth/2,
+  top:viewport.scrollTop+rect.top-v.top+(b.y0+b.y1)*rect.height/2-viewport.clientHeight/2,behavior:'instant'});remember();
+}
 function draw(){if(!D)return;const svg=$('page'),w=D.width,h=D.height;
  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('aria-label',D.labels['Source Viewer']);
  svg.style.width=(100*Number($('zoom').value))+'%';svg.style.height='auto';
@@ -40,13 +52,22 @@ function draw(){if(!D)return;const svg=$('page'),w=D.width,h=D.height;
 window.addEventListener('message',e=>{if(e.source!==parent||e.data.type!=='streamlit:render')return;const next=e.data.args.payload;
  if(!next||!Array.isArray(next.regions))return;const newSignature=next.identity+':'+next.page;
  if(signature!==newSignature){revealed.clear();$('zoom').value='1';$('focusOnly').checked=false;signature=newSignature;}
- if(D?.selected!==next.selected){const selected=next.regions.find(r=>r.region_id===next.selected);if(selected&&$('layer').value!=='all'&&$('layer').value!==selected.layer)$('layer').value='all';}
+ const selectionChanged=D?.selected!==next.selected||D?.page!==next.page||D?.identity!==next.identity;
+ if(selectionChanged){const selected=next.regions.find(r=>r.region_id===next.selected);if(selected&&$('layer').value!=='all'&&$('layer').value!==selected.layer)$('layer').value='all';}
  D=next;pending=false;text('zoomLabel','Zoom');text('reset','Reset view');text('breakdownLabel','Diagram Breakdown');text('focusLabel','Active focus only');text('hideLabel','Hide labels');text('note','Estimated region — verify on the original page.');
  const selectedLayer=$('layer').value;$('layer').replaceChildren();
  for(const [value,label]of [['all','All layers'],['structure','Structure'],['labels','Labels'],['vectors','Vectors'],['formulas','Formulas'],['relationships','Relationships']]){const opt=document.createElement('option');opt.value=value;opt.textContent=D.labels[label];$('layer').appendChild(opt);}
- $('layer').value=selectedLayer||'all';draw();send('streamlit:setFrameHeight',{height:660});
+ $('layer').value=selectedLayer||'all';text('focusRegion','Focus source region');$('focusRegion').disabled=!D.regions.some(r=>r.region_id===D.selected);
+ draw();
+ if(selectionChanged){let saved=null;try{saved=JSON.parse(sessionStorage.getItem('source-atlas-view'));}catch{}
+  if(saved?.signature===signature&&saved.selected===D.selected&&Number.isFinite(saved.zoom)&&saved.zoom>=1&&saved.zoom<=3&&Number.isFinite(saved.x)&&Number.isFinite(saved.y)){
+   $('zoom').value=String(saved.zoom);draw();viewport.scrollTo(saved.x,saved.y);
+  }else focusRegion();
+ }
+ send('streamlit:setFrameHeight',{height:660});
 });
-for(const id of ['zoom','layer','focusOnly','hideLabels'])$(id).oninput=draw;
-$('reset').onclick=()=>{$('zoom').value='1';$('layer').value='all';$('focusOnly').checked=false;$('hideLabels').checked=false;revealed.clear();document.querySelector('.viewport').scrollTo(0,0);draw();};
+for(const id of ['zoom','layer','focusOnly','hideLabels'])$(id).oninput=()=>{draw();remember()};
+$('focusRegion').onclick=focusRegion;viewport.addEventListener('scroll',remember,{passive:true});
+$('reset').onclick=()=>{$('zoom').value='1';$('layer').value='all';$('focusOnly').checked=false;$('hideLabels').checked=false;revealed.clear();viewport.scrollTo(0,0);draw();remember();};
 send('streamlit:componentReady',{apiVersion:1});send('streamlit:setFrameHeight',{height:660});
 </script></body></html>

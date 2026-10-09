@@ -119,6 +119,9 @@ def commit(demo,saved,identity,event,semantic_id,focus):
         for metric in demo["derived_metrics"]: evaluate_expression(metric["expression"],values)
         if not focus(target["semantic_id"]): return False
         saved.update(values=values,gesture_token=event["token"],gesture_ack=event["token"])
+        # Retire slider widgets still carrying pre-gesture values. This is
+        # presentation protocol metadata; the existing Lab values stay canonical.
+        saved["control_generation"]=saved.get("control_generation",0)+1
         saved["manipulation_signature"]=None
         revision(saved)
         return True

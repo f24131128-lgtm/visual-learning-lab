@@ -1,0 +1,20 @@
+{"case":"phase","desired":[0,1],"result":{"values":{"phase":1.5707963267948966},"metrics":{"wave_value":1},"focus":["pointer"],"targets":[{"id":"pointer","object_id":"pointer","semantic_id":"angle","label":"旋轉指針","gesture":"drag_on_circle","coordinate_space":"world","dimensions":2,"parameter_ids":["phase"],"inverse":{"kind":"circular","origin":[0,0],"angle_id":"phase","angle_scale":1,"offset":0},"bounds":[-1,-1,1,1],"position":[6.123233995736766e-17,1],"source_pages":[1]}]}}
+{"case":"projectile","desired":[15,25.980762113533157],"result":{"values":{"speed":29.999997561261676,"angle":1.0471975042630524,"grav":9.8},"metrics":{"metric_px":0,"metric_py":0,"metric_vx":15.000000000000002,"metric_vy":25.980759297520663,"metric_energy":449.9999268378532},"focus":["launch"],"targets":[{"id":"launch","object_id":"launch","semantic_id":"launch_y","label":"Launch direction","gesture":"drag_vector_endpoint","coordinate_space":"world","dimensions":2,"parameter_ids":["angle","speed"],"inverse":{"kind":"polar","origin":[0,0],"angle_id":"angle","angle_scale":1,"offset":0,"radius_id":"speed","radius_scale":1,"radius_offset":0},"bounds":[-100,-100,100,100],"position":[15.000000000000002,25.980759297520663],"source_pages":[1]}]}}
+{"case":"math","desired":[0,2],"result":{"values":{"gain":1,"offset":2.0000001511706653},"focus":["relation_curve_anchor_offset","relation_curve_anchor_gain"],"targets":[{"id":"relation_curve_anchor_offset","object_id":"relation_curve","semantic_id":"formal_relation","label":"常數 b","gesture":"drag_along_axis","coordinate_space":"world","dimensions":1,"parameter_ids":["offset"],"position":[0,2.0000001511706653],"bounds":[0,-4,0,4],"inverse":{"kind":"affine","parameter_id":"offset","scale":1,"offset":0,"x":0,"constant":0,"coefficients":{"gain":0,"offset":1}},"source_pages":[1]},{"id":"relation_curve_anchor_gain","object_id":"relation_curve","semantic_id":"formal_relation","label":"係數 a","gesture":"drag_along_axis","coordinate_space":"world","dimensions":1,"parameter_ids":["gain"],"position":[2,4.000000151170665],"bounds":[2,-10,2,10],"inverse":{"kind":"affine","parameter_id":"gain","scale":2,"offset":2.0000001511706653,"x":2,"constant":0,"coefficients":{"gain":2,"offset":1}},"source_pages":[1]}]}}
+AssertionError [ERR_ASSERTION]: exploration values survive source navigation
++ actual - expected
+
+  {
+    gain: 1,
++   offset: 0
+-   offset: 2.0000001511706653
+  }
+
+    at D:\Projects\visual-learning-lab\tests\day25_app_browser.cjs:73:11 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

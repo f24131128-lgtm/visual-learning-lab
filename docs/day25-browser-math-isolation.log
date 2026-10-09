@@ -1,0 +1,13 @@
+{"case":"math","desired":[0,2],"result":{"values":{"gain":1,"offset":0},"focus":["relation_curve_anchor_offset","relation_curve_anchor_gain"],"targets":[{"id":"relation_curve_anchor_offset","object_id":"relation_curve","semantic_id":"formal_relation","label":"常數 b","gesture":"drag_along_axis","coordinate_space":"world","dimensions":1,"parameter_ids":["offset"],"position":[0,0],"bounds":[0,-4,0,4],"inverse":{"kind":"affine","parameter_id":"offset","scale":1,"offset":0,"x":0,"constant":0,"coefficients":{"gain":0,"offset":1}},"source_pages":[1]},{"id":"relation_curve_anchor_gain","object_id":"relation_curve","semantic_id":"formal_relation","label":"係數 a","gesture":"drag_along_axis","coordinate_space":"world","dimensions":1,"parameter_ids":["gain"],"position":[2,2],"bounds":[2,-10,2,10],"inverse":{"kind":"affine","parameter_id":"gain","scale":2,"offset":0,"x":2,"constant":0,"coefficients":{"gain":2,"offset":1}},"source_pages":[1]}]}}
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(Math.abs(result.values.offset-2)<.01)
+
+    at D:\Projects\visual-learning-lab\tests\day25_app_browser.cjs:65:21 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

@@ -1,0 +1,17 @@
+{
+  "scope": "isolated 390px mobile/touch emulation, fixed source and existing Day24 numeric payload; no Python reducer claim",
+  "source_tap": true,
+  "touch_release": {
+    "scene": "ba74aacf449e6896e060d55c63bd7934fa28ed6817d510b558a2f86acdb1fd41",
+    "revision": 1,
+    "token": "1791537713046-3puzoj6m5sl",
+    "kind": "manipulate",
+    "target": "pointer",
+    "x": 6.123233995736766e-17,
+    "y": 1,
+    "time": 0
+  },
+  "handle_hit_width_css_px": 18,
+  "outer_scroll_available": true,
+  "page_errors": []
+}

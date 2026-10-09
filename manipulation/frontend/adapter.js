@@ -117,6 +117,7 @@ function mount(element,payload,hooks){
    fillColor:'#6750c5',strokeColor:'white',strokeWidth:3,highlightFillColor:'#b59aff',highlightStrokeColor:'#6750c5',highlightSize:11,
    snapToGrid:false,showInfobox:false,ariaLabel:target.label});
   points.set(target.id,point);
+  if((p.focused_target_ids||[]).includes(target.id))point.setAttribute({fillColor:'#087e8b',strokeColor:'#ffd166',strokeWidth:4});
   // Plain DOM text bypasses the library's text/JessieCode/markup facilities.
   if(global.document){const label=global.document.createElement('span');label.textContent=target.label;label.style.cssText='position:absolute;pointer-events:none;font:13px system-ui;color:#6750c5';element.append(label);labels.set(target.id,label)}
   point.rendNode?.setAttribute('aria-label',target.label);
@@ -145,11 +146,12 @@ function mount(element,payload,hooks){
   point.on('keydrag',()=>{active=target;move();finish()});
  }
  const cancel=()=>{if(blocked)return;active=null;values={...p.values};data=p.current;update()};
+ const setFocus=ids=>{for(const [id,point]of points)point.setAttribute(ids.includes(id)?{fillColor:'#087e8b',strokeColor:'#ffd166',strokeWidth:4}:{fillColor:'#6750c5',strokeColor:'white',strokeWidth:3})};
  element.addEventListener('pointercancel',cancel);
  const escape=e=>{if(e.key==='Escape')cancel()};
  element.addEventListener('keydown',escape);
  update();
- return {board,points,update,finish,cancel,destroy(){cancelAnimationFrame(frame);element.removeEventListener('pointercancel',cancel);element.removeEventListener('keydown',escape);for(const label of labels.values())label.remove();global.JXG.JSXGraph.freeBoard(board)}};
+ return {board,points,update,finish,cancel,setFocus,destroy(){cancelAnimationFrame(frame);element.removeEventListener('pointercancel',cancel);element.removeEventListener('keydown',escape);for(const label of labels.values())label.remove();global.JXG.JSXGraph.freeBoard(board)}};
 }
 global.DirectManipulation={mount,inverse,position,interpolate,sample,bounds};
 })(globalThis);

@@ -46,7 +46,8 @@ def world_payload(scene,wrapper):
         {p["id"]:p["default"] for p in scene["parameters"]},scene["objects"],scene["series"],scene["metrics"],
         world_projection(scene,state["parameters"]),previews,state["time"],committed=dict(
             objects={o["id"]:exact["projections"][o["id"]] for o in scene["objects"]},
-            metrics={m["id"]:exact["projections"][m["id"]][0] for m in scene["metrics"]}))
+            metrics={m["id"]:exact["projections"][m["id"]][0] for m in scene["metrics"]}),
+        focused_target_ids=[t["id"] for t in ts if t["semantic_id"]==state["focus"]])
 
 
 def render_world(scene,wrapper):
@@ -86,6 +87,8 @@ def render_lab(demo,saved,material,path):
     if not lab.targets(demo,saved["values"],semantic_id): return False
     try:
         data=lab_payload(demo,saved,material,semantic_id)
+        from workspace.state import get_workspace_focus
+        data["focused_target_ids"]=[t["id"] for t in data["targets"] if t["semantic_id"]==get_workspace_focus(get_workspace_state(material),wrapper)]
         st.caption(tr("Drag an anchor vertically"))
         event=_component(payload=data,key="direct-lab-"+data["identity"],default=None)
         focus=lambda i:set_workspace_focus(get_workspace_state(material),i,catalog,wrapper)

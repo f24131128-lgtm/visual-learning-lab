@@ -1,0 +1,11 @@
+locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('option', { name: '第 2 頁', exact: true })
+
+    at choosePage (D:\Projects\visual-learning-lab\tests\day25_app_browser.cjs:13:182)
+    at async D:\Projects\visual-learning-lab\tests\day25_app_browser.cjs:39:29 {
+  log: [
+    "  - waiting for getByRole('option', { name: '第 2 頁', exact: true })"
+  ],
+  name: 'TimeoutError'
+}

@@ -3322,5 +3322,7 @@ if analysis:
     with focus_slot.container():
         catalog = semantic_catalog(wrapper.get("scene"), analysis)
         render_focus(workspace_state, catalog, wrapper, allowed_source_pages)
+        from workspace.twin_ui import render_grounded_twin
+        render_grounded_twin(workspace_state, analysis, wrapper, catalog, interactive_lab, learning_path, allowed_source_pages)
 
 render_footer()

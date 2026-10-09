@@ -1,0 +1,358 @@
+{
+  "atlas_version": "1.0",
+  "processed_pages": [
+    1,
+    2,
+    3
+  ],
+  "regions": [
+    {
+      "region_id": "p1_formula_theta",
+      "page": 1,
+      "bbox": {
+        "x0": 0.06774193548387097,
+        "y0": 0.11226708860759498,
+        "x1": 0.25890483870967745,
+        "y1": 0.1287227848101266
+      },
+      "type": "formula",
+      "label": "相位角關係式",
+      "semantic_ids": [
+        "angle",
+        "phase"
+      ],
+      "source_text_excerpt": "theta = time + phase",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_phase_baseline",
+        "p2_formula_theta"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Native PDF text geometry; semantic support remains estimated.",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p1_phase_baseline",
+      "page": 1,
+      "bbox": {
+        "x0": 0.0677,
+        "y0": 0.1553,
+        "x1": 0.3644,
+        "y1": 0.1718
+      },
+      "type": "annotation",
+      "label": "相位基準",
+      "semantic_ids": [
+        "phase"
+      ],
+      "source_text_excerpt": "Source baseline: phase = 0 rad.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_formula_theta",
+        "p1_phase_range"
+      ],
+      "layer": "labels",
+      "grounding_note": "文字明確指定來源基準為 phase = 0 rad。",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p1_phase_range",
+      "page": 1,
+      "bbox": {
+        "x0": 0.06774193548387097,
+        "y0": 0.19834303797468358,
+        "x1": 0.5076661290322583,
+        "y1": 0.21479873417721523
+      },
+      "type": "formula",
+      "label": "相位探索範圍與正弦訊號",
+      "semantic_ids": [
+        "phase",
+        "wave",
+        "angle"
+      ],
+      "source_text_excerpt": "Explore phase from -pi to pi. signal = sin(theta).",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_formula_theta",
+        "p3_signal_formula"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Native PDF text geometry; semantic support remains estimated.",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p1_source_note",
+      "page": 1,
+      "bbox": {
+        "x0": 0.0677,
+        "y0": 0.2414,
+        "x1": 0.6295,
+        "y1": 0.2578
+      },
+      "type": "annotation",
+      "label": "來源值說明",
+      "semantic_ids": [],
+      "source_text_excerpt": "Source values remain unchanged during learner exploration.",
+      "parent_region_id": null,
+      "related_region_ids": [],
+      "layer": "labels",
+      "grounding_note": "這是頁面底部的來源資料說明，未對應至供應的語意實體。",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p2_formula_theta",
+      "page": 2,
+      "bbox": {
+        "x0": 0.053164556962025315,
+        "y0": 0.14305000000000004,
+        "x1": 0.20319113924050636,
+        "y1": 0.1640177419354839
+      },
+      "type": "formula",
+      "label": "幾何表示中的相位角關係式",
+      "semantic_ids": [
+        "angle",
+        "phase"
+      ],
+      "source_text_excerpt": "theta = time + phase",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p2_diagram",
+        "p1_formula_theta"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Native PDF text geometry; semantic support remains estimated.",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p2_diagram",
+      "page": 2,
+      "bbox": {
+        "x0": 0.0633,
+        "y0": 0.2419,
+        "x1": 0.6582,
+        "y1": 0.7903
+      },
+      "type": "diagram",
+      "label": "幾何相位圖",
+      "semantic_ids": [
+        "angle"
+      ],
+      "source_text_excerpt": "",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p2_circle",
+        "p2_axes",
+        "p2_vector",
+        "p2_endpoint"
+      ],
+      "layer": "structure",
+      "grounding_note": "頁面下半部可清楚辨識圓、座標軸、水平向量與端點所組成的幾何圖。",
+      "confidence": "high",
+      "excerpt_verified": false
+    },
+    {
+      "region_id": "p2_circle",
+      "page": 2,
+      "bbox": {
+        "x0": 0.0633,
+        "y0": 0.3387,
+        "x1": 0.3924,
+        "y1": 0.7581
+      },
+      "type": "curve",
+      "label": "單位圓",
+      "semantic_ids": [
+        "angle"
+      ],
+      "source_text_excerpt": "",
+      "parent_region_id": "p2_diagram",
+      "related_region_ids": [
+        "p2_axes",
+        "p2_vector",
+        "p2_endpoint"
+      ],
+      "layer": "vectors",
+      "grounding_note": "圖中左側有一個清楚的紫色圓形曲線，與座標原點及端點相交。",
+      "confidence": "high",
+      "excerpt_verified": false
+    },
+    {
+      "region_id": "p2_axes",
+      "page": 2,
+      "bbox": {
+        "x0": 0.1013,
+        "y0": 0.2419,
+        "x1": 0.6582,
+        "y1": 0.7903
+      },
+      "type": "vector",
+      "label": "座標軸",
+      "semantic_ids": [],
+      "source_text_excerpt": "",
+      "parent_region_id": "p2_diagram",
+      "related_region_ids": [
+        "p2_circle",
+        "p2_vector"
+      ],
+      "layer": "vectors",
+      "grounding_note": "可見水平與垂直細線構成的座標軸；未將其強行對應至未標示的語意實體。",
+      "confidence": "high",
+      "excerpt_verified": false
+    },
+    {
+      "region_id": "p2_vector",
+      "page": 2,
+      "bbox": {
+        "x0": 0.2278,
+        "y0": 0.5363,
+        "x1": 0.3924,
+        "y1": 0.5613
+      },
+      "type": "vector",
+      "label": "水平半徑向量",
+      "semantic_ids": [],
+      "source_text_excerpt": "",
+      "parent_region_id": "p2_diagram",
+      "related_region_ids": [
+        "p2_circle",
+        "p2_endpoint",
+        "p2_axes"
+      ],
+      "layer": "vectors",
+      "grounding_note": "圖中從原點沿水平軸伸至紫色端點的粗線向量清楚可見。",
+      "confidence": "high",
+      "excerpt_verified": false
+    },
+    {
+      "region_id": "p2_endpoint",
+      "page": 2,
+      "bbox": {
+        "x0": 0.3823,
+        "y0": 0.5363,
+        "x1": 0.4025,
+        "y1": 0.5613
+      },
+      "type": "component",
+      "label": "幾何端點",
+      "semantic_ids": [],
+      "source_text_excerpt": "",
+      "parent_region_id": "p2_diagram",
+      "related_region_ids": [
+        "p2_vector",
+        "p2_circle"
+      ],
+      "layer": "structure",
+      "grounding_note": "紫色圓周右側可清楚辨識一個實心圓端點。",
+      "confidence": "high",
+      "excerpt_verified": false
+    },
+    {
+      "region_id": "p2_identity_note",
+      "page": 2,
+      "bbox": {
+        "x0": 0.0532,
+        "y0": 0.1979,
+        "x1": 0.4309,
+        "y1": 0.2189
+      },
+      "type": "annotation",
+      "label": "物件與公式的語意一致性",
+      "semantic_ids": [
+        "angle"
+      ],
+      "source_text_excerpt": "The object and formula share one semantic identity.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p2_diagram",
+        "p2_formula_theta"
+      ],
+      "layer": "relationships",
+      "grounding_note": "文字明確說明幾何物件與公式共用一個語意身分。",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p3_derived_note",
+      "page": 3,
+      "bbox": {
+        "x0": 0.0677,
+        "y0": 0.0692,
+        "x1": 0.4791,
+        "y1": 0.0857
+      },
+      "type": "definition",
+      "label": "推導量說明",
+      "semantic_ids": [
+        "wave"
+      ],
+      "source_text_excerpt": "Derived quantity - page-level source support",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_no_handle",
+        "p3_signal_formula"
+      ],
+      "layer": "structure",
+      "grounding_note": "頁首明確將本頁標示為推導量的來源支援。",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p3_no_handle",
+      "page": 3,
+      "bbox": {
+        "x0": 0.0677,
+        "y0": 0.1123,
+        "x1": 0.7146,
+        "y1": 0.1287
+      },
+      "type": "annotation",
+      "label": "無獨立拖曳控制",
+      "semantic_ids": [
+        "wave"
+      ],
+      "source_text_excerpt": "This result follows from the model; it has no independent drag handle.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_signal_formula"
+      ],
+      "layer": "relationships",
+      "grounding_note": "文字明確說明結果由模型導出，且沒有獨立拖曳控制。",
+      "confidence": "high",
+      "excerpt_verified": true
+    },
+    {
+      "region_id": "p3_signal_formula",
+      "page": 3,
+      "bbox": {
+        "x0": 0.06774193548387097,
+        "y0": 0.15530506329113927,
+        "x1": 0.2338064516129032,
+        "y1": 0.17176075949367092
+      },
+      "type": "formula",
+      "label": "正弦訊號公式",
+      "semantic_ids": [
+        "wave",
+        "angle"
+      ],
+      "source_text_excerpt": "signal = sin(theta)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_phase_range",
+        "p3_no_handle"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Native PDF text geometry; semantic support remains estimated.",
+      "confidence": "high",
+      "excerpt_verified": true
+    }
+  ],
+  "diagnostics": []
+}

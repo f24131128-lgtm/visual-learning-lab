@@ -56,10 +56,19 @@ def render_source_actions(bundle):
     process_ids = plan["focus_ids"] if plan and plan["family"] in ("process", "execution") else []
     supported = actions(region, catalog, wrapper, st.session_state.get("workspace_learning_path"), process_ids)
     prefix = "workspace-action-"+bundle["material_id"]
+    from .state import focusable, set_workspace_focus
+    choices = [i for i in (region or {}).get("semantic_ids", []) if focusable(i, catalog, wrapper)]
+    if len(choices) > 1:
+        key = prefix+"-meaning"
+        focus = get_workspace_focus(state, wrapper)
+        st.session_state[key] = focus if focus in choices else None
+        st.selectbox(tr("Choose linked meaning"), choices, index=None, key=key,
+                     format_func=lambda i: catalog[i]["label"],
+                     on_change=lambda: set_workspace_focus(state, st.session_state[key], catalog, wrapper))
     if "explore" in supported:
         chosen = get_workspace_focus(state, wrapper)
-        if chosen not in supported["explore"]: chosen = supported["explore"][0]
-        st.button(tr("Explore in interactive scene"), key=prefix+"-explore", on_click=open_workspace,
+        if chosen not in supported["explore"] and len(supported["explore"]) == 1: chosen = supported["explore"][0]
+        if chosen in supported["explore"]: st.button(tr("Explore in interactive scene"), key=prefix+"-explore", on_click=open_workspace,
                   args=(state, "explore", chosen, catalog, wrapper))
     if "formula" in supported:
         def reveal_formula():

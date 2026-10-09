@@ -244,8 +244,11 @@ def render_lab_links(lab, step_ids, material_id, key_prefix, recommended=False):
     render_simulation_links(lab, step_ids, material_id, key_prefix, recommended)
 
 
-def _save_parameter(state, demo_id, parameter_id, widget_key):
-    state["demos"][demo_id]["values"][parameter_id] = st.session_state[widget_key]
+def _save_parameter(state, demo_id, parameter_id, widget_key, generation=None):
+    saved = state["demos"][demo_id]
+    if generation is not None and generation != saved.get("control_generation", 0):
+        return  # A retired pre-gesture widget cannot overwrite canonical values.
+    saved["values"][parameter_id] = st.session_state[widget_key]
 
 
 def _save_compare(state, demo_id, widget_key):
@@ -254,6 +257,8 @@ def _save_compare(state, demo_id, widget_key):
 
 def _reset_parameters(state, demo, prefix):
     state["demos"][demo["id"]]["values"] = default_values(demo)
+    if state["demos"][demo["id"]].get("control_generation"):
+        state["demos"][demo["id"]]["control_generation"] += 1
     for parameter in demo["parameters"]:
         st.session_state[f"{prefix}-{parameter['id']}"] = parameter["default"]
 
@@ -298,6 +303,8 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
         st.button(tr("Reset parameters"), key=f"{prefix}-reset", on_click=_reset_parameters, args=(state, demo, prefix))
         for parameter in demo["parameters"]:
             key = f"{prefix}-{parameter['id']}"
+            generation = saved.get("control_generation", 0)
+            if generation: key += f"-control-{generation}"
             st.session_state[key] = saved["values"][parameter["id"]]
             label = parameter["label"] + (f" ({parameter['unit']})" if parameter["unit"] else "")
             if parameter.get("parameter_kind") == "fixed":
@@ -306,7 +313,7 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
                 continue
             st.caption(tr("Generated exploration range"))
             st.slider(label, min_value=parameter["min"], max_value=parameter["max"], step=parameter["step"],
-                      key=key, on_change=_save_parameter, args=(state, demo["id"], parameter["id"], key))
+                      key=key, on_change=_save_parameter, args=(state, demo["id"], parameter["id"], key, generation))
         compare_key = f"{prefix}-compare"
         st.session_state[compare_key] = saved["compare"]
         st.checkbox(tr("Compare with default"), key=compare_key, on_change=_save_compare, args=(state, demo["id"], compare_key))

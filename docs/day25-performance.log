@@ -1,0 +1,29 @@
+[
+  {
+    "case": "phase",
+    "derivation_median_ms": 0.0555,
+    "source_click_focus_median_ms": 0.0118,
+    "focus_region_median_ms": 0.0062,
+    "navigation_median_ms": 0.0035,
+    "link_bytes": 964,
+    "manipulation_target_count": 1
+  },
+  {
+    "case": "projectile",
+    "derivation_median_ms": 0.0665,
+    "source_click_focus_median_ms": 0.0152,
+    "focus_region_median_ms": 0.0069,
+    "navigation_median_ms": 0.0039,
+    "link_bytes": 935,
+    "manipulation_target_count": 1
+  },
+  {
+    "case": "math",
+    "derivation_median_ms": 0.0541,
+    "source_click_focus_median_ms": 0.0081,
+    "focus_region_median_ms": 0.0059,
+    "navigation_median_ms": 0.0033,
+    "link_bytes": 1006,
+    "manipulation_target_count": 2
+  }
+]

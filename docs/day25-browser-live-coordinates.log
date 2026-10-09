@@ -1,0 +1,7 @@
+{"case":"phase","desired":[0,1],"result":{"values":{"phase":1.5707963267948966},"metrics":{"wave_value":1},"focus":["pointer"],"targets":[{"id":"pointer","object_id":"pointer","semantic_id":"angle","label":"旋轉指針","gesture":"drag_on_circle","coordinate_space":"world","dimensions":2,"parameter_ids":["phase"],"inverse":{"kind":"circular","origin":[0,0],"angle_id":"phase","angle_scale":1,"offset":0},"bounds":[-1,-1,1,1],"position":[6.123233995736766e-17,1],"source_pages":[1]}]}}
+{"case":"projectile","desired":[15,25.980762113533157],"result":{"values":{"speed":29.999997561261676,"angle":1.0471975042630524,"grav":9.8},"metrics":{"metric_px":0,"metric_py":0,"metric_vx":15.000000000000002,"metric_vy":25.980759297520663,"metric_energy":449.9999268378532},"focus":["launch"],"targets":[{"id":"launch","object_id":"launch","semantic_id":"launch_y","label":"Launch direction","gesture":"drag_vector_endpoint","coordinate_space":"world","dimensions":2,"parameter_ids":["angle","speed"],"inverse":{"kind":"polar","origin":[0,0],"angle_id":"angle","angle_scale":1,"offset":0,"radius_id":"speed","radius_scale":1,"radius_offset":0},"bounds":[-100,-100,100,100],"position":[15.000000000000002,25.980759297520663],"source_pages":[1]}]}}
+frame.waitForFunction: Frame was detached
+    at D:\Projects\visual-learning-lab\tests\day25_app_browser.cjs:78:16 {
+  log: [],
+  name: 'Error'
+}

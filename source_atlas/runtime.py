@@ -14,7 +14,7 @@ from .state import consume_event, current_focus, optional_scene, select_region, 
 
 _component = components.declare_component("source_atlas_viewer", path=str(Path(__file__).parent/"frontend"))
 LABELS = ("Zoom", "Reset view", "Diagram Breakdown", "All layers", "Structure", "Labels", "Vectors", "Formulas", "Relationships",
-          "Active focus only", "Hide labels", "Reveal label", "Estimated region — verify on the original page.", "Source Viewer")
+          "Active focus only", "Hide labels", "Reveal label", "Estimated region — verify on the original page.", "Source Viewer", "Focus source region")
 
 
 def viewer_payload(bundle, selected, render):

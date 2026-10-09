@@ -44,12 +44,12 @@ function renderValues(data,values,tentative){
 window.addEventListener('message',event=>{
  if(event.source!==parent||event.data.type!=='streamlit:render')return;
  const next=event.data.args.payload;if(!next||next.version!=='1.0')return;
- const key=JSON.stringify([next.identity,next.revision,next.ack,next.labels]);if(key===stamp)return;
+ const key=JSON.stringify([next.identity,next.revision,next.ack,next.labels,next.focused_target_ids]);if(key===stamp)return;
  // A canonical focus acknowledgment can arrive mid-drag. Preserve the board,
  // pointer capture and numeric tentative preview only if formal state is equal.
  // A parameter/time/spec change cancels the gesture instead of rebasing it.
  if(focusPending&&controller&&next.identity===P.identity&&JSON.stringify(next.values)===JSON.stringify(P.values)&&next.time===P.time&&JSON.stringify(next.labels)===JSON.stringify(P.labels)){
-  P=next;stamp=key;focusPending=false;if(releaseBuffer){const data=releaseBuffer;releaseBuffer=null;release(data)}return;
+  P=next;stamp=key;controller.setFocus(next.focused_target_ids||[]);focusPending=false;if(releaseBuffer){const data=releaseBuffer;releaseBuffer=null;release(data)}return;
  }
  focusPending=false;releaseBuffer=null;
  stamp=key;P=next;pending=false;

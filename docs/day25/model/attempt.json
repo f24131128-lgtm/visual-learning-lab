@@ -1,0 +1,14 @@
+{
+  "stage": "existing Source Atlas vision grounding",
+  "model": "gpt-5.6-luna",
+  "paid_attempts": 1,
+  "sdk_retries": 0,
+  "input_tokens": 9118,
+  "output_tokens": 2407,
+  "total_tokens": 11525,
+  "necessary_for_bridge": false,
+  "purpose": "one fresh grounding observation after deterministic acceptance",
+  "source": "original synthetic three-page engineering PDF",
+  "postcompile_api_delta": 0,
+  "response_id": "resp_0b88ac73683472a1006ac8b0aa754487d0a9cb313678758dd5"
+}

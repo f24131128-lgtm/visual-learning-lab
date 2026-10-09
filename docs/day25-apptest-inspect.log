@@ -1,0 +1,5 @@
+2026-10-09 16:42:42.542 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+selects [('語言 / Language', 'product_language', 'zh-TW'), ('來源頁面', 'atlas-widget-day25-phase-f2a47fbc85b3-page', 1), ('選取來源物件', 'atlas-widget-day25-phase-f2a47fbc85b3-region', 'source_formula'), ('Day 25 離線驗收', 'day25-case', 'phase')]
+caps ['原生 PDF 結構：11 個文字區域。不含 OCR，不呼叫 AI。', '已處理頁面：1 · 2 · 3', '視覺定位為模型估計，請以原始 PDF 核對。', '請先暫停場景播放，再選取來源物件；來源導覽使用已確認的共享狀態。', '定位品質：高信心（仍需核對）', '位置來自原生 PDF 文字幾何；語意支持仍為估計。', '連結語意: 相位角', '已核對的擷取原文', '參數: 相位 · 時間', '語意量: 相位角', '連動表示: 空間視圖 · 訊號／波形 · 方程式／狀態視角', '概念來源軌跡', '規劃中的功能 · 將於後續版本推出', 'Visual Learning Lab · 每天一步，公開打造。', '原創三頁工程測試 PDF；非真實教材驗證。模型請求被阻擋，互動 API 差值 0。']
+errors []
+atlas ('day25-phase', 'a4ff19ad983218a2e93dc0f387691eac231840d6e9ac644a91210c61b788127c', 'zh-TW', '1.0', (1, 2, 3), '52043150625a250f03d23fcb739e92115adb1f84c60f3cf34cc7576e4b4d36ea') 3

@@ -1,0 +1,14 @@
+{
+  "scope": "one fresh Atlas declaration on synthetic original PDF with existing deterministic world; human fidelity pending",
+  "accepted_regions": 14,
+  "dropped_regions": 0,
+  "grounded_semantic_ids": [
+    "angle",
+    "phase",
+    "wave"
+  ],
+  "manipulable_semantic_ids": [
+    "angle"
+  ],
+  "postcompile_api_delta": 0
+}
