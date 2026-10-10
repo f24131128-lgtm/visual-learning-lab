@@ -75,6 +75,8 @@ def render_atlas(bundle, context_panel=None):
             links = selected["semantic_ids"]
             if links:
                 st.caption(tr("Linked meaning")+": "+" · ".join(catalog[i]["label"] for i in links))
+                from workspace.ui import render_source_meaning
+                render_source_meaning(bundle)
                 focusable = [i for i in links if catalog[i]["kind"] not in ("parameter", "time")]
                 if scene and focusable and not st.session_state.get("learning_workspace"):
                     from .state import set_focus

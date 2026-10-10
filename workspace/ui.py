@@ -47,6 +47,23 @@ def render_focus(state, catalog, wrapper, allowed):
         if item: st.button(tr("Clear focus"), key="workspace-clear", type="tertiary", on_click=clear_workspace_focus, args=(state, wrapper))
 
 
+def render_source_meaning(bundle):
+    """Resolve ambiguous source links next to the evidence, before navigation."""
+    state = st.session_state.get("learning_workspace")
+    if not state or state["material_id"] != bundle["material_id"]: return
+    wrapper, catalog = bundle.get("wrapper"), bundle["catalog"]
+    region = sync_region(bundle["state"], get_workspace_focus(state, wrapper))
+    from .state import focusable, set_workspace_focus
+    choices = [i for i in (region or {}).get("semantic_ids", []) if focusable(i, catalog, wrapper)]
+    if len(choices) > 1:
+        key = "workspace-action-"+bundle["material_id"]+"-meaning"
+        focus = get_workspace_focus(state, wrapper)
+        st.session_state[key] = focus if focus in choices else None
+        st.selectbox(tr("Choose linked meaning"), choices, index=None, key=key,
+                     format_func=lambda i: catalog[i]["label"],
+                     on_change=lambda: set_workspace_focus(state, st.session_state[key], catalog, wrapper))
+
+
 def render_source_actions(bundle):
     state = st.session_state.get("learning_workspace")
     if not state or state["material_id"] != bundle["material_id"]: return
@@ -57,15 +74,6 @@ def render_source_actions(bundle):
     process_ids = plan["focus_ids"] if plan and plan["family"] in ("process", "execution") else []
     supported = actions(region, catalog, wrapper, st.session_state.get("workspace_learning_path"), process_ids)
     prefix = "workspace-action-"+bundle["material_id"]
-    from .state import focusable, set_workspace_focus
-    choices = [i for i in (region or {}).get("semantic_ids", []) if focusable(i, catalog, wrapper)]
-    if len(choices) > 1:
-        key = prefix+"-meaning"
-        focus = get_workspace_focus(state, wrapper)
-        st.session_state[key] = focus if focus in choices else None
-        st.selectbox(tr("Choose linked meaning"), choices, index=None, key=key,
-                     format_func=lambda i: catalog[i]["label"],
-                     on_change=lambda: set_workspace_focus(state, st.session_state[key], catalog, wrapper))
     if "explore" in supported:
         chosen = get_workspace_focus(state, wrapper)
         if chosen not in supported["explore"] and len(supported["explore"]) == 1: chosen = supported["explore"][0]

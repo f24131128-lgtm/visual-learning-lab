@@ -18,17 +18,19 @@ button:focus-visible,svg:focus-visible,input:focus-visible,select:focus-visible,
 #metrics{max-height:none;overflow:visible}.hint,.equation{color:var(--vll-muted,#59675f)}.bottom>svg{height:230px}
 @media(max-width:650px){.grid{grid-template-columns:1fr}button,select{min-height:44px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+[hidden]{display:none!important}
+.toolbar{gap:6px;padding:6px 0 12px}.toolbar input{min-width:100px;max-width:220px}.toolbar #timeLabel{font-size:12px;color:var(--vll-muted,#59675f)}
 </style></head><body>
 <div id="parameters" class="controls"></div>
-<div class="controls"><button id="play"></button><button id="pause"></button><button id="reset"></button><select id="speed" aria-label="Playback speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><input id="timeline" type="range" aria-label="Time"><span id="timeLabel"></span></div>
+<div id="playbackToolbar" class="controls toolbar" role="toolbar" aria-label="Playback and comparison"><button id="play"></button><button id="pause"></button><button id="reset"></button><select id="speed" aria-label="Playback speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><input id="timeline" type="range" aria-label="Time"><span id="timeLabel"></span><button id="baselineSet"></button><button id="baselineReset"></button><button id="baselineClear"></button></div>
 <div class="grid">
- <div class="panel"><h3 id="spaceTitle"></h3><div class="legend"><button id="cameraToggle"></button><span id="cameraNote" class="hint"></span></div><svg id="space" viewBox="0 0 520 300" tabindex="0" role="img"></svg><div id="camera" style="display:none;height:300px"></div></div>
+ <div class="panel"><h3 id="spaceTitle"></h3><div id="cameraControls" class="legend"><button id="cameraToggle"></button><span id="cameraNote" class="hint"></span></div><svg id="space" viewBox="0 0 520 300" tabindex="0" role="img"></svg><div id="camera" style="display:none;height:300px"></div></div>
  <div class="panel"><h3 id="stateTitle"></h3><div id="metrics"></div><div id="equations"></div></div>
  <div class="panel bottom"><h3 id="waveTitle"></h3><div id="legend" class="legend"></div><svg id="waves" viewBox="0 0 520 260" tabindex="0" role="img"></svg></div>
  <div class="panel bottom"><h3 id="vectorTitle"></h3><svg id="vectors" viewBox="0 0 520 300" tabindex="0" role="img"></svg></div>
-</div><div class="controls"><button id="baselineSet"></button><button id="baselineReset"></button><button id="baselineClear"></button></div>
+</div>
 <div id="experimentRow" class="controls"><label id="experimentLabel" for="experimentChoice"></label><select id="experimentChoice"></select><button id="experimentRun"></button></div>
-<details><summary id="recordTitle"></summary><div class="controls"><button id="recordStart"></button><button id="recordStop"></button><button id="recordReplay"></button><button id="recordClear"></button><label id="replaySpeedLabel" for="replaySpeed"></label><select id="replaySpeed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><span id="recordStatus"></span></div></details>
+<details id="recordPanel"><summary id="recordTitle"></summary><div class="controls"><button id="recordStart"></button><button id="recordStop"></button><button id="recordReplay"></button><button id="recordClear"></button><label id="replaySpeedLabel" for="replaySpeed"></label><select id="replaySpeed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select><span id="recordStatus"></span></div></details>
 <p id="hint" class="hint"></p><p id="status" class="hint" aria-live="polite"></p>
 <script src="plotly.min.js"></script><script src="camera.js"></script>
 <script>
@@ -143,6 +145,10 @@ window.addEventListener("message",event=>{if(event.source!==parent||event.data.t
 // These are not semantic updates and must not reset the local animation clock.
 if(P&&next.identity===P.identity&&next.revision===P.revision&&next.replay_generation===P.replay_generation&&JSON.stringify(next.recording)===JSON.stringify(P.recording)&&JSON.stringify(next.labels)===JSON.stringify(P.labels))return;
 cancelAnimationFrame(clock);P=next;D=P.data;S=D.current;playing=false;replaying=false;pending=false;drag=null;
+// Internal replay/camera contracts survive; learner controls stay compact.
+$("recordPanel").hidden=Boolean(P.learner_view);$("cameraControls").hidden=Boolean(P.learner_view);
+if(P.learner_view)cameraMode=false;
+$("playbackToolbar").setAttribute('aria-label',t('Playback and comparison workspace'));
 for(const [id,key] of [["spaceTitle","Spatial Scene"],["stateTitle","Equation / State Lens"],["waveTitle","Signal / Waveform"],["vectorTitle","Vector / Phasor"],["play","Play"],["pause","Pause"],["reset","Reset time"],["hint","Drag a highlighted handle; click a waveform or trajectory to explore the same system."]])text($(id),t(key));
 if(!P.inverse.length)text($("hint"),t("Click a waveform or select an object to explore the same system."));
 for(const [id,key] of [["baselineSet","Set baseline"],["baselineReset","Reset to baseline"],["baselineClear","Clear comparison"]])text($(id),t(key));

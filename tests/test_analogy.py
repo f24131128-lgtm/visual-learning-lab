@@ -268,7 +268,7 @@ class AnalogyAppTests(unittest.TestCase):
             self.assertTrue(any("譬喻在哪裡不成立" in m.value for m in at.markdown))
             self.assertFalse(any("volts/ohms" in c.value for c in at.code))
             at.radio(key="workspace-representation-a").set_value("formal").run(); self.assertFalse(at.exception)
-            self.assertEqual(at.selectbox(key="world-widget-a-focus").value,"resistance")
+            self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"],"resistance")
             at.radio(key="workspace-representation-a").set_value("analogy").run()
             self.assertEqual(next(s for s in at.slider if s.label=="管道限制").value,5.)
             next(b for b in at.button if b.label=="重設譬喻控制").click().run()

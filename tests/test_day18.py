@@ -366,6 +366,15 @@ class WorldProductTests(unittest.TestCase):
         self.assertFalse(at.exception)
         self.assertTrue(at.session_state["learning_scene_state"]["scene"])
 
+    def local_event(self, at, kind, **data):
+        """Exercise the production component/reducer boundary, not retired UI."""
+        wrapper = at.session_state["learning_scene_state"]
+        event = dict(scene=runtime.scene_identity(wrapper["scene"]),
+                     revision=wrapper["world"]["revision"],
+                     token="local-"+str(wrapper["world"]["revision"]), kind=kind, **data)
+        with patch.object(runtime, "_component", return_value=event): at.run()
+        self.assertFalse(at.exception)
+
     def test_normal_pdf_path_exposes_localized_cta_before_overview(self):
         at = self.app("zh-TW")
         self.client.responses.create.assert_not_called()
@@ -385,14 +394,16 @@ class WorldProductTests(unittest.TestCase):
         self.assertEqual(request["text"]["format"]["schema"], WORLD_SCHEMA)
         self.assertTrue(request["text"]["format"]["strict"])
         self.assertIn("English", request["instructions"])
-        at.slider(key="world-widget-physics-pdf-time").set_value(.003).run()
-        at.button(key="world-widget-physics-pdf-baseline").click().run()
-        at.slider(key="world-widget-physics-pdf-param-amplitude").set_value(1.5).run()
-        at.selectbox(key="world-widget-physics-pdf-focus").select("ia").run()
-        at.button(key="world-widget-physics-pdf-record").click().run()
-        at.button(key="world-widget-physics-pdf-run-experiment").click().run()
-        at.button(key="world-widget-physics-pdf-stop").click().run()
-        at.button(key="world-widget-physics-pdf-replay").click().run()
+        self.local_event(at, "patch", patch=dict(op="set_time", target_id="time", value=.003))
+        self.local_event(at, "baseline", action="set", time=.003)
+        self.local_event(at, "batch", patches=[dict(op="set_time", target_id="time", value=.003),
+                                             dict(op="set_parameter", target_id="amplitude", value=1.5)])
+        self.local_event(at, "focus", semantic_id="ia", time=.003)
+        self.local_event(at, "record", action="start", time=.003)
+        scene = at.session_state["learning_scene_state"]["scene"]
+        self.local_event(at, "experiment", id=scene["experiments"][0]["id"], time=.003)
+        self.local_event(at, "record", action="stop", time=.003)
+        self.local_event(at, "record", action="replay", time=.003)
         at.selectbox(key="product_language").select("zh-TW").run()
         self.assertFalse(at.exception)
         wrapper = at.session_state["learning_scene_state"]
@@ -427,17 +438,18 @@ class WorldProductTests(unittest.TestCase):
         at = self.app(); self.client.responses.create.return_value = SimpleNamespace(output_text='{"domain":"spatial_dynamics"}')
         at.button(key="scene-widget-build-physics-pdf").click().run()
         self.assertFalse(at.exception)
-        self.assertTrue(any("incomplete or unsafe" in m.value for m in at.info))
+        self.assertTrue(any("did not pass safety validation" in m.value for m in at.info))
         at.radio(key="workspace-mode-physics-pdf").set_value("practice").run()
         self.assertTrue(any("Guided Learning" in m.value for m in at.markdown))
         at.radio(key="workspace-mode-physics-pdf").set_value("explore").run()
         at.run()
-        self.assertTrue(at.button(key="scene-widget-build-physics-pdf").disabled)
+        self.assertFalse(at.button(key="scene-widget-build-physics-pdf").disabled)
+        self.assertEqual(at.button(key="scene-widget-build-physics-pdf").label, "Regenerate Spatial Learning World")
         self.assertEqual(self.client.responses.create.call_count, 1)
 
     def test_cached_world_reopens_and_new_material_resets_local_state(self):
         at = self.app(); self.build(at)
-        at.slider(key="world-widget-physics-pdf-time").set_value(.005).run()
+        self.local_event(at, "patch", patch=dict(op="set_time", target_id="time", value=.005))
         at.session_state["learning_scene_state"] = None
         at.run(); self.assertFalse(at.exception)
         self.assertEqual(self.client.responses.create.call_count, 1)
@@ -451,8 +463,9 @@ class WorldProductTests(unittest.TestCase):
     def test_projectile_uses_identical_product_runtime(self):
         at = self.app(); self.client.responses.create.return_value = SimpleNamespace(output_text=json.dumps(projectile_world()))
         self.build(at)
-        at.slider(key="world-widget-physics-pdf-time").set_value(.3).run()
-        at.slider(key="world-widget-physics-pdf-param-angle").set_value(1.).run()
+        self.local_event(at, "patch", patch=dict(op="set_time", target_id="time", value=.3))
+        self.local_event(at, "batch", patches=[dict(op="set_time", target_id="time", value=.3),
+                                             dict(op="set_parameter", target_id="angle", value=1.)])
         self.assertFalse(at.exception)
         wrapper = at.session_state["learning_scene_state"]
         data = runtime.payload(wrapper["scene"], wrapper)["data"]["current"]

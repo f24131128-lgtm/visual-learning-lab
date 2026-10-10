@@ -228,7 +228,7 @@ def log_scene_declaration(raw):
         return [{field: item.get(field) for field in fields} for item in values[:limit] if isinstance(item, dict)]
     details = dict(domain=raw.get("domain"), version=raw.get("scene_version"), time=raw.get("time"), axes=raw.get("axes"),
                    primitives=entries("objects", ("id", "type", "semantic_id", "origin", "origin_quantity_ids"), 12),
-                   parameters=entries("parameters", ("id", "min", "max", "default", "step"), 4),
+                   parameters=entries("parameters", ("id", "min", "max", "default", "step", "quantity_kind", "range_source", "display_unit"), 4),
                    expressions=entries("quantities", ("id", "expression"), 24),
                    bindings=entries("bindings", ("id", "type", "target_id", "quantity_ids")),
                    inverse_bindings=entries("inverse_bindings", ("id", "type", "object_id", "target_id", "rate_expression", "offset_expression", "scale"), 4),
@@ -271,7 +271,11 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
         with st.container(border=True):
             st.markdown("### " + tr("Spatial Learning World" if spatial else "Learning Scene"))
             st.caption(tr("Explore one physical system through coordinated spatial, signal and vector views." if spatial else "This material can be explored as a coordinated probability workspace."))
-            if st.button(tr("Build Spatial Learning World" if spatial else "Build Learning Scene"), key=f"scene-widget-build-{material_id}", type="primary", disabled=spatial and state.get("attempted", False)):
+            retry = state.get("error") == "invalid"
+            build_label = ("Regenerate Spatial Learning World" if spatial else "Regenerate Learning Scene") if retry else ("Build Spatial Learning World" if spatial else "Build Learning Scene")
+            # Rejections remain cached across reruns/navigation. Only an explicit
+            # learner retry may make another request for this material identity.
+            if st.button(tr(build_label), key=f"scene-widget-build-{material_id}", type="primary"):
                 returned = False
                 try:
                     logger.debug("Learning Scene compiler requested material=%s", material_id)
@@ -301,7 +305,7 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
             if state.get("error") == "key":
                 st.info(tr("Learning Scene API access is not configured yet."))
             elif state.get("error") == "invalid":
-                st.info(tr("The Learning Scene was incomplete or unsafe. Your analysis is still available."))
+                st.info(tr("This interactive scene did not pass safety validation. Your original material and analysis remain available. You can regenerate the interactive scene."))
     from source_atlas.compiler import render_atlas_builder
     from source_atlas.runtime import render_atlas
     bundle = None if workspace_mode == "explore" else render_atlas_builder(analysis, material_id, source_context, allowed_pages, model, state)

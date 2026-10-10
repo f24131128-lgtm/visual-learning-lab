@@ -82,6 +82,11 @@ If a quantity is fixed by the source, declare min=max=default and step=0; it is 
 never an invented slider range. Derived values belong in the quantity DAG, not adjustable parameters.
 Do not invent a source range. Scalar/length/speed/acceleration/frequency/angle/inclination_angle are safe
 quantity kinds, not renderer modes. Inclination means a strictly positive angle below pi/2.
+length is a non-negative distance/magnitude (min >= 0), including initial height above ground;
+ground-level initial height may be exactly 0, including a fixed min=max=default=0 with step=0.
+speed, frequency and acceleration retain strictly positive ranges (min > 0).
+Signed positions/displacements use scalar with source-supported coordinate/reference assumptions
+and explicit source or pedagogical ranges; never classify negative coordinates as length.
 For an ideal same-height flight, useful pedagogical ranges can be speed 5..100 m/s,
 inclination 5..85 degrees (store radians), gravity 1..20 m/s², if consistent with the source model.
 Stable ASCII ids; concise human labels.
@@ -123,6 +128,9 @@ Keep projectile time interval and parameter ranges physically valid (no below-gr
 position, velocity and graphs with this same generic model. Do not insert a motor/projectile renderer.
 Experiments <=4 with <=8 whitelisted steps: set_parameter/set_time numeric values; set_focus exact
 quantity id and value null; restore_baseline target_id empty, value null. Observation targets exact quantities.
+For every experiment step, set_time target_id MUST be exactly "time" (never empty).
+set_parameter values MUST stay within that parameter's declared min/max, including fixed singleton ranges.
+Validate the complete sequence against its resulting semantic time; omit an uncertain experiment with [].
 No fabricated physics. List simplifications as assumptions. Source pages only supplied allowed pages,
 smallest direct support per item, [] when unclear or pasted text. Never claim assumptions as source evidence.
 If a reliable finite numeric model cannot be grounded, do not invent one; the app will safely reject it.

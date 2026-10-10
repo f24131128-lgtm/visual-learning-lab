@@ -312,7 +312,7 @@ class LearningSceneAppTests(unittest.TestCase):
         next(button for button in at.button if button.label == "Build Learning Scene").click().run()
         self.assertFalse(at.exception); self.assertTrue(at.session_state["analysis"])
         self.assertFalse(at.session_state["learning_scene_state"]["scene"])
-        self.assertTrue(any("incomplete or unsafe" in item.value for item in at.info))
+        self.assertTrue(any("did not pass safety validation" in item.value for item in at.info))
         at.radio(key="workspace-mode-probability-material").set_value("practice").run()
         self.assertTrue(any("Guided Learning" in item.value for item in at.markdown))
 

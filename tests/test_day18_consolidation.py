@@ -217,14 +217,18 @@ class ProductPolicyTests(unittest.TestCase):
             at.secrets["OPENAI_API_KEY"]="offline-placeholder";at.run()
             at.button(key="scene-widget-build-complete-flight").click().run()
             self.assertFalse(at.exception)
-            self.assertIn("°",at.slider(key="world-widget-complete-flight-param-angle").label)
-            at.slider(key="world-widget-complete-flight-param-angle").set_value(60.).run()
-            at.slider(key="world-widget-complete-flight-param-grav").set_value(9.8).run()
+            from world_events import world_patch
+            wrapper=at.session_state["learning_scene_state"]
+            angle=next(p for p in runtime.payload(wrapper["scene"],wrapper)["parameters"] if p["id"]=="angle")
+            self.assertEqual(angle["display"]["unit"], "°")
+            self.assertAlmostEqual(angle["display"]["factor"], 180/math.pi)
+            world_patch(at, "set_parameter", "angle", math.pi/3)
+            world_patch(at, "set_parameter", "grav", 9.8)
             self.assertFalse(at.exception)
             wrapper=at.session_state["learning_scene_state"]
             self.assertAlmostEqual(wrapper["world"]["parameters"]["angle"],math.pi/3)
-            self.assertAlmostEqual(at.slider(key="world-widget-complete-flight-time").max,2*20*math.sin(math.pi/3)/9.8)
-            self.assertTrue(any(e.label=="探索紀錄與回放" for e in at.expander))
+            self.assertAlmostEqual(time_domain(wrapper["scene"],wrapper["world"]["parameters"])["max"],2*20*math.sin(math.pi/3)/9.8)
+            self.assertFalse(any(e.label=="探索紀錄與回放" for e in at.expander))
             self.assertEqual(client.responses.create.call_count,1)
 
     def test_new_valid_scene_replaces_rejection_without_reusing_stale_numeric_cache(self):

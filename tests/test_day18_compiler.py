@@ -228,8 +228,9 @@ class CompilerProductRegressionTests(unittest.TestCase):
         for label in ("空間視圖", "訊號／波形", "向量／相量", "方程式／狀態視角"):
             self.assertTrue(any(label in m.value for m in at.markdown))
         self.assertFalse(any("資料不完整" in i.value for i in at.info))
-        at.slider(key="world-widget-zh-three-phase-time").set_value(.25).run()
-        at.slider(key="world-widget-zh-three-phase-param-amplitude").set_value(1.5).run()
+        from world_events import world_patch
+        world_patch(at, "set_time", "time", .25)
+        world_patch(at, "set_parameter", "amplitude", 1.5)
         wrapper = at.session_state["learning_scene_state"]
         data = runtime.payload(wrapper["scene"], wrapper)
         self.assertEqual(data["inverse"], [])
@@ -258,7 +259,8 @@ class CompilerProductRegressionTests(unittest.TestCase):
             self.assertNotIn("Unknown expression reference", item.value)
         self.assertTrue(at.session_state["analysis"])
         at.run()
-        self.assertTrue(at.button(key="scene-widget-build-zh-three-phase").disabled)
+        self.assertFalse(at.button(key="scene-widget-build-zh-three-phase").disabled)
+        self.assertEqual(at.button(key="scene-widget-build-zh-three-phase").label, "重新產生空間學習場景")
         self.assertEqual(self.client.responses.create.call_count, 1)
 
     def test_schema_revision_does_not_reuse_old_invalid_cache(self):

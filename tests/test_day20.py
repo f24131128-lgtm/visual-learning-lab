@@ -225,7 +225,8 @@ class DocumentProductTests(unittest.TestCase):
             formula = at.session_state["source_atlas_state"]["atlas"]["regions"][0]
             self.assertEqual(formula["bbox"], document["atlas"]["regions"][0]["bbox"])
             at.radio(key="workspace-mode-pdf19").set_value("explore").run()
-            at.selectbox(key="world-widget-pdf19-focus").set_value("ib").run()
+            from world_events import world_patch
+            world_patch(at,"set_focus","ib",None)
             at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertFalse(at.exception)
             self.assertEqual(client.responses.create.call_count, 1)

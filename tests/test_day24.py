@@ -300,7 +300,13 @@ class ManipulationProductTests(unittest.TestCase):
    at.run()
   self.assertFalse(at.exception)
   self.assertEqual(at.session_state['analysis']['quick_summary'],SOURCES['projectile'])
-  self.assertTrue(at.slider)
+  # Keyboard fallback sections were retired on Day26. The numeric-only
+  # coordinated component and canonical state remain usable after preview loss.
+  wrapper=at.session_state['learning_scene_state']
+  from scene.world.runtime import payload
+  data=payload(wrapper['scene'],wrapper)
+  self.assertTrue(data['data']['current']['projections'])
+  self.assertTrue(data['learner_view'])
   self.client.responses.create.assert_not_called()
 
 

@@ -202,7 +202,8 @@ class ProductContractTests(unittest.TestCase):
                         at.selectbox(key=key).select(target).run();self.assertFalse(at.exception)
                         self.assertEqual(at.session_state["learning_canvas"]["selected_id"],target)
                 else:
-                    at.slider(key="world-widget-"+material+"-time").set_value(4.).run();self.assertFalse(at.exception)
+                    from world_events import world_patch
+                    world_patch(at,"set_time","time",4.);self.assertFalse(at.exception)
                     wrapper=at.session_state["learning_scene_state"]
                     self.assertAlmostEqual(snapshot(wrapper["scene"],wrapper["world"])["values"]["magnitude"],4/math.e)
                     self.assertFalse(any("amplitude" in s.key or "decay" in s.key for s in at.slider if not s.key.endswith("-time")))

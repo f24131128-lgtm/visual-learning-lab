@@ -58,6 +58,8 @@ def render_grounded_twin(workspace, analysis, wrapper, catalog, lab, path, allow
             support = next((s for s in link["support"] if selected and s["region_id"] == selected["region_id"]), link["support"][0])
             st.caption(tr(KINDS[support["kind"]]) + " · " + tr("Page {page}", page=support["page"]))
             if link["manipulable"]:
+                if workspace["mode"] == "explore":
+                    st.caption(tr("Drag the highlighted object. Its linked views update together; the original source stays unchanged."))
                 ids = link["manipulation_target_ids"]
                 owned = [t for t in data["targets"] if t["id"] in ids]
                 rows, seen = [], set()

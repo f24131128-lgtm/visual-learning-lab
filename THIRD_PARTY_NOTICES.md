@@ -58,3 +58,18 @@ Files/notices: `manipulation/frontend/jsxgraphcore.js`, `jsxgraph.css`,
 including the MIT UTF-8 decoder copyright of Bjoern Hoehrmann (2008–2009).
 The complete JSXGraph MIT text is retained in `LICENSE.jsxgraph.txt`.
 This does not relicense existing dependencies, optional upstream assets or models.
+
+## MIT OCW teaching material — Day 26 evidence
+
+The original source PDF is not included in this repository. Day26 screenshots
+reproduce educational content from MIT OpenCourseWare, 8.01SC Classical
+Mechanics, Chapter 5: Two Dimensional Kinematics (Peter Dourmashkin / MIT course
+team), including Figure 5.3. Source:
+https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/resources/mit8_01scs22_chapter5/.
+OCW terms: https://ocw.mit.edu/pages/privacy-and-terms-of-use/.
+The reproduced educational content is under Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0:
+https://creativecommons.org/licenses/by-nc-sa/4.0/.
+UI grounding annotations and model exploration are additions; the original
+source image remains unchanged. No MIT endorsement is implied. This notice
+does not relicense application code or its software dependencies.

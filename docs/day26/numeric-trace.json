@@ -1,0 +1,264 @@
+{
+  "material": "d091acbc3a9025eddaad30a3d9fa71b2a6061fa292e84922a4c82ea5017b402f",
+  "scene_id": "ideal_projectile_motion",
+  "semantic_id": "vx0",
+  "target_id": "initial_velocity_vector",
+  "source_page": 4,
+  "source_region_id": "p4_velocity_decomposition_diagram",
+  "estimated_box": {
+    "x0": 0.406,
+    "y0": 0.188,
+    "x1": 0.597,
+    "y1": 0.328
+  },
+  "before": {
+    "time": 0,
+    "parameters": {
+      "v0": 20,
+      "angle": 0.7853981634,
+      "y0": 2,
+      "gravity": 9.8
+    },
+    "focus": "vx0",
+    "baseline": null,
+    "previous": {
+      "time": 0,
+      "parameters": {
+        "v0": 20,
+        "angle": 0.7853981634,
+        "y0": 2,
+        "gravity": 9.8
+      },
+      "focus": "x_position",
+      "baseline": null
+    },
+    "revision": 1,
+    "recording": false,
+    "recording_origin": null,
+    "recorded": [],
+    "last_token": null,
+    "experiment": null,
+    "replay_generation": 0
+  },
+  "after": {
+    "time": 0,
+    "parameters": {
+      "v0": 55.19480162942609,
+      "angle": 0.9594044747405803,
+      "y0": 2,
+      "gravity": 9.8
+    },
+    "focus": "vx0",
+    "baseline": null,
+    "previous": {
+      "time": 0,
+      "parameters": {
+        "v0": 20,
+        "angle": 0.7853981634,
+        "y0": 2,
+        "gravity": 9.8
+      },
+      "focus": "vx0",
+      "baseline": null
+    },
+    "revision": 3,
+    "recording": false,
+    "recording_origin": null,
+    "recorded": [],
+    "last_token": "1791629495190-oqr6ojx7sqk",
+    "experiment": null,
+    "replay_generation": 0
+  },
+  "before_projection": {
+    "time": 0,
+    "domain": {
+      "min": 0,
+      "max": 3.0212477109331632,
+      "unit": "s"
+    },
+    "parameters": {
+      "v0": 20,
+      "angle": 0.7853981634,
+      "y0": 2,
+      "gravity": 9.8
+    },
+    "focus": "vx0",
+    "values": {
+      "vx0": 14.142135623694864,
+      "vy0": 14.142135623767038,
+      "x_position": 0.0,
+      "y_position": 2.0,
+      "vx": 14.142135623694864,
+      "vy": 14.142135623767038,
+      "ax": 0.0,
+      "ay": -9.8,
+      "speed": 20.0,
+      "time_top": 1.4430750636496976,
+      "maximum_height": 12.204081632705137,
+      "flight_duration": 3.0212477109331632,
+      "x_axis_dx": 1.0,
+      "x_axis_dy": 0.0,
+      "y_axis_dx": 0.0,
+      "y_axis_dy": 1.0
+    },
+    "projections": {
+      "projectile_point": [
+        0.0,
+        2.0
+      ],
+      "projectile_trajectory": [
+        0.0,
+        2.0
+      ],
+      "velocity_vector": [
+        0.0,
+        2.0,
+        14.142135623694864,
+        14.142135623767038
+      ],
+      "acceleration_vector": [
+        0.0,
+        2.0,
+        0.0,
+        -9.8
+      ],
+      "initial_velocity_vector": [
+        0.0,
+        0.0,
+        14.142135623694864,
+        14.142135623767038
+      ],
+      "horizontal_axis": [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "vertical_axis": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "height_series": [
+        2.0
+      ],
+      "speed_metric": [
+        20.0
+      ],
+      "height_metric": [
+        12.204081632705137
+      ],
+      "top_time_metric": [
+        1.4430750636496976
+      ],
+      "flight_time_metric": [
+        3.0212477109331632
+      ]
+    }
+  },
+  "after_projection": {
+    "time": 0,
+    "domain": {
+      "min": 0,
+      "max": 9.26776699229406,
+      "unit": "s"
+    },
+    "parameters": {
+      "v0": 55.19480162942609,
+      "angle": 0.9594044747405803,
+      "y0": 2,
+      "gravity": 9.8
+    },
+    "focus": "vx0",
+    "values": {
+      "vx0": 31.68224299065421,
+      "vy0": 45.196256548444794,
+      "x_position": 0.0,
+      "y_position": 2.0,
+      "vx": 31.68224299065421,
+      "vy": 45.196256548444794,
+      "ax": 0.0,
+      "ay": -9.8,
+      "speed": 55.19480162942609,
+      "time_top": 4.611862913106611,
+      "maximum_height": 106.21946969351218,
+      "flight_duration": 9.26776699229406,
+      "x_axis_dx": 1.0,
+      "x_axis_dy": 0.0,
+      "y_axis_dx": 0.0,
+      "y_axis_dy": 1.0
+    },
+    "projections": {
+      "projectile_point": [
+        0.0,
+        2.0
+      ],
+      "projectile_trajectory": [
+        0.0,
+        2.0
+      ],
+      "velocity_vector": [
+        0.0,
+        2.0,
+        31.68224299065421,
+        45.196256548444794
+      ],
+      "acceleration_vector": [
+        0.0,
+        2.0,
+        0.0,
+        -9.8
+      ],
+      "initial_velocity_vector": [
+        0.0,
+        0.0,
+        31.68224299065421,
+        45.196256548444794
+      ],
+      "horizontal_axis": [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "vertical_axis": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "height_series": [
+        2.0
+      ],
+      "speed_metric": [
+        55.19480162942609
+      ],
+      "height_metric": [
+        106.21946969351218
+      ],
+      "top_time_metric": [
+        4.611862913106611
+      ],
+      "flight_time_metric": [
+        9.26776699229406
+      ]
+    }
+  },
+  "atlas_unchanged": true,
+  "scene_unchanged": true,
+  "returned_world_equal": true,
+  "focus_preserved": true,
+  "source_hash": "688a232388f914ed834e02b28ba343c10b3866e23c3cd94ff38f859957d0c5ec",
+  "non_manipulable": {
+    "semantic_id": "x_position",
+    "source_region": "p6_vector_equations",
+    "owned_targets": []
+  },
+  "paused_time": 6.775594355710783,
+  "reset_time": 0,
+  "numeric_payload": {
+    "payload_seconds": 0.012704299995675683,
+    "payload_bytes": 88058
+  }
+}

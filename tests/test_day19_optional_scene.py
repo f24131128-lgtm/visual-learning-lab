@@ -170,7 +170,8 @@ class NormalPDFOptionalSceneTests(unittest.TestCase):
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"], "ib")
             at.radio(key="workspace-mode-pdf19").set_value("explore").run()
-            at.selectbox(key="world-widget-pdf19-focus").set_value("ia").run()
+            from world_events import world_patch
+            world_patch(at,"set_focus","ia",None)
             at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state["source_atlas_state"]["region_hint"], "formula_a")

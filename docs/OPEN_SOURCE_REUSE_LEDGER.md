@@ -252,3 +252,31 @@ software supply chain. Third-party notices/vendor hashes remain unchanged.
 frameworks. Existing PyMuPDF AGPL/commercial deployment review is unchanged.
 Practical gains are measured in the existing adapter (same-scene board reuse),
 not claimed as a performance comparison with those reference products.
+# Day 26 — retained components and real teaching evidence (2026-10-10)
+
+No parser, renderer, graph/RAG subsystem or new learning capability was added.
+**REUSE** the existing Source Atlas/Workspace/World/JSXGraph adapters and their
+stable semantic/reducer contracts. **LEARN** from the actual production source
+roundtrip: Streamlit widget cleanup must restore the selected pages from the
+existing material/PDF/language/semantic cache key. **DEFER** OpenSeadragon,
+Three.js, OCR, extra domains and architecture alternatives already compared in
+the earlier ledger; no new code, assets or model weights were copied/downloaded.
+
+Reconfirmed installed versions and retained distribution notices: JSXGraph
+1.13.3 offline core/CSS/MIT license hashes match `vendor-manifest.json`; upstream
+tag's `LICENSE.MIT` confirms the selected MIT option. pypdf 6.19.0 is BSD-3-Clause;
+Plotly 6.9.0 has its installed MIT notice; Streamlit 1.64.0 and OpenAI 1.109.1 have
+Apache-2.0 metadata; Pillow 12.3.0 uses MIT-CMU and NumPy 2.5.3 retains its bundled
+license tree. Requirements and all vendored files remain unchanged. These are
+local resolved-version checks, not a complete transitive audit or a claim that
+every future wheel has the same contents.
+
+PyMuPDF 1.26.7 retains AGPL/commercial terms. Its public `COPYING` and installed
+metadata were checked; the intended public deployment/distribution obligations
+remain unresolved. A permissive parser or frontend does not erase them.
+
+**REUSE, educational evidence only:** MIT OCW Chapter 5, actual public teaching
+material, under OCW CC BY-NC-SA 4.0 terms. Original PDF not committed; four
+screenshots have source attribution and additions identified in
+`THIRD_PARTY_NOTICES.md` and `docs/DAY26_EVIDENCE.md`. This is not a software
+dependency or source-fidelity endorsement.

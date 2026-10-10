@@ -269,7 +269,8 @@ class NormalPDFTests(unittest.TestCase):
             region_select.set_value("vector_b").run();self.assertFalse(at.exception)
             self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"],"ib")
             at.radio(key="workspace-mode-pdf19").set_value("explore").run()
-            at.selectbox(key="world-widget-pdf19-focus").set_value("ia").run();self.assertFalse(at.exception)
+            from world_events import world_patch
+            world_patch(at,"set_focus","ia",None);self.assertFalse(at.exception)
             at.radio(key="workspace-mode-pdf19").set_value("source").run()
             self.assertEqual(at.session_state["source_atlas_state"]["region_hint"],"formula_a")
             next(e for e in at.selectbox if e.label=="來源頁面").set_value(2).run()

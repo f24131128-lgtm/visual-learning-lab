@@ -12,6 +12,8 @@ import numpy as np
 from semantic_contract import numeric_domain
 
 MAX_TIME = 10_000.
+STRICTLY_POSITIVE_KINDS = frozenset(("speed", "frequency", "acceleration"))
+NONNEGATIVE_KINDS = frozenset(("length",))
 
 
 def declaration_defaults(raw):
@@ -38,10 +40,19 @@ def normalize_parameter(p):
     # permission for NaN, reversed bounds, an illegal baseline or absurd values.
     mode = numeric_domain(p, minimum_step=1e-9)
     kind, baseline = p["quantity_kind"], p["default"]
+    # A length is a magnitude/distance, so coincidence (including ground-level
+    # initial height) is valid. Signed coordinates remain explicitly declared
+    # scalars; do not infer a reference frame or change types from IDs/labels.
+    if kind in NONNEGATIVE_KINDS and p["min"] < 0:
+        raise ValueError("Non-negative semantic parameter has a negative range: " + p["id"])
     if mode != "fixed" and p["range_source"] == "semantic_default":
         if kind == "inclination_angle":
             low, high = math.radians(5), math.radians(85)
-        elif kind in ("length", "speed", "frequency", "acceleration"):
+        elif kind == "length":
+            # Preserve positive-baseline defaults; zero needs a bounded,
+            # non-negative fallback instead of the degenerate [0, 0] range.
+            low, high = (baseline/4, baseline*5) if baseline > 0 else (0., 1.)
+        elif kind in STRICTLY_POSITIVE_KINDS:
             if baseline <= 0: raise ValueError("Positive semantic parameter requires a positive baseline: " + p["id"])
             low, high = (baseline*.1, baseline*2) if kind == "acceleration" else (baseline/4, baseline*5)
         elif kind == "angle":
@@ -52,7 +63,7 @@ def normalize_parameter(p):
         if not low <= baseline <= high or max(abs(low), abs(high)) > 1e9:
             raise ValueError("Semantic range cannot safely contain its baseline: " + p["id"])
         p.update(min=low, max=high, step=(high-low)/200)
-    if kind in ("length", "speed", "frequency", "acceleration") and p["min"] <= 0:
+    if kind in STRICTLY_POSITIVE_KINDS and p["min"] <= 0:
         raise ValueError("Positive semantic parameter has a non-positive range: " + p["id"])
     if kind == "inclination_angle" and not 0 < p["min"] <= p["max"] < math.pi/2:
         raise ValueError("Inclination angle must be strictly between 0 and pi/2.")

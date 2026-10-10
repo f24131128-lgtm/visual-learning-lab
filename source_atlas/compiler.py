@@ -63,14 +63,22 @@ def _render_atlas_builder(analysis, material_id, source_context, allowed, model,
     for item in catalog.values(): item["pages"] = [p for p in item["pages"] if p in allowed]
     source = source_for(material_id)
     if not suitable(analysis, source_context, source, allowed, catalog): return None
-    ranked = rank_pages(analysis, catalog, allowed, current_focus(wrapper))
+    # Widget cleanup while Explore is open must not replace the selected pages
+    # with a newly focus-ranked default and discard an already valid atlas.
+    ranked = rank_pages(analysis, catalog, allowed)
     existing = st.session_state.get("source_atlas_state", {})
+    defaults = ranked[:MAX_PAGES]
+    prior_key = existing.get("key")
+    if (isinstance(prior_key, tuple) and len(prior_key) == 6
+            and prior_key == cache_key(material_id, source["pdf_bytes"], analysis["analysis_language"], prior_key[4], scene, catalog)
+            and all(p in allowed for p in prior_key[4])):
+        defaults = list(prior_key[4])
     ready = bool(existing.get("atlas") and existing.get("key", [None])[0] == material_id)
     with st.expander(tr("Source preparation"), expanded=not ready):
         st.markdown("### "+tr("Source Atlas"))
         st.caption(tr("Connect original formulas and diagrams to the same learning-world focus."))
         page_labels = {p: tr("Page {page}", page=p) for p in ranked}
-        pages = st.multiselect(tr("Pages to ground (up to 3)"), ranked, default=ranked[:MAX_PAGES],
+        pages = st.multiselect(tr("Pages to ground (up to 3)"), ranked, default=defaults,
             format_func=lambda p, labels=page_labels: labels[p], max_selections=MAX_PAGES, key="atlas-widget-pages-"+material_id)
         if not pages: return None
         key = cache_key(material_id, source["pdf_bytes"], analysis["analysis_language"], pages, scene, catalog)

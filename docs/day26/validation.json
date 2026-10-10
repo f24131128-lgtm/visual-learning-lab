@@ -1,0 +1,18 @@
+{
+  "focused_before_final_live_fixes": {"tests": 80, "seconds": 66.496, "result": "passed"},
+  "final_day26_focused": {"tests": 6, "seconds": 12.125, "result": "passed"},
+  "completed_full_suite": {
+    "command": "python -X utf8 -B -m unittest discover -s tests -q",
+    "tests": 437, "seconds": 300.886, "passed": 427, "errors": 10,
+    "error_reason": "Older AppTest assertions looked up intentionally removed World widgets.",
+    "result": "failed_before_test_migration"
+  },
+  "post_full_repairs": [
+    {"suite": "test_analogy.py", "tests": 26, "seconds": 13.640, "result": "passed"},
+    {"suite": "other nine failed test cases", "tests": 9, "seconds": 31.526, "result": "passed"}
+  ],
+  "production_changed_after_completed_full_run": false,
+  "second_completed_full_run": false,
+  "earlier_incomplete_run_interrupted": true,
+  "human_acceptance": "pending"
+}

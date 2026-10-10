@@ -1,0 +1,56 @@
+[
+  {
+    "level": "warn",
+    "message": "WebSocket onclose",
+    "timestamp": "2026-10-10T10:35:44.568Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "error",
+    "message": "Client Error in reaching server endpoint - No response received when attempting to reach /_stcore/health",
+    "timestamp": "2026-10-10T10:35:47.363Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "error",
+    "message": "Streamlit server is not responding. Are you connected to the internet?",
+    "timestamp": "2026-10-10T10:35:47.364Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T10:56:41.835Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T10:56:41.837Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T10:58:27.137Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T10:58:27.140Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T11:00:18.891Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  },
+  {
+    "level": "warn",
+    "message": "Received component message for unregistered ComponentInstance! Object",
+    "timestamp": "2026-10-10T11:00:18.895Z",
+    "url": "http://127.0.0.1:8532/static/js/index.CcFifQPt.js"
+  }
+]

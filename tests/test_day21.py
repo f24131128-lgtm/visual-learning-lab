@@ -262,8 +262,9 @@ class WorkspaceAppTests(unittest.TestCase):
             at.button(key="workspace-action-hero-explore").click().run()
             self.assertFalse(at.exception)
             self.assertEqual(at.session_state["learning_workspace"]["mode"], "explore")
-            self.assertEqual(at.selectbox(key="world-widget-hero-focus").value, "gravity")
-            at.slider(key="world-widget-hero-time").set_value(.5).run()
+            self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"], "gravity")
+            from world_events import world_patch
+            world_patch(at,"set_time","time",.5)
             world = copy.deepcopy(at.session_state["learning_scene_state"]["world"])
             self.switch(at, "source")
             self.assertEqual(at.session_state["source_atlas_state"]["region_hint"], "gravity_label")
@@ -277,7 +278,8 @@ class WorkspaceAppTests(unittest.TestCase):
         with patch.object(atlas_runtime, "_component", return_value=None), patch("scene.world.runtime._component", return_value=None):
             at = self.app(hero=True).run()
             self.switch(at, "explore")
-            at.selectbox(key="world-widget-hero-focus").set_value("vx").run()
+            from world_events import world_patch
+            world_patch(at,"set_focus","vx",None)
             self.switch(at, "source")
             self.assertIn("vx", next(r for r in at.session_state["source_atlas_state"]["atlas"]["regions"] if r["region_id"] == at.session_state["source_atlas_state"]["region_hint"])["semantic_ids"])
             at.button(key="workspace-clear").click().run()
@@ -317,7 +319,7 @@ class WorkspaceAppTests(unittest.TestCase):
             self.switch(at, "source")
             self.assertTrue(any(e.key == "atlas-widget-build-hero" for e in at.button))
             self.switch(at, "explore")
-            self.assertEqual(at.selectbox(key="world-widget-hero-focus").value, "px")
+            self.assertEqual(at.session_state["learning_scene_state"]["world"]["focus"], "px")
 
     def test_image_only_native_fallback_keeps_ai_atlas_and_world_available(self):
         from day20_fixtures import corpus

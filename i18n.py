@@ -299,9 +299,11 @@ UI_TEXT = {"zh-TW": {
     "Learning Scene": "互動學習場景",
     "This material can be explored as a coordinated probability workspace.": "這份教材適合用多視圖方式探索機率與集合。",
     "Build Learning Scene": "建立互動學習場景",
+    "Regenerate Learning Scene": "重新產生互動學習場景",
+    "Regenerate Spatial Learning World": "重新產生空間學習場景",
     "Compiling the Learning Scene…": "正在編譯互動學習場景…",
     "Learning Scene API access is not configured yet.": "尚未設定建立互動學習場景所需的 API 存取。",
-    "The Learning Scene was incomplete or unsafe. Your analysis is still available.": "互動學習場景資料不完整或不符合安全規則；原有分析仍可使用。",
+    "This interactive scene did not pass safety validation. Your original material and analysis remain available. You can regenerate the interactive scene.": "這次互動場景沒有通過安全驗證；原始教材與分析仍可正常使用。你可以重新產生互動場景。",
     "This Learning Scene could not be displayed. The rest of your learning material is still available.": "目前無法顯示互動學習場景；其餘學習內容仍可使用。",
     "Event / operation": "事件／運算",
     "Learning lens": "學習視角",
@@ -340,7 +342,12 @@ UI_TEXT["zh-TW"].update({
     "Exploration changes do not change the source.": "探索變更不會改寫來源內容。",
     "Release to apply": "放開以套用變更",
     "Numeric preview unavailable; release still validates the change.": "此範圍無即時預覽；放開後仍會驗證變更。",
-    "Playback and comparison workspace": "播放、比較與記錄工作區",
+    "Playback and comparison workspace": "播放與比較",
+    "Explore this material": "探索這份教材",
+    "View original source": "查看原始教材",
+    "Explore a model, then return to Source to check it against the original material.": "探索互動模型，再回到「來源」核對原始教材。",
+    "Drag the highlighted object. Its linked views update together; the original source stays unchanged.": "拖曳標示的物件，觀察相關圖形與數值一起改變；原始教材保持原貌。",
+    "The interactive view is unavailable. The current state is shown below; your learning is preserved.": "互動視圖暫時無法使用，下方保留目前狀態；學習內容仍然可用。",
 })
 UI_TEXT["en"] = {key: key for key in UI_TEXT["zh-TW"]}
 UI_TEXT["en"]["review.complete"] = "Knowledge Check complete. No review areas were identified."

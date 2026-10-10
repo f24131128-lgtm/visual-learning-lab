@@ -38,6 +38,8 @@ const render=payload=>handlers.message({source:parent,data:{type:'streamlit:rend
 for(const input of inputs){
   const payload=input.normal;
   render(payload);
+  assert.equal(node('recordPanel').hidden,true);
+  assert.equal(node('cameraControls').hidden,true);
   assert(node('space').children.length>10);
   assert(node('waves').children.length>10);
   assert(node('vectors').children.length>5);

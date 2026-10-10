@@ -3141,6 +3141,12 @@ if analysis:
             render_source_fallback(analysis_id, source_context, allowed_source_pages, analysis)
 
         if mode == "learn":
+            st.caption(tr("Explore a model, then return to Source to check it against the original material."))
+            next_action, source_action = st.columns(2)
+            next_action.button(tr("Explore this material"), key="workspace-next-explore", type="primary",
+                               on_click=open_workspace, args=(workspace_state, "explore"))
+            source_action.button(tr("View original source"), key="workspace-next-source",
+                                 on_click=open_workspace, args=(workspace_state, "source"))
             with st.container(border=True):
                 st.markdown("### " + tr("Your learning snapshot"))
                 if source_info:
