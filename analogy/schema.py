@@ -1,5 +1,5 @@
 """Strict compiler contract and application-controlled primitive vocabulary."""
-VERSION = "1.1"
+VERSION = "1.2"
 MAX_PAYLOAD = 450_000
 MAX_FRAMES = 120
 MAX_TOKENS = 16
@@ -35,8 +35,9 @@ SCHEMA = obj(dict(
         fidelity=SCORE, mode=dict(type="string", enum=["quantitative", "qualitative"]))), 16),
     limitations=arr(obj(dict(breaks=txt(), misconception=txt())), 6),
     parameters=arr(obj(dict(id=ID, label=txt(160), unit=txt(32), min=num(), max=num(), default=num(), step=num(0.000001, 10000),
-        mapping_id=ID, formal_target=txt(160), scale=num(), offset=num())), 4),
-    quantities=arr(obj(dict(id=ID, expression=txt(400))), 24),
+        mapping_id=ID, formal_target=txt(160), scale=num(), offset=num(),
+        provenance=dict(type="string", enum=["hypothetical_exploration"]), expose_control=dict(type="boolean"))), 4),
+    quantities=arr(obj(dict(id=ID, expression=txt(400), provenance=dict(type="string", enum=["derived"]))), 24),
     time=obj(dict(duration=num(0.1, 30), frames=dict(type="integer", minimum=2, maximum=MAX_FRAMES))),
     primitives=arr(obj(dict(id=ID, entity_id=ID, type=dict(type="string", enum=list(PRIMITIVES)), label=txt(160),
         x=txt(400), y=txt(400), x2=txt(400), y2=txt(400), radius=txt(400), value=txt(400), visible=txt(400),
@@ -47,6 +48,8 @@ SCHEMA = obj(dict(
 ))
 
 INSTRUCTIONS = """Compile a source-grounded teaching analogy, never executable code or markup.
+Every analogy parameter is a hypothetical_exploration teaching quantity, never a source fact.
+Declare expose_control explicitly. Quantities are derived. Runtime time is separate.
 Use only supplied formal semantic IDs and source pages. Do not invent source facts, geometry or provenance.
 Analogy entities and their visuals are generated explanatory aids, not source evidence or physical identities.
 In ONE response assess 1-3 candidates and select one with fidelity >= .65 and misconception_risk <= .45.

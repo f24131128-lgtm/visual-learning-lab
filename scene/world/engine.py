@@ -41,14 +41,19 @@ def evaluate(scene, parameters, time):
         raise ValueError("Invalid parameter state.")
     for p in scene["parameters"]:
         value = parameters[p["id"]]
+        from .policy import check_parameter_value
+        check_parameter_value(p, value)
         if type(value) not in (int, float) or not math.isfinite(value) or not p["min"] <= value <= p["max"]:
             raise ValueError("Parameter outside legal bounds.")
+        if p.get("provenance") not in ("source_variable", "hypothetical_exploration") and value != p["default"]:
+            raise ValueError("Read-only world quantity changed")
     from .policy import time_domain
     domain = time_domain(scene, parameters)
     times = np.asarray(time, dtype=float)
     if times.ndim > 1 or not 1 <= times.size <= MAX_FRAMES or not np.all(np.isfinite(times)) or np.any(times < domain["min"]) or np.any(times > domain["max"]):
         raise ValueError("Time outside world bounds.")
-    values = dict(parameters, time=float(times) if times.ndim == 0 else times)
+    from quantity_contract import source_values
+    values = source_values(scene) | dict(parameters, time=float(times) if times.ndim == 0 else times)
     quantities = {q["id"]: q for q in scene["quantities"]}
     for identifier in scene["quantity_order"]:
         values[identifier] = calculate(quantities[identifier]["expression"], values)

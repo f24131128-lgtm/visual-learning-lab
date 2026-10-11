@@ -13,6 +13,7 @@ from learning_world.schema import SCHEMA, MAX_HISTORY
 from day22_fixtures import cases, discrete, plan
 from workspace import state as ws
 from support import ROOT
+from source_atlas.model import semantic_catalog
 
 
 class PlannerTests(unittest.TestCase):
@@ -254,6 +255,10 @@ class AppTests(unittest.TestCase):
         analysis, catalog, raw = discrete()
         source = dict(kind="text", source_text="A queue is FIFO: enqueue at rear, dequeue at front. A then B then C.")
         analysis["analysis_language"] = "zh-TW"
+        from support import load_app_helpers
+        h=load_app_helpers()
+        analysis["_formal_representations"]={k:h["clean_"+k](analysis.get(k),[]) for k in ("concept_map","visual_flow","comparison")}
+        catalog=semantic_catalog(None,analysis)
         caps = compiler.capabilities(analysis, {}, {})
         store = compiler.ensure({}, "m")
         key = compiler.identity("m", "zh-TW", source, catalog, caps, None)

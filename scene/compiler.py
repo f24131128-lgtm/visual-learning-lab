@@ -1,5 +1,6 @@
 """Explicit Learning Scene compiler request and application integration."""
 
+from model_config import response_options
 import json
 import logging
 import os
@@ -207,7 +208,7 @@ def request_scene(client, model, context):
     if language not in RESPONSE_LANGUAGES: language = "zh-TW"
     spatial = context.get("domain") == WORLD_DOMAIN
     response = client.responses.create(
-        model=model,
+        **response_options(),
         instructions=(WORLD_INSTRUCTIONS if spatial else SCENE_INSTRUCTIONS) + "\n" + output_language_instruction(language),
         input=json.dumps(context, ensure_ascii=False),
         text={"format": {"type": "json_schema", "name": "spatial_learning_world_v2" if spatial else "learning_scene_v1", "strict": True,
@@ -228,7 +229,7 @@ def log_scene_declaration(raw):
         return [{field: item.get(field) for field in fields} for item in values[:limit] if isinstance(item, dict)]
     details = dict(domain=raw.get("domain"), version=raw.get("scene_version"), time=raw.get("time"), axes=raw.get("axes"),
                    primitives=entries("objects", ("id", "type", "semantic_id", "origin", "origin_quantity_ids"), 12),
-                   parameters=entries("parameters", ("id", "min", "max", "default", "step", "quantity_kind", "range_source", "display_unit"), 4),
+                   parameters=entries("parameters", ("id", "min", "max", "default", "step", "quantity_kind", "domain_constraint", "range_source", "display_unit"), 4),
                    expressions=entries("quantities", ("id", "expression"), 24),
                    bindings=entries("bindings", ("id", "type", "target_id", "quantity_ids")),
                    inverse_bindings=entries("inverse_bindings", ("id", "type", "object_id", "target_id", "rate_expression", "offset_expression", "scale"), 4),

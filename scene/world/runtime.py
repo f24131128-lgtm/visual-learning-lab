@@ -123,6 +123,11 @@ def render_world(scene, wrapper, format_pages, source_context=None, allowed_page
         st.caption(tr("Spatial Learning World"))
         st.markdown("#### " + scene["title"])
         st.caption(scene["learning_goal"])
+        for fact in scene.get("source_facts", []):
+            st.text(tr("Source value") + f": {fact['label']} = {fact['value']:.6g} {fact['unit']}")
+            st.caption(fact["source_evidence"])
+        if any(p.get("provenance") == "hypothetical_exploration" for p in scene["parameters"]):
+            st.caption(tr("Hypothetical control · the source stays unchanged."))
         replay = wrapper.pop("world_pending_replay", None)
         if state.pop("replay_requested", False): replay = replay_states(scene, state)
         control_error = wrapper.pop("world_control_error", None)

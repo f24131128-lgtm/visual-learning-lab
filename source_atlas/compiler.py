@@ -1,6 +1,7 @@
 """Explicit vision grounding of at most three already-analyzed page rasters."""
 
 import base64
+from model_config import response_options
 import json
 import logging
 
@@ -43,7 +44,7 @@ def request_atlas(client, model, analysis, source_context, source_state, materia
     for page, render in zip(pages, rendered):
         content.extend([{"type": "input_text", "text": f"Original PDF page {page}, complete raster {render['width']}x{render['height']}."},
                         {"type": "input_image", "image_url": "data:image/png;base64,"+base64.b64encode(render["png"]).decode(), "detail": "high"}])
-    response = client.responses.create(model=model,
+    response = client.responses.create(**response_options(),
         instructions=INSTRUCTIONS+"\n"+output_language_instruction(analysis.get("analysis_language", "zh-TW")),
         input=[{"role": "user", "content": content}],
         text={"format": {"type": "json_schema", "name": "source_atlas_v1", "strict": True, "schema": ATLAS_SCHEMA}})

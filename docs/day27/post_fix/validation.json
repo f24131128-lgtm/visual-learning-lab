@@ -1,0 +1,580 @@
+{
+  "stage": "POST_FIX",
+  "status": "COMPLETE_AWAITING_HUMAN_REVIEW",
+  "timestamp": "2026-10-11T02:14:33.688299+00:00",
+  "frozen_baseline": {
+    "public_files": 35,
+    "private_files": 212,
+    "unchanged_planner_files": [
+      "learning_world/capabilities.py",
+      "learning_world/compiler.py",
+      "learning_world/diagnostics.py",
+      "learning_world/execution.py",
+      "learning_world/execution_ui.py",
+      "learning_world/planner.py",
+      "learning_world/process.py",
+      "learning_world/runtime.py",
+      "learning_world/schema.py",
+      "learning_world/__init__.py"
+    ],
+    "manifest_sha256": "818e71d84f3ec822545b0f4da90cf7978ce9540dd762fcb65f1d33443a572b19"
+  },
+  "human_A_axis": {
+    "circular": "PARTIAL",
+    "harmonic": "PASS",
+    "circuits": "PARTIAL",
+    "signals": "PASS",
+    "regression": "FAIL",
+    "probability": "FAIL",
+    "search": "PARTIAL",
+    "complexity": "PARTIAL",
+    "spectrum": "PASS",
+    "debugging": "PASS"
+  },
+  "human_A_counts": {
+    "PARTIAL": 4,
+    "PASS": 4,
+    "FAIL": 2
+  },
+  "production_sha256": "1b7021801c03e0dbe9f7fe02d18f08ffb836292dcff779949c0cd1bd338bd8db",
+  "production_files_changed_from_frozen_baseline": [
+    "analogy/runtime.py",
+    "analogy/schema.py",
+    "analogy/state.py",
+    "analogy/validator.py",
+    "app.py",
+    "i18n.py",
+    "interactive_lab.py",
+    "manipulation/contract.py",
+    "manipulation/lab.py",
+    "manipulation/runtime.py",
+    "manipulation/world.py",
+    "quantity_contract.py",
+    "representation_contract.py",
+    "scene/world/engine.py",
+    "scene/world/frontend/index.html",
+    "scene/world/runtime.py",
+    "scene/world/schema.py",
+    "scene/world/state.py",
+    "scene/world/validator.py",
+    "source_atlas/model.py",
+    "workspace/twin_ui.py"
+  ],
+  "latest_focused_result": {
+    "stage": "POST_FIX",
+    "kind": "focused_offline",
+    "timestamp": "2026-10-11T02:13:38.465610+00:00",
+    "modules": [
+      "test_day14",
+      "test_day22",
+      "test_day23",
+      "test_day27_postfix"
+    ],
+    "test_count": 105,
+    "passed": 105,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 36.26375290006399,
+    "paid_model_requests": 0
+  },
+  "focused_history": [
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-10T18:21:18.761186+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15",
+        "test_day16",
+        "test_day18",
+        "test_day18_compiler",
+        "test_day18_consolidation",
+        "test_day19",
+        "test_analogy",
+        "test_analogy_diagnostics",
+        "test_analogy_geometry",
+        "test_analogy_live_bug",
+        "test_analogy_slots",
+        "test_day23_phase_c",
+        "test_day24",
+        "test_day25",
+        "test_day26_parameter_semantics"
+      ],
+      "test_count": 292,
+      "passed": 244,
+      "failures": 36,
+      "errors": 12,
+      "skipped": 0,
+      "duration_seconds": 141.99403960001655,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-10T18:23:05.458408+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15.LabLogicTests",
+        "test_day18_compiler.CompilerContractTests",
+        "test_day23_phase_c.ContractSecurityTests",
+        "test_day25.TwinLogicTests"
+      ],
+      "test_count": 65,
+      "passed": 41,
+      "failures": 24,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 2.366239900002256,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-10T18:24:05.489150+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15.LabLogicTests",
+        "test_day18_compiler.CompilerContractTests",
+        "test_day23_phase_c.ContractSecurityTests",
+        "test_day25.TwinLogicTests"
+      ],
+      "test_count": 65,
+      "passed": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 2.399536699987948,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T01:32:43.134275+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15",
+        "test_day16",
+        "test_day18",
+        "test_day18_compiler",
+        "test_day18_consolidation",
+        "test_day19",
+        "test_analogy",
+        "test_analogy_diagnostics",
+        "test_analogy_geometry",
+        "test_analogy_live_bug",
+        "test_analogy_slots",
+        "test_day23_phase_c",
+        "test_day24",
+        "test_day25",
+        "test_day26_parameter_semantics"
+      ],
+      "test_count": 292,
+      "passed": 287,
+      "failures": 3,
+      "errors": 2,
+      "skipped": 0,
+      "duration_seconds": 283.0705122000072,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T01:35:31.419098+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15.Day15InteractionTests.test_failures_stay_local_and_new_material_resets",
+        "test_day16.SimulationInteractionTests",
+        "test_day26_parameter_semantics.ValidationFailureProductTests"
+      ],
+      "test_count": 32,
+      "passed": 32,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 33.99131569988094,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T01:39:23.044137+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15",
+        "test_day16",
+        "test_day18",
+        "test_day18_compiler",
+        "test_day18_consolidation",
+        "test_day19",
+        "test_analogy",
+        "test_analogy_diagnostics",
+        "test_analogy_geometry",
+        "test_analogy_live_bug",
+        "test_analogy_slots",
+        "test_day23_phase_c",
+        "test_day24",
+        "test_day25",
+        "test_day26_parameter_semantics"
+      ],
+      "test_count": 295,
+      "passed": 292,
+      "failures": 2,
+      "errors": 1,
+      "skipped": 0,
+      "duration_seconds": 131.782137400005,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T01:42:43.127684+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_analogy",
+        "test_analogy_live_bug",
+        "test_day24",
+        "test_day25"
+      ],
+      "test_count": 102,
+      "passed": 102,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 62.05690799979493,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T01:45:33.021017+00:00",
+      "modules": [
+        "test_day27_postfix",
+        "test_day15",
+        "test_day16",
+        "test_day18",
+        "test_day18_compiler",
+        "test_day18_consolidation",
+        "test_day19",
+        "test_analogy",
+        "test_analogy_diagnostics",
+        "test_analogy_geometry",
+        "test_analogy_live_bug",
+        "test_analogy_slots",
+        "test_day23_phase_c",
+        "test_day24",
+        "test_day25",
+        "test_day26_parameter_semantics"
+      ],
+      "test_count": 295,
+      "passed": 295,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 151.1554020999465,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T02:12:01.319114+00:00",
+      "modules": [
+        "test_day14",
+        "test_day22",
+        "test_day23",
+        "test_day27_postfix"
+      ],
+      "test_count": 105,
+      "passed": 100,
+      "failures": 0,
+      "errors": 5,
+      "skipped": 0,
+      "duration_seconds": 31.22076790011488,
+      "paid_model_requests": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T02:13:38.465610+00:00",
+      "modules": [
+        "test_day14",
+        "test_day22",
+        "test_day23",
+        "test_day27_postfix"
+      ],
+      "test_count": 105,
+      "passed": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 36.26375290006399,
+      "paid_model_requests": 0
+    }
+  ],
+  "offline_replay": {
+    "status": "PASSED",
+    "cases": 10,
+    "annotations": 4,
+    "deep": 5,
+    "canaries": 2,
+    "api_requests": 0
+  },
+  "post_final_corrections": {
+    "scope": "Explicit test fixtures and cached test catalog identities; production seal unchanged.",
+    "focused_result": {
+      "stage": "POST_FIX",
+      "kind": "focused_offline",
+      "timestamp": "2026-10-11T02:13:38.465610+00:00",
+      "modules": [
+        "test_day14",
+        "test_day22",
+        "test_day23",
+        "test_day27_postfix"
+      ],
+      "test_count": 105,
+      "passed": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 36.26375290006399,
+      "paid_model_requests": 0
+    },
+    "full_suite_rerun": false,
+    "original_full_result_preserved": true
+  },
+  "live_replay": {
+    "completed_cases": 5,
+    "denominator": 5,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "semantic_retries": 0,
+    "sdk_retries": 0,
+    "request_count": 16
+  },
+  "browser": {
+    "stage": "POST_FIX",
+    "cases": [
+      {
+        "case": "regression",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": null,
+        "linked_chart_changed": null,
+        "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "01-regression.png"
+      },
+      {
+        "case": "probability",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "02-probability.png"
+      },
+      {
+        "case": "circuits",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "03-rc.png"
+      },
+      {
+        "case": "harmonic",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "04-shm-source.png"
+      },
+      {
+        "case": "signals",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": null,
+        "linked_chart_changed": null,
+        "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": null
+      }
+    ],
+    "attempts": [
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791683807795-results.json",
+        "sha256": "99db4b2c65291051aeca1dd8fd87a65648a44a82615d2ffa98dfef9308301f47"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791684055750-results.json",
+        "sha256": "60a9de9df38392dcf76a5bd4d27821e59ef5c1f6b059fd590cdd708fb0bdd14d"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791684233273-results.json",
+        "sha256": "9094e6fcfec0888d6dd50f813235000b72ae5a092c3ec9a6edba43be77fa193a"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/harmonic-desktop-1791683940227-results.json",
+        "sha256": "444e62106c9d2e5d9ebec192013f091d0b7f1cd9c6d849061b3e057bdee52e8a"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/probability-desktop-1791683782402-results.json",
+        "sha256": "d87e630334b8e48802c740844aa9889fb75f4def9ec701284716f37e97af7b05"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/probability-desktop-1791684017499-results.json",
+        "sha256": "85a64dba3616079ad9218ced12fc79634e82016ceaee2bf29e9258deec2cf728"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/regression-desktop-1791683469348-results.json",
+        "sha256": "0960a0e5e8315cd853aa0ae6b84e93755e0bc13fd7eb3ff0b49855e36cafd811"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/signals-desktop-1791684083436-results.json",
+        "sha256": "ca84657d16322135b8cb7db3d53925945ec231c141e8804dfa04ebd0be0378f7"
+      }
+    ],
+    "recorded_response_replays": 24,
+    "context_mismatches": 0,
+    "blocked_unrecorded_responses": 0,
+    "new_network_requests": 0,
+    "scope": "Real empty-app PDF upload and widget/pointer replay of exactly the saved model output; no model rerun."
+  },
+  "final_complete_regression": {
+    "stage": "POST_FIX",
+    "kind": "FINAL_COMPLETE_REGRESSION",
+    "runs": 1,
+    "timestamp": "2026-10-11T02:07:39.620691+00:00",
+    "test_count": 489,
+    "passed": 480,
+    "failures": 6,
+    "errors": 3,
+    "skipped": 0,
+    "duration_seconds": 252.15040679997765,
+    "paid_model_requests": 0,
+    "failures_detail": [
+      {
+        "test": "test_none_suppresses_hidden_interactive_runtimes (test_day22.AppTests.test_none_suppresses_hidden_interactive_runtimes)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day22.py\", line 335, in test_none_suppresses_hidden_interactive_runtimes\n    self.assertFalse(lab.called); self.assertFalse(sim.called); self.assertFalse(builder.called)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: True is not false\n"
+      },
+      {
+        "test": "test_normal_text_process_round_trip_zero_requests (test_day22.AppTests.test_normal_text_process_round_trip_zero_requests)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day22.py\", line 270, in test_normal_text_process_round_trip_zero_requests\n    self.assertIn(\"互動流程\", [r.options[-1] for r in at.radio if r.key == \"workspace-representation-m\"])\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '互動流程' not found in ['譬喻世界']\n"
+      },
+      {
+        "test": "test_renderer_failure_retains_accessible_process (test_day22.AppTests.test_renderer_failure_retains_accessible_process)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day22.py\", line 341, in test_renderer_failure_retains_accessible_process\n    self.assertTrue(any(\"A → B\" in t.value for t in at.text))\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+      },
+      {
+        "test": "test_comparison_numeric_controls_round_trip_zero_requests (test_day23.ProductIntegrationTests.test_comparison_numeric_controls_round_trip_zero_requests)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day23.py\", line 304, in test_comparison_numeric_controls_round_trip_zero_requests\n    self.assertTrue(at.slider)\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^\nAssertionError: WidgetList() is not true\n"
+      },
+      {
+        "test": "test_ready_numeric_lab_does_not_require_optional_spatial_request (test_day23.SemanticReviewTests.test_ready_numeric_lab_does_not_require_optional_spatial_request)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day23.py\", line 395, in test_ready_numeric_lab_does_not_require_optional_spatial_request\n    self.assertTrue(result[\"compilation_pass\"] and result[\"runtime_pass\"])\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true\n"
+      },
+      {
+        "test": "test_recorded_product_three_cases_run_with_no_requests (test_day23.SemanticReviewTests.test_recorded_product_three_cases_run_with_no_requests)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day23.py\", line 413, in test_recorded_product_three_cases_run_with_no_requests\n    self.assertTrue(at.slider)\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^\nAssertionError: WidgetList() is not true\n"
+      },
+      {
+        "test": "test_strict_schema_and_all_fixture_types (test_day14.LocalLogicTests.test_strict_schema_and_all_fixture_types)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day14.py\", line 48, in test_strict_schema_and_all_fixture_types\n    jsonschema.validate(analysis, APP[\"ANALYSIS_SCHEMA\"])\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\88690\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages\\jsonschema\\validators.py\", line 1332, in validate\n    raise error\njsonschema.exceptions.ValidationError: 'version' is a required property\n\nFailed validating 'required' in schema['properties']['interactive_lab']:\n    {'type': 'object',\n     'properties': {'version': {'type': 'string', 'enum': ['2.0']},\n                    'suitable': {'type': 'boolean'},\n                    'reason': {'type': 'string'},\n                    'demos': {'type': 'array',\n                              'items': {'type': 'object',\n                                        'properties': {'id': {'type': 'string'},\n                                                       'title': {'type': 'string'},\n                                                       'learning_goal': {'type': 'string'},\n                                                       'formula_display': {'type': 'string'},\n                                                       'source_facts': {'type': 'array',\n                                                                        'items': {'type': 'object',\n                                                                                  'properties': {'id': {'type': 'string'},\n                                                                                                 'label': {'type': 'string'},\n                                                                                                 'unit': {'type': 'string'},\n                                                                                                 'value': {'type': 'number',\n                                                                                                           'minimum': -1000000000.0,\n                                                                                                           'maximum': 1000000000.0},\n                                                                                                 'provenance': {'type': 'string',\n                                                                                                                'enum': ['source_fixed']},\n                                                                                                 'source_pages': {'type': 'array',\n                                                                                                                  'items': {'type': 'integer',\n                                                                                                                            'minimum': 1},\n                                                                                                                  'maxItems': 8},\n                                                                                                 'source_evidence': {'type': 'string',\n                                                                                                                     'maxLength': 240}},\n                                                                                  'required': ['id',\n                                                                                               'label',\n                                                                                               'unit',\n                                                                                               'value',\n                                                                                               'provenance',\n                                                                                               'source_pages',\n                                                                                               'source_evidence'],\n                                                                                  'additionalProperties': False},\n                                                                        'maxItems': 12},\n                                                       'x': {'type': 'object',\n                                                             'properties': {'id': {'type': 'string'},\n                                                                            'label': {'type': 'string'},\n                                                                            'min': {'type': 'number',\n                                                                                    'minimum': -1000000000.0,\n                                                                                    'maximum': 1000000000.0},\n                                                                            'max': {'type': 'number',\n                                                                                    'minimum': -1000000000.0,\n                                                                                    'maximum': 1000000000.0},\n                                                                            'points': {'type': 'integer',\n                                                                                       'minimum': 50,\n                                                                                       'maximum': 1000},\n                                                                            'semantic_role': {'type': 'string',\n                                                                                              'enum': ['runtime_time',\n                                                                                                       'independent_variable']},\n                                                                            'provenance': {'type': ['string',\n                                                                                                    'null'],\n                                                                                           'enum': [None,\n                                                                                                    'source_variable',\n                                                                                                    'hypothetical_exploration']}},\n                                                             'required': ['id',\n                                                                          'label',\n                                                                          'min',\n                                                                          'max',\n                                                                          'points',\n                                                                          'semantic_role',\n                                                                          'provenance'],\n                                                             'additionalProperties': False},\n                                                       'parameters': {'type': 'array',\n                                                                      'items': {'type': 'object',\n                                                                                'properties': {'id': {'type': 'string'},\n                                                                                               'label': {'type': 'string'},\n                                                                                               'min': {'type': 'number',\n                                                                                                       'minimum': -1000000000.0,\n                                                                                                       'maximum': 1000000000.0},\n                                                                                               'max': {'type': 'number',\n                                                                                                       'minimum': -1000000000.0,\n                                                                                                       'maximum': 1000000000.0},\n                                                                                               'default': {'type': 'number',\n                                                                                                           'minimum': -1000000000.0,\n                                                                                                           'maximum': 1000000000.0},\n                                                                                               'step': {'type': 'number',\n                                                                                                        'minimum': -1000000000.0,\n                                                                                                        'maximum': 1000000000.0},\n                                                                                               'unit': {'type': 'string'},\n                                                                                               'source_pages': {'type': 'array',\n                                                                                                                'items': {'type': 'integer',\n                                                                                                                          'minimum': 1},\n                                                                                                                'maxItems': 8},\n                                                                                               'provenance': {'type': 'string',\n                                                                                                              'enum': ['source_fixed',\n                                                                                                                       'source_variable',\n                                                                                                                       'hypothetical_exploration',\n                                                                                                                       'derived']},\n                                                                                               'source_baseline_ref': {'type': ['string',\n                                                                                                                                'null']},\n                                                                                               'source_evidence': {'type': 'string',\n                                                                                                                   'maxLength': 240},\n                                                                                               'expose_control': {'type': 'boolean'},\n                                                                                               'semantic_refs': {'type': 'array',\n                                                                                                                 'items': {'type': 'string'},\n                                                                                                                 'maxItems': 8}},\n                                                                                'required': ['id',\n                                                                                             'label',\n                                                                                             'min',\n                                                                                             'max',\n                                                                                             'default',\n                                                                                             'step',\n                                                                                             'unit',\n                                                                                             'source_pages',\n                                                                                             'provenance',\n                                                                                             'source_baseline_ref',\n                                                                                             'source_evidence',\n                                                                                             'expose_control',\n                                                                                             'semantic_refs'],\n                                                                                'additionalProperties': False},\n                                                                      'minItems': 0,\n                                                                      'maxItems': 4},\n                                                       'series': {'type': 'array',\n                                                                  'items': {'type': 'object',\n                                                                            'properties': {'id': {'type': 'string'},\n                                                                                           'label': {'type': 'string'},\n                                                                                           'expression': {'type': 'string'},\n                                                                                           'provenance': {'type': 'string',\n                                                                                                          'enum': ['derived']},\n                                                                                           'semantic_refs': {'type': 'array',\n                                                                                                             'items': {'type': 'string'},\n                                                                                                             'maxItems': 8}},\n                                                                            'required': ['id',\n                                                                                         'label',\n                                                                                         'expression',\n                                                                                         'provenance',\n                                                                                         'semantic_refs'],\n                                                                            'additionalProperties': False},\n                                                                  'minItems': 1,\n                                                                  'maxItems': 3},\n                                                       'derived_metrics': {'type': 'array',\n                                                                           'items': {'type': 'object',\n                                                                                     'properties': {'id': {'type': 'string'},\n                                                                                                    'label': {'type': 'string'},\n                                                                                                    'expression': {'type': 'string'},\n                                                                                                    'unit': {'type': 'string'},\n                                                                                                    'provenance': {'type': 'string',\n                                                                                                                   'enum': ['derived']},\n                                                                                                    'semantic_refs': {'type': 'array',\n                                                                                                                      'items': {'type': 'string'},\n                                                                                                                      'maxItems': 8}},\n                                                                                     'required': ['id',\n                                                                                                  'label',\n                                                                                                  'expression',\n                                                                                                  'unit',\n                                                                                                  'provenance',\n                                                                                                  'semantic_refs'],\n                                                                                     'additionalProperties': False},\n                                                                           'minItems': 0,\n                                                                           'maxItems': 4},\n                                                       'try_this': {'type': 'array',\n                                                                    'items': {'type': 'string'},\n                                                                    'minItems': 0,\n                                                                    'maxItems': 3},\n                                                       'source_pages': {'type': 'array',\n                                                                        'items': {'type': 'integer',\n                                                                                  'minimum': 1},\n                                                                        'minItems': 0,\n                                                                        'maxItems': 8},\n                                                       'related_step_ids': {'type': 'array',\n                                                                            'items': {'type': 'string'},\n                                                                            'minItems': 0,\n                                                                            'maxItems': 6}},\n                                        'required': ['id',\n                                                     'title',\n                                                     'learning_goal',\n                                                     'formula_display',\n                                                     'source_facts',\n                                                     'x',\n                                                     'parameters',\n                                                     'series',\n                                                     'derived_metrics',\n                                                     'try_this',\n                                                     'source_pages',\n                                                     'related_step_ids'],\n                                        'additionalProperties': False},\n                              'minItems': 0,\n                              'maxItems': 2}},\n     'required': ['version', 'suitable', 'reason', 'demos'],\n     'additionalProperties': False}\n\nOn instance['interactive_lab']:\n    {'suitable': False,\n     'reason': 'No mathematical experiment is supported.',\n     'demos': []}\n"
+      },
+      {
+        "test": "test_parameterized_numeric_interaction_needs_no_time (test_day23.GeneralBoundaryTests.test_parameterized_numeric_interaction_needs_no_time)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\interactive_lab.py\", line 143, in compute_curves\n    check_values(demo[\"parameters\"], values)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Projects\\visual-learning-lab\\quantity_contract.py\", line 111, in check_values\n    raise ValueError(\"Read-only quantity changed\")\nValueError: Read-only quantity changed\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day23.py\", line 170, in test_parameterized_numeric_interaction_needs_no_time\n    self.assertTrue(bench.probe_lab(lab)[\"numeric_comparison\"])\n                    ~~~~~~~~~~~~~~~^^^^^\n  File \"D:\\Projects\\visual-learning-lab\\tests\\day23_benchmark.py\", line 204, in probe_lab\n    _, after = compute_curves(demo, {**values, p[\"id\"]: value})\n               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Projects\\visual-learning-lab\\interactive_lab.py\", line 145, in compute_curves\n    raise MathExpressionError(str(error)) from error\nsafe_math.MathExpressionError: Read-only quantity changed\n"
+      },
+      {
+        "test": "test_source_equations_and_actual_operations (test_day23.SemanticReviewTests.test_source_equations_and_actual_operations)",
+        "traceback": "Traceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\interactive_lab.py\", line 143, in compute_curves\n    check_values(demo[\"parameters\"], values)\n    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Projects\\visual-learning-lab\\quantity_contract.py\", line 111, in check_values\n    raise ValueError(\"Read-only quantity changed\")\nValueError: Read-only quantity changed\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\Projects\\visual-learning-lab\\tests\\test_day23.py\", line 378, in test_source_equations_and_actual_operations\n    self.assertEqual(len(day23_review.numeric_checks()), 6)\n                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"D:\\Projects\\visual-learning-lab\\tests\\day23_review.py\", line 61, in numeric_checks\n    x, actual = bench.compute_curves(demo, values)\n                ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"D:\\Projects\\visual-learning-lab\\interactive_lab.py\", line 145, in compute_curves\n    raise MathExpressionError(str(error)) from error\nsafe_math.MathExpressionError: Read-only quantity changed\n"
+      }
+    ]
+  },
+  "final_launcher_preflight": {
+    "status": "CORRECTED_BEFORE_DISCOVERY",
+    "test_count": 0,
+    "error": "Files.create patch path resolution",
+    "artifact": "final-regression-preflight-abort.json"
+  },
+  "screenshots": [
+    "01-regression.png",
+    "02-probability.png",
+    "03-rc.png",
+    "04-shm-source.png"
+  ],
+  "candidate_C": "UNRESOLVED; all frozen learning_world files unchanged",
+  "commit": false,
+  "push": false,
+  "new_dependencies": []
+}

@@ -178,6 +178,12 @@ class ContractSecurityTests(unittest.TestCase):
         # The unchanged recording has another independent required-field error.
         # Do not shorten source/model text or relax bounds to manufacture success.
         with self.assertRaisesRegex(ValueError, "learning goal"): normalize_scene(finite,[])
+        # Old version is incompatible. Recheck its independent error on a copy
+        # tagged for the current contract; never rewrite the frozen recording.
+        with self.assertRaisesRegex(ValueError, "scene_version"): normalize_world(motion,[])
+        from scene.world.schema import VERSION
+        from provenance_fixtures import declared_world
+        motion=declared_world(motion)
         with self.assertRaisesRegex(ValueError, "invalid set_time"): normalize_world(motion,[])
 
 
@@ -283,14 +289,14 @@ from lab_fixtures import lab_fixture,learning_fixture
 st.session_state["product_language"]="en"
 raw=lab_fixture()
 for demo in raw["demos"]:
-    for p in demo["parameters"]: p.update(min=p["default"],max=p["default"],step=0)
+    for p in demo["parameters"]: p.update(min=p["default"],max=p["default"],step=0,provenance="source_fixed",expose_control=False)
 path=learning_fixture()["learning_path"]
 clean=clean_interactive_lab(raw,[1,2],path,lambda pages,allowed:[p for p in pages if p in allowed])
 render_interactive_lab(clean,"fixed",path,lambda *args:None,str)
 '''
         at=AppTest.from_string(code); at.run()
         self.assertFalse(at.exception); self.assertFalse(at.slider)
-        self.assertTrue(any(c.value=="Fixed value" for c in at.caption))
+        self.assertTrue(any(c.value=="Source value" for c in at.caption))
         self.assertTrue(at.get("plotly_chart"))
         from semantic_contract import display_choices
         names=display_choices([dict(id="one",label="Same"),dict(id="two",label="Same")])

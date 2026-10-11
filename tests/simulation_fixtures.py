@@ -3,6 +3,7 @@
 import math
 
 from lab_fixtures import lab_fixture, learning_fixture
+from provenance_fixtures import declared_demo
 
 
 def point(object_id, x, y, z=None, panel="scene", label=None):
@@ -52,6 +53,7 @@ def projectile():
         "try_this": ["保持角度與重力不變，增加初速。", "固定初速，比較不同發射角度。"],
         "source_pages": [1, 2], "related_step_ids": ["s1", "s2", "s3"],
     }
+    demo = declared_demo(demo)
     y = "v0*sin(theta*pi/180)*time-0.5*g*time**2"
     spec = base_scene(demo, 6, [point("body", "v0*cos(theta*pi/180)*time", y, label="拋體"),
                                 trail("flight_trail", "body"),
@@ -105,7 +107,8 @@ def phasor():
 def helix():
     demo = lab_fixture()["demos"][0]
     demo.update(id="helix_radius", title="螺旋半徑", related_step_ids=["s2"])
-    demo["parameters"] = [{"id": "radius", "label": "半徑", "unit": "m", "min": .5, "max": 3, "default": 1, "step": .1}]
+    from provenance_fixtures import declared_parameter
+    demo["parameters"] = [declared_parameter({"id": "radius", "label": "半徑", "unit": "m", "min": .5, "max": 3, "default": 1, "step": .1, "source_pages": [1,2]}) | {"semantic_refs": []}]
     demo["series"][0]["expression"] = "radius*cos(t)"
     demo["derived_metrics"] = []
     demo["formula_display"] = r"(x,y,z)=(r\cos(t),r\sin(t),t)"
@@ -118,7 +121,7 @@ def simulation_analysis(kind="projectile"):
     demo, spec = {"projectile": projectile, "damped": damped, "phasor": phasor, "helix": helix}[kind]()
     analysis = learning_fixture()
     analysis["analysis_language"] = "zh-TW"
-    analysis["interactive_lab"] = {"suitable": True, "reason": "公式適合調整參數觀察。", "demos": [demo]}
+    analysis["interactive_lab"] = {"version": "2.0", "suitable": True, "reason": "公式適合調整參數觀察。", "demos": [demo]}
     analysis["quick_summary"] = demo["learning_goal"]
     labels = {
         "projectile": ["初速與發射角度", "重力與垂直運動", "飛行時間與落地"],

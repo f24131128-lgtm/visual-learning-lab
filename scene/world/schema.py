@@ -1,6 +1,7 @@
 """Strict data declarations; expressions never become browser code."""
+from quantity_contract import FACTS_SCHEMA, PROVENANCE_FIELDS
 
-VERSION = "2.2"
+VERSION = "2.4"
 DOMAIN = "spatial_dynamics"
 OPTIONAL_CAPABILITIES = ("inverse_bindings", "invariants", "experiments")
 MAX_OBJECTS = 12
@@ -40,6 +41,7 @@ WORLD_SCHEMA = obj({
     "domain": {"type": "string", "enum": [DOMAIN]},
     "scene_id": TEXT, "title": TEXT, "learning_goal": TEXT,
     "assumptions": arr(TEXT, 4), "source_pages": PAGES,
+    "source_facts": FACTS_SCHEMA,
     "time": obj({"min": NUMBER, "max": NUMBER, "frames": {"type": "integer", "minimum": 20, "maximum": MAX_FRAMES}, "unit": TEXT,
                  "strategy": {"type": "string", "enum": ["fixed_duration", "derived_duration", "periodic_duration"]},
                  "duration_expression": dict(NULL_TEXT, description="Parameter-only safe expression. Derived: complete event duration. Periodic: one period; multiplied by periods. Fixed: null."),
@@ -47,9 +49,10 @@ WORLD_SCHEMA = obj({
     "axes": obj({"x_min": NUMBER, "x_max": NUMBER, "y_min": NUMBER, "y_max": NUMBER, "x_label": TEXT, "y_label": TEXT}),
     "parameters": arr(obj({"id": TEXT, "label": TEXT, "unit": TEXT, "min": NUMBER, "max": NUMBER, "default": NUMBER, "step": NUMBER, "source_pages": PAGES,
                            "quantity_kind": {"type": "string", "enum": ["scalar", "length", "speed", "acceleration", "frequency", "angle", "inclination_angle"]},
+                           "domain_constraint": {"type": "string", "enum": ["positive", "non_negative", "signed"]},
                            "range_source": {"type": "string", "enum": ["source", "pedagogical", "semantic_default"]},
-                           "display_unit": {"type": "string", "enum": ["native", "degrees"]}}), 4, 1),
-    "quantities": arr(obj({"id": TEXT, "label": TEXT, "unit": TEXT, "expression": dict(TEXT, description="Safe arithmetic using declared parameter/quantity IDs and the canonical variable time. Never use an undeclared t or Unicode symbol."), "source_pages": PAGES}), MAX_QUANTITIES, 1),
+                           "display_unit": {"type": "string", "enum": ["native", "degrees"]}, **PROVENANCE_FIELDS}), 4, 1),
+    "quantities": arr(obj({"id": TEXT, "label": TEXT, "unit": TEXT, "expression": dict(TEXT, description="Safe arithmetic using declared parameter/quantity IDs and the canonical variable time. Never use an undeclared t or Unicode symbol."), "source_pages": PAGES, "provenance": {"type": "string", "enum": ["derived"]}}), MAX_QUANTITIES, 1),
     "objects": arr(obj({"id": TEXT, "label": TEXT, "type": {"type": "string", "enum": ["point", "vector", "trajectory", "axis"]}, "semantic_id": TEXT, "origin": arr(NUMBER, 2, 2), "origin_quantity_ids": arr(TEXT, 2), "source_pages": PAGES}), MAX_OBJECTS, 1),
     "series": arr(obj({"id": TEXT, "label": TEXT, "semantic_id": TEXT, "source_pages": PAGES}), MAX_SERIES, 1),
     "metrics": arr(obj({"id": TEXT, "label": TEXT, "semantic_id": TEXT, "unit": TEXT, "source_pages": PAGES}), 8, 1),
@@ -59,7 +62,16 @@ WORLD_SCHEMA = obj({
     "experiments": arr(obj({"id": TEXT, "title": TEXT, "learning_goal": TEXT, "steps": arr(PATCH_SCHEMA, MAX_EXPERIMENT_STEPS, 1), "observation_targets": arr(TEXT, 8, 1), "source_pages": PAGES}), MAX_EXPERIMENTS),
 })
 
-INSTRUCTIONS = """Compile the source into a generic spatial_dynamics Learning World 2.2.
+INSTRUCTIONS = """Compile the source into a generic spatial_dynamics Learning World 2.4.
+Declare parameter provenance source_fixed, source_variable or hypothetical_exploration.
+Source assertions/example values stay immutable with evidence/pages: singleton source_fixed
+parameters, or source_facts. A what-if based on a source fact has a DIFFERENT parameter ID
+and source_baseline_ref pointing to that fact. Otherwise source_baseline_ref is null.
+Source variable does not imply a slider: expose_control explicitly opts into legal controls.
+Source_fixed has expose_control false and step 0. Derived DAG quantities declare provenance
+derived and are never free controls. Time retains its separate runtime role.
+source_evidence is a short source paraphrase; hypothetical parameters may use an empty
+evidence string. Model defaults are exploration initial values, not source assertions.
 Return only strict declarative data. Do not emit code, HTML, JavaScript, URLs or renderer instructions.
 Direct manipulation is negotiated locally from exact forward bindings, never by title or label.
 A vector with components R*cos(A), R*sin(A), where R is constant or affine in one adjustable
@@ -82,11 +94,14 @@ If a quantity is fixed by the source, declare min=max=default and step=0; it is 
 never an invented slider range. Derived values belong in the quantity DAG, not adjustable parameters.
 Do not invent a source range. Scalar/length/speed/acceleration/frequency/angle/inclination_angle are safe
 quantity kinds, not renderer modes. Inclination means a strictly positive angle below pi/2.
-length is a non-negative distance/magnitude (min >= 0), including initial height above ground;
-ground-level initial height may be exactly 0, including a fixed min=max=default=0 with step=0.
+Physical quantity_kind and numeric domain_constraint are separate declarations.
+positive requires min/max/default > 0; non_negative requires min/max/default >= 0;
+signed permits any finite value inside legal bounds. State the domain from source semantics,
+never parameter spelling. Ground-relative height is length + non_negative and may be 0,
+including fixed min=max=default=0 with step=0. Radius/wavelength are length + positive.
+Signed displacement is length + signed with a source-supported reference frame.
 speed, frequency and acceleration retain strictly positive ranges (min > 0).
-Signed positions/displacements use scalar with source-supported coordinate/reference assumptions
-and explicit source or pedagogical ranges; never classify negative coordinates as length.
+Use explicit source or pedagogical ranges for signed positions/displacements.
 For an ideal same-height flight, useful pedagogical ranges can be speed 5..100 m/s,
 inclination 5..85 degrees (store radians), gravity 1..20 m/s², if consistent with the source model.
 Stable ASCII ids; concise human labels.

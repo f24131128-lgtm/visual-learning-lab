@@ -73,7 +73,7 @@ class ManipulationLogicTests(unittest.TestCase):
   np.testing.assert_allclose(next(t for t in world.targets(scene,state) if t["id"]=="launch")["position"],[30*math.cos(math.pi/6),15.],atol=1e-10)
 
  def test_affine_two_anchors_use_existing_lab_values_curves_and_focus(self):
-  demo=math_demo();saved=dict(values=default_values(demo),compare=True);seen=[]
+  demo=math_demo();saved=dict(specification=demo,values=default_values(demo),compare=True);seen=[]
   target=lab.targets(demo,saved["values"],"formal_relation")[0]
   self.assertTrue(lab.commit(demo,saved,"m",event(target,lab.revision(saved),y=2.),"formal_relation",lambda i:seen.append(i) or True))
   self.assertEqual(saved["values"],dict(gain=1.,offset=2.))
@@ -147,7 +147,7 @@ class ManipulationLogicTests(unittest.TestCase):
   self.assertFalse(world.commit_focus(scene,state,'m',ev))
   invalid=ev|{'revision':state['revision'],'token':'next','semantic_id':'spoof'}
   self.assertFalse(world.commit_focus(scene,state,'m',invalid))
-  demo=math_demo();saved=dict(values=default_values(demo));target=lab.targets(demo,saved['values'],'formal_relation')[0]
+  demo=math_demo();saved=dict(specification=demo,values=default_values(demo));target=lab.targets(demo,saved['values'],'formal_relation')[0]
   ev={k:v for k,v in event(target,lab.revision(saved)).items() if k not in ('x','y')}|{'kind':'manipulation_focus'}
   seen=[];self.assertTrue(lab.commit_focus(demo,saved,'m',ev,'formal_relation',lambda i:seen.append(i) or True))
   self.assertEqual(seen,['formal_relation']);self.assertEqual(saved['values'],default_values(demo))
@@ -189,19 +189,19 @@ class ManipulationLogicTests(unittest.TestCase):
   self.assertIsNone(lab.semantic_target(demo,a['learning_path'],{}))
   self.assertEqual(lab.targets(demo,default_values(demo),None),[])
 
- def test_declared_central_relation_requires_all_explicit_child_links(self):
+ def test_explicit_series_owner_is_independent_of_central_relation_heuristics(self):
   demo=math_demo();a=analysis('math');a['concept_map']['nodes'].append(dict(id='coefficient',label='Any label',source_pages=[1],role='primary'))
   a['concept_map']['edges']=[dict(source='formal_relation',target='source_baseline',label='relates'),dict(source='formal_relation',target='coefficient',label='relates')]
   a['learning_path']['steps'][0]['visual_refs']=[dict(id='source_baseline'),dict(id='coefficient')]
   catalog=semantic_catalog(None,a)
   self.assertEqual(lab.semantic_target(demo,a['learning_path'],catalog,a),'formal_relation')
   a['concept_map']['edges'].pop()
-  self.assertIsNone(lab.semantic_target(demo,a['learning_path'],catalog,a))
+  self.assertEqual(lab.semantic_target(demo,a['learning_path'],catalog,a),'formal_relation')
   a['concept_map']['nodes'][1]['role']='central'
-  self.assertIsNone(lab.semantic_target(demo,a['learning_path'],catalog,a))
+  self.assertEqual(lab.semantic_target(demo,a['learning_path'],catalog,a),'formal_relation')
 
  def test_lab_other_controls_invalidate_old_gestures_even_after_aba(self):
-  demo=math_demo();saved=dict(values=default_values(demo));t=lab.targets(demo,saved['values'],'formal_relation')[0]
+  demo=math_demo();saved=dict(specification=demo,values=default_values(demo));t=lab.targets(demo,saved['values'],'formal_relation')[0]
   stale=event(t,lab.revision(saved),y=2.)
   saved['values']['offset']=1.;lab.revision(saved);saved['values']['offset']=0.;lab.revision(saved)
   self.assertFalse(lab.commit(demo,saved,'m',stale,'formal_relation',lambda _:True))

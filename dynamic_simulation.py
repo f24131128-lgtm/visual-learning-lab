@@ -1,6 +1,7 @@
 """Optional targeted scene requests, session caches, and learning navigation."""
 
 import hashlib
+from model_config import response_options
 import json
 
 from openai import OpenAI
@@ -124,7 +125,7 @@ def spec_cache_key(state, demo):
 def request_simulation(client, model, context):
     """The only Day 16 API site: one strict, bounded targeted Responses request."""
     response = client.responses.create(
-        model=model, instructions=SIMULATION_INSTRUCTIONS + "\n" + output_language_instruction(context["analysis_language"]),
+        **response_options(), instructions=SIMULATION_INSTRUCTIONS + "\n" + output_language_instruction(context["analysis_language"]),
         input=json.dumps(context, ensure_ascii=False), max_output_tokens=8000,
         text={"format": {"type": "json_schema", "name": "dynamic_simulation", "strict": True, "schema": DYNAMIC_SIMULATION_SCHEMA}},
     )

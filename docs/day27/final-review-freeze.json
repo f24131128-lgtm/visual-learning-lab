@@ -1,0 +1,26 @@
+{
+  "frozen_utc": "2026-10-10T17:17:35.008958+00:00",
+  "files_sha256": {
+    "docs/day27/browser-results.json": "454ed9d0bf894cdd0f348516badb050113d8c2a0cbeb6f7939d788b46733efeb",
+    "docs/day27/stability-comparison.json": "2144db12f36136ed9534a8519a08ce9f6258f827df8afd2279458d7b6028f4f2",
+    "docs/day27/request-usage-all-stages.json": "be868a1406d15a15f19475ff4ed1a67d1768f0c238c71816d1c9cf0644f30b90",
+    "docs/day27/source-evidence.json": "82ae9fb96c92fc3461f50dc959f2098d432c0c3bd4a4684e0e17f0c259a82f1a",
+    "docs/day27/source-evidence-supplement.json": "9bb30e116910caf99a0a93778883f55125c07707d31b2d7c73b9ba3b13f94be8",
+    "docs/day27/semantic-review-supplement.md": "1f031b92c63219ad0df3bee21db80c04b99e4de7c2eeab60ac41811667ed6392",
+    "docs/day27/engineering-scorecard.json": "15d2ccb0e769b9d03faab1d2d474940f24ab0375303a7c0b07c01231c282bf47",
+    "docs/day27/failure-taxonomy.json": "211e63beb79b6b2efad2a69afd6abcfecd4028b145ff2ac695a92749aebd1076",
+    "docs/day27/private-evidence-hashes.json": "9c28d420c3d211462355e154a10aee570b02e430dd8184d6977532db9565aebc",
+    "docs/day27/01-harmonic-explore.png": "4da9be8c3475db86fa76d4854609ad6b851e03fd54539b48993eded1632c0213",
+    "docs/day27/02-probability-explore.png": "f7737244f2f8d8d069c0ec3930b865cd395e5ef62eaf01e243a9c9936033fe49",
+    "docs/day27/03-debugging-static.png": "d310ddce4e3d36f6d3a1149f0b8bf895720068d7f5dbad01c5e08e8df2ab3e3c",
+    "docs/day27/04-circular-rejection.png": "e9205b2a8d1fd2aec44ef4788332787b4b9b2eac2117a0d6b8272033a6ca72cb",
+    "docs/DAY27_EVIDENCE.md": "b81a5d5242d596088e93e4f07985bd76a50632a0409e8e678aa5de52044009e1",
+    "docs/DAY27_CHECKPOINT.md": "8ca40b8351cc4582f876ce403a18974138ee53eea1ef88094afa37f69effa3b4",
+    "README.md": "409251e537a55ef23f767fc40eb9624594b741166f522d2aa759441eb107a079",
+    "THIRD_PARTY_NOTICES.md": "073ee8883ea8ea0fb1bff1235d163b6e416ae85db795d39faf965dc7c55e445d"
+  },
+  "package_sha256": "216b1f0b33ac5a1260fc12df8ba20d68333b1c99f6413faeb3b7882353800b39",
+  "production_fingerprint": "17aaefb83e4c2cc9b59258af3d041328b43383b6588567e466d9fb18ed75ffb5",
+  "A_verdicts": "HUMAN_REVIEW_PENDING",
+  "semantic_retries": 0
+}

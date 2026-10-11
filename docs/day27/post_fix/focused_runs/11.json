@@ -1,0 +1,18 @@
+{
+  "stage": "POST_FIX",
+  "kind": "focused_offline",
+  "timestamp": "2026-10-11T02:46:58.305872+00:00",
+  "modules": [
+    "test_day14",
+    "test_day22",
+    "test_day23",
+    "test_day27_postfix"
+  ],
+  "test_count": 105,
+  "passed": 105,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 35.45418670005165,
+  "paid_model_requests": 0
+}

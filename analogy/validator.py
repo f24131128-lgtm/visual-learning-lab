@@ -150,7 +150,7 @@ def _normalize(spec, catalog, registry, allowed_pages, focus):
         if p["type"] in PRIMITIVES: rendered.add(p["entity_id"])
         if p["control_parameter"]:
             param=next((v for v in spec["parameters"] if v["id"]==p["control_parameter"]),None)
-            if not param or mappings[param["mapping_id"]]["analogy_id"]!=p["entity_id"]:
+            if not param or not param["expose_control"] or mappings[param["mapping_id"]]["analogy_id"]!=p["entity_id"]:
                 p["control_parameter"]=""
                 spec["recoveries"].append(dict(code="drag_omitted",path=f"$.primitives[{n}].control_parameter"))
     if any(a["entity_id"] not in analogies or not a["text"].strip() for a in spec["annotations"]): raise Rejection("annotation_reference","$.annotations")

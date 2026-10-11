@@ -1,0 +1,499 @@
+{
+  "status": "FROZEN_APPROVED_BEFORE_MODEL_EXECUTION",
+  "created_utc": "2026-10-10T16:03:05.194583+00:00",
+  "author": "AI-drafted, human-reviewed and approved before model execution.",
+  "language": "en",
+  "deep_subset": [
+    "circular",
+    "harmonic",
+    "circuits",
+    "probability",
+    "search"
+  ],
+  "stability_subset": [
+    "circular",
+    "harmonic",
+    "circuits",
+    "probability"
+  ],
+  "stability_protocol": "Use one fixed main analysis. Three independent identical production representation declarations per selected case. Prefer selected spatial/probability compiler; if unavailable use the planner declaration. These are predeclared stability samples, never semantic retries. Preserve rejection outcomes. Three extra declaration requests after the first-pass pipeline; first-pass request not counted among the three.",
+  "scoring": {
+    "PASS": "核心教材語意正確、representation 合理、固定/可調判斷合理、沒有捏造來源或互動；適用時 runtime 可完成，不適用時能誠實降級。",
+    "PARTIAL": "核心語意大致正確，但 grounding / representation / runtime 有明顯缺口，且不至於誤導學習者。",
+    "FAIL": "核心教材語意錯誤、固定/可調判斷會誤導、捏造公式/來源/affordance，或應可完成的核心流程無法使用。",
+    "NOT_APPLICABLE": "該能力依來源本來就不適用，例如 static case 沒有 direct manipulation。"
+  },
+  "expectations": [
+    {
+      "material_id": "circular",
+      "concepts_present": [
+        "position on a circle",
+        "angular velocity and period",
+        "tangential velocity",
+        "radial acceleration"
+      ],
+      "important_original_pdf_pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "reasonable_families": [
+        "spatial_dynamics",
+        "numeric_lab",
+        "formal concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "source example coefficients remain compiled baseline; not measurements"
+      ],
+      "adjustable_quantities": [
+        "positive radius",
+        "angular velocity: signed or positive according to source direction/coordinate semantics; never infer its domain from the parameter ID or label"
+      ],
+      "unsupported_semantics": [
+        "no gravitational orbit or motor torque model",
+        "no radius=0",
+        "no changing the original source examples"
+      ],
+      "static_degradation_conditions": "A formal/numeric view is correct if a consistent bounded planar world cannot compile.",
+      "domain_semantics": {
+        "radius": "positive",
+        "angular_velocity": "Source-dependent signed or positive. A signed directional angular velocity is distinct from a positive angular-speed magnitude. Names alone do not establish either domain."
+      },
+      "runtime_controlled_semantic_time": {
+        "classification": "runtime-controlled semantic time",
+        "ordinary_material_adjustable_parameter": false,
+        "behavior": "Playback/scrubbing use the existing bounded canonical semantic clock and validated duration policy. Time is not a general adjustable teaching-material parameter."
+      },
+      "deep": true,
+      "stability": true,
+      "deep_selection_reason": "Geometric/physical linked state, exact inverse ownership and source roundtrip.",
+      "stability_selection_reason": "Domain, parameter identity, ownership, inverse and duration-policy drift."
+    },
+    {
+      "material_id": "harmonic",
+      "concepts_present": [
+        "amplitude and period",
+        "Hooke force and mass",
+        "omega=sqrt(k/m)",
+        "initial conditions and phase"
+      ],
+      "important_original_pdf_pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "reasonable_families": [
+        "spatial_dynamics",
+        "numeric_lab",
+        "formal concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "given initial conditions must remain identified as the source baseline"
+      ],
+      "adjustable_quantities": [
+        "positive mass and spring constant",
+        "non-negative amplitude",
+        "phase"
+      ],
+      "unsupported_semantics": [
+        "no damping or driving force",
+        "no amplitude interpreted as wavelength",
+        "no arbitrary 3D mechanics"
+      ],
+      "static_degradation_conditions": "Numeric/formal degradation is correct when the runtime cannot express the oscillator honestly.",
+      "runtime_controlled_semantic_time": {
+        "classification": "runtime-controlled semantic time",
+        "ordinary_material_adjustable_parameter": false,
+        "behavior": "Playback/scrubbing use the existing bounded canonical semantic clock and validated duration policy. Time is not a general adjustable teaching-material parameter."
+      },
+      "deep": true,
+      "stability": true,
+      "deep_selection_reason": "A second physical system with coupled quantities, phase and initial conditions.",
+      "stability_selection_reason": "Coupled declarations, fixed baseline, domain and inverse drift."
+    },
+    {
+      "material_id": "circuits",
+      "concepts_present": [
+        "RC node equation",
+        "homogeneous and particular solutions",
+        "initial voltage",
+        "tau=RC",
+        "charging and discharging"
+      ],
+      "important_original_pdf_pages": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "dynamic_simulation",
+        "process_flow",
+        "formal comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "5 V/0 V examples and boundary conditions are source baselines"
+      ],
+      "adjustable_quantities": [
+        "positive R and C",
+        "hypothetical input/initial voltage"
+      ],
+      "unsupported_semantics": [
+        "no invented measured component values",
+        "no nonlinear transistor or second-order RLC model",
+        "no physical circuit rewiring handle"
+      ],
+      "static_degradation_conditions": "A formula/table/flow is correct without an unambiguous waveform inverse; generic bounded hypothetical defaults must be labeled.",
+      "runtime_controlled_semantic_time": {
+        "classification": "runtime-controlled semantic time",
+        "ordinary_material_adjustable_parameter": false,
+        "behavior": "Playback/scrubbing use the existing bounded canonical semantic clock and validated duration policy. Time is not a general adjustable teaching-material parameter."
+      },
+      "deep": true,
+      "stability": true,
+      "deep_selection_reason": "Cross-domain engineering: waveform/initial-condition grounding and canonical numerical state.",
+      "stability_selection_reason": "Fixed source examples versus hypothetical controls; ranges, domains and representation drift."
+    },
+    {
+      "material_id": "signals",
+      "concepts_present": [
+        "period/frequency",
+        "waveform/timbre",
+        "harmonics and spectral decomposition",
+        "two-sinusoid mixture"
+      ],
+      "important_original_pdf_pages": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "formal concept map",
+        "comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "439 Hz observed bell and plotted recording",
+        "440/880 Hz, 1.0/0.5 and offset=0 example baseline",
+        "original spectrum samples"
+      ],
+      "adjustable_quantities": [
+        "hypothetical sine/cosine frequency, amplitude and phase",
+        "bounded time window"
+      ],
+      "unsupported_semantics": [
+        "no exact recovery of the recorded audio/spectrum from the screenshot",
+        "no execution of thinkdsp Python or audio download",
+        "no invented measured Fourier coefficients"
+      ],
+      "static_degradation_conditions": "Static descriptions are correct if only measured recordings are modeled or a safe symbolic demo is unsupported.",
+      "deep": false,
+      "stability": false,
+      "deep_selection_reason": null,
+      "stability_selection_reason": null
+    },
+    {
+      "material_id": "regression",
+      "concepts_present": [
+        "sum of squared residuals",
+        "b1=(sy/sx)R",
+        "line passes through means",
+        "interpretation of slope/intercept",
+        "prediction limitations"
+      ],
+      "important_original_pdf_pages": [
+        355,
+        356,
+        357,
+        358,
+        359,
+        360
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "formal comparison",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "50-student sample",
+        "means 101780/19940; sd 63200/5460; R=-0.499",
+        "fitted slope -0.0431 and intercept 24.319 in thousands",
+        "empirical source dots",
+        "all fitted results remain source facts, not freely adjustable parameters"
+      ],
+      "adjustable_quantities": [
+        "prediction input inside observed range"
+      ],
+      "unsupported_semantics": [
+        "no causal scholarship policy claim",
+        "no real student data reconstruction",
+        "empirical points, source statistics and fitted results remain source facts; no adjustable hypothetical trial line unless explicitly supported by the original source"
+      ],
+      "static_degradation_conditions": "A formal equation and source plot is correct if fixed empirical data cannot be represented; no drag of observed dots.",
+      "deep": false,
+      "stability": false,
+      "deep_selection_reason": null,
+      "stability_selection_reason": null
+    },
+    {
+      "material_id": "probability",
+      "concepts_present": [
+        "disjoint events",
+        "die outcome sets A={1,2}, B={4,6}, D={2,3}",
+        "inclusive or and intersection correction",
+        "complement",
+        "non-uniform dice-sum distribution"
+      ],
+      "important_original_pdf_pages": [
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "reasonable_families": [
+        "probability_sets",
+        "formal comparison",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "six fair die outcomes and source memberships",
+        "52-card counts",
+        "two-dice sum weights",
+        "given income/loan proportions"
+      ],
+      "adjustable_quantities": [
+        "local event selection/set operations",
+        "Monte Carlo sample count with original probabilities"
+      ],
+      "unsupported_semantics": [
+        "do not treat dice sums as uniformly likely",
+        "no arbitrary changes to source probabilities",
+        "no unlimited 52-outcome world if contract exceeds bounds"
+      ],
+      "static_degradation_conditions": "A bounded six-outcome die subset is honest with scope disclosed; other examples may stay formal. Dragging geometry is N/A.",
+      "deep": true,
+      "stability": true,
+      "deep_selection_reason": "Discrete shared membership/focus and source roundtrip; no geometric drag is required.",
+      "stability_selection_reason": "Outcome/event membership, ownership, source references and acceptance drift."
+    },
+    {
+      "material_id": "search",
+      "concepts_present": [
+        "sequential search O(n)",
+        "sorted-list bisection O(log n)",
+        "constant-time list operations",
+        "hashing and dictionaries"
+      ],
+      "important_original_pdf_pages": [
+        226,
+        227
+      ],
+      "reasonable_families": [
+        "process_flow",
+        "formal flow",
+        "comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "algorithm correctness and complexity assumptions",
+        "source contains no measured timing dataset"
+      ],
+      "adjustable_quantities": [
+        "local navigation through declared process",
+        "explicit hypothetical sorted input only if safely resolved"
+      ],
+      "unsupported_semantics": [
+        "no execution of generated Python",
+        "no unsupported arbitrary binary-search machine",
+        "no invented measured benchmarks"
+      ],
+      "static_degradation_conditions": "A read-only flow/comparison is correct when bounded execution is unsupported.",
+      "deep": true,
+      "stability": false,
+      "deep_selection_reason": "Process/state capability and source roundtrip, with honest read-only fallback when execution is unsupported.",
+      "stability_selection_reason": null
+    },
+    {
+      "material_id": "complexity",
+      "concepts_present": [
+        "asymptotic analysis",
+        "linear vs quadratic",
+        "100n+1 vs n^2+n+1",
+        "Big-O growth table"
+      ],
+      "important_original_pdf_pages": [
+        223,
+        224,
+        225
+      ],
+      "reasonable_families": [
+        "comparison",
+        "numeric_lab",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "source example coefficients 100 and 1",
+        "Big-O definitions and table classes"
+      ],
+      "adjustable_quantities": [
+        "positive integer input size n for illustrative operation counts"
+      ],
+      "unsupported_semantics": [
+        "do not present operation count as measured wall-clock time",
+        "no changing source algorithm coefficients",
+        "no source-supported hardware benchmark claim"
+      ],
+      "static_degradation_conditions": "A comparison/table is sufficient; numeric count curves are optional and must stay illustrative.",
+      "deep": false,
+      "stability": false,
+      "deep_selection_reason": null,
+      "stability_selection_reason": null
+    },
+    {
+      "material_id": "spectrum",
+      "concepts_present": [
+        "frequency/wavelength/energy unit conventions",
+        "scientific notation",
+        "unit conversion scale table",
+        "positive wavelength values"
+      ],
+      "important_original_pdf_pages": [
+        35
+      ],
+      "reasonable_families": [
+        "comparison",
+        "numeric_lab",
+        "formal table"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "every source table cell and size comparison",
+        "vacuum conversion baseline approximately c=3e8 m/s if explained as general physics"
+      ],
+      "adjustable_quantities": [
+        "explicitly hypothetical positive wavelength/frequency conversion within numeric limits"
+      ],
+      "unsupported_semantics": [
+        "no zero wavelength",
+        "no invented full spectrum dataset or new 3D propagation scene",
+        "no claimed exact page-box grounding before Atlas validation"
+      ],
+      "static_degradation_conditions": "Static table is correct if numeric dynamic ranges exceed the bounded evaluator. Only physical PDF page 35 is ingested: photo/stock pages are excluded.",
+      "deep": false,
+      "stability": false,
+      "deep_selection_reason": null,
+      "stability_selection_reason": null
+    },
+    {
+      "material_id": "debugging",
+      "concepts_present": [
+        "syntax/runtime/semantic errors",
+        "incremental testing",
+        "localizing syntax faults",
+        "debugging strategy"
+      ],
+      "important_original_pdf_pages": [
+        215,
+        216
+      ],
+      "reasonable_families": [
+        "formal flow",
+        "concept map",
+        "comparison"
+      ],
+      "interactive_plausibility": false,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "error-category meanings",
+        "source advice"
+      ],
+      "adjustable_quantities": [
+        "local reading/selection only"
+      ],
+      "unsupported_semantics": [
+        "no numerical physics world",
+        "no fabricated executable debugger or source code",
+        "no justified numeric drag handle"
+      ],
+      "static_degradation_conditions": "Formal/static representation is the intended success, preserving selection/source navigation without fabricated manipulation.",
+      "deep": false,
+      "stability": false,
+      "deep_selection_reason": null,
+      "stability_selection_reason": null
+    }
+  ],
+  "frozen_utc": "2026-10-10T16:15:40.188102+00:00",
+  "review_date": "2026-10-11",
+  "review_timezone": "Asia/Taipei",
+  "approval_provenance": "Direct user review of the ten-case table, with six final adjustments. Approval covers freezing expectations; paid API execution remains prohibited in this turn.",
+  "original_reviewed_draft_sha256": "5ba3276ba1a12468428e100981766f1e3d9cc6ba9f84ff59da175c6a59e45ace",
+  "assessment_axes": {
+    "A": {
+      "name": "semantic/source correctness",
+      "criteria": [
+        "core source concepts and relationships",
+        "source page/evidence fidelity",
+        "fixed versus adjustable judgment",
+        "domain legality according to source meaning",
+        "no invented formulas, source facts or justified affordances"
+      ],
+      "evidence_requirement": "Compare the actual declaration and displayed content against the frozen source expectations and original pages. Validator/compiler acceptance is not semantic correctness evidence."
+    },
+    "B": {
+      "name": "engineering/runtime result",
+      "criteria": [
+        "appropriate supported compilation or honest degradation",
+        "canonical commit and atomic rejection",
+        "synchronized views and source roundtrip",
+        "source immutability",
+        "local interaction request delta and browser behavior"
+      ],
+      "evidence_requirement": "Use validator/compiler/runtime/browser observations; report missing evidence separately."
+    }
+  },
+  "assessment_rules": [
+    "Report A and B independently for every case; never replace A with validator/compile PASS.",
+    "NOT_APPLICABLE is source-based capability inapplicability, never a label for work not performed.",
+    "A static/formal result can PASS when justified by the source; direct manipulation is not mandatory.",
+    "No source-dependent angular-velocity domain guessing by parameter IDs, labels or topic names.",
+    "Gold is never sent to the model; frozen expectations are never edited after model execution."
+  ],
+  "corpus_manifest_sha256": "f4574493c903786d55907c4573749d6b57a8dd101b33372b5fdd687a89b8c983"
+}

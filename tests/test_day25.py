@@ -149,7 +149,7 @@ class TwinLogicTests(unittest.TestCase):
         d = self.fixtures["math"]; demo=math_demo(); values={p["id"]:p["default"] for p in demo["parameters"]}
         ts=lab.targets(demo,values,d["semantic"])
         links=derive_links(d["atlas_state"],d["material"],[1,2,3],d["catalog"],ts,
-                           {d["semantic"]:[dict(id="relation_curve")]})
+                           {d["semantic"]:[dict(id=ts[0]["object_id"])]})
         self.assertEqual(len(links[d["semantic"]]["manipulation_target_ids"]),2)
         self.assertFalse(links[d["derived"]]["manipulable"])
 
@@ -165,7 +165,7 @@ class TwinLogicTests(unittest.TestCase):
 
     def test_direct_lab_commit_retires_stale_slider_but_new_control_works(self):
         from interactive_lab import _save_parameter, _reset_parameters
-        demo=math_demo();saved=dict(values={"gain":1.,"offset":0.},compare=True)
+        demo=math_demo();saved=dict(specification=demo,values={"gain":1.,"offset":0.},compare=True)
         store=dict(demos={demo["id"]:saved})
         target=lab.targets(demo,saved["values"],"formal_relation")[0]
         event=dict(scene="m",revision=lab.revision(saved),token="one",kind="manipulate",target=target["id"],x=0.,y=2.,time=0.)

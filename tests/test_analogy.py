@@ -192,22 +192,30 @@ class AnalogyLogicTests(unittest.TestCase):
         self.assertIsNone(compiler.build(self.store,other,client,"offline",dict(analysis_language="en"),self.catalog,self.registry,[1]))
         self.assertEqual(self.store["active"],before["active"]);self.assertEqual(self.store["cache"],before["cache"])
 
-    def test_lab_binding_uses_validated_lesson_ids_and_canonical_values(self):
+    def test_lab_binding_uses_explicit_semantic_refs_and_canonical_values(self):
         self.wrapper["scene"]=None
         demo=dict(id="lab_one",parameters=[dict(id="power",label="Input",min=1.,max=10.,default=5.,step=.1,unit="")],
             related_step_ids=["s1"],x=dict(id="x",min=0.,max=1.,points=50),series=[dict(id="curve",expression="power*x")])
+        from provenance_fixtures import declared_demo
+        from interactive_lab import _clean_demo
+        demo.update(title="Input experiment", learning_goal="Observe the quantity", formula_display="y=px",
+                    source_pages=[1], derived_metrics=[], try_this=[])
+        demo["x"]["label"]="Input"
+        demo["series"][0]["label"]="Quantity"
+        demo=_clean_demo(declared_demo(demo,refs=["voltage"]),[1],{"s1"},lambda p,a:p,
+            version="2.0",catalog=self.catalog,material="a")
         lab=dict(demos=[demo]); path=dict(steps=[dict(id="s1",visual_refs=[dict(id="voltage")])])
         registry=state.parameter_registry(self.wrapper,lab,path,self.catalog)
         raw=copy.deepcopy(self.raw)
         raw["parameters"][0]["formal_target"]="lab:lab_one:power"
         raw["parameters"][1]["formal_target"]=""
         spec=normalize(raw,self.catalog,registry,[1],"voltage")
-        lab_state=dict(demos=dict(lab_one=dict(values=dict(power=5.))))
+        lab_state=dict(material_id="a",demos=dict(lab_one=dict(specification=demo,values=dict(power=5.))))
         state.set_parameter(self.store,spec,"level",8.,registry,self.wrapper,lab_state)
         self.assertEqual(lab_state["demos"]["lab_one"]["values"]["power"],8.)
         lab_state["demos"]["lab_one"]["values"]["power"]=7.
         self.assertEqual(state.values(self.store,spec,registry,self.wrapper,lab_state)["level"],7.)
-        self.assertFalse(state.parameter_registry(self.wrapper,lab,None,self.catalog)["lab:lab_one:power"]["semantic_ids"])
+        self.assertEqual(state.parameter_registry(self.wrapper,lab,None,self.catalog)["lab:lab_one:power"]["semantic_ids"],["voltage"])
         from interactive_lab import select_demo
         st.session_state["learning_workspace"]=self.workspace
         self.workspace["representation"]="analogy"

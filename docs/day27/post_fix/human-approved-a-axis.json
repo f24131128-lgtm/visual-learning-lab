@@ -1,0 +1,127 @@
+{
+  "stage": "POST_FIX",
+  "recorded_utc": "2026-10-11T02:37:49.616665+00:00",
+  "authority": "Direct human approval in this conversation",
+  "untouched_holdout": false,
+  "denominator": 10,
+  "frozen_baseline": {
+    "case_results": {
+      "circular": "PARTIAL",
+      "harmonic": "PASS",
+      "circuits": "PARTIAL",
+      "signals": "PASS",
+      "regression": "FAIL",
+      "probability": "FAIL",
+      "search": "PARTIAL",
+      "complexity": "PARTIAL",
+      "spectrum": "PASS",
+      "debugging": "PASS"
+    },
+    "counts": {
+      "PASS": 4,
+      "PARTIAL": 4,
+      "FAIL": 2
+    },
+    "modified": false
+  },
+  "post_fix": {
+    "case_results": {
+      "circular": "PARTIAL",
+      "harmonic": "PASS",
+      "circuits": "PARTIAL",
+      "signals": "PASS",
+      "regression": "PASS",
+      "probability": "PARTIAL",
+      "search": "PARTIAL",
+      "complexity": "PARTIAL",
+      "spectrum": "PASS",
+      "debugging": "PASS"
+    },
+    "counts": {
+      "PASS": 5,
+      "PARTIAL": 5,
+      "FAIL": 0
+    }
+  },
+  "explicitly_reviewed_live_cases": [
+    "regression",
+    "probability",
+    "circuits",
+    "harmonic",
+    "signals"
+  ],
+  "carried_forward_cases": [
+    "circular",
+    "search",
+    "complexity",
+    "spectrum",
+    "debugging"
+  ],
+  "cases": {
+    "circular": {
+      "baseline": "PARTIAL",
+      "post_fix": "PARTIAL",
+      "basis": "unchanged baseline carried forward under human-approved aggregate",
+      "human_reason": null
+    },
+    "harmonic": {
+      "baseline": "PASS",
+      "post_fix": "PASS",
+      "basis": "explicit human POST_FIX review",
+      "human_reason": "來源 facts、hypothetical exploration 與 derived quantities 分離，無 damping/forcing invention，維持 PASS。"
+    },
+    "circuits": {
+      "baseline": "PARTIAL",
+      "post_fix": "PARTIAL",
+      "basis": "explicit human POST_FIX review",
+      "human_reason": "source charging/discharging facts 與 hypothetical controls 已分離；但 Main 對來源「符號筆誤」的說法尚未人工核對，因此維持 PARTIAL。"
+    },
+    "signals": {
+      "baseline": "PASS",
+      "post_fix": "PASS",
+      "basis": "explicit human POST_FIX review",
+      "human_reason": "互動能力退化，但 source semantics 保持正確並誠實 static fallback，A-axis 維持 PASS；engineering capability loss 另外記錄。"
+    },
+    "regression": {
+      "baseline": "FAIL",
+      "post_fix": "PASS",
+      "basis": "explicit human POST_FIX review",
+      "human_reason": "source-fixed empirical R 與 hypothetical exploration 已分離；Lab 拒絕但 static/formal fallback 不再誤導來源事實。"
+    },
+    "probability": {
+      "baseline": "FAIL",
+      "post_fix": "PARTIAL",
+      "basis": "explicit human POST_FIX review",
+      "human_reason": "source facts 與 hypothetical exploration 已分離，但 finite event membership / probability_sets runtime 尚未完整建立。"
+    },
+    "search": {
+      "baseline": "PARTIAL",
+      "post_fix": "PARTIAL",
+      "basis": "unchanged baseline carried forward under human-approved aggregate",
+      "human_reason": null
+    },
+    "complexity": {
+      "baseline": "PARTIAL",
+      "post_fix": "PARTIAL",
+      "basis": "unchanged baseline carried forward under human-approved aggregate",
+      "human_reason": null
+    },
+    "spectrum": {
+      "baseline": "PASS",
+      "post_fix": "PASS",
+      "basis": "unchanged baseline carried forward under human-approved aggregate",
+      "human_reason": null
+    },
+    "debugging": {
+      "baseline": "PASS",
+      "post_fix": "PASS",
+      "basis": "unchanged baseline carried forward under human-approved aggregate",
+      "human_reason": null
+    }
+  },
+  "engineering_capability_loss": {
+    "signals": "New Lab rejected: summed waveform references seven numeric names; existing bound is five. Static/formal fallback remains. Interactive waveform capability is absent in this attempt; this does not rescore the human A-axis."
+  },
+  "review_packet": "docs/day27/post_fix/post-fix-semantic-review.md",
+  "independent_model_rescoring": false
+}

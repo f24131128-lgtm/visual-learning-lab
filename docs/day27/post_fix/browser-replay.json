@@ -1,0 +1,159 @@
+{
+  "stage": "POST_FIX",
+  "cases": [
+    {
+      "case": "regression",
+      "success": true,
+      "error": null,
+      "steps": [
+        "Real PDF upload and actual recorded main analysis",
+        "Original first planner declaration accepted/rejected by production",
+        "Actual recorded deep Atlas declaration",
+        "Exact registered formal object opened via Grounded Twin"
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "focus_preserved": true,
+      "source_pdf_immutable": true,
+      "source_view_unchanged": true,
+      "roundtrip_mode": "source",
+      "canonical_value_changed": null,
+      "linked_chart_changed": null,
+      "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+      "post_compilation_response_attempts": 0,
+      "post_compilation_network_delta": 0,
+      "screenshot": "01-regression.png"
+    },
+    {
+      "case": "probability",
+      "success": true,
+      "error": null,
+      "steps": [
+        "Real PDF upload and actual recorded main analysis",
+        "Original first planner declaration accepted/rejected by production",
+        "Actual recorded deep Atlas declaration",
+        "Exact registered formal object opened via Grounded Twin"
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "focus_preserved": true,
+      "source_pdf_immutable": true,
+      "source_view_unchanged": true,
+      "roundtrip_mode": "source",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "interaction_absence": null,
+      "post_compilation_response_attempts": 0,
+      "post_compilation_network_delta": 0,
+      "screenshot": "02-probability.png"
+    },
+    {
+      "case": "circuits",
+      "success": true,
+      "error": null,
+      "steps": [
+        "Real PDF upload and actual recorded main analysis",
+        "Original first planner declaration accepted/rejected by production",
+        "Actual recorded deep Atlas declaration",
+        "Exact registered formal object opened via Grounded Twin"
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "focus_preserved": true,
+      "source_pdf_immutable": true,
+      "source_view_unchanged": true,
+      "roundtrip_mode": "source",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "interaction_absence": null,
+      "post_compilation_response_attempts": 0,
+      "post_compilation_network_delta": 0,
+      "screenshot": "03-rc.png"
+    },
+    {
+      "case": "harmonic",
+      "success": true,
+      "error": null,
+      "steps": [
+        "Real PDF upload and actual recorded main analysis",
+        "Original first planner declaration accepted/rejected by production",
+        "Actual recorded deep Atlas declaration",
+        "Exact registered formal object opened via Grounded Twin"
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "focus_preserved": true,
+      "source_pdf_immutable": true,
+      "source_view_unchanged": true,
+      "roundtrip_mode": "source",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "interaction_absence": null,
+      "post_compilation_response_attempts": 0,
+      "post_compilation_network_delta": 0,
+      "screenshot": "04-shm-source.png"
+    },
+    {
+      "case": "signals",
+      "success": true,
+      "error": null,
+      "steps": [
+        "Real PDF upload and actual recorded main analysis",
+        "Original first planner declaration accepted/rejected by production",
+        "Actual recorded deep Atlas declaration",
+        "Exact registered formal object opened via Grounded Twin"
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "focus_preserved": true,
+      "source_pdf_immutable": true,
+      "source_view_unchanged": true,
+      "roundtrip_mode": "source",
+      "canonical_value_changed": null,
+      "linked_chart_changed": null,
+      "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+      "post_compilation_response_attempts": 0,
+      "post_compilation_network_delta": 0,
+      "screenshot": null
+    }
+  ],
+  "attempts": [
+    {
+      "path": ".day27-local/post_fix/browser/circuits-desktop-1791683807795-results.json",
+      "sha256": "99db4b2c65291051aeca1dd8fd87a65648a44a82615d2ffa98dfef9308301f47"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/circuits-desktop-1791684055750-results.json",
+      "sha256": "60a9de9df38392dcf76a5bd4d27821e59ef5c1f6b059fd590cdd708fb0bdd14d"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/circuits-desktop-1791684233273-results.json",
+      "sha256": "9094e6fcfec0888d6dd50f813235000b72ae5a092c3ec9a6edba43be77fa193a"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/harmonic-desktop-1791683940227-results.json",
+      "sha256": "444e62106c9d2e5d9ebec192013f091d0b7f1cd9c6d849061b3e057bdee52e8a"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/probability-desktop-1791683782402-results.json",
+      "sha256": "d87e630334b8e48802c740844aa9889fb75f4def9ec701284716f37e97af7b05"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/probability-desktop-1791684017499-results.json",
+      "sha256": "85a64dba3616079ad9218ced12fc79634e82016ceaee2bf29e9258deec2cf728"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/regression-desktop-1791683469348-results.json",
+      "sha256": "0960a0e5e8315cd853aa0ae6b84e93755e0bc13fd7eb3ff0b49855e36cafd811"
+    },
+    {
+      "path": ".day27-local/post_fix/browser/signals-desktop-1791684083436-results.json",
+      "sha256": "ca84657d16322135b8cb7db3d53925945ec231c141e8804dfa04ebd0be0378f7"
+    }
+  ],
+  "recorded_response_replays": 24,
+  "context_mismatches": 0,
+  "blocked_unrecorded_responses": 0,
+  "new_network_requests": 0,
+  "scope": "Real empty-app PDF upload and widget/pointer replay of exactly the saved model output; no model rerun."
+}

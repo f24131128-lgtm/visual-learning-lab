@@ -1,0 +1,380 @@
+{
+  "first_pass_denominator": 10,
+  "first_pass_counts": {
+    "FAIL": 2,
+    "PASS": 8
+  },
+  "first_pass": [
+    {
+      "material_id": "circular",
+      "B": "FAIL",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "rejected",
+      "compiler": null,
+      "validator": null,
+      "family": null,
+      "runtime": null,
+      "raw_analysis_refs": {
+        "declared_count": 91,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": {
+        "stage": "normalize",
+        "code": "provenance",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "4db0d4052606c637",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "position_basis",
+          "basis_derivatives",
+          "tangent_velocity",
+          "acceleration_components",
+          "uniform_motion",
+          "orbit_measures"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "scope": "First planner rejected; later fallback checks cannot replace this first result."
+    },
+    {
+      "material_id": "harmonic",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 92,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "circuits",
+      "B": "FAIL",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "rejected",
+      "compiler": null,
+      "validator": null,
+      "family": null,
+      "runtime": null,
+      "raw_analysis_refs": {
+        "declared_count": 86,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": {
+        "stage": "normalize",
+        "code": "plan",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "8b34ec6a53013c05",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "form_equation",
+          "find_particular",
+          "find_homogeneous",
+          "combine_solutions",
+          "apply_initial",
+          "complete_response"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "scope": "First planner rejected; later fallback checks cannot replace this first result."
+    },
+    {
+      "material_id": "signals",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 83,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "regression",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 79,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "probability",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 108,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "search",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 64,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "complexity",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "existing validated numeric lab",
+      "validator": null,
+      "family": "dynamic",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 68,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "spectrum",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "NOT_APPLICABLE",
+      "validator": null,
+      "family": "static",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 38,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "debugging",
+      "B": "PASS",
+      "A": "HUMAN_REVIEW_PENDING",
+      "schema": true,
+      "planner": "accepted",
+      "compiler": "NOT_APPLICABLE",
+      "validator": null,
+      "family": "static",
+      "runtime": "passed",
+      "raw_analysis_refs": {
+        "declared_count": 51,
+        "invalid": [],
+        "valid": true
+      },
+      "failure": null,
+      "scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    }
+  ],
+  "deep": [
+    {
+      "material_id": "circular",
+      "local_probe_B": "PASS",
+      "browser_mechanics": "PASS",
+      "selected_source_semantic_id": "acceleration_components",
+      "compiled_twin_representation_ids": [],
+      "full_compiled_twin_chain": "PARTIAL",
+      "limitation": "Selected semantic source region has no compiled Twin representation IDs. Numeric Lab and source focus work, but a complete explicit source-entity-to-linked-representation chain is not established.",
+      "direct_drag": "NOT_APPLICABLE_TO_GENERATED_REPRESENTATION",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "source_roundtrip": "source",
+      "source_immutable": true,
+      "post_compilation_api_delta": 0,
+      "baseline_rejection_scope": "Compiled defaults retained; callback updates existing Lab store only",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "harmonic",
+      "local_probe_B": "PASS",
+      "browser_mechanics": "PASS",
+      "selected_source_semantic_id": "restoring_force",
+      "compiled_twin_representation_ids": [],
+      "full_compiled_twin_chain": "PARTIAL",
+      "limitation": "Selected semantic source region has no compiled Twin representation IDs. Numeric Lab and source focus work, but a complete explicit source-entity-to-linked-representation chain is not established.",
+      "direct_drag": "NOT_APPLICABLE_TO_GENERATED_REPRESENTATION",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "source_roundtrip": "source",
+      "source_immutable": true,
+      "post_compilation_api_delta": 0,
+      "baseline_rejection_scope": "Compiled defaults retained; callback updates existing Lab store only",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "circuits",
+      "local_probe_B": "PASS",
+      "browser_mechanics": "PASS",
+      "selected_source_semantic_id": "form_equation",
+      "compiled_twin_representation_ids": [],
+      "full_compiled_twin_chain": "PARTIAL",
+      "limitation": "Selected semantic source region has no compiled Twin representation IDs. Numeric Lab and source focus work, but a complete explicit source-entity-to-linked-representation chain is not established.",
+      "direct_drag": "NOT_APPLICABLE_TO_GENERATED_REPRESENTATION",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "source_roundtrip": "source",
+      "source_immutable": true,
+      "post_compilation_api_delta": 0,
+      "baseline_rejection_scope": "Compiled defaults retained; callback updates existing Lab store only",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "probability",
+      "local_probe_B": "PASS",
+      "browser_mechanics": "PASS",
+      "selected_source_semantic_id": "union_rule",
+      "compiled_twin_representation_ids": [],
+      "full_compiled_twin_chain": "PARTIAL",
+      "limitation": "Selected semantic source region has no compiled Twin representation IDs. Numeric Lab and source focus work, but a complete explicit source-entity-to-linked-representation chain is not established.",
+      "direct_drag": "NOT_APPLICABLE_TO_GENERATED_REPRESENTATION",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "source_roundtrip": "source",
+      "source_immutable": true,
+      "post_compilation_api_delta": 0,
+      "baseline_rejection_scope": "Compiled defaults retained; callback updates existing Lab store only",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "search",
+      "local_probe_B": "PASS",
+      "browser_mechanics": "PASS",
+      "selected_source_semantic_id": "list_costs",
+      "compiled_twin_representation_ids": [],
+      "full_compiled_twin_chain": "PARTIAL",
+      "limitation": "Selected semantic source region has no compiled Twin representation IDs. Numeric Lab and source focus work, but a complete explicit source-entity-to-linked-representation chain is not established.",
+      "direct_drag": "NOT_APPLICABLE_TO_GENERATED_REPRESENTATION",
+      "canonical_value_changed": true,
+      "linked_chart_changed": true,
+      "source_roundtrip": "source",
+      "source_immutable": true,
+      "post_compilation_api_delta": 0,
+      "baseline_rejection_scope": "Compiled defaults retained; callback updates existing Lab store only",
+      "A": "HUMAN_REVIEW_PENDING"
+    }
+  ],
+  "boundary": "First-pass B is backend contract/local runtime only. Later browser fallback success does not replace the two first-pass FAILs. A-axis semantic/source correctness is never assigned by this observer.",
+  "atomic_rejection_scope": "All deep cases used Numeric Lab. Stale generation callbacks were checked; this is not a Spatial World atomic-patch/inverse rejection test.",
+  "browser_errors": 0,
+  "full_spatial_or_probability_scene_coverage": false,
+  "A": "HUMAN_REVIEW_PENDING"
+}

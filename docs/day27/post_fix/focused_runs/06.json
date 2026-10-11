@@ -1,0 +1,30 @@
+{
+  "stage": "POST_FIX",
+  "kind": "focused_offline",
+  "timestamp": "2026-10-11T01:39:23.044137+00:00",
+  "modules": [
+    "test_day27_postfix",
+    "test_day15",
+    "test_day16",
+    "test_day18",
+    "test_day18_compiler",
+    "test_day18_consolidation",
+    "test_day19",
+    "test_analogy",
+    "test_analogy_diagnostics",
+    "test_analogy_geometry",
+    "test_analogy_live_bug",
+    "test_analogy_slots",
+    "test_day23_phase_c",
+    "test_day24",
+    "test_day25",
+    "test_day26_parameter_semantics"
+  ],
+  "test_count": 295,
+  "passed": 292,
+  "failures": 2,
+  "errors": 1,
+  "skipped": 0,
+  "duration_seconds": 131.782137400005,
+  "paid_model_requests": 0
+}

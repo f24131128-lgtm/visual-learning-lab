@@ -1,0 +1,18 @@
+{
+  "stage": "POST_FIX",
+  "kind": "focused_offline",
+  "timestamp": "2026-10-11T01:35:31.419098+00:00",
+  "modules": [
+    "test_day27_postfix",
+    "test_day15.Day15InteractionTests.test_failures_stay_local_and_new_material_resets",
+    "test_day16.SimulationInteractionTests",
+    "test_day26_parameter_semantics.ValidationFailureProductTests"
+  ],
+  "test_count": 32,
+  "passed": 32,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 33.99131569988094,
+  "paid_model_requests": 0
+}

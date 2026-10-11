@@ -1,0 +1,6 @@
+{
+  "authorization_source": "Direct user message on 2026-10-11 Asia/Taipei, after accepting the frozen expectation version",
+  "authorized": ["10-case frozen first pass", "5 selected deep cases", "4 selected cases with 3 independent stability declarations", "actual browser evidence and exactly 4 screenshots"],
+  "restrictions": ["no frozen corpus/expectation changes", "no production prompt/schema/validator/compiler/runtime changes", "no semantic retries", "all cases retained in denominator", "A-axis final verdicts reserved for human review", "stop after these three stages", "no failure hardening or post-fix replay", "no commit or push"],
+  "historical_expectation_freeze_record": "expectation-freeze.json records paid execution was not authorized in the earlier freeze-only turn. This later authorization does not modify that frozen record."
+}

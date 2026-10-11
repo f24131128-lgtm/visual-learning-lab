@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, patch
 from streamlit.testing.v1 import AppTest
 
 import learning_canvas as canvas
+from provenance_fixtures import declared_parameter
 from scene import compiler
 from scene.validator import normalize_scene
 from scene.world.engine import frames
@@ -25,9 +26,9 @@ except ModuleNotFoundError:
 def projectile_with_height():
     """Independent regression declaration, not a capture of the learner's JSON."""
     raw = complete_projectile_world()
-    raw["parameters"].append(dict(id="height", label="初始離地高度", unit="m",
+    raw["parameters"].append(declared_parameter(dict(id="height", label="初始離地高度", unit="m",
         min=0., max=10., default=0., step=.1, source_pages=[1],
-        quantity_kind="length", range_source="pedagogical", display_unit="native"))
+        quantity_kind="length", domain_constraint="non_negative", range_source="pedagogical", display_unit="native")))
     raw["assumptions"] = ["Ground is y=0; vertical coordinates increase upward."]
     raw["time"]["duration_expression"] = "(speed*sin(angle)+sqrt((speed*sin(angle))**2+2*grav*height))/grav"
     next(q for q in raw["quantities"] if q["id"] == "py")["expression"] = "height+speed*sin(angle)*time-0.5*grav*time**2"
@@ -82,7 +83,7 @@ class ParameterSemanticsTests(unittest.TestCase):
     def test_signed_coordinate_uses_explicit_scalar_reference_and_range(self):
         raw = projectile_with_height()
         raw["parameters"][-1].update(quantity_kind="scalar", label="Initial vertical coordinate",
-            min=-10., max=0., default=-5., range_source="source")
+            min=-10., max=0., default=-5., range_source="source", domain_constraint="signed")
         raw["assumptions"] = ["The coordinate origin is 100 m above ground; ground is y=-100 m."]
         raw["time"]["duration_expression"] = "(speed*sin(angle)+sqrt((speed*sin(angle))**2+2*grav*(height+100)))/grav"
         raw["invariants"][1]["lower"] = -100.
@@ -107,7 +108,7 @@ class ParameterSemanticsTests(unittest.TestCase):
                             normalize_scene(raw, [1])
             p = projectile_with_height()["parameters"][-1]
             p.update(quantity_kind=kind, range_source="semantic_default")
-            with self.assertRaisesRegex(ValueError, "positive baseline"):
+            with self.assertRaisesRegex(ValueError, "Positive semantic parameter"):
                 normalize_parameter(p)
 
     def test_semantics_follow_kind_not_height_id_or_label(self):

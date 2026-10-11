@@ -46,6 +46,8 @@ def apply_patch(scene, state, patch, record=True):
 
 
 def _check_candidate(scene, state, candidate):
+    from quantity_contract import check_values
+    check_values(scene["parameters"], candidate["parameters"])
     snapshot(scene, candidate)
     values = evaluate(scene, candidate["parameters"], candidate["time"])
     check_inverses(scene, candidate["parameters"], values, project(scene, values))

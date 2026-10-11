@@ -1,0 +1,13 @@
+{
+  "frozen_utc": "2026-10-10T16:47:09.735253+00:00",
+  "files_sha256": {
+    "docs/day27/first-pass-results.json": "10da16bec7e2afddda95a8144358f1fb0704a8930c830a9acebcc46f46e1a516",
+    "docs/day27/request-usage.json": "70fae085b20ffb4d033fd7b004b7c8adda42aa5db352003e58bd528f11ccab2c",
+    "docs/day27/semantic-review-packet.md": "179902f535d95dba5ce04b847f0973e7aa532d61d4ce1470dce1f052c90ac207",
+    "docs/day27/first-pass-raw-declarations.json": "27d8ac1d7889c835827bcaa84a1bc703b16644734485f9e4bb480ec99166fdfd"
+  },
+  "package_sha256": "446c166aa75f76138d4665b3de451496cc762d7aa3281e8aee560677ab098f07",
+  "production_fingerprint": "17aaefb83e4c2cc9b59258af3d041328b43383b6588567e466d9fb18ed75ffb5",
+  "A_verdicts": "HUMAN_REVIEW_PENDING",
+  "semantic_retries": 0
+}

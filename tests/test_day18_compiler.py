@@ -38,8 +38,8 @@ def recorded(name="compiled"):
     result = json.loads((Path(__file__).parent/"fixtures"/f"day18_three_phase_{name}.json").read_text(encoding="utf-8"))
     # The original capture is immutable historical evidence. Version adjustment
     # here tests its semantic errors against the revised contract, not migration.
-    result["raw"]["scene_version"] = VERSION
-    return declaration_defaults(result["raw"])
+    from provenance_fixtures import declared_world
+    return declaration_defaults(declared_world(result["raw"]))
 
 
 def minimal_scene(missing=False):

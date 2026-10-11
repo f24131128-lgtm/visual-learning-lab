@@ -18,6 +18,9 @@ def semantic_catalog(scene=None, analysis=None):
             result[item["id"]] = dict(label=item["label"], pages=item["source_pages"],
                 kind="quantity" if "expression" in item else "parameter",
                 equation=item.get("expression", ""), representations=[])
+        for item in scene.get("source_facts", []):
+            result[item["id"]] = dict(label=item["label"], pages=item["source_pages"], kind="source_fixed",
+                equation="", representations=[])
         result["time"] = dict(label="Time", pages=[], kind="time", equation="", representations=[])
         for group in ("objects", "series", "metrics"):
             for item in scene[group]:
@@ -37,19 +40,24 @@ def semantic_catalog(scene=None, analysis=None):
                 result[item["id"]] = dict(label=item["label"], pages=item["source_pages"], kind=group,
                     equation=item.get("expression", ""), representations=[dict(id=v["id"], label=v["title"], kind=v["type"]) for v in scene.get("views", []) if item["id"] in v["semantic_ids"]])
     else:
+        original = analysis or {}
+        formal = original.get("_formal_representations", original)
         for group in ("concept_map", "visual_flow"):
-            graph = (analysis or {}).get(group)
+            graph = original.get(group)
             items = graph.get("nodes", []) if isinstance(graph, dict) else []
+            accepted = formal.get(group)
+            registered = {n["id"] for n in accepted.get("nodes", []) if isinstance(n, dict) and isinstance(n.get("id"), str)} if isinstance(accepted, dict) and accepted.get("suitable") is True else set()
             if not isinstance(items, list): continue
             for item in items[:24]:
                 if (isinstance(item, dict) and isinstance(item.get("id"), str)
                         and re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,63}", item["id"])
                         and _text(item.get("label"), 160, False) and item["id"] not in result):
                     pages = item.get("source_pages", [])
-                    result[item["id"]] = dict(label=item["label"], pages=[p for p in pages[:8] if type(p) is int and p > 0] if isinstance(pages, list) else [], kind=group, equation="", representations=[])
+                    result[item["id"]] = dict(label=item["label"], pages=[p for p in pages[:8] if type(p) is int and p > 0] if isinstance(pages, list) else [], kind=group, equation="",
+                        representations=[dict(id=item["id"], label=item["label"], kind=group)] if item["id"] in registered else [])
         # Comparison items already have canonical IDs, just like graph nodes.
         # Their provenance belongs to their actual cells, not every PDF page.
-        comparison = (analysis or {}).get("comparison")
+        comparison = formal.get("comparison")
         if isinstance(comparison, dict) and comparison.get("suitable") is True:
             items, criteria = comparison.get("items"), comparison.get("criteria")
             if isinstance(items, list) and isinstance(criteria, list):
@@ -68,7 +76,7 @@ def semantic_catalog(scene=None, analysis=None):
                             if isinstance(refs, list):
                                 pages.extend(p for p in refs[:8] if type(p) is int and p > 0)
                     result[item["id"]] = dict(label=item["label"], pages=list(dict.fromkeys(pages))[:8],
-                        kind="comparison", equation="", representations=[])
+                        kind="comparison", equation="", representations=[dict(id=item["id"], label=item["label"], kind="comparison")])
         # Only when no structured identity exists, derive stable identities for
         # already analyzed concepts. Never replace graph/comparison IDs with labels
         # or positions. No fabricated pages or additional semantic interpretation.

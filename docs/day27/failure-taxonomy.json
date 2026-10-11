@@ -1,0 +1,105 @@
+{
+  "status": "DRAFT_FOR_HUMAN_REVIEW; no production repair or final A judgment",
+  "mechanical": [
+    {
+      "kind": "planner source-page provenance rejection",
+      "cases": [
+        "circular"
+      ],
+      "first_pass_count": 1,
+      "observation": "A declared page is outside the focused semantic entities’ page union."
+    },
+    {
+      "kind": "planner plain-text contract rejection",
+      "cases": [
+        "circuits"
+      ],
+      "first_pass_count": 1,
+      "observation": "Schema-valid reason contains an ASCII greater-than operator rejected by the existing plain-text contract."
+    },
+    {
+      "kind": "stability acceptance drift",
+      "cases": [
+        "circular"
+      ],
+      "observation": "One accepted and two rejected declarations; original denominator 3 remains. Raw source pages change while the normalized single accepted sample cannot establish stability."
+    },
+    {
+      "kind": "stability contract rejections",
+      "cases": [
+        "harmonic"
+      ],
+      "observation": "Three schema-valid declarations rejected by the existing plan contract; all contain ASCII greater-than signs."
+    },
+    {
+      "kind": "explicit Twin representation link coverage gap",
+      "cases": [
+        "circular",
+        "harmonic",
+        "circuits",
+        "probability",
+        "search"
+      ],
+      "observation": "Selected source meanings have empty compiled Twin representation_ids; local Lab changes and source focus alone do not prove a full compiled Twin chain."
+    }
+  ],
+  "semantic_review_flags": [
+    {
+      "case": "circular",
+      "objective_observation": "The Numeric Lab declares coefA and coefB adjustable at defaults 0.3 and 0.9; its curves implement the source angular-law example rather than a rendered moving circle. Frozen expectations require source-example coefficients to remain identifiable baseline facts. No angular-velocity parameter is declared; do not infer a signed/positive domain from coefA/coefB. time is the Lab x variable, not a parameter.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "harmonic",
+      "objective_observation": "The Lab varies stiffness, mass, initial_position and initial_velocity. It renders an analytic position curve, with no compiled spatial object or direct handle. The frozen prospective list names mass/stiffness/amplitude/phase; initial conditions in the actual declaration require review against the general solution on original pp.8–9. time is the Lab x variable, not a parameter.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "circuits",
+      "objective_observation": "The main output contains a voltage-response Lab varying input_voltage, initial_voltage and the lumped time_constant; R and C are not separate controls. The first planner was rejected. time is the Lab x variable, not a parameter. The displayed example defaults and hypothetical explorations must be distinguished by the human reviewer.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "signals",
+      "objective_observation": "The Lab holds component frequencies at 440 and 880 Hz in expressions and varies amplitudes and a sine phase. It does not resynthesize the recorded bell/violin data. The additional phase control needs source-support review as an explicitly hypothetical exploration.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "regression",
+      "objective_observation": "corr is adjustable from -0.6 to 0.6, with the observed correlation -0.499 as its default. The expression consequently changes the fitted slope while sample means and standard deviations are numeric constants. Frozen expectations permit prediction input variation and preserve the sample statistic/fitted result; they do not preauthorize an adjustable trial fit.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "probability",
+      "objective_observation": "The selected family is dynamic Numeric Lab, not probability_sets. prob_a and prob_b vary between 0.25 and 0.5; overlap is the plotted x variable. No shared finite-outcome/event-membership declaration, exact set runtime or Monte Carlo scene was compiled. Compare the hypothetical probability sliders with frozen source event memberships and outcome weights.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "search",
+      "objective_observation": "The frozen PDF contains basic Python-operation/loop analysis on original p.226 and search algorithms on p.227. The actual selected Lab varies body-cost exponent a and fixed factor k in loop-growth curves; no bisection/linear-search process was compiled. This is an observed focus difference for human review, not a final source-correctness verdict.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "complexity",
+      "objective_observation": "The Lab varies coefficient a from 2 to 200 (source-example default 100) and plots a*n+1 against n**2+n+1. Frozen expectations keep source coefficients fixed and permit integer input size n; the generated plot samples n continuously and labels integer sizes as the algorithmic interpretation.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "spectrum",
+      "objective_observation": "The selected family is static and the main analysis contains no Lab. This exercises a table/concept presentation rather than frequency/wavelength conversion controls. The frozen expectation permits an honest static table.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "case": "debugging",
+      "objective_observation": "The selected family is static, with a concept map and no Numeric Lab. There is no drag/slider expectation for this source. The interpreter/code examples remain source data and were not executed.",
+      "A": "HUMAN_REVIEW_PENDING"
+    }
+  ],
+  "observer_limitations": [
+    "Planner-only stability does not regenerate native Lab parameters.",
+    "Early browser automation timing/same-value-selector timeouts are preserved separately from production failures.",
+    "Headless automated browser observations are not human novice acceptance.",
+    "Atlas geometry/links remain estimated; source fidelity and materiality need human review."
+  ],
+  "responsibility": "Mechanical rejection boundary is observed. Whether an unsupported model declaration, product contract, source expectation or observer limitation causes a semantic learning problem is not finalized here."
+}

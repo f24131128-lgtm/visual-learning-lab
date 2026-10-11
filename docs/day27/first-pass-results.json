@@ -1,0 +1,1819 @@
+{
+  "cases": [
+    {
+      "material_id": "circular",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "FAIL",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "planner_result": "rejected",
+      "compiler_result": null,
+      "validator_result": null,
+      "grounding_status": "NOT_EVALUATED",
+      "failure_reason": {
+        "stage": "normalize",
+        "code": "provenance",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "4db0d4052606c637",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "position_basis",
+          "basis_derivatives",
+          "tangent_velocity",
+          "acceleration_components",
+          "uniform_motion",
+          "orbit_measures"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "post_compile_api_delta": null,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 91,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "angular_acceleration_lab",
+          "source_pages": [
+            5,
+            6
+          ],
+          "parameters": [
+            {
+              "id": "coefA",
+              "label": "Angular-law coefficient A",
+              "unit": "rad/s³",
+              "min": 0.1,
+              "max": 1.0,
+              "default": 0.3,
+              "step": 0.05,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "coefB",
+              "label": "Angular-law coefficient B",
+              "unit": "rad/s",
+              "min": 0.1,
+              "max": 3.0,
+              "default": 0.9,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "radius",
+              "label": "Circle radius R",
+              "unit": "m",
+              "min": 0.5,
+              "max": 3.0,
+              "default": 1.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "time",
+            "label": "Time t (s)",
+            "min": 0.0,
+            "max": 3.5,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "tangent_accel",
+              "label": "Tangential component aθ (m/s²)",
+              "expression": "6*radius*coefA*time"
+            },
+            {
+              "id": "radial_accel",
+              "label": "Signed radial component ar (m/s²)",
+              "expression": "-radius*(3*coefA*time**2-coefB)**2"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "zero_radial_time",
+              "label": "Time when radial acceleration is zero",
+              "expression": "sqrt(coefB/(3*coefA))",
+              "unit": "s"
+            },
+            {
+              "id": "tangent_at_zero",
+              "label": "Tangential acceleration at that time",
+              "expression": "6*radius*coefA*sqrt(coefB/(3*coefA))",
+              "unit": "m/s²"
+            }
+          ]
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": true,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "position_basis",
+        "basis_derivatives",
+        "tangent_velocity",
+        "acceleration_components",
+        "uniform_motion",
+        "orbit_measures"
+      ],
+      "planner_diagnostic": {
+        "stage": "normalize",
+        "code": "provenance",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "4db0d4052606c637",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "position_basis",
+          "basis_derivatives",
+          "tangent_velocity",
+          "acceleration_components",
+          "uniform_motion",
+          "orbit_measures"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      }
+    },
+    {
+      "material_id": "harmonic",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 92,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "spring_initial_conditions",
+          "source_pages": [
+            4,
+            6,
+            7
+          ],
+          "parameters": [
+            {
+              "id": "stiffness",
+              "label": "Spring constant k",
+              "unit": "N/m",
+              "min": 1.0,
+              "max": 16.0,
+              "default": 4.0,
+              "step": 0.25,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "mass",
+              "label": "Mass m",
+              "unit": "kg",
+              "min": 0.5,
+              "max": 4.0,
+              "default": 1.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "initial_position",
+              "label": "Initial displacement x₀",
+              "unit": "m",
+              "min": -1.0,
+              "max": 1.0,
+              "default": 0.5,
+              "step": 0.05,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "initial_velocity",
+              "label": "Initial velocity vₓ,₀",
+              "unit": "m/s",
+              "min": -2.0,
+              "max": 2.0,
+              "default": 0.5,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "time",
+            "label": "Time t (s)",
+            "min": 0.0,
+            "max": 12.0,
+            "points": 600
+          },
+          "series": [
+            {
+              "id": "position",
+              "label": "Displacement x(t) (m)",
+              "expression": "initial_position*cos(sqrt(stiffness/mass)*time)+(initial_velocity/sqrt(stiffness/mass))*sin(sqrt(stiffness/mass)*time)"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "angular_frequency",
+              "label": "Angular frequency ω₀",
+              "expression": "sqrt(stiffness/mass)",
+              "unit": "rad/s"
+            },
+            {
+              "id": "period",
+              "label": "Period T",
+              "expression": "2*pi*sqrt(mass/stiffness)",
+              "unit": "s"
+            },
+            {
+              "id": "amplitude",
+              "label": "Amplitude A",
+              "expression": "sqrt(initial_position**2+(initial_velocity/sqrt(stiffness/mass))**2)",
+              "unit": "m"
+            }
+          ]
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": true,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "restoring_force",
+        "motion_equation",
+        "verify_sinusoid",
+        "combine_solutions",
+        "apply_initial_conditions",
+        "amplitude_phase"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "74f436411ec13a12",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "restoring_force",
+            "motion_equation",
+            "verify_sinusoid",
+            "combine_solutions",
+            "apply_initial_conditions",
+            "amplitude_phase"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "restoring_force",
+          "motion_equation",
+          "verify_sinusoid",
+          "combine_solutions",
+          "apply_initial_conditions",
+          "amplitude_phase"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 7,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "spring_initial_conditions",
+            "changed_parameters": [
+              "stiffness",
+              "mass",
+              "initial_position",
+              "initial_velocity"
+            ],
+            "lesson_refs": [
+              "step_verify_frequency",
+              "step_initial_conditions",
+              "step_phase_interpretation"
+            ],
+            "source_pages": [
+              4,
+              6,
+              7
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "circuits",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "FAIL",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "planner_result": "rejected",
+      "compiler_result": null,
+      "validator_result": null,
+      "grounding_status": "NOT_EVALUATED",
+      "failure_reason": {
+        "stage": "normalize",
+        "code": "plan",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "8b34ec6a53013c05",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "form_equation",
+          "find_particular",
+          "find_homogeneous",
+          "combine_solutions",
+          "apply_initial",
+          "complete_response"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "post_compile_api_delta": null,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 86,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "rc_voltage_response",
+          "source_pages": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "parameters": [
+            {
+              "id": "input_voltage",
+              "label": "Constant input VI",
+              "unit": "V",
+              "min": 0.0,
+              "max": 5.0,
+              "default": 5.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "initial_voltage",
+              "label": "Initial capacitor voltage V0",
+              "unit": "V",
+              "min": 0.0,
+              "max": 5.0,
+              "default": 0.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "time_constant",
+              "label": "Time constant τ = RC",
+              "unit": "s",
+              "min": 0.1,
+              "max": 2.0,
+              "default": 1.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "time",
+            "label": "Time t (s)",
+            "min": 0.0,
+            "max": 10.0,
+            "points": 500
+          },
+          "series": [
+            {
+              "id": "capacitor_voltage",
+              "label": "Capacitor voltage vC(t) (V)",
+              "expression": "input_voltage + (initial_voltage - input_voltage) * exp(-time / time_constant)"
+            },
+            {
+              "id": "final_voltage",
+              "label": "Final voltage VI (V)",
+              "expression": "input_voltage"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "transient_amplitude",
+              "label": "Initial transient amplitude V0 − VI",
+              "expression": "initial_voltage - input_voltage",
+              "unit": "V"
+            },
+            {
+              "id": "voltage_at_tau",
+              "label": "Voltage at t = τ",
+              "expression": "input_voltage + (initial_voltage - input_voltage) * exp(-1)",
+              "unit": "V"
+            }
+          ]
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "form_equation",
+        "find_particular",
+        "find_homogeneous",
+        "combine_solutions",
+        "apply_initial",
+        "complete_response"
+      ],
+      "planner_diagnostic": {
+        "stage": "normalize",
+        "code": "plan",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "8b34ec6a53013c05",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "form_equation",
+          "find_particular",
+          "find_homogeneous",
+          "combine_solutions",
+          "apply_initial",
+          "complete_response"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      }
+    },
+    {
+      "material_id": "signals",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 83,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "harmonic_mixture",
+          "source_pages": [
+            4,
+            5
+          ],
+          "parameters": [
+            {
+              "id": "cos_amp",
+              "label": "440 Hz cosine amplitude",
+              "unit": "unspecified amplitude units",
+              "min": 0.0,
+              "max": 1.0,
+              "default": 1.0,
+              "step": 0.05,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "sin_amp",
+              "label": "880 Hz sine amplitude",
+              "unit": "unspecified amplitude units",
+              "min": 0.0,
+              "max": 1.0,
+              "default": 0.5,
+              "step": 0.05,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "phase",
+              "label": "880 Hz sine phase offset",
+              "unit": "rad",
+              "min": 0.0,
+              "max": 6.283185307179586,
+              "default": 0.0,
+              "step": 0.05,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "time",
+            "label": "Time (s)",
+            "min": 0.0,
+            "max": 0.006818181818,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "cos_component",
+              "label": "440 Hz cosine",
+              "expression": "cos_amp*cos(2*pi*440*time)"
+            },
+            {
+              "id": "sin_component",
+              "label": "880 Hz sine",
+              "expression": "sin_amp*sin(2*pi*880*time+phase)"
+            },
+            {
+              "id": "mixture",
+              "label": "Sum of components",
+              "expression": "cos_amp*cos(2*pi*440*time)+sin_amp*sin(2*pi*880*time+phase)"
+            }
+          ],
+          "derived_metrics": []
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": true,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "time_signal",
+        "apply_dft",
+        "component_spectrum",
+        "sum_components",
+        "reconstructed_signal"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "3322941748da4316",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "time_signal",
+            "apply_dft",
+            "component_spectrum",
+            "sum_components",
+            "reconstructed_signal"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "time_signal",
+          "apply_dft",
+          "component_spectrum",
+          "sum_components",
+          "reconstructed_signal"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 5,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "harmonic_mixture",
+            "changed_parameters": [
+              "cos_amp",
+              "sin_amp"
+            ],
+            "lesson_refs": [
+              "step_synthesis"
+            ],
+            "source_pages": [
+              4,
+              5
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "regression",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 79,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "correlation_and_line",
+          "source_pages": [
+            4,
+            5,
+            6
+          ],
+          "parameters": [
+            {
+              "id": "corr",
+              "label": "Correlation R (exploration range)",
+              "unit": "unitless",
+              "min": -0.6,
+              "max": 0.6,
+              "default": -0.499,
+              "step": 0.001,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "income",
+            "label": "Family income ($)",
+            "min": 0.0,
+            "max": 250000.0,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "predicted_aid",
+              "label": "Predicted gift aid ($)",
+              "expression": "19940 + (5460 / 63200) * corr * (income - 101780)"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "slope_value",
+              "label": "Slope b₁",
+              "expression": "(5460 / 63200) * corr",
+              "unit": "$ aid per $ income"
+            },
+            {
+              "id": "intercept_value",
+              "label": "Intercept b₀",
+              "expression": "19940 - (5460 / 63200) * corr * 101780",
+              "unit": "$"
+            },
+            {
+              "id": "aid_change_1000",
+              "label": "Predicted aid difference per $1,000 income",
+              "expression": "1000 * (5460 / 63200) * corr",
+              "unit": "$"
+            }
+          ]
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "summary_stats",
+        "compute_slope",
+        "anchor_line",
+        "fitted_equation",
+        "interpret_model"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "29fa35c41424f1bb",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "spatial_relations",
+            "ordered_collection",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "summary_stats",
+            "compute_slope",
+            "anchor_line",
+            "fitted_equation",
+            "interpret_model"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "summary_stats",
+          "compute_slope",
+          "anchor_line",
+          "fitted_equation",
+          "interpret_model"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 3,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "correlation_and_line",
+            "changed_parameters": [
+              "corr"
+            ],
+            "lesson_refs": [
+              "step_slope",
+              "step_equation",
+              "step_interpret"
+            ],
+            "source_pages": [
+              4,
+              5,
+              6
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "probability",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 108,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "overlap_lab",
+          "source_pages": [
+            5
+          ],
+          "parameters": [
+            {
+              "id": "prob_a",
+              "label": "p_A = P(A)",
+              "unit": "probability",
+              "min": 0.25,
+              "max": 0.5,
+              "default": 0.3333333333333333,
+              "step": 0.01,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "prob_b",
+              "label": "p_B = P(B)",
+              "unit": "probability",
+              "min": 0.25,
+              "max": 0.5,
+              "default": 0.3333333333333333,
+              "step": 0.01,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "overlap",
+            "label": "Overlap probability u = P(A and B)",
+            "min": 0.0,
+            "max": 0.25,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "union_probability",
+              "label": "Correct union probability",
+              "expression": "prob_a + prob_b - overlap"
+            },
+            {
+              "id": "uncorrected_sum",
+              "label": "Sum before correcting overlap",
+              "expression": "prob_a + prob_b"
+            }
+          ],
+          "derived_metrics": []
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": true,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "event_probability",
+        "sample_space",
+        "events",
+        "disjoint",
+        "intersection",
+        "union_rule",
+        "disjoint_rule",
+        "distribution",
+        "complement"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "d532a50b6cba78e5",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "finite_outcomes",
+            "set_relations",
+            "ordered_collection",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "event_probability",
+            "sample_space",
+            "events",
+            "disjoint",
+            "intersection",
+            "union_rule",
+            "disjoint_rule",
+            "distribution",
+            "complement"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "event_probability",
+          "sample_space",
+          "events",
+          "disjoint",
+          "intersection",
+          "union_rule",
+          "disjoint_rule",
+          "distribution",
+          "complement"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": true,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 7,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "overlap_lab",
+            "changed_parameters": [
+              "prob_a",
+              "prob_b"
+            ],
+            "lesson_refs": [
+              "step_disjoint",
+              "step_overlap"
+            ],
+            "source_pages": [
+              5
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "search",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 64,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "loop_growth_demo",
+          "source_pages": [
+            1
+          ],
+          "parameters": [
+            {
+              "id": "a",
+              "label": "Body-cost exponent a",
+              "unit": "dimensionless",
+              "min": 0.0,
+              "max": 2.0,
+              "default": 1.0,
+              "step": 0.25,
+              "parameter_kind": "adjustable"
+            },
+            {
+              "id": "k",
+              "label": "Fixed factor k, independent of n",
+              "unit": "dimensionless",
+              "min": 1.0,
+              "max": 10.0,
+              "default": 5.0,
+              "step": 1.0,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "n",
+            "label": "Input size n",
+            "min": 10.0,
+            "max": 100.0,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "body_work",
+              "label": "One body execution: n^a",
+              "expression": "n**a"
+            },
+            {
+              "id": "fixed_count_work",
+              "label": "Fixed k iterations: k n^a",
+              "expression": "k*n**a"
+            },
+            {
+              "id": "scaled_count_work",
+              "label": "n/k iterations: n^(a+1)/k",
+              "expression": "n**(a+1)/k"
+            }
+          ],
+          "derived_metrics": []
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "runtime_analysis",
+        "growth_order",
+        "basic_costs",
+        "loop_cost",
+        "sequence_costs",
+        "list_costs",
+        "dictionary_costs",
+        "linear_search",
+        "bisection_search"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "3885325d30c94663",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "ordered_collection",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "runtime_analysis",
+            "growth_order",
+            "basic_costs",
+            "loop_cost",
+            "dictionary_costs",
+            "linear_search",
+            "bisection_search"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "runtime_analysis",
+          "growth_order",
+          "basic_costs",
+          "loop_cost",
+          "sequence_costs",
+          "list_costs",
+          "dictionary_costs",
+          "linear_search",
+          "bisection_search"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 2,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "loop_growth_demo",
+            "changed_parameters": [
+              "a",
+              "k"
+            ],
+            "lesson_refs": [
+              "step_growth",
+              "step_loops"
+            ],
+            "source_pages": [
+              1
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "complexity",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2,
+        3
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 68,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 1,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [
+        {
+          "id": "runtime_crossover_demo",
+          "source_pages": [
+            2
+          ],
+          "parameters": [
+            {
+              "id": "a",
+              "label": "Linear coefficient a (source example: 100)",
+              "unit": "operations per input unit",
+              "min": 2.0,
+              "max": 200.0,
+              "default": 100.0,
+              "step": 1.0,
+              "parameter_kind": "adjustable"
+            }
+          ],
+          "x": {
+            "id": "n",
+            "label": "Input size n (integer sizes are the algorithmic interpretation)",
+            "min": 1.0,
+            "max": 300.0,
+            "points": 400
+          },
+          "series": [
+            {
+              "id": "linear_cost",
+              "label": "A: linear operation count",
+              "expression": "a*n+1"
+            },
+            {
+              "id": "quadratic_cost",
+              "label": "B: quadratic operation count",
+              "expression": "n**2+n+1"
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "positive_crossover",
+              "label": "Positive crossover input size",
+              "expression": "a-1",
+              "unit": "input units"
+            }
+          ]
+        }
+      ],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": true
+      },
+      "semantic_ids": [
+        "algorithm_analysis",
+        "machine_model",
+        "input_cases",
+        "runtime_functions",
+        "leading_terms",
+        "growth_classes",
+        "algorithm_example",
+        "crossover",
+        "practical_limits"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "bfc1aa92b7302ee1",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "set_relations",
+            "ordered_collection",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "runtime_functions",
+            "algorithm_example",
+            "crossover",
+            "leading_terms",
+            "growth_classes",
+            "practical_limits"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "algorithm_analysis",
+          "machine_model",
+          "input_cases",
+          "runtime_functions",
+          "leading_terms",
+          "growth_classes",
+          "algorithm_example",
+          "crossover",
+          "practical_limits"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "planner_refs": {
+        "declared_count": 2,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "numeric_lab",
+        "demos": [
+          {
+            "demo_id": "runtime_crossover_demo",
+            "changed_parameters": [
+              "a"
+            ],
+            "lesson_refs": [
+              "step_functions",
+              "step_dominance",
+              "step_decisions"
+            ],
+            "source_pages": [
+              2
+            ]
+          }
+        ],
+        "numeric_comparison": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "spectrum",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "NOT_APPLICABLE",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 38,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "semantic_ids": [
+        "radiation",
+        "frequency",
+        "wavelength",
+        "energy",
+        "meter_scale",
+        "equivalent_units",
+        "scientific_notation",
+        "size_references"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "e8e76a8acd5d6465",
+          "required_capabilities": [
+            "set_relations",
+            "analogy_suitable",
+            "structure"
+          ],
+          "focus_ids": [
+            "radiation",
+            "frequency",
+            "wavelength",
+            "energy",
+            "meter_scale",
+            "equivalent_units",
+            "scientific_notation",
+            "size_references"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "radiation",
+          "frequency",
+          "wavelength",
+          "energy",
+          "meter_scale",
+          "equivalent_units",
+          "scientific_notation",
+          "size_references"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "representation_family": "static",
+      "requested_family": "static",
+      "planner_refs": {
+        "declared_count": 1,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "formal",
+        "local_reading_available": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    },
+    {
+      "material_id": "debugging",
+      "A": "HUMAN_REVIEW_PENDING",
+      "B": "PASS",
+      "allowed_pages": [
+        1,
+        2
+      ],
+      "planner_result": "accepted",
+      "compiler_result": "NOT_APPLICABLE",
+      "validator_result": null,
+      "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+      "failure_reason": null,
+      "post_compile_api_delta": 0,
+      "main_schema_valid": true,
+      "analysis_refs": {
+        "declared_count": 51,
+        "invalid": [],
+        "valid": true
+      },
+      "native_lab_demos": 0,
+      "rejected_lab_demos": 0,
+      "fixed_adjustable_declarations": [],
+      "capabilities": {
+        "process": true,
+        "spatial": false,
+        "structural": false,
+        "analogy": true,
+        "graph": true,
+        "lab": false
+      },
+      "semantic_ids": [
+        "debugging",
+        "syntax",
+        "runtime",
+        "semantic",
+        "location",
+        "inspection",
+        "checklist",
+        "running_code"
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "63c5be2504791fb6",
+          "required_capabilities": [
+            "finite_outcomes",
+            "ordered_collection",
+            "structure"
+          ],
+          "focus_ids": [
+            "debugging",
+            "syntax",
+            "runtime",
+            "semantic",
+            "location",
+            "inspection",
+            "checklist",
+            "running_code"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "debugging",
+          "syntax",
+          "runtime",
+          "semantic",
+          "location",
+          "inspection",
+          "checklist",
+          "running_code"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "representation_family": "static",
+      "requested_family": "static",
+      "planner_refs": {
+        "declared_count": 2,
+        "invalid": [],
+        "valid": true
+      },
+      "adapted": false,
+      "normalized_declarations": {},
+      "direct_manipulation_affordances": [],
+      "runtime_probe": {
+        "kind": "formal",
+        "local_reading_available": true
+      },
+      "runtime_result": "passed",
+      "B_scope": "Backend contract and local numeric/reducer checks; source-semantic A and real-browser checks are separate."
+    }
+  ],
+  "denominator": 10,
+  "A": "HUMAN_REVIEW_PENDING",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "scope": "Frozen first attempts; no quality retry, no production changes."
+}

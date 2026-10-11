@@ -10,7 +10,8 @@ import numpy as np
 from safe_math import valid_variable
 from .engine import MAX_COORDINATE, check_expression, check_inverses, evaluate, invariant_report, project
 from .schema import MAX_PAYLOAD_BYTES, MAX_VECTORS, OPTIONAL_CAPABILITIES, WORLD_SCHEMA
-from .policy import declaration_defaults, normalize_parameter, spatial_bounds, time_domain, union_bounds
+from .policy import check_parameter_value, declaration_defaults, normalize_parameter, spatial_bounds, time_domain, union_bounds
+from quantity_contract import check_commit, normalize_facts, validate_parameter, PROVENANCE_FIELDS
 
 
 class WorldValidationError(ValueError):
@@ -19,7 +20,7 @@ class WorldValidationError(ValueError):
 
 def shape(value, schema, path="scene"):
     kinds = schema["type"] if isinstance(schema["type"], list) else [schema["type"]]
-    kind = {dict: "object", list: "array", str: "string", int: "integer", float: "number", type(None): "null"}.get(type(value))
+    kind = {dict: "object", list: "array", str: "string", int: "integer", float: "number", bool: "boolean", type(None): "null"}.get(type(value))
     if kind not in kinds and not (kind == "integer" and "number" in kinds):
         raise WorldValidationError(path + ": invalid type")
     if "enum" in schema and value not in schema["enum"]:
@@ -50,6 +51,9 @@ def validate_patch(scene, patch, path="patch", parameters=None):
     if op == "set_parameter":
         p = next((p for p in scene["parameters"] if p["id"] == target), None)
         good = p is not None and value is not None and p["min"] <= value <= p["max"]
+        if good:
+            check_parameter_value(p, value)
+            check_commit(p, value)
     elif op == "set_time":
         domain = time_domain(scene, parameters) if parameters is not None else scene.get("time_envelope", scene["time"])
         good = target == "time" and value is not None and domain["min"] <= value <= domain["max"]
@@ -71,6 +75,10 @@ def normalize_world(raw, allowed_pages=()):
         if isinstance(scene, dict):
             for key in OPTIONAL_CAPABILITIES:
                 scene.setdefault(key, [])
+        # Old spatial caches require an explicit rebuild under the new contract.
+        # Never infer writable provenance from their numeric ranges or names.
+        if isinstance(scene, dict) and "scene_version" in scene and scene["scene_version"] != WORLD_SCHEMA["properties"]["scene_version"]["enum"][0]:
+            raise WorldValidationError("scene.scene_version: incompatible declaration")
         shape(scene, WORLD_SCHEMA)
         if len(json.dumps(scene, ensure_ascii=False, allow_nan=False).encode()) > MAX_PAYLOAD_BYTES:
             raise WorldValidationError("Specification exceeds payload limit.")
@@ -84,8 +92,8 @@ def normalize_world(raw, allowed_pages=()):
             if not valid_variable(scene[name]) or scene[name] in used:
                 raise WorldValidationError("Invalid scene id.")
             used.add(scene[name])
-        for group in ("parameters", "quantities", "objects", "series", "metrics", "bindings", "inverse_bindings", "invariants", "experiments"):
-            for item in scene[group]:
+        for group in ("parameters", "quantities", "objects", "series", "metrics", "bindings", "inverse_bindings", "invariants", "experiments", "source_facts"):
+            for item in scene.get(group, []):
                 identifier = item["id"]
                 if not valid_variable(identifier) or identifier in used:
                     raise WorldValidationError("Invalid or duplicate global id.")
@@ -112,8 +120,11 @@ def normalize_world(raw, allowed_pages=()):
         if min(axes["x_max"]-axes["x_min"], axes["y_max"]-axes["y_min"]) < 1e-9:
             raise WorldValidationError("Spatial viewport is too small.")
         parameters = {p["id"]: p for p in scene["parameters"]}
+        scene["source_facts"] = normalize_facts(scene["source_facts"], allowed)
+        facts = {f["id"]: f for f in scene.get("source_facts", [])}
         for p in parameters.values():
             normalize_parameter(p)
+            validate_parameter(p, facts, allowed)
         if timer["strategy"] == "fixed_duration":
             if timer["duration_expression"] is not None or timer["periods"] != 1:
                 raise WorldValidationError("Fixed duration requires null duration_expression and periods=1.")
@@ -122,7 +133,7 @@ def normalize_world(raw, allowed_pages=()):
                 raise WorldValidationError("Derived/periodic duration requires a safe duration expression and valid periods.")
             expression_refs(timer["duration_expression"], parameters, "scene.time.duration_expression (parameters only)")
         quantities = {q["id"]: q for q in scene["quantities"]}
-        known = set(parameters) | set(quantities) | {"time"}
+        known = set(parameters) | set(quantities) | set(facts) | {"time"}
         dependencies = {q["id"]: set(expression_refs(q["expression"], known, "scene.quantities["+q["id"]+"].expression")) & quantities.keys() for q in quantities.values()}
         order = []
         while dependencies:
@@ -177,7 +188,8 @@ def normalize_world(raw, allowed_pages=()):
                     expression_refs(b["rate_expression"], parameters, "scene.inverse_bindings["+b["id"]+"].rate_expression (parameters only)")
                 else:
                     p = parameters.get(b["target_id"])
-                    if p is None or b["rate_expression"] is not None or abs(b["scale"]) < 1e-9 or abs(b["scale"])*(p["max"]-p["min"]) > 2*math.pi:
+                    from quantity_contract import can_commit
+                    if p is None or not can_commit(p) or b["rate_expression"] is not None or abs(b["scale"]) < 1e-9 or abs(b["scale"])*(p["max"]-p["min"]) > 2*math.pi:
                         raise WorldValidationError("Invalid parameter inverse.")
                     if p["id"] in expression_refs(b["offset_expression"], parameters, "scene.inverse_bindings["+b["id"]+"].offset_expression"):
                         raise WorldValidationError("Inverse offset must not depend on its target.")

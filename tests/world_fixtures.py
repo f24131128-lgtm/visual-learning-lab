@@ -1,6 +1,7 @@
 """Two deterministic acceptance systems, never imported by production routing."""
 
 from scene.world.schema import VERSION
+from provenance_fixtures import declared_parameter
 
 try:
     from support import fixture
@@ -10,13 +11,14 @@ except ModuleNotFoundError:
 
 def base(title, parameters, quantities):
     def param(identifier, label, unit, low, high, default, step):
-        return dict(id=identifier, label=label, unit=unit, min=low, max=high, default=default, step=step, source_pages=[1], quantity_kind="scalar", range_source="pedagogical", display_unit="native")
+        return declared_parameter(dict(id=identifier, label=label, unit=unit, min=low, max=high, default=default, step=step, source_pages=[1], quantity_kind="scalar", domain_constraint="signed", range_source="pedagogical", display_unit="native"))
     return {"scene_version": VERSION, "domain": "spatial_dynamics", "scene_id": "world_scene", "title": title,
             "learning_goal": "Explore one physical state through multiple views.", "assumptions": ["Ideal planar model; no losses."], "source_pages": [1],
+            "source_facts": [],
             "time": {"min": 0., "max": .05, "frames": 120, "unit": "s", "strategy": "fixed_duration", "duration_expression": None, "periods": 1},
             "axes": dict(x_min=-4., x_max=4., y_min=-4., y_max=4., x_label="x", y_label="y"),
             "parameters": [param(*p) for p in parameters],
-            "quantities": [dict(id=i, label=l, unit=u, expression=e, source_pages=[1]) for i, l, u, e in quantities],
+            "quantities": [dict(id=i, label=l, unit=u, expression=e, source_pages=[1], provenance="derived") for i, l, u, e in quantities],
             "objects": [], "series": [], "metrics": [], "bindings": [], "inverse_bindings": [], "invariants": [], "experiments": []}
 
 
@@ -110,8 +112,8 @@ def complete_projectile_world():
     scene["parameters"][0].update(min=5., max=100., default=20., step=.5, quantity_kind="speed")
     scene["parameters"][1].update(min=math.radians(5), max=math.radians(85), default=math.pi/4,
                                    step=math.radians(.5), quantity_kind="inclination_angle", display_unit="degrees")
-    scene["parameters"].append(dict(id="grav", label="Gravity", unit="m/s²", min=1., max=20., default=9.8,
-                                     step=.1, source_pages=[1], quantity_kind="acceleration", range_source="pedagogical", display_unit="native"))
+    scene["parameters"].append(declared_parameter(dict(id="grav", label="Gravity", unit="m/s²", min=1., max=20., default=9.8,
+                                     step=.1, source_pages=[1], quantity_kind="acceleration", range_source="pedagogical", display_unit="native")))
     expressions = dict(py="speed*sin(angle)*time-0.5*grav*time**2", vy="speed*sin(angle)-grav*time",
                        gravity="-grav", energy="(vx**2+vy**2)/2+grav*py")
     for q in scene["quantities"]:

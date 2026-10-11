@@ -1,0 +1,582 @@
+{
+  "stage": "POST_FIX",
+  "kind": "OFFLINE_REPLAY",
+  "status": "PASSED",
+  "not_untouched_holdout": true,
+  "baseline_verification": {
+    "public_files": 35,
+    "private_files": 212,
+    "unchanged_planner_files": [
+      "learning_world/capabilities.py",
+      "learning_world/compiler.py",
+      "learning_world/diagnostics.py",
+      "learning_world/execution.py",
+      "learning_world/execution_ui.py",
+      "learning_world/planner.py",
+      "learning_world/process.py",
+      "learning_world/runtime.py",
+      "learning_world/schema.py",
+      "learning_world/__init__.py"
+    ],
+    "manifest_sha256": "818e71d84f3ec822545b0f4da90cf7978ce9540dd762fcb65f1d33443a572b19"
+  },
+  "cases": [
+    {
+      "stage": "POST_FIX",
+      "case": "circular",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "angular_acceleration_lab",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "B": {
+        "semantic_id": "acceleration_components",
+        "baseline_representation_ids": [],
+        "post_fix_representation_ids": [
+          "acceleration_components"
+        ],
+        "ownership_reason": "Existing canonical ID of the accepted formal renderer object; no ownership added to legacy Lab.",
+        "direct_manipulation": false,
+        "source_roundtrip": true,
+        "source_pdf_unchanged": true,
+        "api_delta": 0
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "harmonic",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "spring_initial_conditions",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "B": {
+        "semantic_id": "restoring_force",
+        "baseline_representation_ids": [],
+        "post_fix_representation_ids": [
+          "restoring_force"
+        ],
+        "ownership_reason": "Existing canonical ID of the accepted formal renderer object; no ownership added to legacy Lab.",
+        "direct_manipulation": false,
+        "source_roundtrip": true,
+        "source_pdf_unchanged": true,
+        "api_delta": 0
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "circuits",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "rc_voltage_response",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "annotated_shape": {
+        "kind": "EXPLICIT_OFFLINE_TEST_ANNOTATION_NOT_MODEL_OUTPUT",
+        "demos": [
+          {
+            "source_facts": [
+              {
+                "id": "source_charge_input",
+                "label": "source charge input",
+                "unit": "",
+                "value": 5.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The charging example has constant input 5 V."
+              },
+              {
+                "id": "source_charge_initial",
+                "label": "source charge initial",
+                "unit": "",
+                "value": 0.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The charging example starts at capacitor voltage 0 V."
+              },
+              {
+                "id": "source_discharge_input",
+                "label": "source discharge input",
+                "unit": "",
+                "value": 0.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The discharging example has constant input 0 V."
+              },
+              {
+                "id": "source_discharge_initial",
+                "label": "source discharge initial",
+                "unit": "",
+                "value": 5.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The discharging example starts at capacitor voltage 5 V."
+              }
+            ],
+            "parameters": [
+              {
+                "id": "exploration_input_voltage",
+                "label": "Hypothetical Constant input VI",
+                "unit": "V",
+                "min": 0.0,
+                "max": 5.0,
+                "default": 5.0,
+                "step": 0.1,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "source_charge_input",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "semantic_refs": []
+              },
+              {
+                "id": "exploration_initial_voltage",
+                "label": "Hypothetical Initial capacitor voltage V0",
+                "unit": "V",
+                "min": 0.0,
+                "max": 5.0,
+                "default": 0.0,
+                "step": 0.1,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "source_charge_initial",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "semantic_refs": []
+              },
+              {
+                "id": "exploration_time_constant",
+                "label": "Hypothetical Time constant τ = RC",
+                "unit": "s",
+                "min": 0.1,
+                "max": 2.0,
+                "default": 1.0,
+                "step": 0.1,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": null,
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "semantic_refs": []
+              }
+            ],
+            "derived_roles": [
+              "derived",
+              "derived",
+              "derived",
+              "derived"
+            ],
+            "source_baseline_immutable": true,
+            "separate_exploration_ids": true
+          }
+        ],
+        "limit": "Proves the generic contract on captured mathematical shapes; does not establish a newly generated semantic improvement."
+      },
+      "B": {
+        "semantic_id": "form_equation",
+        "baseline_representation_ids": [],
+        "post_fix_representation_ids": [
+          "form_equation"
+        ],
+        "ownership_reason": "Existing canonical ID of the accepted formal renderer object; no ownership added to legacy Lab.",
+        "direct_manipulation": false,
+        "source_roundtrip": true,
+        "source_pdf_unchanged": true,
+        "api_delta": 0
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "signals",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "harmonic_mixture",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "canary": {
+        "formal_renderer_available": true,
+        "lab_curve_available": true,
+        "generated_code_executed": false,
+        "legacy_interactivity": "Read-only by explicit compatibility policy"
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "regression",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "correlation_and_line",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "annotated_shape": {
+        "kind": "EXPLICIT_OFFLINE_TEST_ANNOTATION_NOT_MODEL_OUTPUT",
+        "demos": [
+          {
+            "source_facts": [
+              {
+                "id": "reported_correlation",
+                "label": "reported correlation",
+                "unit": "",
+                "value": -0.499,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The sample correlation is R=-0.499."
+              },
+              {
+                "id": "sample_mean_income",
+                "label": "sample mean income",
+                "unit": "",
+                "value": 101780.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The source sample mean family income is 101780 dollars."
+              },
+              {
+                "id": "sample_mean_aid",
+                "label": "sample mean aid",
+                "unit": "",
+                "value": 19940.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The source sample mean gift aid is 19940 dollars."
+              },
+              {
+                "id": "sample_sd_income",
+                "label": "sample sd income",
+                "unit": "",
+                "value": 63200.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The source sample standard deviation of family income is 63200 dollars."
+              },
+              {
+                "id": "sample_sd_aid",
+                "label": "sample sd aid",
+                "unit": "",
+                "value": 5460.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The source sample standard deviation of gift aid is 5460 dollars."
+              }
+            ],
+            "parameters": [
+              {
+                "id": "exploration_corr",
+                "label": "Hypothetical Correlation R (exploration range)",
+                "unit": "unitless",
+                "min": -0.6,
+                "max": 0.6,
+                "default": -0.499,
+                "step": 0.001,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "reported_correlation",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  4,
+                  5,
+                  6
+                ],
+                "semantic_refs": []
+              }
+            ],
+            "derived_roles": [
+              "derived",
+              "derived",
+              "derived",
+              "derived"
+            ],
+            "source_baseline_immutable": true,
+            "separate_exploration_ids": true
+          }
+        ],
+        "limit": "Proves the generic contract on captured mathematical shapes; does not establish a newly generated semantic improvement."
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "probability",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "overlap_lab",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "annotated_shape": {
+        "kind": "EXPLICIT_OFFLINE_TEST_ANNOTATION_NOT_MODEL_OUTPUT",
+        "demos": [
+          {
+            "source_facts": [
+              {
+                "id": "source_probability_a",
+                "label": "source probability a",
+                "unit": "",
+                "value": 0.3333333333333333,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  2
+                ],
+                "source_evidence": "For the fair die, A={1,2} contains two of the six equiprobable outcomes."
+              },
+              {
+                "id": "source_probability_b",
+                "label": "source probability b",
+                "unit": "",
+                "value": 0.3333333333333333,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  2
+                ],
+                "source_evidence": "For the fair die, B={4,6} contains two of the six equiprobable outcomes."
+              }
+            ],
+            "parameters": [
+              {
+                "id": "exploration_prob_a",
+                "label": "Hypothetical p_A = P(A)",
+                "unit": "probability",
+                "min": 0.25,
+                "max": 0.5,
+                "default": 0.3333333333333333,
+                "step": 0.01,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "source_probability_a",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  5
+                ],
+                "semantic_refs": []
+              },
+              {
+                "id": "exploration_prob_b",
+                "label": "Hypothetical p_B = P(B)",
+                "unit": "probability",
+                "min": 0.25,
+                "max": 0.5,
+                "default": 0.3333333333333333,
+                "step": 0.01,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "source_probability_b",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  5
+                ],
+                "semantic_refs": []
+              }
+            ],
+            "derived_roles": [
+              "derived",
+              "derived"
+            ],
+            "source_baseline_immutable": true,
+            "separate_exploration_ids": true
+          }
+        ],
+        "limit": "Proves the generic contract on captured mathematical shapes; does not establish a newly generated semantic improvement."
+      },
+      "B": {
+        "semantic_id": "union_rule",
+        "baseline_representation_ids": [],
+        "post_fix_representation_ids": [
+          "union_rule"
+        ],
+        "ownership_reason": "Existing canonical ID of the accepted formal renderer object; no ownership added to legacy Lab.",
+        "direct_manipulation": false,
+        "source_roundtrip": true,
+        "source_pdf_unchanged": true,
+        "api_delta": 0
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "search",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "loop_growth_demo",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "B": {
+        "semantic_id": "list_costs",
+        "baseline_representation_ids": [],
+        "post_fix_representation_ids": [
+          "list_costs"
+        ],
+        "ownership_reason": "Existing canonical ID of the accepted formal renderer object; no ownership added to legacy Lab.",
+        "direct_manipulation": false,
+        "source_roundtrip": true,
+        "source_pdf_unchanged": true,
+        "api_delta": 0
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "complexity",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [
+        {
+          "demo_id": "runtime_crossover_demo",
+          "parameters_read_only": true,
+          "curve_computable": true,
+          "roles_not_guessed": true
+        }
+      ],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "annotated_shape": {
+        "kind": "EXPLICIT_OFFLINE_TEST_ANNOTATION_NOT_MODEL_OUTPUT",
+        "demos": [
+          {
+            "source_facts": [
+              {
+                "id": "source_linear_coefficient",
+                "label": "source linear coefficient",
+                "unit": "",
+                "value": 100.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  2
+                ],
+                "source_evidence": "The source compares 100n+1 with n^2+n+1."
+              }
+            ],
+            "parameters": [
+              {
+                "id": "exploration_a",
+                "label": "Hypothetical Linear coefficient a (source example: 100)",
+                "unit": "operations per input unit",
+                "min": 2.0,
+                "max": 200.0,
+                "default": 100.0,
+                "step": 1.0,
+                "parameter_kind": "adjustable",
+                "provenance": "hypothetical_exploration",
+                "source_baseline_ref": "source_linear_coefficient",
+                "source_evidence": "",
+                "expose_control": true,
+                "source_pages": [
+                  2
+                ],
+                "semantic_refs": []
+              }
+            ],
+            "derived_roles": [
+              "derived",
+              "derived",
+              "derived"
+            ],
+            "source_baseline_immutable": true,
+            "separate_exploration_ids": true
+          }
+        ],
+        "limit": "Proves the generic contract on captured mathematical shapes; does not establish a newly generated semantic improvement."
+      }
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "spectrum",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [],
+      "source_artifact_unchanged": true,
+      "api_delta": 0
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "debugging",
+      "kind": "UNCHANGED_CAPTURE_LOCAL_REVALIDATION",
+      "legacy_lab": [],
+      "source_artifact_unchanged": true,
+      "api_delta": 0,
+      "canary": {
+        "formal_renderer_available": true,
+        "lab_curve_available": false,
+        "generated_code_executed": false,
+        "legacy_interactivity": "Not applicable"
+      }
+    }
+  ],
+  "case_count": 10,
+  "api_requests": 0,
+  "scope": "Mechanical provenance/ownership checks. No A-axis verdict. Legacy capture and explicit annotation lanes are reported separately."
+}

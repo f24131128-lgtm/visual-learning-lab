@@ -1,0 +1,4426 @@
+# Day27 A-axis human semantic-review packet
+
+A-axis final verdicts are reserved for the human reviewer. All ten cases remain in the denominator. Compiler/validator acceptance supplies B-axis evidence only. No semantic correctness verdict is assigned here.
+
+Attribution: AI-drafted, human-reviewed and approved expectations before model execution. Source page labels below are original physical PDF pages; outputs cite renumbered evaluation pages.
+
+## circular — Classical Mechanics Chapter 6: Circular Motion
+
+[Original source](https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/mit8_01scs22_chapter6.pdf) · [Terms](https://ocw.mit.edu/pages/privacy-and-terms-of-use/) · CC BY-NC-SA 4.0
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [3, 4, 5, 6, 7, 8, 9, 10]. Evaluation → original mapping: {"1": 3, "2": 4, "3": 5, "4": 6, "5": 7, "6": 8, "7": 9, "8": 10}.
+Source-grounded concise paraphrases from the reviewed prospective packet: position on a circle; angular velocity and period; tangential velocity; radial acceleration.
+Fixed source conditions: source example coefficients remain compiled baseline; not measurements.
+Permitted adjustment/local operations: positive radius; angular velocity: signed or positive according to source direction/coordinate semantics; never infer its domain from the parameter ID or label.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Circular motion has tangential velocity and inward radial acceleration because the direction of motion continually changes. Differentiating position in a rotating polar basis gives velocity and the tangential and radial acceleration components. Uniform circular motion has constant speed, but nonzero centripetal acceleration, with equivalent descriptions using angular speed, period, and frequency.",
+  "key_concepts": [
+    {
+      "concept": "Position and polar unit vectors",
+      "explanation": "For a fixed radius r, the position is r⃗(t) = r r̂(t). The outward radial vector r̂ and tangential vector θ̂ rotate with the particle: r̂ = cosθ î + sinθ ĵ and θ̂ = −sinθ î + cosθ ĵ.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Derivatives of the rotating basis",
+      "explanation": "Even at constant radius, the basis vectors change direction: d r̂/dt = θ̇ θ̂ and d θ̂/dt = −θ̇ r̂. These identities are essential when differentiating velocity.",
+      "source_pages": [
+        2,
+        5
+      ]
+    },
+    {
+      "concept": "Tangential velocity and angular speed",
+      "explanation": "The signed tangential component is vθ = rθ̇, so v⃗ = rθ̇ θ̂. Speed is v = r|θ̇|. Distinguish signed angular rate θ̇ from angular speed ω = |θ̇|; the extraction sometimes omits magnitude signs.",
+      "source_pages": [
+        2,
+        4
+      ]
+    },
+    {
+      "concept": "Geometric velocity derivation",
+      "explanation": "A displacement spanning a small positive angle Δθ has chord length 2r sin(Δθ/2). For small angles in radians, this approaches rΔθ. Dividing by Δt and taking the limit gives tangential velocity.",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "concept": "Tangential acceleration",
+      "explanation": "The tangential component is aθ = rθ̈. It arises from changing angular rate and can change the speed.",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "concept": "Radial acceleration and centripetal force",
+      "explanation": "With outward r̂ positive, ar = −rθ̇². Its magnitude is ac = rω² = v²/r, and it points inward whenever speed is nonzero. The net radial force satisfies Fr = mar.",
+      "source_pages": [
+        1,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "concept": "Uniform circular motion",
+      "explanation": "Zero net tangential force gives aθ = 0 and constant speed. The velocity still changes direction, so acceleration remains inward rather than vanishing.",
+      "source_pages": [
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "concept": "Period and frequency",
+      "explanation": "The period T is the time for one revolution, and frequency f is revolutions per second. For uniform circular motion, T = 2πr/v = 2π/ω and f = 1/T = ω/(2π), measured in hertz.",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "concept": "Equivalent centripetal acceleration formulas",
+      "explanation": "The inward acceleration magnitude can be written ac = rω² = v²/r = 4π²rf² = 4π²r/T². Choose the form matching the known quantities; do not confuse this positive magnitude with the signed component ar.",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "concept": "Time-dependent angular motion example",
+      "explanation": "For θ(t) = At³ − Bt, θ̇ = 3At² − B and θ̈ = 6At. Thus v⃗ = R(3At² − B)θ̂ and a⃗ = 6RAt θ̂ − R(3At² − B)²r̂. At nonnegative time, centripetal acceleration vanishes at t = √(B/(3A)). The extracted velocity line contains an extra t after B, and the extracted root is missing.",
+      "source_pages": [
+        6
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Position vector",
+      "relation": "equals fixed radius multiplied by",
+      "target": "Outward radial unit vector",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Polar unit vectors",
+      "relation": "depend on",
+      "target": "Angular position θ(t)",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Radial unit vector",
+      "relation": "has time derivative θ̇ times",
+      "target": "Tangential unit vector",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Tangential unit vector",
+      "relation": "has time derivative −θ̇ times",
+      "target": "Radial unit vector",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Velocity",
+      "relation": "is the time derivative of",
+      "target": "Position vector",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Velocity",
+      "relation": "is tangent to the orbit and perpendicular to",
+      "target": "Position vector",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Tangential velocity component",
+      "relation": "equals rθ̇ and therefore depends on",
+      "target": "Radius and signed angular rate",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Speed",
+      "relation": "equals radius multiplied by",
+      "target": "Angular speed",
+      "source_pages": [
+        4,
+        7
+      ]
+    },
+    {
+      "source": "Small-angle approximation",
+      "relation": "makes chord length approach",
+      "target": "Arc length rΔθ",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "source": "Acceleration",
+      "relation": "is the time derivative of",
+      "target": "Velocity",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Acceleration",
+      "relation": "decomposes into",
+      "target": "Tangential and radial components",
+      "source_pages": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "source": "Tangential acceleration",
+      "relation": "equals radius multiplied by",
+      "target": "Angular acceleration θ̈",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Changing tangential basis direction",
+      "relation": "produces the inward term in",
+      "target": "Radial acceleration",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "source": "Signed radial acceleration",
+      "relation": "equals",
+      "target": "−rθ̇²",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Net radial force",
+      "relation": "equals mass multiplied by",
+      "target": "Signed radial acceleration",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Zero net tangential force",
+      "relation": "implies",
+      "target": "Zero tangential acceleration and constant speed",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "source": "Uniform circular motion",
+      "relation": "has constant speed but continuously changing",
+      "target": "Velocity direction",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Changing velocity direction",
+      "relation": "requires",
+      "target": "Nonzero acceleration",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "source": "Period",
+      "relation": "is the time required for",
+      "target": "One complete revolution",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Frequency",
+      "relation": "is the reciprocal of",
+      "target": "Period",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Angular speed",
+      "relation": "equals 2π times",
+      "target": "Frequency",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Centripetal acceleration magnitude",
+      "relation": "has equivalent expressions",
+      "target": "rω², v²/r, 4π²rf², and 4π²r/T²",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Angular law θ = At³ − Bt",
+      "relation": "gives",
+      "target": "Angular rate 3At² − B and angular acceleration 6At",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Zero angular rate in the worked example",
+      "relation": "gives zero",
+      "target": "Centripetal acceleration",
+      "source_pages": [
+        6
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 4,
+      "type": "formula",
+      "description": "Equation 6.2.15 visibly includes magnitude signs in the limiting derivation v = r|dθ/dt| = rω.",
+      "learning_value": "Clarifies the distinction between positive speed and signed angular rate, which is obscured in the extraction."
+    },
+    {
+      "page": 4,
+      "type": "diagram",
+      "description": "Figure 6.3 shows two nearby radius vectors, their displacement chord, the angular separation, a tangent line, and radial and tangential unit vectors.",
+      "learning_value": "Makes the limiting argument for tangential velocity visible: the shrinking chord approaches the tangent direction."
+    },
+    {
+      "page": 4,
+      "type": "formula",
+      "description": "Equation 6.3.1 decomposes acceleration as a⃗ = ar r̂(t) + aθ θ̂(t).",
+      "learning_value": "Separates the two perpendicular directions used in the acceleration derivation."
+    },
+    {
+      "page": 8,
+      "type": "formula",
+      "description": "Equation 6.4.9 visibly gives the radial acceleration magnitude as |ar| = 4π²r/T².",
+      "learning_value": "Emphasizes that the positive magnitude is different from the negative outward-coordinate radial component."
+    },
+    {
+      "page": 8,
+      "type": "diagram",
+      "description": "Figure 6.4 places tangent velocity arrows around a circular path and labels position and velocity at two nearby times.",
+      "learning_value": "Shows why constant speed does not mean constant velocity."
+    },
+    {
+      "page": 8,
+      "type": "diagram",
+      "description": "Figure 6.5 compares v⃗(t) and v⃗(t + Δt) with a connecting Δv⃗ arrow and their angular separation.",
+      "learning_value": "Illustrates how a change in velocity direction creates acceleration even when the velocity magnitudes are equal."
+    }
+  ],
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The central learning task is following the explicit derivation from circular position through rotating-basis derivatives to velocity and acceleration, then specializing to uniform motion and orbital measurements."
+  },
+  "planner": null,
+  "numeric_lab_declarations": [
+    {
+      "id": "angular_acceleration_lab",
+      "source_pages": [
+        5,
+        6
+      ],
+      "parameters": [
+        {
+          "id": "coefA",
+          "label": "Angular-law coefficient A",
+          "unit": "rad/s³",
+          "min": 0.1,
+          "max": 1.0,
+          "default": 0.3,
+          "step": 0.05,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "coefB",
+          "label": "Angular-law coefficient B",
+          "unit": "rad/s",
+          "min": 0.1,
+          "max": 3.0,
+          "default": 0.9,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "radius",
+          "label": "Circle radius R",
+          "unit": "m",
+          "min": 0.5,
+          "max": 3.0,
+          "default": 1.0,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "time",
+        "label": "Time t (s)",
+        "min": 0.0,
+        "max": 3.5,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "tangent_accel",
+          "label": "Tangential component aθ (m/s²)",
+          "expression": "6*radius*coefA*time"
+        },
+        {
+          "id": "radial_accel",
+          "label": "Signed radial component ar (m/s²)",
+          "expression": "-radius*(3*coefA*time**2-coefB)**2"
+        }
+      ],
+      "derived_metrics": [
+        {
+          "id": "zero_radial_time",
+          "label": "Time when radial acceleration is zero",
+          "expression": "sqrt(coefB/(3*coefA))",
+          "unit": "s"
+        },
+        {
+          "id": "tangent_at_zero",
+          "label": "Tangential acceleration at that time",
+          "expression": "6*radius*coefA*sqrt(coefB/(3*coefA))",
+          "unit": "m/s²"
+        }
+      ]
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": null,
+  "affordances": null,
+  "source_refs": {
+    "declared_count": 91,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "NOT_EVALUATED",
+  "failure_reason": {
+    "stage": "normalize",
+    "code": "provenance",
+    "path": "$",
+    "generated": {
+      "planner_family": "dynamic",
+      "reason_length": 400,
+      "reason_fingerprint": "4db0d4052606c637",
+      "required_capabilities": [
+        "equations",
+        "continuous_parameters",
+        "time_dynamics",
+        "spatial_relations",
+        "structure",
+        "interaction_value"
+      ],
+      "focus_ids": [
+        "position_basis",
+        "basis_derivatives",
+        "tangent_velocity",
+        "acceleration_components",
+        "uniform_motion",
+        "orbit_measures"
+      ],
+      "entities": {
+        "collections": [],
+        "states": [],
+        "transitions": []
+      }
+    },
+    "compiled_family": null,
+    "normalized_entity_ids": [],
+    "process_runtime_reached": false,
+    "legacy_visual_flow_used": false,
+    "supplied_semantic_ids": [
+      "position_basis",
+      "basis_derivatives",
+      "tangent_velocity",
+      "acceleration_components",
+      "uniform_motion",
+      "orbit_measures"
+    ],
+    "runtime_capabilities": {
+      "process": true,
+      "spatial": true,
+      "structural": false,
+      "analogy": true,
+      "graph": true,
+      "lab": true
+    }
+  }
+}
+```
+
+Predefined reasonable families: spatial_dynamics; numeric_lab; formal concept map.
+Unsupported semantics to inspect: no gravitational orbit or motor torque model; no radius=0; no changing the original source examples.
+Static/formal conditions: A formal/numeric view is correct if a consistent bounded planar world cannot compile.
+Objective observations: selected family = None; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## harmonic — Classical Mechanics Chapter 23: Simple Harmonic Motion
+
+[Original source](https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/mit8_01scs22_chapter23.pdf) · [Terms](https://ocw.mit.edu/pages/privacy-and-terms-of-use/) · CC BY-NC-SA 4.0
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [3, 4, 5, 6, 7, 8, 9, 10]. Evaluation → original mapping: {"1": 3, "2": 4, "3": 5, "4": 6, "5": 7, "6": 8, "7": 9, "8": 10}.
+Source-grounded concise paraphrases from the reviewed prospective packet: amplitude and period; Hooke force and mass; omega=sqrt(k/m); initial conditions and phase.
+Fixed source conditions: given initial conditions must remain identified as the source baseline.
+Permitted adjustment/local operations: positive mass and spring constant; non-negative amplitude; phase.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Simple harmonic motion is sinusoidal motion with a repeating period. For a frictionless spring–mass system, the restoring force leads to x″ = −(k/m)x. Verifying sinusoidal solutions gives ω₀ = √(k/m), and combining sine and cosine terms allows the motion to satisfy any initial position and velocity. The same solution can be expressed using amplitude and phase.",
+  "key_concepts": [
+    {
+      "concept": "Simple harmonic motion and amplitude",
+      "explanation": "SHM varies sinusoidally. In y(t) = A sin(2πt/T), the positive amplitude A sets the extrema +A and −A.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Period, frequency, and angular frequency",
+      "explanation": "The period T is the repeat time: y(t + T) = y(t). Frequency is f = 1/T in hertz, and angular frequency is ω₀ = 2π/T = 2πf in rad/s. Angular frequency is constant for SHM.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Spring displacement and restoring force",
+      "explanation": "Displacement x is measured from equilibrium, with positive x indicating extension and negative x compression. The force Fₓ = −kx points toward equilibrium.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Simple harmonic oscillator equation",
+      "explanation": "Newton’s second law gives mx″ = −kx, or x″ = −(k/m)x. Acceleration is proportional to displacement and opposite in direction, so it is not constant during nonzero oscillation.",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "concept": "Natural angular frequency and period",
+      "explanation": "Substituting a cosine solution into the oscillator equation requires ω₀² = k/m. Thus ω₀ = √(k/m) and T = 2π√(m/k). These quantities depend on mass and stiffness, not the initial conditions.",
+      "source_pages": [
+        4,
+        6
+      ]
+    },
+    {
+      "concept": "Special sine and cosine solutions",
+      "explanation": "A cos(ω₀t) starts at displacement A with zero velocity. B sin(ω₀t) starts at equilibrium with velocity ω₀B. Each solves the oscillator equation but cannot alone represent all initial conditions.",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "Superposition and the general solution",
+      "explanation": "Because the oscillator equation is linear, sums of its solutions are also solutions. Its general solution is x(t) = C cos(ω₀t) + D sin(ω₀t).",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "concept": "Initial conditions determine coefficients",
+      "explanation": "Evaluating position and velocity at t = 0 gives C = x₀ and D = vₓ,₀/ω₀. Therefore x(t) = x₀ cos(ω₀t) + (vₓ,₀/ω₀) sin(ω₀t), valid for any initial position and velocity.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Amplitude–phase representation",
+      "explanation": "The general solution also equals A cos(ω₀t + φ), with C = A cosφ and D = −A sinφ. Hence A = √(C² + D²) = √(x₀² + (vₓ,₀/ω₀)²). The source gives tanφ = −D/C; the coefficient signs must also be used to select the correct quadrant.",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "concept": "Phase and horizontal shift",
+      "explanation": "The phase is ω₀t + φ and φ is the phase constant. Relative to A cos(ω₀t), positive φ shifts the curve left and negative φ shifts it right. Maxima satisfy ω₀t + φ = 2πn; the n = 0 maximum occurs at t = −φ/ω₀.",
+      "source_pages": [
+        7,
+        8
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Simple harmonic motion",
+      "relation": "is motion in which a physical quantity varies",
+      "target": "sinusoidally",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Amplitude A",
+      "relation": "sets the displacement bounds",
+      "target": "−A to +A",
+      "source_pages": [
+        1,
+        7
+      ]
+    },
+    {
+      "source": "Period T",
+      "relation": "is the repeat interval satisfying",
+      "target": "y(t + T) = y(t)",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Frequency f",
+      "relation": "is the reciprocal of",
+      "target": "period T: f = 1/T",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Angular frequency ω₀",
+      "relation": "is related to period and frequency by",
+      "target": "ω₀ = 2π/T = 2πf",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Angular frequency in SHM",
+      "relation": "is",
+      "target": "constant",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Angular speed in uniform circular motion",
+      "relation": "equals",
+      "target": "angular frequency",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spring displacement x",
+      "relation": "is measured from",
+      "target": "the equilibrium position",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Positive and negative spring displacement",
+      "relation": "correspond respectively to",
+      "target": "extension and compression",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spring restoring force",
+      "relation": "opposes displacement according to",
+      "target": "Fₓ = −kx",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Fₓ = −kx and Newton’s second law",
+      "relation": "give",
+      "target": "x″ = −(k/m)x",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Oscillator acceleration",
+      "relation": "is proportional to and opposite in sign to",
+      "target": "displacement",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Sine and cosine functions",
+      "relation": "have second derivatives equal to",
+      "target": "−ω₀² times the original function",
+      "source_pages": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "source": "A sinusoidal solution of the spring oscillator equation",
+      "relation": "requires",
+      "target": "ω₀² = k/m",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Mass m and spring constant k",
+      "relation": "determine",
+      "target": "ω₀ = √(k/m) and T = 2π√(m/k)",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "A cos(ω₀t)",
+      "relation": "has initial conditions",
+      "target": "x(0) = A and vₓ(0) = 0",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "B sin(ω₀t)",
+      "relation": "has initial conditions",
+      "target": "x(0) = 0 and vₓ(0) = ω₀B",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Linearity of the oscillator equation",
+      "relation": "allows",
+      "target": "superposition of sine and cosine solutions",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "General position solution",
+      "relation": "is",
+      "target": "x(t) = C cos(ω₀t) + D sin(ω₀t)",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Position x(t)",
+      "relation": "has time derivative",
+      "target": "vₓ(t) = −ω₀C sin(ω₀t) + ω₀D cos(ω₀t)",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Initial position x₀",
+      "relation": "determines",
+      "target": "C = x₀",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Initial velocity vₓ,₀",
+      "relation": "determines",
+      "target": "D = vₓ,₀/ω₀",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Sine–cosine representation",
+      "relation": "is equivalent to",
+      "target": "x(t) = A cos(ω₀t + φ)",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "source": "Amplitude and phase constant",
+      "relation": "determine the coefficients through",
+      "target": "C = A cosφ and D = −A sinφ",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Initial position and velocity",
+      "relation": "determine the amplitude through",
+      "target": "A = √(x₀² + (vₓ,₀/ω₀)²)",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Phase constant φ",
+      "relation": "sets the horizontal shift",
+      "target": "−φ/ω₀",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Positive phase constant",
+      "relation": "shifts the cosine curve",
+      "target": "left, to earlier maxima",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Negative phase constant",
+      "relation": "shifts the cosine curve",
+      "target": "right, to later maxima",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Maximum displacement",
+      "relation": "occurs when",
+      "target": "ω₀t + φ = 2πn",
+      "source_pages": [
+        7
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "graph",
+      "description": "Figure 23.1 shows a sinusoidal time graph with +A and −A marked vertically and a horizontal arrow marking the repeat interval T.",
+      "learning_value": "Separates amplitude, a vertical scale, from period, a horizontal repeat interval."
+    },
+    {
+      "page": 1,
+      "type": "formula",
+      "description": "The displayed equations give y(t) = A sin(2πt/T), demonstrate y(t + T) = y(t), and define f = 1/T and ω₀ = 2π/T = 2πf.",
+      "learning_value": "Connects the repeating graph to equivalent mathematical descriptions and frequency units."
+    },
+    {
+      "page": 2,
+      "type": "diagram",
+      "description": "Figure 23.2 contrasts the spring–object system at equilibrium and in a stretched position, labeling l_eq, l₀, x = 0, x(t), and the positive direction.",
+      "learning_value": "Clarifies that x is displacement from equilibrium, not the spring’s total length."
+    },
+    {
+      "page": 3,
+      "type": "diagram",
+      "description": "Figure 23.3 shows a block displaced to the right and a spring-force arrow pointing left, alongside the restoring-force expression.",
+      "learning_value": "Makes the negative sign in Fₓ = −kx physically meaningful."
+    },
+    {
+      "page": 3,
+      "type": "formula",
+      "description": "The displayed derivation introduces −kx = m d²x/dt², rearranges it to d²x/dt² = −(k/m)x, and proposes x(t) = A cos(ω₀t).",
+      "learning_value": "Shows how the physical force model becomes a differential equation and motivates a sinusoidal trial solution."
+    },
+    {
+      "page": 8,
+      "type": "graph",
+      "description": "Figure 23.4 contains three cosine plots for φ = π/4, φ = 0, and φ = −π/4, with shifted maxima indicated at −T/8 and +T/8.",
+      "learning_value": "Shows that changing phase shifts peak timing without changing amplitude or period."
+    }
+  ],
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The core material develops a complete solution through a coherent derivation: restoring force → equation of motion → verified sinusoids → superposition → initial-condition fitting → amplitude and phase."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "restoring_force",
+      "motion_equation",
+      "verify_sinusoid",
+      "combine_solutions",
+      "apply_initial_conditions",
+      "amplitude_phase"
+    ],
+    "source_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "Use the ready numeric lab to compare position curves for a frictionless, one-dimensional spring–mass system. Vary positive k and m and initial conditions x₀ and vₓ,₀ using ω₀ = √(k/m) and x(t) = x₀ cos(ω₀t) + (vₓ,₀/ω₀) sin(ω₀t). Parameter comparison reveals how k/m controls the period while initial conditions determine amplitude and phase. Connect the curves to Fₓ = −kx, x″ = −(k/m)x, and the sine",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "spring_initial_conditions",
+      "source_pages": [
+        4,
+        6,
+        7
+      ],
+      "parameters": [
+        {
+          "id": "stiffness",
+          "label": "Spring constant k",
+          "unit": "N/m",
+          "min": 1.0,
+          "max": 16.0,
+          "default": 4.0,
+          "step": 0.25,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "mass",
+          "label": "Mass m",
+          "unit": "kg",
+          "min": 0.5,
+          "max": 4.0,
+          "default": 1.0,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "initial_position",
+          "label": "Initial displacement x₀",
+          "unit": "m",
+          "min": -1.0,
+          "max": 1.0,
+          "default": 0.5,
+          "step": 0.05,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "initial_velocity",
+          "label": "Initial velocity vₓ,₀",
+          "unit": "m/s",
+          "min": -2.0,
+          "max": 2.0,
+          "default": 0.5,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "time",
+        "label": "Time t (s)",
+        "min": 0.0,
+        "max": 12.0,
+        "points": 600
+      },
+      "series": [
+        {
+          "id": "position",
+          "label": "Displacement x(t) (m)",
+          "expression": "initial_position*cos(sqrt(stiffness/mass)*time)+(initial_velocity/sqrt(stiffness/mass))*sin(sqrt(stiffness/mass)*time)"
+        }
+      ],
+      "derived_metrics": [
+        {
+          "id": "angular_frequency",
+          "label": "Angular frequency ω₀",
+          "expression": "sqrt(stiffness/mass)",
+          "unit": "rad/s"
+        },
+        {
+          "id": "period",
+          "label": "Period T",
+          "expression": "2*pi*sqrt(mass/stiffness)",
+          "unit": "s"
+        },
+        {
+          "id": "amplitude",
+          "label": "Amplitude A",
+          "expression": "sqrt(initial_position**2+(initial_velocity/sqrt(stiffness/mass))**2)",
+          "unit": "m"
+        }
+      ]
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 92,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: spatial_dynamics; numeric_lab; formal concept map.
+Unsupported semantics to inspect: no damping or driving force; no amplitude interpreted as wavelength; no arbitrary 3D mechanics.
+Static/formal conditions: Numeric/formal degradation is correct when the runtime cannot express the oscillator honestly.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## circuits — 6.002 Lecture 12: First Order Circuits
+
+[Original source](https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/84f4b553fc6a1ddd7007465041c4e213_6002_l12.pdf) · [Terms](https://ocw.mit.edu/pages/privacy-and-terms-of-use/) · CC BY-NC-SA 4.0
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [6, 7, 8, 9, 10, 11, 12, 13]. Evaluation → original mapping: {"1": 6, "2": 7, "3": 8, "4": 9, "5": 10, "6": 11, "7": 12, "8": 13}.
+Source-grounded concise paraphrases from the reviewed prospective packet: RC node equation; homogeneous and particular solutions; initial voltage; tau=RC; charging and discharging.
+Fixed source conditions: 5 V/0 V examples and boundary conditions are source baselines.
+Permitted adjustment/local operations: positive R and C; hypothetical input/initial voltage.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "This lecture derives the constant-input response of an RC circuit using particular and homogeneous solutions. Applying the initial capacitor voltage gives vC(t) = VI + (V0 − VI)e^(−t/RC): the voltage starts at V0 and approaches VI with time constant τ = RC.",
+  "key_concepts": [
+    {
+      "concept": "RC circuit model",
+      "explanation": "A Thévenin voltage source vI(t) and resistance R drive a capacitor C. The output is the capacitor voltage vC(t).",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Node equation",
+      "explanation": "The node method gives (vC − vI)/R + C dvC/dt = 0, or RC dvC/dt + vC = vI. An initial capacitor voltage is needed to determine the response.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Constant input and initial condition",
+      "explanation": "The worked example assumes vI(t) = VI and vC(0) = V0.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Particular solution",
+      "explanation": "A particular solution satisfies the original driven equation. For a constant input, vCP = VI works because its time derivative is zero.",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "concept": "Homogeneous solution",
+      "explanation": "Setting the drive to zero gives RC dvCH/dt + vCH = 0. Trying vCH = Ae^(st) yields s = −1/(RC), so vCH = Ae^(−t/RC).",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "concept": "Time constant",
+      "explanation": "τ = RC has units of time and sets the exponential response rate. A larger τ produces a slower approach to the final voltage.",
+      "source_pages": [
+        1,
+        5,
+        7,
+        8
+      ]
+    },
+    {
+      "concept": "Total solution and initial-condition fitting",
+      "explanation": "Adding the particular and homogeneous solutions gives vC = VI + Ae^(−t/RC). Using vC(0) = V0 determines A = V0 − VI.",
+      "source_pages": [
+        3,
+        6
+      ]
+    },
+    {
+      "concept": "Capacitor voltage response",
+      "explanation": "The complete response is vC(t) = VI + (V0 − VI)e^(−t/RC). It starts at V0 and approaches VI; the transient is the difference from the final voltage.",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "concept": "Capacitor current",
+      "explanation": "iC = C dvC/dt = (VI − V0)e^(−t/RC)/R. The current decays toward zero and its sign depends on whether VI is above or below V0.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Charging and discharging examples",
+      "explanation": "For V0 = 0 V and VI = 5 V, the general solution gives 5 − 5e^(−t/RC). For V0 = 5 V and VI = 0 V, it gives 5e^(−t/RC). The charging formula printed on page 8 has a plus-sign error; its plotted curve and stated conditions agree with the minus-sign form.",
+      "source_pages": [
+        6,
+        8
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Thévenin RC circuit",
+      "relation": "is modeled by applying the node method to obtain",
+      "target": "RC dvC/dt + vC = vI",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Constant input vI(t) = VI",
+      "relation": "specializes the circuit equation to",
+      "target": "RC dvC/dt + vC = VI",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Particular solution",
+      "relation": "satisfies",
+      "target": "The original driven equation",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Constant input VI",
+      "relation": "admits the particular solution",
+      "target": "vCP = VI",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Homogeneous equation",
+      "relation": "is obtained by setting the drive to zero in",
+      "target": "The original circuit equation",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Exponential trial vCH = Ae^(st)",
+      "relation": "produces",
+      "target": "Characteristic equation RCs + 1 = 0",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Characteristic equation RCs + 1 = 0",
+      "relation": "determines",
+      "target": "s = −1/(RC)",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Homogeneous solution",
+      "relation": "has the form",
+      "target": "vCH = Ae^(−t/RC)",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Time constant τ",
+      "relation": "equals",
+      "target": "RC",
+      "source_pages": [
+        5,
+        8
+      ]
+    },
+    {
+      "source": "RC",
+      "relation": "has",
+      "target": "Units of time",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Total solution",
+      "relation": "is the sum of",
+      "target": "Particular and homogeneous solutions",
+      "source_pages": [
+        3,
+        6
+      ]
+    },
+    {
+      "source": "Initial condition vC(0) = V0",
+      "relation": "determines the remaining constant",
+      "target": "A = V0 − VI",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "A = V0 − VI",
+      "relation": "gives the complete voltage response",
+      "target": "vC(t) = VI + (V0 − VI)e^(−t/RC)",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Capacitor voltage response",
+      "relation": "starts at",
+      "target": "V0",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "source": "Capacitor voltage response",
+      "relation": "approaches",
+      "target": "VI",
+      "source_pages": [
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Capacitor current",
+      "relation": "equals capacitance times the voltage derivative",
+      "target": "iC = C dvC/dt",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Complete voltage response",
+      "relation": "yields",
+      "target": "iC(t) = (VI − V0)e^(−t/RC)/R",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "V0 = 0 V and VI = 5 V",
+      "relation": "produce",
+      "target": "Charging from 0 V toward 5 V",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "source": "V0 = 5 V and VI = 0 V",
+      "relation": "produce",
+      "target": "Discharging from 5 V toward 0 V",
+      "source_pages": [
+        8
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "diagram",
+      "description": "A source, series resistor, and capacitor form the RC circuit. The capacitor voltage polarity and a dashed Thévenin boundary are marked.",
+      "learning_value": "Connects the abstract variables to circuit components and identifies the output voltage."
+    },
+    {
+      "page": 1,
+      "type": "formula",
+      "description": "The node equation is rearranged into RC dvC/dt + vC = vI. RC is circled and annotated as having units of time.",
+      "learning_value": "Shows how the circuit becomes a first-order differential equation and highlights its characteristic time scale."
+    },
+    {
+      "page": 2,
+      "type": "formula",
+      "description": "The constant-input conditions vI(t) = VI and vC(0) = V0 accompany RC dvC/dt + vC = VI.",
+      "learning_value": "Separates the driving input from the initial capacitor state."
+    },
+    {
+      "page": 4,
+      "type": "formula",
+      "description": "The choice vCP = VI is highlighted, and an arrow identifies its derivative as zero.",
+      "learning_value": "Makes the verification of the particular solution explicit."
+    },
+    {
+      "page": 6,
+      "type": "formula",
+      "description": "The initial condition determines A = V0 − VI, followed by the highlighted complete voltage response and a capacitor-current formula.",
+      "learning_value": "Shows how the arbitrary homogeneous amplitude becomes a physically determined transient."
+    },
+    {
+      "page": 7,
+      "type": "graph",
+      "description": "A green exponential curve rises from V0 toward the dashed VI level. Its initial tangent meets that level at the marked time RC.",
+      "learning_value": "Links the initial value, final value, and time constant to visible features of the response."
+    },
+    {
+      "page": 8,
+      "type": "graph",
+      "description": "Side-by-side green curves show charging from 0 V toward 5 V and discharging from 5 V toward 0 V, with step-input sketches. The charging expression is visibly printed with a plus sign, inconsistent with the curve and initial condition.",
+      "learning_value": "Illustrates both response directions and provides an opportunity to check a formula against its initial value."
+    },
+    {
+      "page": 8,
+      "type": "waveform",
+      "description": "A lower green waveform alternates between exponential rising and falling segments bounded by dashed voltage levels.",
+      "learning_value": "Shows how repeated changes in the input generate successive charging and discharging intervals."
+    }
+  ],
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The central structure is a coherent derivation from the circuit equation through particular and homogeneous solutions to an initial-condition-fitted response."
+  },
+  "planner": null,
+  "numeric_lab_declarations": [
+    {
+      "id": "rc_voltage_response",
+      "source_pages": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "parameters": [
+        {
+          "id": "input_voltage",
+          "label": "Constant input VI",
+          "unit": "V",
+          "min": 0.0,
+          "max": 5.0,
+          "default": 5.0,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "initial_voltage",
+          "label": "Initial capacitor voltage V0",
+          "unit": "V",
+          "min": 0.0,
+          "max": 5.0,
+          "default": 0.0,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "time_constant",
+          "label": "Time constant τ = RC",
+          "unit": "s",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 1.0,
+          "step": 0.1,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "time",
+        "label": "Time t (s)",
+        "min": 0.0,
+        "max": 10.0,
+        "points": 500
+      },
+      "series": [
+        {
+          "id": "capacitor_voltage",
+          "label": "Capacitor voltage vC(t) (V)",
+          "expression": "input_voltage + (initial_voltage - input_voltage) * exp(-time / time_constant)"
+        },
+        {
+          "id": "final_voltage",
+          "label": "Final voltage VI (V)",
+          "expression": "input_voltage"
+        }
+      ],
+      "derived_metrics": [
+        {
+          "id": "transient_amplitude",
+          "label": "Initial transient amplitude V0 − VI",
+          "expression": "initial_voltage - input_voltage",
+          "unit": "V"
+        },
+        {
+          "id": "voltage_at_tau",
+          "label": "Voltage at t = τ",
+          "expression": "input_voltage + (initial_voltage - input_voltage) * exp(-1)",
+          "unit": "V"
+        }
+      ]
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": null,
+  "affordances": null,
+  "source_refs": {
+    "declared_count": 86,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "NOT_EVALUATED",
+  "failure_reason": {
+    "stage": "normalize",
+    "code": "plan",
+    "path": "$",
+    "generated": {
+      "planner_family": "dynamic",
+      "reason_length": 400,
+      "reason_fingerprint": "8b34ec6a53013c05",
+      "required_capabilities": [
+        "equations",
+        "continuous_parameters",
+        "time_dynamics",
+        "structure",
+        "interaction_value"
+      ],
+      "focus_ids": [
+        "form_equation",
+        "find_particular",
+        "find_homogeneous",
+        "combine_solutions",
+        "apply_initial",
+        "complete_response"
+      ],
+      "entities": {
+        "collections": [],
+        "states": [],
+        "transitions": []
+      }
+    },
+    "compiled_family": null,
+    "normalized_entity_ids": [],
+    "process_runtime_reached": false,
+    "legacy_visual_flow_used": false,
+    "supplied_semantic_ids": [
+      "form_equation",
+      "find_particular",
+      "find_homogeneous",
+      "combine_solutions",
+      "apply_initial",
+      "complete_response"
+    ],
+    "runtime_capabilities": {
+      "process": true,
+      "spatial": false,
+      "structural": false,
+      "analogy": true,
+      "graph": true,
+      "lab": true
+    }
+  }
+}
+```
+
+Predefined reasonable families: numeric_lab; dynamic_simulation; process_flow; formal comparison.
+Unsupported semantics to inspect: no invented measured component values; no nonlinear transistor or second-order RLC model; no physical circuit rewiring handle.
+Static/formal conditions: A formula/table/flow is correct without an unambiguous waveform inverse; generic bounded hypothetical defaults must be labeled.
+Objective observations: selected family = None; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## signals — Think DSP: Sounds and Signals
+
+[Original source](https://greenteapress.com/thinkdsp/thinkdsp.pdf) · [Terms](https://greenteapress.com/) · CC BY-NC-SA 4.0 (PDF copyright page)
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [14, 15, 16, 17, 18]. Evaluation → original mapping: {"1": 14, "2": 15, "3": 16, "4": 17, "5": 18}.
+Source-grounded concise paraphrases from the reviewed prospective packet: period/frequency; waveform/timbre; harmonics and spectral decomposition; two-sinusoid mixture.
+Fixed source conditions: 439 Hz observed bell and plotted recording; 440/880 Hz, 1.0/0.5 and offset=0 example baseline; original spectrum samples.
+Permitted adjustment/local operations: hypothetical sine/cosine frequency, amplitude and phase; bounded time window.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Periodic sounds can be understood both as repeating waveforms in time and as collections of sinusoidal frequency components. The DFT produces a signal’s spectrum, and the FFT computes the DFT efficiently. Fundamental frequency usually determines pitch, while waveform shape determines timbre. The excerpt also shows how to combine sinusoidal signals, sample them into a Wave, and inspect a short segment.",
+  "key_concepts": [
+    {
+      "concept": "Periodic signals, period, and frequency",
+      "explanation": "A periodic signal repeats after a period T. Frequency f counts cycles per second in Hertz and satisfies f = 1/T. The bell example has a period of about 2.3 ms and a frequency of about 439 Hz; these are approximate measurements.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Sinusoids",
+      "explanation": "Sinusoids have the shape of sine or cosine functions. A tuning fork produces a sinusoid because its tines undergo simple harmonic motion.",
+      "source_pages": [
+        1,
+        4
+      ]
+    },
+    {
+      "concept": "Waveform and timbre",
+      "explanation": "Waveform is the shape of a periodic signal. That shape determines timbre, the perceived quality of the sound. The violin waveform repeats but is more complex than the bell’s approximately sinusoidal waveform.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Spectral decomposition and spectrum",
+      "explanation": "Spectral decomposition expresses a signal as a sum of sinusoids at different frequencies. Its spectrum describes those components; the illustrated spectrum plots component amplitude against frequency.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "DFT and FFT",
+      "explanation": "The discrete Fourier transform (DFT) takes a signal and produces its spectrum. The Fast Fourier transform (FFT) is an efficient algorithm for computing the DFT.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Fundamental frequency, dominant frequency, and pitch",
+      "explanation": "The fundamental is the lowest frequency component; the dominant frequency is the component with the greatest amplitude. They coincide in the violin example, but normally the fundamental determines pitch even when it is not dominant.",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "concept": "Harmonics and octaves",
+      "explanation": "Harmonics occur at integer multiples of the fundamental frequency. For a fundamental near 440 Hz, the excerpt identifies components near 880, 1320, 1760, and 2200 Hz. Moving up one octave doubles frequency.",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "concept": "Signal parameters and addition",
+      "explanation": "thinkdsp sinusoidal signals use frequency in Hz, amplitude in unspecified units, and phase offset in radians. Phase controls where a cycle starts. Adding signals creates a SumSignal representing their sum.",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "concept": "Signal versus Wave",
+      "explanation": "A Signal represents a mathematical function of time. A Wave stores its evaluated values at a sequence of times. A frame identifies a time point, while a sample is the measurement at that point.",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "concept": "Sampling and segment inspection",
+      "explanation": "make_wave specifies duration, start time, and framerate. The timestep is the reciprocal of framerate. A short segment makes individual cycles visible when a long plot would contain too many periods.",
+      "source_pages": [
+        4,
+        5
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Periodic signal",
+      "relation": "repeats after a time interval called",
+      "target": "Period",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Cycle",
+      "relation": "is one full repetition of",
+      "target": "Periodic signal",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Frequency",
+      "relation": "counts cycles per second and is the reciprocal of",
+      "target": "Period",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Frequency",
+      "relation": "is measured in",
+      "target": "Hertz (Hz)",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Sinusoid",
+      "relation": "has the shape of",
+      "target": "Sine or cosine function",
+      "source_pages": [
+        1,
+        4
+      ]
+    },
+    {
+      "source": "Simple harmonic motion of tuning-fork tines",
+      "relation": "generates",
+      "target": "Sinusoidal signal",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Waveform",
+      "relation": "is the shape of",
+      "target": "Periodic signal",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Waveform shape",
+      "relation": "determines",
+      "target": "Timbre",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Timbre",
+      "relation": "is the perceived",
+      "target": "Quality of sound",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spectral decomposition",
+      "relation": "expresses a signal as",
+      "target": "Sum of sinusoids at different frequencies",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "DFT",
+      "relation": "transforms a signal into",
+      "target": "Spectrum",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "FFT",
+      "relation": "efficiently computes",
+      "target": "DFT",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spectrum",
+      "relation": "describes the sinusoidal components that sum to produce",
+      "target": "Signal",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spectrum plot",
+      "relation": "shows component amplitude against",
+      "target": "Frequency",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Fundamental frequency",
+      "relation": "is the",
+      "target": "Lowest frequency component",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Dominant frequency",
+      "relation": "is the frequency of the",
+      "target": "Largest-amplitude component",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Fundamental frequency",
+      "relation": "normally determines even when not dominant",
+      "target": "Perceived pitch",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Violin example’s fundamental",
+      "relation": "is also its",
+      "target": "Dominant frequency",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Harmonic frequencies",
+      "relation": "are integer multiples of",
+      "target": "Fundamental frequency",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "One octave upward",
+      "relation": "corresponds to",
+      "target": "Doubling frequency",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Illustrated harmonics near 880, 1320, 1760, and 2200 Hz",
+      "relation": "approximately correspond to notes in",
+      "target": "A major chord across multiple octaves",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Equal temperament",
+      "relation": "explains why some harmonic-to-note matches are",
+      "target": "Approximate",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Adding sinusoidal components",
+      "relation": "reconstructs",
+      "target": "Signal",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "source": "Signal class",
+      "relation": "is a parent class of",
+      "target": "Sinusoid",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Sinusoid",
+      "relation": "represents",
+      "target": "Sine and cosine signals",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Phase offset",
+      "relation": "controls",
+      "target": "Starting position within a cycle",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Signal addition",
+      "relation": "creates",
+      "target": "SumSignal",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Signal",
+      "relation": "represents",
+      "target": "Mathematical function of time",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Evaluating a Signal at a sequence of times",
+      "relation": "produces values stored in",
+      "target": "Wave",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Frame",
+      "relation": "identifies",
+      "target": "Evaluation time point",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Sample",
+      "relation": "is the",
+      "target": "Measurement at a time point",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "make_wave",
+      "relation": "returns",
+      "target": "Wave",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Framerate",
+      "relation": "specifies",
+      "target": "Frames or samples per second",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Timestep",
+      "relation": "is the reciprocal of",
+      "target": "Framerate",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Wave.segment",
+      "relation": "copies a selected time interval into",
+      "target": "New Wave",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Short waveform segment",
+      "relation": "makes visible",
+      "target": "Individual periods",
+      "source_pages": [
+        5
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "waveform",
+      "description": "Figure 1.1 plots a bell recording against time, showing approximately three smooth, nearly sinusoidal cycles over about seven milliseconds. The time axis has a +7 s offset.",
+      "learning_value": "Makes repetition and cycle duration visible, supporting the connection between period and frequency."
+    },
+    {
+      "page": 2,
+      "type": "waveform",
+      "description": "Figure 1.2 shows a violin recording with repeated, complex patterns containing several local peaks and troughs within each cycle.",
+      "learning_value": "Demonstrates that a signal can be periodic without being sinusoidal, connecting waveform complexity to timbre."
+    },
+    {
+      "page": 3,
+      "type": "graph",
+      "description": "Figure 1.3 plots amplitude against frequency from 0 to 10,000 Hz. It contains narrow spectral peaks, with the strongest low-frequency peak near 440 Hz and additional peaks at higher frequencies.",
+      "learning_value": "Shows how a complicated waveform becomes identifiable frequency components, and distinguishes peak location from peak strength."
+    },
+    {
+      "page": 5,
+      "type": "waveform",
+      "description": "Figure 1.4 shows roughly three repetitions of the mixture of the 440 Hz cosine and 880 Hz sine signals. Each cycle has an asymmetric profile with a shoulder near zero.",
+      "learning_value": "Provides a concrete visual result of sinusoidal addition: simple components create a more complex repeating waveform."
+    }
+  ],
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The core learning structure is an explicit analysis-and-reconstruction process: a signal passes through the DFT to a spectrum, whose sinusoidal components can be added to reconstruct a time-domain signal."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "time_signal",
+      "apply_dft",
+      "component_spectrum",
+      "sum_components",
+      "reconstructed_signal"
+    ],
+    "source_pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": true,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": false,
+      "transitions": true,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "The source defines sine and cosine signals through frequency, amplitude, and phase offset, and explains their addition. The ready numeric lab can compare component curves and their summed waveform while learners vary these continuous parameters, starting with the supplied 440 Hz cosine and 880 Hz sine example. This makes the relationship between components and waveform shape directly observable; a",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "harmonic_mixture",
+      "source_pages": [
+        4,
+        5
+      ],
+      "parameters": [
+        {
+          "id": "cos_amp",
+          "label": "440 Hz cosine amplitude",
+          "unit": "unspecified amplitude units",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 1.0,
+          "step": 0.05,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "sin_amp",
+          "label": "880 Hz sine amplitude",
+          "unit": "unspecified amplitude units",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.5,
+          "step": 0.05,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "phase",
+          "label": "880 Hz sine phase offset",
+          "unit": "rad",
+          "min": 0.0,
+          "max": 6.283185307179586,
+          "default": 0.0,
+          "step": 0.05,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "time",
+        "label": "Time (s)",
+        "min": 0.0,
+        "max": 0.006818181818,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "cos_component",
+          "label": "440 Hz cosine",
+          "expression": "cos_amp*cos(2*pi*440*time)"
+        },
+        {
+          "id": "sin_component",
+          "label": "880 Hz sine",
+          "expression": "sin_amp*sin(2*pi*880*time+phase)"
+        },
+        {
+          "id": "mixture",
+          "label": "Sum of components",
+          "expression": "cos_amp*cos(2*pi*440*time)+sin_amp*sin(2*pi*880*time+phase)"
+        }
+      ],
+      "derived_metrics": []
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 83,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: numeric_lab; formal concept map; comparison.
+Unsupported semantics to inspect: no exact recovery of the recorded audio/spectrum from the screenshot; no execution of thinkdsp Python or audio download; no invented measured Fourier coefficients.
+Static/formal conditions: Static descriptions are correct if only measured recordings are modeled or a safe symbolic demo is unsupported.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## regression — OpenIntro Statistics 4e screen-reader edition: Least Squares Regression
+
+[Original source](https://www.openintro.org/go/?id=os4_for_screen_reader) · [Terms](https://github.com/OpenIntroStat/openintro-statistics/blob/master/LICENSE.md) · CC BY-SA 3.0 text; excluded branding/cover
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [355, 356, 357, 358, 359, 360]. Evaluation → original mapping: {"1": 355, "2": 356, "3": 357, "4": 358, "5": 359, "6": 360}.
+Source-grounded concise paraphrases from the reviewed prospective packet: sum of squared residuals; b1=(sy/sx)R; line passes through means; interpretation of slope/intercept; prediction limitations.
+Fixed source conditions: 50-student sample; means 101780/19940; sd 63200/5460; R=-0.499; fitted slope -0.0431 and intercept 24.319 in thousands; empirical source dots; all fitted results remain source facts, not freely adjustable parameters.
+Permitted adjustment/local operations: prediction input inside observed range.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Least squares regression fits a line by minimizing the sum of squared residuals. The section uses family income and gift aid for 50 Elmhurst freshmen to show how to check model conditions, calculate a slope and intercept from summary statistics, and interpret predictions without confusing association with causation.",
+  "key_concepts": [
+    {
+      "concept": "Elmhurst income–aid relationship",
+      "explanation": "In a random sample of 50 freshmen, higher family income was associated with lower gift aid. The correlation was R = −0.499. Gift aid does not need to be repaid.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Least squares criterion",
+      "explanation": "The least squares line minimizes e₁² + e₂² + ⋯ + eₙ². Squaring gives disproportionately greater weight to larger residuals: doubling a residual quadruples its squared contribution.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Absolute-residual alternative",
+      "explanation": "Another fitting criterion minimizes |e₁| + |e₂| + ⋯ + |eₙ|. It produces the dashed line in the Elmhurst scatterplot, whereas least squares produces the solid line.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Model conditions",
+      "explanation": "The chapter's regression methods generally require a linear trend, nearly normal residuals, roughly constant variability around the line, and independent observations. Curvature, unusual residuals, increasing spread, and correlated sequential observations are warning signs.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Parameters and estimates",
+      "explanation": "β₀ and β₁ denote the regression intercept and slope parameters; b₀ and b₁ are their estimates from observed data. The fitted prediction is written ŷ = b₀ + b₁x.",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "Slope from summary statistics",
+      "explanation": "The slope estimate is b₁ = (sᵧ/sₓ)R. For Elmhurst, (5460/63200)(−0.499) ≈ −0.0431 dollars of aid per dollar of family income.",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "Mean-point property",
+      "explanation": "The least squares line passes through (x̄, ȳ). For Elmhurst, this point is ($101,780, $19,940).",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "Intercept calculation",
+      "explanation": "Using ŷ − ȳ = b₁(x − x̄) gives b₀ = ȳ − b₁x̄. The worked example reports an intercept of $24,327, while software reports $24,319.3; the source attributes the small difference to rounding.",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "concept": "Slope interpretation",
+      "explanation": "A slope describes the estimated difference in the response for a one-unit increase in the explanatory variable. Here, an additional $1,000 of family income corresponds to about $43.10 less aid on average.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Intercept interpretation",
+      "explanation": "The intercept estimates the average response when x = 0, provided the model remains valid there. The Elmhurst intercept is meaningful because some sampled students had zero family income.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Prediction and causal limitations",
+      "explanation": "The equation estimates a trend, not an exact individual award. Aid policies may change across years, and these observational data do not establish that changing income causes aid to change.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Regression software output",
+      "explanation": "The output includes coefficient estimates, standard errors, t statistics, and p-values. For the slope, the reported standard error is 0.0108, the t statistic is −3.98, and the two-sided p-value for testing β₁ = 0 is 0.0002.",
+      "source_pages": [
+        5,
+        6
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Family income",
+      "relation": "is the explanatory variable used to predict",
+      "target": "Gift aid",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Higher family income",
+      "relation": "is associated with",
+      "target": "Lower gift aid",
+      "source_pages": [
+        1,
+        6
+      ]
+    },
+    {
+      "source": "Gift aid",
+      "relation": "is financial aid that",
+      "target": "Does not need to be repaid",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Least squares line",
+      "relation": "minimizes",
+      "target": "Sum of squared residuals",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Absolute-residual fit",
+      "relation": "minimizes",
+      "target": "Sum of residual magnitudes",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Squaring residuals",
+      "relation": "gives greater relative penalty to",
+      "target": "Large residuals",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Least squares regression methods in this chapter",
+      "relation": "generally require",
+      "target": "Linearity, nearly normal residuals, constant variability, and independence",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Nonlinear trend",
+      "relation": "violates",
+      "target": "Linearity condition",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Outliers and influential-point concerns",
+      "relation": "can make unreasonable",
+      "target": "Nearly normal residuals condition",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Increasing response spread as x increases",
+      "relation": "violates",
+      "target": "Constant variability condition",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Correlated successive observations",
+      "relation": "violate",
+      "target": "Independent observations condition",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Elmhurst data",
+      "relation": "appear suitable for",
+      "target": "Least squares regression",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Observed data",
+      "relation": "provide estimates b₀ and b₁ of",
+      "target": "Parameters β₀ and β₁",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "Correlation and sample standard deviations",
+      "relation": "determine through b₁ = (sᵧ/sₓ)R",
+      "target": "Slope estimate",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "Least squares line",
+      "relation": "passes through",
+      "target": "Sample mean point (x̄, ȳ)",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "Slope and sample means",
+      "relation": "determine through b₀ = ȳ − b₁x̄",
+      "target": "Intercept estimate",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Fitted response",
+      "relation": "is marked with",
+      "target": "A prediction hat",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Slope",
+      "relation": "describes",
+      "target": "Estimated response difference per one-unit increase in x",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Intercept",
+      "relation": "describes, when the model is valid at zero",
+      "target": "Average response at x = 0",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Observations near x = 0",
+      "relation": "support practical interpretation of",
+      "target": "Intercept",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Observational association",
+      "relation": "does not establish",
+      "target": "Causation",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Regression prediction",
+      "relation": "provides an imperfect estimate of",
+      "target": "An individual student's aid",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Changing aid policies across years",
+      "relation": "can limit applicability of",
+      "target": "The one-class Elmhurst model",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Slope standard error",
+      "relation": "quantifies uncertainty in",
+      "target": "Slope point estimate",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Slope t statistic and two-sided p-value",
+      "relation": "refer to testing",
+      "target": "Null hypothesis β₁ = 0",
+      "source_pages": [
+        6
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "graph",
+      "description": "Figure 8.11 shows income–aid observations with two downward-sloping fitted lines. The solid line is the least squares fit; the dashed line minimizes absolute residual magnitudes.",
+      "learning_value": "Connects negative association with a negative slope and shows that different fitting criteria can yield different lines."
+    },
+    {
+      "page": 1,
+      "type": "formula",
+      "description": "Displayed formulas contrast |e₁| + ⋯ + |eₙ| with e₁² + ⋯ + eₙ².",
+      "learning_value": "Makes the distinction between absolute and squared residual penalties explicit."
+    },
+    {
+      "page": 2,
+      "type": "graph",
+      "description": "Figure 8.12 contains four fitted-data panels and corresponding residual panels: curvature, an unusually distant point, increasing spread, and correlated sequential patterns.",
+      "learning_value": "Helps learners recognize visual warning signs for the chapter's regression conditions rather than only memorizing their names."
+    },
+    {
+      "page": 5,
+      "type": "formula",
+      "description": "A highlighted procedure gives b₁ = (sᵧ/sₓ)R, the mean-point equation, and b₀ = ȳ − b₁x̄. The worked example expands the equation into predicted aid = 24,327 − 0.0431 × family income.",
+      "learning_value": "Shows a complete, ordered calculation from summary statistics to a fitted prediction equation."
+    },
+    {
+      "page": 5,
+      "type": "table",
+      "description": "Figure 8.14 lists the intercept and family-income coefficient with Estimate, Std. Error, t value, and Pr(>|t|) columns.",
+      "learning_value": "Links hand-calculated coefficients to software output and separates coefficient estimates from inferential quantities."
+    },
+    {
+      "page": 6,
+      "type": "formula",
+      "description": "The worked interpretation multiplies $1,000 by −0.0431 to obtain −$43.10; a highlighted box states the meanings of slope and intercept.",
+      "learning_value": "Demonstrates how to translate a coefficient into a useful change in real-world units."
+    }
+  ],
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The central worked procedure progresses from summary statistics to slope, mean-point anchoring, intercept, and contextual interpretation. A flow makes those dependencies easier to follow."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "summary_stats",
+      "compute_slope",
+      "anchor_line",
+      "fitted_equation",
+      "interpret_model"
+    ],
+    "source_pages": [
+      4,
+      5,
+      6
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": true,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "The ready numeric lab can connect the ordered derivation to meaningful parameter exploration: b₁ = (sᵧ/sₓ)R, b₀ = ȳ − b₁x̄, and ŷ = b₀ + b₁x. Comparing valid summary-statistic inputs shows how correlation and the standard-deviation ratio change the slope while the fitted line remains anchored at (x̄, ȳ). This makes the slope, intercept, and predictions easier to interpret without requiring time or",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "correlation_and_line",
+      "source_pages": [
+        4,
+        5,
+        6
+      ],
+      "parameters": [
+        {
+          "id": "corr",
+          "label": "Correlation R (exploration range)",
+          "unit": "unitless",
+          "min": -0.6,
+          "max": 0.6,
+          "default": -0.499,
+          "step": 0.001,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "income",
+        "label": "Family income ($)",
+        "min": 0.0,
+        "max": 250000.0,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "predicted_aid",
+          "label": "Predicted gift aid ($)",
+          "expression": "19940 + (5460 / 63200) * corr * (income - 101780)"
+        }
+      ],
+      "derived_metrics": [
+        {
+          "id": "slope_value",
+          "label": "Slope b₁",
+          "expression": "(5460 / 63200) * corr",
+          "unit": "$ aid per $ income"
+        },
+        {
+          "id": "intercept_value",
+          "label": "Intercept b₀",
+          "expression": "19940 - (5460 / 63200) * corr * 101780",
+          "unit": "$"
+        },
+        {
+          "id": "aid_change_1000",
+          "label": "Predicted aid difference per $1,000 income",
+          "expression": "1000 * (5460 / 63200) * corr",
+          "unit": "$"
+        }
+      ]
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 79,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: numeric_lab; formal comparison; concept map.
+Unsupported semantics to inspect: no causal scholarship policy claim; no real student data reconstruction; empirical points, source statistics and fitted results remain source facts; no adjustable hypothetical trial line unless explicitly supported by the original source.
+Static/formal conditions: A formal equation and source plot is correct if fixed empirical data cannot be represented; no drag of observed dots.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## probability — OpenIntro Statistics 4e screen-reader edition: Defining Probability
+
+[Original source](https://www.openintro.org/go/?id=os4_for_screen_reader) · [Terms](https://github.com/OpenIntroStat/openintro-statistics/blob/master/LICENSE.md) · CC BY-SA 3.0 text; excluded branding/cover
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [93, 94, 95, 96, 97, 98, 99, 100]. Evaluation → original mapping: {"1": 93, "2": 94, "3": 95, "4": 96, "5": 97, "6": 98, "7": 99, "8": 100}.
+Source-grounded concise paraphrases from the reviewed prospective packet: disjoint events; die outcome sets A={1,2}, B={4,6}, D={2,3}; inclusive or and intersection correction; complement; non-uniform dice-sum distribution.
+Fixed source conditions: six fair die outcomes and source memberships; 52-card counts; two-dice sum weights; given income/loan proportions.
+Permitted adjustment/local operations: local event selection/set operations; Monte Carlo sample count with original probabilities.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Probability calculations depend on how events relate as sets of outcomes. Add probabilities for disjoint events; subtract shared probability when events overlap. Valid probability distributions list disjoint outcomes with probabilities between 0 and 1 that total 1. An event and its complement cover the whole sample space, so their probabilities add to 1.",
+  "key_concepts": [
+    {
+      "concept": "Random process",
+      "explanation": "A process with uncertain outcomes can be modeled probabilistically, even when its behavior is merely too difficult to predict exactly.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Sample space",
+      "explanation": "The sample space S is the set of all possible outcomes. For one die, S = {1, 2, 3, 4, 5, 6}.",
+      "source_pages": [
+        6,
+        8
+      ]
+    },
+    {
+      "concept": "Event",
+      "explanation": "An event is a set of outcomes. For example, A = {1, 2} represents rolling either 1 or 2.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Disjoint or mutually exclusive events",
+      "explanation": "Disjoint events have no outcomes in common and cannot occur simultaneously. These two terms mean the same thing.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Addition Rule for disjoint events",
+      "explanation": "For disjoint events, P(A or B) = P(A) + P(B). The same principle applies to any collection of mutually disjoint outcomes.",
+      "source_pages": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Union and inclusive or",
+      "explanation": "A or B includes outcomes in A, in B, or in both. Statistical 'or' is inclusive unless explicitly stated otherwise.",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "concept": "Intersection",
+      "explanation": "A and B consists of outcomes belonging to both events. In the card example, the shared outcomes are J♦, Q♦, and K♦.",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "General Addition Rule",
+      "explanation": "For any two events, P(A or B) = P(A) + P(B) − P(A and B). Subtracting the intersection corrects double counting.",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "concept": "Probability distribution",
+      "explanation": "A probability distribution lists all disjoint outcomes and their probabilities. Every probability must be between 0 and 1, and the probabilities must sum to 1.",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Probability bar plot",
+      "explanation": "Bar heights represent outcome probabilities. Numerical discrete outcomes can be plotted at their numerical locations, as with two-dice sums.",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "concept": "Complement",
+      "explanation": "The complement Aᶜ contains all outcomes in the sample space that are not in A. Since A and Aᶜ are disjoint and exhaustive, P(A) = 1 − P(Aᶜ).",
+      "source_pages": [
+        6,
+        7,
+        8
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Random process",
+      "relation": "has possible outcomes collected in",
+      "target": "Sample space",
+      "source_pages": [
+        1,
+        6
+      ]
+    },
+    {
+      "source": "Event",
+      "relation": "is a set of",
+      "target": "Outcomes",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Sample space",
+      "relation": "contains all possible",
+      "target": "Outcomes",
+      "source_pages": [
+        6,
+        8
+      ]
+    },
+    {
+      "source": "Disjoint events",
+      "relation": "are also called",
+      "target": "Mutually exclusive events",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Disjoint events",
+      "relation": "share no",
+      "target": "Outcomes",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Disjoint events",
+      "relation": "cannot occur",
+      "target": "Simultaneously",
+      "source_pages": [
+        1,
+        5
+      ]
+    },
+    {
+      "source": "Disjoint events",
+      "relation": "have intersection probability",
+      "target": "P(A and B) = 0",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Addition Rule for disjoint events",
+      "relation": "calculates",
+      "target": "P(A or B) = P(A) + P(B)",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Addition Rule for disjoint events",
+      "relation": "extends to",
+      "target": "Collections of mutually disjoint outcomes",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Inclusive or",
+      "relation": "includes",
+      "target": "A alone, B alone, and both A and B",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Intersection",
+      "relation": "contains",
+      "target": "Outcomes shared by both events",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "Venn diagram",
+      "relation": "represents shared outcomes using",
+      "target": "Overlapping event regions",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "P(A) + P(B)",
+      "relation": "counts twice",
+      "target": "Probability of the intersection",
+      "source_pages": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "General Addition Rule",
+      "relation": "corrects double counting by subtracting",
+      "target": "P(A and B)",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "General Addition Rule",
+      "relation": "reduces to the disjoint Addition Rule when",
+      "target": "P(A and B) = 0",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Probability distribution",
+      "relation": "lists",
+      "target": "All disjoint outcomes and their probabilities",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Probability distribution",
+      "relation": "requires each probability to lie in",
+      "target": "The interval from 0 to 1",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Probability distribution",
+      "relation": "requires probabilities to total",
+      "target": "1",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Probability bar plot",
+      "relation": "encodes outcome probability through",
+      "target": "Bar height",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "source": "Complement Aᶜ",
+      "relation": "contains",
+      "target": "All sample-space outcomes outside A",
+      "source_pages": [
+        6,
+        8
+      ]
+    },
+    {
+      "source": "A and Aᶜ",
+      "relation": "are",
+      "target": "Disjoint events",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "A and Aᶜ",
+      "relation": "together cover",
+      "target": "The sample space",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "source": "Complement rule",
+      "relation": "gives",
+      "target": "P(A) + P(Aᶜ) = 1",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Complement rule",
+      "relation": "can simplify",
+      "target": "Calculations where the excluded outcomes are easier to evaluate",
+      "source_pages": [
+        8
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "formula",
+      "description": "A highlighted rule box states the Addition Rule for two disjoint outcomes and its extension to many disjoint outcomes.",
+      "learning_value": "Connects mutual exclusivity to adding probabilities without overlap corrections."
+    },
+    {
+      "page": 2,
+      "type": "diagram",
+      "description": "Figure 3.2 outlines A = {1, 2}, D = {2, 3}, and B = {4, 6} among the six die outcomes. A and D overlap at 2; B shares no outcomes with either.",
+      "learning_value": "Makes disjointness a question of shared members, rather than the placement or shape of event boundaries."
+    },
+    {
+      "page": 5,
+      "type": "formula",
+      "description": "The card calculation subtracts 3/52 from 13/52 + 12/52 to obtain 22/52. A highlighted box states the General Addition Rule.",
+      "learning_value": "Explains why shared outcomes must be subtracted once after adding event probabilities."
+    },
+    {
+      "page": 5,
+      "type": "diagram",
+      "description": "The loan Venn diagram shows 3839 mortgage-only loans, 950 loans with both attributes, 545 joint-only loans, and 4666 outside both events.",
+      "learning_value": "Separates the intersection from the union. Exact counts give union probability 5334/10000 = 0.5334; the source's 0.534 uses rounded region probabilities."
+    },
+    {
+      "page": 6,
+      "type": "table",
+      "description": "Figure 3.5 lists two-dice sums from 2 to 12 with probabilities 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1 divided by 36.",
+      "learning_value": "Provides a complete distribution and shows that different sums are not equally probable."
+    },
+    {
+      "page": 6,
+      "type": "table",
+      "description": "Figure 3.6 presents three candidate household-income distributions. Row (a) totals 1.06, row (b) contains −0.27, and row (c) satisfies the probability requirements.",
+      "learning_value": "Supports checking probability bounds and total probability independently."
+    },
+    {
+      "page": 7,
+      "type": "graph",
+      "description": "Figure 3.7 displays household-income probabilities as four bars with heights 0.28, 0.27, 0.29, and 0.16.",
+      "learning_value": "Shows how a categorical probability table becomes a visual summary."
+    },
+    {
+      "page": 7,
+      "type": "graph",
+      "description": "Figure 3.8 plots the symmetric two-dice sum distribution, peaking at 7 and decreasing toward 2 and 12.",
+      "learning_value": "Highlights the relative likelihood of sums and the distribution's symmetry."
+    },
+    {
+      "page": 8,
+      "type": "diagram",
+      "description": "Figure 3.9 encloses all six die outcomes in S and separates D = {2, 3} from Dᶜ = {1, 4, 5, 6}.",
+      "learning_value": "Shows that an event and its complement are nonoverlapping and together include every possible outcome."
+    },
+    {
+      "page": 8,
+      "type": "formula",
+      "description": "The complement rule box states P(A) + P(Aᶜ) = 1 and P(A) = 1 − P(Aᶜ).",
+      "learning_value": "Links the set partition to a shortcut for calculating probabilities."
+    }
+  ],
+  "primary_visualization": {
+    "type": "concept_map",
+    "reason": "The core structure is the relationship between outcome sets and probability rules. No single ordered process dominates the sections on addition, distributions, and complements."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "event_probability",
+      "sample_space",
+      "events",
+      "disjoint",
+      "intersection",
+      "union_rule",
+      "disjoint_rule",
+      "distribution",
+      "complement"
+    ],
+    "source_pages": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": true,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "Use the ready numeric lab to compare valid probability parameters in P(A ∪ B) = P(A) + P(B) − P(A ∩ B) and P(Aᶜ) = 1 − P(A). Varying overlap reveals why simple addition double-counts shared outcomes and why disjoint events are the zero-overlap case. Keep comparisons within valid probability constraints and connect them to the source's die and card examples. Distribution probabilities must remain e",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "overlap_lab",
+      "source_pages": [
+        5
+      ],
+      "parameters": [
+        {
+          "id": "prob_a",
+          "label": "p_A = P(A)",
+          "unit": "probability",
+          "min": 0.25,
+          "max": 0.5,
+          "default": 0.3333333333333333,
+          "step": 0.01,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "prob_b",
+          "label": "p_B = P(B)",
+          "unit": "probability",
+          "min": 0.25,
+          "max": 0.5,
+          "default": 0.3333333333333333,
+          "step": 0.01,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "overlap",
+        "label": "Overlap probability u = P(A and B)",
+        "min": 0.0,
+        "max": 0.25,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "union_probability",
+          "label": "Correct union probability",
+          "expression": "prob_a + prob_b - overlap"
+        },
+        {
+          "id": "uncorrected_sum",
+          "label": "Sum before correcting overlap",
+          "expression": "prob_a + prob_b"
+        }
+      ],
+      "derived_metrics": []
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 108,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: probability_sets; formal comparison; concept map.
+Unsupported semantics to inspect: do not treat dice sums as uniformly likely; no arbitrary changes to source probabilities; no unlimited 52-outcome world if contract exceeds bounds.
+Static/formal conditions: A bounded six-outcome die subset is honest with scope disclosed; other examples may stay formal. Dragging geometry is N/A.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## search — Think Python 2e Appendix B: Analysis of Algorithms, Search
+
+[Original source](https://greenteapress.com/thinkpython2/thinkpython2.pdf) · [Terms](https://greenteapress.com/) · CC BY-NC 3.0 (PDF copyright page)
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [226, 227]. Evaluation → original mapping: {"1": 226, "2": 227}.
+Source-grounded concise paraphrases from the reviewed prospective packet: sequential search O(n); sorted-list bisection O(log n); constant-time list operations; hashing and dictionaries.
+Fixed source conditions: algorithm correctness and complexity assumptions; source contains no measured timing dataset.
+Permitted adjustment/local operations: local navigation through declared process; explicit hypothetical sorted input only if safely resolved.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "The excerpt explains how Python operation costs depend on input size, how loop iteration counts combine with the cost of each iteration, and how data structures affect search efficiency. Constant factors can change actual speed without changing growth order. Linear search is O(n), bisection on ordered data is O(log n), and dictionary lookup is described as constant time.",
+  "key_concepts": [
+    {
+      "concept": "Growth order versus actual runtime",
+      "explanation": "Big-O describes how work grows with input size, not exact execution time. A faster implementation or a fixed multiplier can change runtime without changing its growth order.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Constant-time operations",
+      "explanation": "The excerpt treats ordinary arithmetic and sequence or dictionary indexing as constant time. Very large integers are an exception because arithmetic cost grows with their number of digits.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Loop cost",
+      "explanation": "A loop's cost depends on both its iteration count and its body cost. With an O(n^a) body, n or n/k iterations give O(n^(a+1)), while a fixed k iterations give O(n^a), provided k is independent of n.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Linear traversal and aggregation",
+      "explanation": "Traversing all n elements with constant-time work per element is O(n). Both an explicit summation loop and sum are linear, although sum generally has a smaller leading coefficient. min and max are also linear.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Length-dependent sequence operations",
+      "explanation": "Most string and tuple operations are described as linear, with indexing and len as constant-time exceptions. Slicing depends on output length; concatenation depends on the combined operand lengths; join depends on the total length of the strings. Bounded-length string operations are treated as constant time.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "List-operation exceptions",
+      "explanation": "Most list methods are described as linear. Appending is O(1) on average because occasional resizing costs are spread over many appends. Removing the last element is constant time, and sorting is O(n log n).",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Dictionary-operation costs",
+      "explanation": "Most dictionary operations are described as constant time. update depends on the size of the incoming dictionary. Creating keys, values, or items iteration objects is described as constant time, but traversing them is linear.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Linear search",
+      "explanation": "Linear search examines collection items in sequence and stops when it finds the target. Its worst case examines the entire collection, giving O(n). Sequence membership and string methods such as find and count are described as using linear search.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Bisection search",
+      "explanation": "On an ordered sequence, compare the target with the middle item and continue in the appropriate half. Repeated halving gives O(log n); about 20 steps suffice for one million items. Obtaining the required ordering may involve extra work.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Hashtable search",
+      "explanation": "Hashtables support search described as constant time without requiring sorted items. Python dictionaries use hashtables, explaining the stated constant-time behavior of dictionary membership and most dictionary operations.",
+      "source_pages": [
+        2
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Big-O growth order",
+      "relation": "is unchanged by multiplication or division by",
+      "target": "a fixed constant",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "sum",
+      "relation": "has the same linear growth order but typically a smaller leading coefficient than",
+      "target": "an explicit list-summation loop",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Ordinary arithmetic",
+      "relation": "is described as",
+      "target": "constant time",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Very large integer arithmetic",
+      "relation": "has runtime that increases with",
+      "target": "the number of digits",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Sequence and dictionary indexing",
+      "relation": "is described as",
+      "target": "constant time",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Full traversal with a constant-time body",
+      "relation": "has",
+      "target": "linear runtime",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "An O(n^a) loop body executed n times",
+      "relation": "produces",
+      "target": "O(n^(a+1)) total loop cost",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "An O(n^a) loop body executed a fixed k times",
+      "relation": "retains",
+      "target": "O(n^a) total loop cost",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "An O(n^a) loop body executed n/k times for fixed k",
+      "relation": "produces",
+      "target": "O(n^(a+1)) total loop cost",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "min and max",
+      "relation": "have",
+      "target": "linear runtime",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "String and tuple indexing and len",
+      "relation": "are exceptions to generally linear operations because they are",
+      "target": "constant time",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Slice runtime",
+      "relation": "is proportional to",
+      "target": "output length rather than input size",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "String concatenation runtime",
+      "relation": "depends on",
+      "target": "the sum of operand lengths",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "String join runtime",
+      "relation": "depends on",
+      "target": "the total length of the strings",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "String operations on lengths bounded by a constant",
+      "relation": "are treated as",
+      "target": "constant time",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "List append",
+      "relation": "occasionally triggers",
+      "target": "copying into a larger location",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "n list appends",
+      "relation": "have O(n) total cost, yielding",
+      "target": "O(1) average cost per append",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Removing the last list element",
+      "relation": "has",
+      "target": "constant-time cost",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "List sorting",
+      "relation": "has",
+      "target": "O(n log n) cost",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Dictionary update runtime",
+      "relation": "is proportional to",
+      "target": "the size of the dictionary passed as an argument",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "keys, values, and items",
+      "relation": "are described as constant-time creation of",
+      "target": "iteration objects",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Traversing dictionary iteration objects",
+      "relation": "has",
+      "target": "linear runtime",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Search",
+      "relation": "determines",
+      "target": "whether a target belongs to a collection, often returning its index",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Linear search",
+      "relation": "checks items sequentially until",
+      "target": "the target is found or the collection is exhausted",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Linear search",
+      "relation": "has",
+      "target": "O(n) worst-case runtime",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Sequence membership, find, and count",
+      "relation": "are described as using",
+      "target": "linear search",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Bisection search",
+      "relation": "requires",
+      "target": "an ordered sequence",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Bisection search",
+      "relation": "repeatedly halves",
+      "target": "the remaining search region",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Repeated halving in bisection",
+      "relation": "gives",
+      "target": "O(log n) search runtime",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Preparing data for bisection",
+      "relation": "may require",
+      "target": "extra work to put the sequence in order",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Hashtable search",
+      "relation": "is described as constant time without requiring",
+      "target": "sorted items",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Python dictionaries",
+      "relation": "are implemented using",
+      "target": "hashtables",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Hashtable implementation",
+      "relation": "explains the stated constant-time behavior of",
+      "target": "dictionary membership and most dictionary operations",
+      "source_pages": [
+        2
+      ]
+    }
+  ],
+  "visual_evidence": [],
+  "primary_visualization": {
+    "type": "concept_map",
+    "reason": "The core structure connects operation costs, growth-order rules, relevant input sizes, and search implementations. Bisection's procedure is important but does not dominate the overall material."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "runtime_analysis",
+      "growth_order",
+      "basic_costs",
+      "loop_cost",
+      "dictionary_costs",
+      "linear_search",
+      "bisection_search"
+    ],
+    "source_pages": [
+      1,
+      2
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "Use the ready numeric lab to compare illustrative constant, linear, and logarithmic growth curves and vary their leading coefficients. This makes the distinction between growth order and constant factors visible and connects loop cost to iteration count. Input size represents an integer count; smooth curves are scaling illustrations, not measured Python timings or exact consequences of Big-O alone",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "loop_growth_demo",
+      "source_pages": [
+        1
+      ],
+      "parameters": [
+        {
+          "id": "a",
+          "label": "Body-cost exponent a",
+          "unit": "dimensionless",
+          "min": 0.0,
+          "max": 2.0,
+          "default": 1.0,
+          "step": 0.25,
+          "parameter_kind": "adjustable"
+        },
+        {
+          "id": "k",
+          "label": "Fixed factor k, independent of n",
+          "unit": "dimensionless",
+          "min": 1.0,
+          "max": 10.0,
+          "default": 5.0,
+          "step": 1.0,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "n",
+        "label": "Input size n",
+        "min": 10.0,
+        "max": 100.0,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "body_work",
+          "label": "One body execution: n^a",
+          "expression": "n**a"
+        },
+        {
+          "id": "fixed_count_work",
+          "label": "Fixed k iterations: k n^a",
+          "expression": "k*n**a"
+        },
+        {
+          "id": "scaled_count_work",
+          "label": "n/k iterations: n^(a+1)/k",
+          "expression": "n**(a+1)/k"
+        }
+      ],
+      "derived_metrics": []
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 64,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: process_flow; formal flow; comparison.
+Unsupported semantics to inspect: no execution of generated Python; no unsupported arbitrary binary-search machine; no invented measured benchmarks.
+Static/formal conditions: A read-only flow/comparison is correct when bounded execution is unsupported.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## complexity — Think Python 2e Appendix B: Order of Growth
+
+[Original source](https://greenteapress.com/thinkpython2/thinkpython2.pdf) · [Terms](https://greenteapress.com/) · CC BY-NC 3.0 (PDF copyright page)
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [223, 224, 225]. Evaluation → original mapping: {"1": 223, "2": 224, "3": 225}.
+Source-grounded concise paraphrases from the reviewed prospective packet: asymptotic analysis; linear vs quadratic; 100n+1 vs n^2+n+1; Big-O growth table.
+Fixed source conditions: source example coefficients 100 and 1; Big-O definitions and table classes.
+Permitted adjustment/local operations: positive integer input size n for illustrative operation counts.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Algorithm analysis compares how resource requirements grow with input size. By counting operations under a machine model and examining dominant terms, we can predict which algorithms scale better. Growth classes are useful for large inputs, but coefficients, input characteristics, hardware, and crossover points still matter in practice.",
+  "key_concepts": [
+    {
+      "concept": "Algorithm analysis",
+      "explanation": "Studies algorithm performance, especially run time and space requirements, to guide design decisions.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Machine models and operation counts",
+      "explanation": "A specified machine model makes comparisons less dependent on particular hardware by measuring the number of steps or operations.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Worst-case and average-case analysis",
+      "explanation": "Performance depends on the dataset. Worst-case analysis examines the most demanding inputs; average-case analysis can be useful but requires deciding which inputs to average over.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Run time as a function of input size",
+      "explanation": "Expressing operation counts as a function of input size n reveals scaling. The example compares A(n) = 100n + 1 with B(n) = n² + n + 1.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Leading terms and growth classes",
+      "explanation": "For a polynomial, the leading term has the highest exponent and determines eventual growth. Constant multipliers and lower-order terms do not change its growth class. The source uses Big-Oh notation informally for these classes; formally, Big-Oh specifies an asymptotic upper bound.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Common orders of growth",
+      "explanation": "The listed families are constant O(1), logarithmic O(log n), linear O(n), linearithmic O(n log n), quadratic O(n²), cubic O(n³), and exponential O(cⁿ), with c > 1 for exponential growth.",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "concept": "Crossover points",
+      "explanation": "An algorithm with better asymptotic growth can still be slower for small inputs. In the example, B is faster at n = 10, while A is slightly faster at n = 100 and increasingly better for larger n.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Practical limitations",
+      "explanation": "Growth classes do not determine exact performance. Coefficients, lower-order terms, hardware, programming language, and input characteristics can matter substantially, especially for small problems.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Logarithmic and exponential bases",
+      "explanation": "Changing a logarithm's fixed base only introduces a constant factor, so its growth class is unchanged. The source also groups exponential bases as equivalent, but this is mathematically inaccurate: for example, 3ⁿ is not O(2ⁿ). Different bases greater than 1 belong to the exponential family without necessarily sharing a tight growth class.",
+      "source_pages": [
+        3
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Algorithm analysis",
+      "relation": "studies",
+      "target": "Run time and space requirements",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Algorithm analysis",
+      "relation": "supports",
+      "target": "Performance predictions and design decisions",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Hardware characteristics",
+      "relation": "can change",
+      "target": "Relative algorithm performance",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Machine models",
+      "relation": "provide a basis for counting",
+      "target": "Algorithm steps or operations",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Dataset characteristics",
+      "relation": "can change",
+      "target": "Relative algorithm performance",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Worst-case analysis",
+      "relation": "addresses input variability by examining",
+      "target": "The most demanding case",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Average-case analysis",
+      "relation": "requires choosing",
+      "target": "A set of cases to average over",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Input size",
+      "relation": "is the independent variable in",
+      "target": "Run-time functions",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Run-time functions",
+      "relation": "are grouped by",
+      "target": "Order of growth",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Algorithm A",
+      "relation": "requires",
+      "target": "100n + 1 steps",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Algorithm B",
+      "relation": "requires",
+      "target": "n² + n + 1 steps",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "A polynomial's leading term",
+      "relation": "is its term with",
+      "target": "The highest exponent",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Leading terms",
+      "relation": "determine",
+      "target": "Eventual polynomial growth",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Constant coefficients and lower-order terms",
+      "relation": "can affect",
+      "target": "Small-input performance and crossover points",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "2n, 100n, and n + 1",
+      "relation": "share",
+      "target": "Linear growth O(n)",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Polynomial run times with leading term proportional to n²",
+      "relation": "have",
+      "target": "Quadratic growth O(n²)",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Linear growth",
+      "relation": "eventually grows more slowly than",
+      "target": "Quadratic growth",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Algorithm B",
+      "relation": "is faster at n = 10 than",
+      "target": "Algorithm A",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Algorithm A",
+      "relation": "is faster at n = 100 and the larger tabulated inputs than",
+      "target": "Algorithm B",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Changing a logarithm's fixed base",
+      "relation": "introduces only",
+      "target": "A constant multiplier",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Exponential growth",
+      "relation": "limits practical use to",
+      "target": "Small problems",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Equal growth classes",
+      "relation": "do not establish",
+      "target": "Which implementation is faster",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Bubble sort",
+      "relation": "is described as",
+      "target": "Conceptually simple but slow for large datasets",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Profiling",
+      "relation": "can establish whether optimizing sorting would significantly improve",
+      "target": "Application performance",
+      "source_pages": [
+        1
+      ]
+    }
+  ],
+  "visual_evidence": [],
+  "primary_visualization": {
+    "type": "concept_map",
+    "reason": "The core learning task is understanding how comparison assumptions, run-time functions, dominant terms, growth classes, and practical caveats relate. The numerical comparison is an illustration, not the appendix's dominant structure."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "runtime_functions",
+      "algorithm_example",
+      "crossover",
+      "leading_terms",
+      "growth_classes",
+      "practical_limits"
+    ],
+    "source_pages": [
+      2,
+      3
+    ],
+    "features": {
+      "equations": true,
+      "continuous_parameters": true,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": true,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": true
+    },
+    "family": "dynamic",
+    "reason": "The ready numeric lab can compare the source-supported curves 100n + 1 and n² + n + 1 while learners vary the input-size range. Their positive crossover is n = 99, illustrating why a linear algorithm can cost more for small inputs yet scale better for large inputs. Comparing the supplied linear examples 2n, 100n, and n + 1 also distinguishes practical coefficients from growth-class membership. Use",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "dynamic",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [
+    {
+      "id": "runtime_crossover_demo",
+      "source_pages": [
+        2
+      ],
+      "parameters": [
+        {
+          "id": "a",
+          "label": "Linear coefficient a (source example: 100)",
+          "unit": "operations per input unit",
+          "min": 2.0,
+          "max": 200.0,
+          "default": 100.0,
+          "step": 1.0,
+          "parameter_kind": "adjustable"
+        }
+      ],
+      "x": {
+        "id": "n",
+        "label": "Input size n (integer sizes are the algorithmic interpretation)",
+        "min": 1.0,
+        "max": 300.0,
+        "points": 400
+      },
+      "series": [
+        {
+          "id": "linear_cost",
+          "label": "A: linear operation count",
+          "expression": "a*n+1"
+        },
+        {
+          "id": "quadratic_cost",
+          "label": "B: quadratic operation count",
+          "expression": "n**2+n+1"
+        }
+      ],
+      "derived_metrics": [
+        {
+          "id": "positive_crossover",
+          "label": "Positive crossover input size",
+          "expression": "a-1",
+          "unit": "input units"
+        }
+      ]
+    }
+  ],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 68,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: comparison; numeric_lab; concept map.
+Unsupported semantics to inspect: do not present operation count as measured wall-clock time; no changing source algorithm coefficients; no source-supported hardware benchmark claim.
+Static/formal conditions: A comparison/table is sufficient; numeric count curves are optional and must stay illustrative.
+Objective observations: selected family = dynamic; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## spectrum — Tour of the Electromagnetic Spectrum 3e: Unit Conversion Scale
+
+[Original source](https://science.nasa.gov/wp-content/uploads/2023/08/tour-of-the-ems-tagged-v7-0.pdf) · [Terms](https://www.nasa.gov/nasa-brand-center/images-and-media/) · NASA general educational/informational media permission; attribution; no endorsement
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [35]. Evaluation → original mapping: {"1": 35}.
+Source-grounded concise paraphrases from the reviewed prospective packet: frequency/wavelength/energy unit conventions; scientific notation; unit conversion scale table; positive wavelength values.
+Fixed source conditions: every source table cell and size comparison; vacuum conversion baseline approximately c=3e8 m/s if explained as general physics.
+Permitted adjustment/local operations: explicitly hypothetical positive wavelength/frequency conversion within numeric limits.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Electromagnetic radiation can be described by frequency, wavelength, or energy. Different spectral regions conventionally use different units, but this table expresses every example as a wavelength in meters so that scales can be compared directly. Scientific notation and familiar size references make the enormous range easier to interpret.",
+  "key_concepts": [
+    {
+      "concept": "Three descriptions of electromagnetic radiation",
+      "explanation": "Frequency, wavelength, and energy are alternative ways to describe electromagnetic radiation.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Conventional units by spectral region",
+      "explanation": "Radio and microwaves usually use frequency in hertz; infrared and visible light use wavelength units; X-rays and gamma rays use energy in electron volts. These conventions keep numerical values convenient.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Wavelength in meters as a common reference",
+      "explanation": "The table converts the different descriptions into wavelength in meters, allowing examples expressed in otherwise different units to be compared.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Equivalent wavelength units",
+      "explanation": "A wavelength can be written in several equivalent units. For example, 1000 nanometers equals 1 micrometer, and 5000 angstroms equals 500 nanometers.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Scientific notation",
+      "explanation": "The scientific-notation column expresses the same meter values compactly. For example, 0.0000005 m is 5.0 × 10⁻⁷ m.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Inverse patterns in the conversion examples",
+      "explanation": "The table shows shorter wavelengths for higher frequencies and higher energies. For example, increasing frequency from 10 kHz to 100 kHz reduces wavelength from 30,000 m to 3,000 m.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Physical size references",
+      "explanation": "Pictures of the Statue of Liberty, a baseball, a human hair, a soap-bubble membrane, an atom, and a nucleus provide approximate scale references. They are visual guides, not exact equality statements for every neighboring row.",
+      "source_pages": [
+        1
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Electromagnetic radiation",
+      "relation": "can be described by",
+      "target": "Frequency",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Electromagnetic radiation",
+      "relation": "can be described by",
+      "target": "Wavelength",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Electromagnetic radiation",
+      "relation": "can be described by",
+      "target": "Energy",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Radio and microwaves",
+      "relation": "are conventionally described using",
+      "target": "Frequency in hertz",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Infrared and visible light",
+      "relation": "are conventionally described using",
+      "target": "Wavelength",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "X-rays and gamma rays",
+      "relation": "are conventionally described using",
+      "target": "Energy in electron volts",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Conventional unit choices",
+      "relation": "help avoid",
+      "target": "Inconveniently large or small numerical values",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Wavelength in meters",
+      "relation": "provides a common basis for",
+      "target": "Comparing the table's radiation examples",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Scientific notation",
+      "relation": "compactly represents",
+      "target": "The same wavelength values in meters",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "1000 nanometers",
+      "relation": "equals",
+      "target": "1 micrometer or 1.0 × 10⁻⁶ m",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "5000 angstroms",
+      "relation": "equals",
+      "target": "500 nanometers or 5.0 × 10⁻⁷ m",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Higher frequency in the listed examples",
+      "relation": "corresponds to",
+      "target": "Shorter wavelength",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Higher energy in the listed examples",
+      "relation": "corresponds to",
+      "target": "Shorter wavelength",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Physical size references",
+      "relation": "help interpret",
+      "target": "Wavelength scales",
+      "source_pages": [
+        1
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "table",
+      "description": "A five-column conversion table aligns discipline units, alternate units, decimal wavelength in meters, scientific notation in meters, and size comparisons. Its wavelength entries range from 3.0 × 10⁴ m to 1.2 × 10⁻¹⁵ m.",
+      "learning_value": "Reading across a row reveals equivalent descriptions; reading down the meter columns reveals the large range of wavelength scales."
+    },
+    {
+      "page": 1,
+      "type": "image",
+      "description": "The size-comparison column contains circular illustrations or photographs of the Statue of Liberty, a baseball, a human hair, a soap bubble, an atom, and a nucleus, with labeled horizontal guide lines.",
+      "learning_value": "The images anchor abstract lengths to familiar or microscopic objects. Their placement should be interpreted as approximate scale guidance rather than exact measurements."
+    }
+  ],
+  "primary_visualization": {
+    "type": "concept_map",
+    "reason": "The main structure connects frequency, wavelength, and energy through conventional units and a common meter scale. No ordered process dominates the page."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "radiation",
+      "frequency",
+      "wavelength",
+      "energy",
+      "meter_scale",
+      "equivalent_units",
+      "scientific_notation",
+      "size_references"
+    ],
+    "source_pages": [
+      1
+    ],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": false,
+      "set_relations": true,
+      "ordered_collection": false,
+      "transitions": false,
+      "analogy_suitable": true,
+      "structure": true,
+      "interaction_value": false
+    },
+    "family": "static",
+    "reason": "Use a structured comparison linking radio and microwaves to frequency in Hertz, infrared and visible light to wavelength in meters, and X-rays and gamma rays to energy in electron volts. Highlight that a common wavelength scale in meters enables comparison across these conventions, with scientific notation and size references aiding interpretation. The supplied excerpt lacks complete conversion120",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "static",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 38,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: comparison; numeric_lab; formal table.
+Unsupported semantics to inspect: no zero wavelength; no invented full spectrum dataset or new 3D propagation scene; no claimed exact page-box grounding before Atlas validation.
+Static/formal conditions: Static table is correct if numeric dynamic ranges exceed the bounded evaluator. Only physical PDF page 35 is ingested: photo/stock pages are excluded.
+Objective observations: selected family = static; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**
+
+## debugging — Think Python 2e Appendix A: Debugging
+
+[Original source](https://greenteapress.com/thinkpython2/thinkpython2.pdf) · [Terms](https://greenteapress.com/) · CC BY-NC 3.0 (PDF copyright page)
+
+### 1. Source evidence and frozen conditions
+
+Physical PDF pages: [215, 216]. Evaluation → original mapping: {"1": 215, "2": 216}.
+Source-grounded concise paraphrases from the reviewed prospective packet: syntax/runtime/semantic errors; incremental testing; localizing syntax faults; debugging strategy.
+Fixed source conditions: error-category meanings; source advice.
+Permitted adjustment/local operations: local reading/selection only.
+
+### 2–8. Actual output, declarations, representation, grounding and differences
+
+```json
+{
+  "quick_summary": "Effective debugging starts by distinguishing syntax, runtime, and semantic errors. These pages focus on syntax errors: interpret the reported location cautiously, check common structural mistakes, and verify that Python is running the file you actually edited.",
+  "key_concepts": [
+    {
+      "concept": "Error classification",
+      "explanation": "The first debugging task is to identify the kind of error. Syntax, runtime, and semantic errors require different kinds of investigation.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Syntax errors",
+      "explanation": "The interpreter detects problems with program structure while translating source code into byte code. A missing colon after a def header is one example.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Runtime errors",
+      "explanation": "These occur during execution. Error messages often identify the location and executing functions; infinite recursion can eventually exceed the maximum recursion depth.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Semantic errors",
+      "explanation": "A program runs without reporting an error but produces an unintended result. Unexpected expression evaluation order is one possible cause.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Reported location versus actual cause",
+      "explanation": "A syntax error message identifies where Python noticed a problem, not necessarily where it began. The cause may be on the preceding line.",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Targeted source inspection",
+      "explanation": "For incremental development, inspect the most recently added line. For copied code, compare every character while remembering that the reference itself may contain mistakes.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Syntax checklist",
+      "explanation": "Check reserved keywords, header colons, matching straight quotes, terminated triple-quoted strings, closed delimiters, = versus == in conditionals, consistent indentation, and potentially troublesome pasted characters.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Unclosed strings and delimiters",
+      "explanation": "An unterminated triple-quoted string can absorb later code or produce an error far from its origin. An unclosed parenthesis, brace, or bracket makes Python treat the next line as part of the current statement.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Edited code versus executed code",
+      "explanation": "If changes have no effect, verify that Python is running the file being edited. A deliberate syntax error near the beginning provides a diagnostic test; if it is not detected, the new code is not being run. Unsaved changes are one possible cause.",
+      "source_pages": [
+        2
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Debugging",
+      "relation": "begins by identifying",
+      "target": "Error classification",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Error classification",
+      "relation": "distinguishes",
+      "target": "Syntax errors, runtime errors, and semantic errors",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Syntax errors",
+      "relation": "are detected during",
+      "target": "Translation of source code into byte code",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Syntax errors",
+      "relation": "indicate problems with",
+      "target": "Program structure",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Missing colon after a def header",
+      "relation": "is an example of",
+      "target": "Syntax errors",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Runtime errors",
+      "relation": "occur during",
+      "target": "Program execution",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Runtime error messages",
+      "relation": "often report",
+      "target": "Error location and executing functions",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Infinite recursion",
+      "relation": "eventually causes",
+      "target": "Maximum recursion depth exceeded",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Semantic errors",
+      "relation": "produce",
+      "target": "Unintended results without error messages",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Unexpected expression evaluation order",
+      "relation": "can cause",
+      "target": "Semantic errors",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Syntax error messages",
+      "relation": "identify",
+      "target": "Where Python noticed a problem",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Actual syntax error cause",
+      "relation": "may precede",
+      "target": "Reported error location",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Incremental development",
+      "relation": "helps narrow inspection to",
+      "target": "The most recently added line",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Copied code",
+      "relation": "should be checked through",
+      "target": "Character-by-character comparison with the reference",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Reference code",
+      "relation": "may itself contain",
+      "target": "Syntax errors",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Unterminated triple-quoted strings",
+      "relation": "can cause",
+      "target": "A distant error or later code being treated as a string",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Unclosed opening delimiters",
+      "relation": "make Python interpret",
+      "target": "The next line as part of the current statement",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Mixed tabs and spaces",
+      "relation": "can cause",
+      "target": "Indentation problems",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Python-aware text editors",
+      "relation": "help maintain",
+      "target": "Consistent indentation",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Non-ASCII characters",
+      "relation": "may cause problems, although",
+      "target": "Python 3 usually handles them",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Changes having no effect",
+      "relation": "may indicate a mismatch between",
+      "target": "Edited code and executed code",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "An undetected deliberate syntax error",
+      "relation": "indicates",
+      "target": "The new code is not being run",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Unsaved edits",
+      "relation": "can explain",
+      "target": "Changes having no effect",
+      "source_pages": [
+        2
+      ]
+    }
+  ],
+  "visual_evidence": [],
+  "primary_visualization": {
+    "type": "concept_map",
+    "reason": "Understanding depends on linking error categories to diagnostic clues and syntax-checking techniques. The checklist is not a mandatory sequence, and the brief file-verification test is not the central process of the excerpt."
+  },
+  "planner": {
+    "version": "1.1",
+    "focus_ids": [
+      "debugging",
+      "syntax",
+      "runtime",
+      "semantic",
+      "location",
+      "inspection",
+      "checklist",
+      "running_code"
+    ],
+    "source_pages": [
+      1,
+      2
+    ],
+    "features": {
+      "equations": false,
+      "continuous_parameters": false,
+      "time_dynamics": false,
+      "spatial_relations": false,
+      "finite_outcomes": true,
+      "set_relations": false,
+      "ordered_collection": true,
+      "transitions": false,
+      "analogy_suitable": false,
+      "structure": true,
+      "interaction_value": false
+    },
+    "family": "static",
+    "reason": "Use a structured comparison of syntax, runtime, and semantic errors, paired with a syntax-debugging checklist. Distinguish when each error is detected and what its symptoms indicate. Connect syntax errors to cautious interpretation of reported locations, close inspection of recent or copied code, common structural checks, and verification that the edited file is executed. The numbered checks are a",
+    "process": null,
+    "execution": null,
+    "adapted": false,
+    "requested_family": "static",
+    "degraded": false,
+    "recovery_codes": []
+  },
+  "numeric_lab_declarations": [],
+  "scene_declarations": null,
+  "normalized_declarations": {},
+  "affordances": [],
+  "source_refs": {
+    "declared_count": 51,
+    "invalid": [],
+    "valid": true
+  },
+  "grounding_status": "Validated source-page references only; semantic Atlas not compiled in first-pass stages.",
+  "failure_reason": null
+}
+```
+
+Predefined reasonable families: formal flow; concept map; comparison.
+Unsupported semantics to inspect: no numerical physics world; no fabricated executable debugger or source code; no justified numeric drag handle.
+Static/formal conditions: Formal/static representation is the intended success, preserving selection/source navigation without fabricated manipulation.
+Objective observations: selected family = static; invalid raw analysis refs = []; rejected lab count = 0.
+Compare source fixed conditions against the min/max/default and expressions above. A varying fitted/source constant, new formula, added dynamics or unmatched support is a review flag; this packet does not decide its semantic verdict.
+**A verdict: HUMAN REVIEW PENDING.**

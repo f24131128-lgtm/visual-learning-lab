@@ -1,0 +1,18 @@
+{
+  "status": "FROZEN_BEFORE_MODEL_EXECUTION",
+  "frozen_utc": "2026-10-10T16:15:40.188102+00:00",
+  "attribution": "AI-drafted, human-reviewed and approved before model execution.",
+  "approved_by": "User via direct conversation review, 2026-10-11 Asia/Taipei",
+  "original_reviewed_draft_sha256": "5ba3276ba1a12468428e100981766f1e3d9cc6ba9f84ff59da175c6a59e45ace",
+  "previous_corpus_manifest_sha256": "bc151e884ec579d73fb21db7aabc0631f638b322d97078d0c36b6fd9639458ff",
+  "files_sha256": {
+    "corpus-manifest.json": "f4574493c903786d55907c4573749d6b57a8dd101b33372b5fdd687a89b8c983",
+    "frozen-expectations.json": "a046c8d86097123691a3c06216cf32387a96e6bb762795e4e8d6cd9387d04f6c",
+    "FROZEN_EXPECTATION_SUMMARY.md": "a14b55bfc5ef3d45ceafa631d579e9e293f777a5f088bfb59aca740234efc2f6",
+    "prebenchmark-baseline.json": "16dd039e6a690f1ec5f369c5afe2317800337bb007fbbaf4098e81bcbbcd9a90"
+  },
+  "package_sha256": "20e5db9da76dea19e81decab5b1f4dd6505ae707576f4ddafbad307a8ded628c",
+  "paid_response_requests_at_freeze": 0,
+  "model_execution_authorized_this_turn": false,
+  "scope": "Expectation/corpus/baseline package only. First-pass/deep/stability/result artifacts do not yet exist and are not claimed frozen."
+}

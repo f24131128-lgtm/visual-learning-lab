@@ -6,6 +6,7 @@ from scene.world.validator import normalize_world
 from world_fixtures import complete_projectile_world
 from analogy_fixtures import formal
 from support import fixture
+from provenance_fixtures import declared_demo
 
 SOURCES={
  "phase":"Phase exploration: theta = time + phase; horizontal = cos(theta), signal = sin(theta). The source baseline is phase = 0 rad. Explore phase from -pi to pi. The geometric pointer endpoint is (cos(theta), sin(theta)).",
@@ -29,7 +30,9 @@ def math_demo():
         derived_metrics=[dict(id="coefficient_value",label="係數 a",expression="gain",unit=""),
                          dict(id="constant_value",label="常數 b",expression="offset",unit="")],
         try_this=[],source_pages=[1],related_step_ids=["s1"])
-    return _clean_demo(raw,[1],{"s1"},lambda pages,allowed:[p for p in pages if p in allowed])
+    raw = declared_demo(raw, refs=["formal_relation"])
+    return _clean_demo(raw,[1],{"s1"},lambda pages,allowed:[p for p in pages if p in allowed],
+        version="2.0", catalog={"formal_relation": dict(pages=[1])}, material="math")
 
 
 def analysis(kind):
@@ -37,7 +40,7 @@ def analysis(kind):
     value.update(analysis_language="zh-TW",quick_summary=SOURCES[kind])
     value["learning_scene_candidate"]=dict(suitable=kind!="math",domain="spatial_dynamics" if kind!="math" else "none",reason="Deterministic source-supported acceptance declaration")
     if kind=="math":
-        value["interactive_lab"]=dict(suitable=True,reason="Explicit source relation",demos=[math_demo()])
+        value["interactive_lab"]=dict(version="2.0",suitable=True,reason="Explicit source relation",demos=[math_demo()])
         value["concept_map"]["nodes"]=[dict(id="formal_relation",label="仿射關係",source_pages=[1],role="central"),
             dict(id="source_baseline",label="來源初始值",source_pages=[1],role="supporting")]
         value["concept_map"]["edges"]=[dict(source="source_baseline",target="formal_relation",label="提供初始參數")]

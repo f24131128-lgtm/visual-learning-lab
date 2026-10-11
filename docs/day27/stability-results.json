@@ -1,0 +1,711 @@
+{
+  "cases": [
+    {
+      "material_id": "circular",
+      "compiler_kind": "planner",
+      "analysis_sha256": "7f0644cf32fbada5a20395665d12a4df140404bb9ab09e746abe39dc03361455",
+      "identical_input_context": true,
+      "runs": [
+        {
+          "run": 1,
+          "compiler_kind": "planner",
+          "input_context_sha256": "318168c7dfec85b3578f9324e6425928eb26088cbcb206c8fb0289bfa3dfaf21",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 7,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": true,
+                "spatial_relations": true,
+                "finite_outcomes": false,
+                "set_relations": false,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "position_basis",
+                "basis_derivatives",
+                "tangent_velocity",
+                "acceleration_components",
+                "uniform_motion",
+                "orbit_measures"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        },
+        {
+          "run": 2,
+          "compiler_kind": "planner",
+          "input_context_sha256": "318168c7dfec85b3578f9324e6425928eb26088cbcb206c8fb0289bfa3dfaf21",
+          "accepted": false,
+          "validator_reason": "{\"stage\": \"normalize\", \"code\": \"plan\", \"path\": \"$\", \"generated\": {\"planner_family\": \"dynamic\", \"reason_length\": 400, \"reason_fingerprint\": \"2f36ccdce6cd7da1\", \"required_capabilities\": [\"equations\", \"continuous_parameters\", \"time_dynamics\", \"spatial_relations\", \"structure\", \"interaction_value\"], \"focus_ids\": [\"position_basis\", \"basis_derivatives\", \"tangent_velocity\", \"acceleration_components\", \"uniform_motion\", \"orbit_measures\"], \"entities\": {\"collections\": [], \"states\": [], \"transitions\": []}}, ",
+          "raw_declarations": {},
+          "normalized_categories": null
+        },
+        {
+          "run": 3,
+          "compiler_kind": "planner",
+          "input_context_sha256": "318168c7dfec85b3578f9324e6425928eb26088cbcb206c8fb0289bfa3dfaf21",
+          "accepted": false,
+          "validator_reason": "{\"stage\": \"normalize\", \"code\": \"provenance\", \"path\": \"$\", \"generated\": {\"planner_family\": \"dynamic\", \"reason_length\": 400, \"reason_fingerprint\": \"c77c6536be683502\", \"required_capabilities\": [\"equations\", \"continuous_parameters\", \"time_dynamics\", \"spatial_relations\", \"structure\", \"interaction_value\"], \"focus_ids\": [\"position_basis\", \"basis_derivatives\", \"tangent_velocity\", \"acceleration_components\", \"uniform_motion\", \"orbit_measures\"], \"entities\": {\"collections\": [], \"states\": [], \"transitions\": ",
+          "raw_declarations": {},
+          "normalized_categories": null
+        }
+      ],
+      "drift_categories": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": false,
+        "source_pages": false,
+        "validator_outcome": true
+      },
+      "parameter_drift_scope": "Planner-only declaration: Lab parameters/quantities remain in the fixed main analysis; their generation stability is not measured.",
+      "interpretation": "Mechanical normalized differences only. Source justification/materiality is reserved for human semantic review."
+    },
+    {
+      "material_id": "harmonic",
+      "compiler_kind": "planner",
+      "analysis_sha256": "ef1e8365b80a775bcc2ca8943b0088c42149017b71982755e2ccb75df080dd3a",
+      "identical_input_context": true,
+      "runs": [
+        {
+          "run": 1,
+          "compiler_kind": "planner",
+          "input_context_sha256": "6213ba04a30845d60b2f5368a88bfa24520ea932a0e40aaca0297cf4ecfb57f5",
+          "accepted": false,
+          "validator_reason": "{\"stage\": \"normalize\", \"code\": \"plan\", \"path\": \"$\", \"generated\": {\"planner_family\": \"dynamic\", \"reason_length\": 400, \"reason_fingerprint\": \"1065e354f140d16d\", \"required_capabilities\": [\"equations\", \"continuous_parameters\", \"time_dynamics\", \"spatial_relations\", \"structure\", \"interaction_value\"], \"focus_ids\": [\"restoring_force\", \"motion_equation\", \"verify_sinusoid\", \"combine_solutions\", \"apply_initial_conditions\", \"amplitude_phase\"], \"entities\": {\"collections\": [], \"states\": [], \"transitions\": []}",
+          "raw_declarations": {},
+          "normalized_categories": null
+        },
+        {
+          "run": 2,
+          "compiler_kind": "planner",
+          "input_context_sha256": "6213ba04a30845d60b2f5368a88bfa24520ea932a0e40aaca0297cf4ecfb57f5",
+          "accepted": false,
+          "validator_reason": "{\"stage\": \"normalize\", \"code\": \"plan\", \"path\": \"$\", \"generated\": {\"planner_family\": \"dynamic\", \"reason_length\": 400, \"reason_fingerprint\": \"97931ea419664ca7\", \"required_capabilities\": [\"equations\", \"continuous_parameters\", \"time_dynamics\", \"spatial_relations\", \"structure\", \"interaction_value\"], \"focus_ids\": [\"restoring_force\", \"motion_equation\", \"verify_sinusoid\", \"combine_solutions\", \"apply_initial_conditions\", \"amplitude_phase\"], \"entities\": {\"collections\": [], \"states\": [], \"transitions\": []}",
+          "raw_declarations": {},
+          "normalized_categories": null
+        },
+        {
+          "run": 3,
+          "compiler_kind": "planner",
+          "input_context_sha256": "6213ba04a30845d60b2f5368a88bfa24520ea932a0e40aaca0297cf4ecfb57f5",
+          "accepted": false,
+          "validator_reason": "{\"stage\": \"normalize\", \"code\": \"plan\", \"path\": \"$\", \"generated\": {\"planner_family\": \"dynamic\", \"reason_length\": 400, \"reason_fingerprint\": \"b66a250069ce1746\", \"required_capabilities\": [\"equations\", \"continuous_parameters\", \"time_dynamics\", \"spatial_relations\", \"structure\", \"interaction_value\"], \"focus_ids\": [\"restoring_force\", \"motion_equation\", \"verify_sinusoid\", \"combine_solutions\", \"apply_initial_conditions\", \"amplitude_phase\"], \"entities\": {\"collections\": [], \"states\": [], \"transitions\": []}",
+          "raw_declarations": {},
+          "normalized_categories": null
+        }
+      ],
+      "drift_categories": {
+        "validator_outcome": false
+      },
+      "parameter_drift_scope": "Planner-only declaration: Lab parameters/quantities remain in the fixed main analysis; their generation stability is not measured.",
+      "interpretation": "Mechanical normalized differences only. Source justification/materiality is reserved for human semantic review."
+    },
+    {
+      "material_id": "circuits",
+      "compiler_kind": "planner",
+      "analysis_sha256": "ad9f9f277894dc12f139ab5682a3c601a3184a7b7d909c7dee7d812cc5241acf",
+      "identical_input_context": true,
+      "runs": [
+        {
+          "run": 1,
+          "compiler_kind": "planner",
+          "input_context_sha256": "d307c150ca2f5ce98610054397998909fc7a188c7c0ebe33304b2093e066bf68",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 8,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 3
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": true,
+                "spatial_relations": false,
+                "finite_outcomes": false,
+                "set_relations": false,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "form_equation",
+                "find_particular",
+                "find_homogeneous",
+                "combine_solutions",
+                "apply_initial",
+                "complete_response"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        },
+        {
+          "run": 2,
+          "compiler_kind": "planner",
+          "input_context_sha256": "d307c150ca2f5ce98610054397998909fc7a188c7c0ebe33304b2093e066bf68",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 8,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 3
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": true,
+                "spatial_relations": false,
+                "finite_outcomes": false,
+                "set_relations": false,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "form_equation",
+                "find_particular",
+                "find_homogeneous",
+                "combine_solutions",
+                "apply_initial",
+                "complete_response"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        },
+        {
+          "run": 3,
+          "compiler_kind": "planner",
+          "input_context_sha256": "d307c150ca2f5ce98610054397998909fc7a188c7c0ebe33304b2093e066bf68",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 8,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 3
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": true,
+                "spatial_relations": false,
+                "finite_outcomes": false,
+                "set_relations": false,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "form_equation",
+                "find_particular",
+                "find_homogeneous",
+                "combine_solutions",
+                "apply_initial",
+                "complete_response"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        }
+      ],
+      "drift_categories": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": false,
+        "source_pages": false,
+        "validator_outcome": false
+      },
+      "parameter_drift_scope": "Planner-only declaration: Lab parameters/quantities remain in the fixed main analysis; their generation stability is not measured.",
+      "interpretation": "Mechanical normalized differences only. Source justification/materiality is reserved for human semantic review."
+    },
+    {
+      "material_id": "probability",
+      "compiler_kind": "planner",
+      "analysis_sha256": "c37ba01ba22260132261974980b9811a669bbce3c72a018b294fb6cc273f5d6f",
+      "identical_input_context": true,
+      "runs": [
+        {
+          "run": 1,
+          "compiler_kind": "planner",
+          "input_context_sha256": "f4068cadfe9f539b2e1046c14640ecf752d8e9bf776d15410342883993fbbf14",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 7,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": false,
+                "spatial_relations": false,
+                "finite_outcomes": true,
+                "set_relations": true,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "event_probability",
+                "sample_space",
+                "events",
+                "disjoint",
+                "intersection",
+                "union_rule",
+                "disjoint_rule",
+                "distribution",
+                "complement"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        },
+        {
+          "run": 2,
+          "compiler_kind": "planner",
+          "input_context_sha256": "f4068cadfe9f539b2e1046c14640ecf752d8e9bf776d15410342883993fbbf14",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 7,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "structural",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": false,
+                "spatial_relations": true,
+                "finite_outcomes": true,
+                "set_relations": true,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "event_probability",
+                "sample_space",
+                "events",
+                "disjoint",
+                "intersection",
+                "union_rule",
+                "disjoint_rule",
+                "distribution",
+                "complement"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        },
+        {
+          "run": 3,
+          "compiler_kind": "planner",
+          "input_context_sha256": "f4068cadfe9f539b2e1046c14640ecf752d8e9bf776d15410342883993fbbf14",
+          "accepted": true,
+          "normalized_categories": {
+            "parameter_ids": [],
+            "quantity_kinds": {},
+            "domain_constraints": {},
+            "fixed_adjustable": {},
+            "ranges": {},
+            "quantities": null,
+            "bindings": null,
+            "inverse_bindings": null,
+            "duration_policy": null,
+            "source_pages": {
+              "declared_count": 7,
+              "declared": [
+                {
+                  "path": "$.source_pages",
+                  "page": 1
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 2
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 4
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 5
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 6
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 7
+                },
+                {
+                  "path": "$.source_pages",
+                  "page": 8
+                }
+              ],
+              "invalid": [],
+              "valid": true
+            },
+            "representation_structure": {
+              "family": "dynamic",
+              "features": {
+                "equations": true,
+                "continuous_parameters": true,
+                "time_dynamics": false,
+                "spatial_relations": false,
+                "finite_outcomes": true,
+                "set_relations": true,
+                "ordered_collection": false,
+                "transitions": false,
+                "analogy_suitable": false,
+                "structure": true,
+                "interaction_value": true
+              },
+              "focus_ids": [
+                "event_probability",
+                "sample_space",
+                "events",
+                "disjoint",
+                "intersection",
+                "union_rule",
+                "disjoint_rule",
+                "distribution",
+                "complement"
+              ],
+              "process": null,
+              "execution": null
+            }
+          },
+          "raw_declarations": {}
+        }
+      ],
+      "drift_categories": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": true,
+        "source_pages": false,
+        "validator_outcome": false
+      },
+      "parameter_drift_scope": "Planner-only declaration: Lab parameters/quantities remain in the fixed main analysis; their generation stability is not measured.",
+      "interpretation": "Mechanical normalized differences only. Source justification/materiality is reserved for human semantic review."
+    }
+  ],
+  "selected_materials": 4,
+  "independent_runs_per_material": 3,
+  "A": "HUMAN_REVIEW_PENDING"
+}

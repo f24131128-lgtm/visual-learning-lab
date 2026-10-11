@@ -1,0 +1,690 @@
+{
+  "cases": [
+    {
+      "material_id": "circular",
+      "accepted": [
+        true,
+        false,
+        false
+      ],
+      "identical_complete_request_sha256": "adf53525fe6c9d8bafd26a26a6ebf9db847212fa16dc8115809cc55988e0d955",
+      "raw_contract_declarations": [
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "source_pages": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "position_basis",
+            "basis_derivatives",
+            "tangent_velocity",
+            "acceleration_components",
+            "uniform_motion",
+            "orbit_measures"
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        }
+      ],
+      "raw_contract_differences": {
+        "version": false,
+        "preferred": false,
+        "focus_ids": false,
+        "source_pages": true,
+        "features": false,
+        "process": false,
+        "execution": false
+      },
+      "normalized_differences": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": false,
+        "source_pages": false,
+        "validator_outcome": true
+      },
+      "not_measured": [
+        "parameter generation",
+        "quantity kinds",
+        "domain constraints",
+        "fixed/adjustable generation",
+        "ranges",
+        "quantities",
+        "bindings",
+        "inverse bindings",
+        "duration policy"
+      ],
+      "limitation": "No spatial/probability compiler was selected. Native Lab declarations remain in the fixed main analysis; empty planner fields are not evidence of parameter-generation stability. With fewer than two accepted outputs, normalized stability cannot be established.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "harmonic",
+      "accepted": [
+        false,
+        false,
+        false
+      ],
+      "identical_complete_request_sha256": "11d80613c08c79e0717be5de0dc9ed7b9c54d7e3d5e7aff4c177c344dcef4f60",
+      "raw_contract_declarations": [
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "restoring_force",
+            "motion_equation",
+            "verify_sinusoid",
+            "combine_solutions",
+            "apply_initial_conditions",
+            "amplitude_phase"
+          ],
+          "source_pages": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "restoring_force",
+            "motion_equation",
+            "verify_sinusoid",
+            "combine_solutions",
+            "apply_initial_conditions",
+            "amplitude_phase"
+          ],
+          "source_pages": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "restoring_force",
+            "motion_equation",
+            "verify_sinusoid",
+            "combine_solutions",
+            "apply_initial_conditions",
+            "amplitude_phase"
+          ],
+          "source_pages": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": true,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        }
+      ],
+      "raw_contract_differences": {
+        "version": false,
+        "preferred": false,
+        "focus_ids": false,
+        "source_pages": false,
+        "features": false,
+        "process": false,
+        "execution": false
+      },
+      "normalized_differences": {
+        "validator_outcome": false
+      },
+      "not_measured": [
+        "parameter generation",
+        "quantity kinds",
+        "domain constraints",
+        "fixed/adjustable generation",
+        "ranges",
+        "quantities",
+        "bindings",
+        "inverse bindings",
+        "duration policy"
+      ],
+      "limitation": "No spatial/probability compiler was selected. Native Lab declarations remain in the fixed main analysis; empty planner fields are not evidence of parameter-generation stability. With fewer than two accepted outputs, normalized stability cannot be established.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "circuits",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "identical_complete_request_sha256": "8d42c4de0db2d9f3cd430654b422559760d7589bd780e0e88ca2d6fbe0ec398f",
+      "raw_contract_declarations": [
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": false,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": false,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "form_equation",
+            "find_particular",
+            "find_homogeneous",
+            "combine_solutions",
+            "apply_initial",
+            "complete_response"
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": true,
+            "spatial_relations": false,
+            "finite_outcomes": false,
+            "set_relations": false,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        }
+      ],
+      "raw_contract_differences": {
+        "version": false,
+        "preferred": false,
+        "focus_ids": false,
+        "source_pages": false,
+        "features": false,
+        "process": false,
+        "execution": false
+      },
+      "normalized_differences": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": false,
+        "source_pages": false,
+        "validator_outcome": false
+      },
+      "not_measured": [
+        "parameter generation",
+        "quantity kinds",
+        "domain constraints",
+        "fixed/adjustable generation",
+        "ranges",
+        "quantities",
+        "bindings",
+        "inverse bindings",
+        "duration policy"
+      ],
+      "limitation": "No spatial/probability compiler was selected. Native Lab declarations remain in the fixed main analysis; empty planner fields are not evidence of parameter-generation stability. With fewer than two accepted outputs, normalized stability cannot be established.",
+      "A": "HUMAN_REVIEW_PENDING"
+    },
+    {
+      "material_id": "probability",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "identical_complete_request_sha256": "67407df68e25a23980df95c2cb826f7140155fb2bc4d70b84dbc5beec68f3f21",
+      "raw_contract_declarations": [
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "event_probability",
+            "sample_space",
+            "events",
+            "disjoint",
+            "intersection",
+            "union_rule",
+            "disjoint_rule",
+            "distribution",
+            "complement"
+          ],
+          "source_pages": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": false,
+            "spatial_relations": false,
+            "finite_outcomes": true,
+            "set_relations": true,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "structural",
+          "focus_ids": [
+            "event_probability",
+            "sample_space",
+            "events",
+            "disjoint",
+            "intersection",
+            "union_rule",
+            "disjoint_rule",
+            "distribution",
+            "complement"
+          ],
+          "source_pages": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": false,
+            "spatial_relations": true,
+            "finite_outcomes": true,
+            "set_relations": true,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        },
+        {
+          "version": "1.1",
+          "preferred": "dynamic",
+          "focus_ids": [
+            "event_probability",
+            "sample_space",
+            "events",
+            "disjoint",
+            "intersection",
+            "union_rule",
+            "disjoint_rule",
+            "distribution",
+            "complement"
+          ],
+          "source_pages": [
+            1,
+            2,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "features": {
+            "equations": true,
+            "continuous_parameters": true,
+            "time_dynamics": false,
+            "spatial_relations": false,
+            "finite_outcomes": true,
+            "set_relations": true,
+            "ordered_collection": false,
+            "transitions": false,
+            "analogy_suitable": false,
+            "structure": true,
+            "interaction_value": true
+          },
+          "process": {
+            "collections": [],
+            "states": [],
+            "transitions": [],
+            "annotations": []
+          },
+          "execution": null
+        }
+      ],
+      "raw_contract_differences": {
+        "version": false,
+        "preferred": true,
+        "focus_ids": false,
+        "source_pages": false,
+        "features": true,
+        "process": false,
+        "execution": false
+      },
+      "normalized_differences": {
+        "bindings": false,
+        "domain_constraints": false,
+        "duration_policy": false,
+        "fixed_adjustable": false,
+        "inverse_bindings": false,
+        "parameter_ids": false,
+        "quantities": false,
+        "quantity_kinds": false,
+        "ranges": false,
+        "representation_structure": true,
+        "source_pages": false,
+        "validator_outcome": false
+      },
+      "not_measured": [
+        "parameter generation",
+        "quantity kinds",
+        "domain constraints",
+        "fixed/adjustable generation",
+        "ranges",
+        "quantities",
+        "bindings",
+        "inverse bindings",
+        "duration policy"
+      ],
+      "limitation": "No spatial/probability compiler was selected. Native Lab declarations remain in the fixed main analysis; empty planner fields are not evidence of parameter-generation stability. With fewer than two accepted outputs, normalized stability cannot be established.",
+      "A": "HUMAN_REVIEW_PENDING"
+    }
+  ],
+  "accepted_samples": 7,
+  "denominator": 12,
+  "A": "HUMAN_REVIEW_PENDING"
+}

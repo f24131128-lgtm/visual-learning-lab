@@ -73,3 +73,40 @@ https://creativecommons.org/licenses/by-nc-sa/4.0/.
 UI grounding annotations and model exploration are additions; the original
 source image remains unchanged. No MIT endorsement is implied. This notice
 does not relicense application code or its software dependencies.
+
+## Real teaching corpus and screenshots — Day 27
+
+Original PDFs and extracted subsets are not committed. Exact URLs, original
+physical pages, evaluation mappings, SHA-256 hashes and source-specific terms
+are recorded in `docs/day27/corpus-manifest.json`. Educational portions of the
+four screenshots retain their respective source licenses; model exploration
+labels/curves and grounding annotations are additions, not original evidence.
+
+- MIT OpenCourseWare, Peter Dourmashkin / MIT course team: 8.01SC Chapter 6
+  (Circular Motion) and Chapter 23 (Simple Harmonic Motion); MIT 6.002 lecture 12
+  (first-order circuits). CC BY-NC-SA 4.0 under
+  https://ocw.mit.edu/pages/privacy-and-terms-of-use/.
+  The original song-lyric page was excluded from the circular subset.
+- Allen B. Downey, *Think DSP*: Chapter 1 signal material, CC BY-NC-SA 4.0,
+  https://greenteapress.com/thinkdsp/thinkdsp.pdf.
+- Allen B. Downey, *Think Python*, second edition: algorithm analysis/search
+  and debugging excerpts, CC BY-NC 3.0,
+  https://greenteapress.com/thinkpython2/thinkpython2.pdf.
+- David M. Diez, Mine Cetinkaya-Rundel and Christopher D. Barr,
+  *OpenIntro Statistics*, fourth edition: probability and regression excerpts,
+  text under CC BY-SA 3.0. Original accessible PDF:
+  https://www.openintro.org/go/?id=os4_for_screen_reader.
+  License: https://github.com/OpenIntroStat/openintro-statistics/blob/master/LICENSE.md.
+  Cover/branding permissions are separate; neither was included in the subsets.
+- NASA, *Tour of the Electromagnetic Spectrum*, third edition: physical PDF
+  page 35, unit-conversion table only, under NASA educational/informational
+  reuse guidance: https://www.nasa.gov/nasa-brand-center/images-and-media/.
+  Third-party photographs were excluded. No NASA or other publisher endorsement
+  is implied.
+
+Creative Commons license texts:
+https://creativecommons.org/licenses/by-nc-sa/4.0/,
+https://creativecommons.org/licenses/by-nc/3.0/,
+https://creativecommons.org/licenses/by-sa/3.0/.
+This attribution does not relicense application code or resolve existing
+PyMuPDF AGPL/commercial deployment obligations.

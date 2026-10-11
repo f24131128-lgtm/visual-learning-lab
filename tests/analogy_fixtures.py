@@ -34,7 +34,7 @@ def primitive(identifier,entity,kind,label,**kw):
 
 
 def parameter(identifier,label,low,high,default,mapping,target="",step=.1):
-    return dict(id=identifier,label=label,unit="",min=low,max=high,default=default,step=step,mapping_id=mapping,formal_target=target,scale=1.,offset=0.)
+    return dict(id=identifier,label=label,unit="",min=low,max=high,default=default,step=step,mapping_id=mapping,formal_target=target,scale=1.,offset=0.,provenance="hypothetical_exploration",expose_control=True)
 
 
 def spec(kind):
@@ -66,4 +66,5 @@ def spec(kind):
         result["primitives"]=[primitive("line","people","tokens","排隊順序（左端為隊首）",x="index",y="0",radius=".3",count=8,visible="amount-index-.5",control_parameter="amount"),
             primitive("order","people","disc","依先進先出順序查看",x="(amount-1)*time/6",y="-1",radius=".2",color="orange")]
         result["annotations"]=[dict(entity_id="people",text="橘色標記依序查看隊首到隊尾；不是出隊速度或優先權模型。")]
+    for q in result["quantities"]: q["provenance"] = "derived"
     return result

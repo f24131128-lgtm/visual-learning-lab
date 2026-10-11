@@ -4,6 +4,8 @@ import copy
 import math
 
 from .contract import focus_event, invert, tree, valid_event
+from quantity_contract import can_commit, check_commit, source_values
+from representation_contract import renderer_id
 
 
 def polynomial(node, names):
@@ -41,7 +43,8 @@ def targets(demo, values, semantic_id):
     try:
         xid=demo["x"]["id"];params={p["id"]:p for p in demo["parameters"]}
         poly=polynomial(tree(demo["series"][0]["expression"],set(params)|{xid}),set(params)|{xid})
-        adjustable={k for k,p in params.items() if p["min"]<p["max"]}
+        adjustable={k for k,p in params.items() if can_commit(p)}
+        if semantic_id not in demo["series"][0].get("semantic_refs", []): return []
         # Exactly one coefficient parameter and one constant parameter, no
         # products/powers between parameters, and no extra independent terms.
         pairs=[k for k in poly if len(k)==2 and xid in k and len(set(k))==2]
@@ -62,7 +65,7 @@ def targets(demo, values, semantic_id):
             if abs(scale)<1e-8: return []
             ys=[a*params[slope][u]*x+b*params[intercept][v]+c+d*x for u in ("min","max") for v in ("min","max")]
             if max(map(abs,ys))>1e6: return []
-            result.append(dict(id=demo["series"][0]["id"]+"_anchor_"+pid,object_id=demo["series"][0]["id"],
+            result.append(dict(id=demo["series"][0]["id"]+"_anchor_"+pid,object_id=renderer_id(demo,"series",demo["series"][0]["id"]),
                 semantic_id=semantic_id,label=params[pid]["label"],gesture="drag_along_axis",coordinate_space="world",dimensions=1,
                 parameter_ids=[pid],position=[x,scale*values[pid]+offset],bounds=[x,min(ys),x,max(ys)],
                 inverse=dict(kind="affine",parameter_id=pid,scale=scale,offset=offset,x=x,
@@ -72,30 +75,10 @@ def targets(demo, values, semantic_id):
 
 
 def semantic_target(demo, path, catalog, analysis=None):
-    """Use an unambiguous existing lesson-to-formal reference, never a new ID."""
-    ids=set()
-    for step in (path or {}).get("steps",[]):
-        if step["id"] in demo["related_step_ids"]:
-            for ref in step.get("visual_refs",[]):
-                identifier=ref.get("id")
-                if identifier in catalog: ids.add(identifier)
-    if len(ids)==1:return next(iter(ids))
-    # A model-declared central relation can explicitly own several mapped
-    # parameter/anchor concepts. Require direct graph links to EVERY related
-    # lesson reference; labels and equation/topic words play no role.
-    graph=(analysis or {}).get("concept_map")
-    if not ids or (analysis or {}).get("primary_visualization",{}).get("type")!="concept_map" or not isinstance(graph,dict) or graph.get("suitable") is not True:return None
-    nodes=graph.get("nodes",[]);edges=graph.get("edges",[])
-    if not isinstance(nodes,list) or not 2<=len(nodes)<=24 or not isinstance(edges,list) or len(edges)>48:return None
-    known={n.get("id") for n in nodes if isinstance(n,dict) and isinstance(n.get("id"),str)}
-    if len(known)!=len(nodes) or not known<=catalog.keys():return None
-    centers=[n["id"] for n in nodes if n.get("role")=="central"]
-    if len(centers)!=1:return None
-    root=centers[0];children={root}
-    for edge in edges:
-        if not isinstance(edge,dict) or edge.get("source") not in known or edge.get("target") not in known:return None
-        if edge["source"]==root:children.add(edge["target"])
-    return root if ids<=children else None
+    """Direct inverse ownership is explicit and singular; lessons confer nothing."""
+    if len(demo.get("series", [])) != 1: return None
+    ids = demo["series"][0].get("semantic_refs", [])
+    return ids[0] if len(ids) == 1 and ids[0] in catalog else None
 
 
 def revision(saved):
@@ -111,14 +94,19 @@ def revision(saved):
 def commit(demo,saved,identity,event,semantic_id,focus):
     target=valid_event(event,identity,revision(saved),saved.get("gesture_token"),targets(demo,saved["values"],semantic_id))
     if target is None or event["time"]!=0: return False
-    from interactive_lab import compute_curves
-    from safe_math import evaluate_expression
+    from interactive_lab import compute_curves, commit_lab_values
+    from quantity_contract import evaluate_quantity
     try:
         values=saved["values"]|invert(target,{p["id"]:p for p in demo["parameters"]},saved["values"],event["x"],event["y"])
+        for identifier in target["parameter_ids"]:
+            check_commit(next(p for p in demo["parameters"] if p["id"] == identifier), values[identifier])
         compute_curves(demo,values)
-        for metric in demo["derived_metrics"]: evaluate_expression(metric["expression"],values)
+        for metric in demo["derived_metrics"]: evaluate_quantity(metric["expression"],source_values(demo)|values)
+        trial = copy.deepcopy(saved)
+        commit_lab_values(demo, trial, {p: values[p] for p in target["parameter_ids"]})
         if not focus(target["semantic_id"]): return False
-        saved.update(values=values,gesture_token=event["token"],gesture_ack=event["token"])
+        saved["values"] = trial["values"]
+        saved.update(gesture_token=event["token"],gesture_ack=event["token"])
         # Retire slider widgets still carrying pre-gesture values. This is
         # presentation protocol metadata; the existing Lab values stay canonical.
         saved["control_generation"]=saved.get("control_generation",0)+1

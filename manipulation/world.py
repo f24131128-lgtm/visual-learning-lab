@@ -5,6 +5,7 @@ import math
 from .contract import MAX_TARGETS, affine, focus_event, invert, tree, trig_product, valid_event
 from scene.world.engine import frames, snapshot
 from scene.world.policy import time_domain
+from quantity_contract import can_commit
 
 
 def targets(scene, state):
@@ -28,14 +29,14 @@ def targets(scene, state):
             radius,angle=trig_product(pair[0],"cos",names)
             if trig_product(pair[1],"sin",names)!=(radius,angle): continue
             ac,aa=angle; rc,rr=radius
-            adjustable=[k for k in aa if k in params and params[k]["min"]<params[k]["max"]]
+            adjustable=[k for k in aa if k in params and can_commit(params[k])]
             if len(adjustable)!=1: continue
             aid=adjustable[0]; scale=aa[aid]
             if abs(scale)<1e-9 or abs(scale)*(params[aid]["max"]-params[aid]["min"])>2*math.pi+1e-9: continue
             offset=ac+sum(v*env[k] for k,v in aa.items() if k!=aid)
             # Keep bounded branch enumeration and reject ambiguous cross coupling.
             if abs(offset)+max(abs(params[aid]["min"]*scale),abs(params[aid]["max"]*scale))>250*math.pi: continue
-            rids=[k for k in rr if k in params and params[k]["min"]<params[k]["max"]]
+            rids=[k for k in rr if k in params and can_commit(params[k])]
             if len(rids)>1 or aid in rr or "time" in rr: continue
             rid=rids[0] if rids else None
             roffset=rc+sum(v*env[k] for k,v in rr.items() if k!=rid)

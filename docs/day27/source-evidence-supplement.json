@@ -1,0 +1,212 @@
+{
+  "scope": "Concise original-source paraphrases/equations for human review; original physical PDF pages, not final A-axis verdicts. No gold or evidence packet is sent to the model.",
+  "cases": {
+    "circular": [
+      {
+        "page": 3,
+        "evidence": "Position on a circle is described with radius and radial/tangential unit directions.",
+        "formula_or_concept": "r = R r_hat",
+        "fixed_condition": "Circular path has constant radius in the defined motion."
+      },
+      {
+        "page": 4,
+        "evidence": "Angular motion is defined relative to an angle coordinate and its time derivative.",
+        "formula_or_concept": "omega = d(theta)/dt",
+        "fixed_condition": "The source coordinate/direction convention determines signed angular velocity versus speed magnitude."
+      },
+      {
+        "page": 6,
+        "evidence": "Velocity follows the tangential direction and depends on radius and angular rate.",
+        "formula_or_concept": "v = R omega theta_hat",
+        "fixed_condition": "Use the same radius and angular coordinate."
+      },
+      {
+        "page": 9,
+        "evidence": "Uniform motion has constant angular rate and inward radial acceleration.",
+        "formula_or_concept": "a_radial = -R omega^2 r_hat",
+        "fixed_condition": "Uniform angular rate; no gravitational-orbit model is supplied."
+      }
+    ],
+    "harmonic": [
+      {
+        "page": 3,
+        "evidence": "Sinusoidal position is introduced with amplitude, angular frequency and phase.",
+        "formula_or_concept": "y(t) = A sin(2*pi*t/T); later pages introduce angular frequency and phase",
+        "fixed_condition": "The displayed sinusoid is a source-defined motion model."
+      },
+      {
+        "page": 5,
+        "evidence": "A spring restoring force and Newton's second law give the oscillator equation.",
+        "formula_or_concept": "m d^2x/dt^2 = -k x",
+        "fixed_condition": "Undamped spring/mass model."
+      },
+      {
+        "page": 6,
+        "evidence": "The cosine solution has a natural angular frequency set by spring constant and mass.",
+        "formula_or_concept": "omega = sqrt(k/m)",
+        "fixed_condition": "Positive mass and spring stiffness."
+      },
+      {
+        "page": 8,
+        "evidence": "The general sine/cosine solution coefficients are related to initial position and velocity.",
+        "formula_or_concept": "x(t) = C cos(omega t) + D sin(omega t)",
+        "fixed_condition": "Given initial conditions define the source baseline; no damping/drive is declared."
+      }
+    ],
+    "circuits": [
+      {
+        "page": 6,
+        "evidence": "The capacitor node equation produces a first-order RC differential equation.",
+        "formula_or_concept": "RC dv_C/dt + v_C = V_I",
+        "fixed_condition": "The stated first-order circuit topology."
+      },
+      {
+        "page": 7,
+        "evidence": "The input is constant and the initial capacitor voltage is given.",
+        "formula_or_concept": "v_C(0) = V_0",
+        "fixed_condition": "Constant input and specified initial condition."
+      },
+      {
+        "page": 12,
+        "evidence": "The complete solution approaches the input voltage with time constant RC.",
+        "formula_or_concept": "v_C(t) = V_I + (V_0 - V_I) exp(-t/(RC)); tau = RC",
+        "fixed_condition": "Source solution and first-order assumptions."
+      },
+      {
+        "page": 13,
+        "evidence": "Charging/discharging examples use input and initial voltage pairs 5/0 and 0/5 volts.",
+        "formula_or_concept": "Exponential charging/discharging",
+        "fixed_condition": "The two source example voltage pairs are fixed facts, distinct from a labeled hypothetical exploration."
+      }
+    ],
+    "signals": [
+      {
+        "page": 14,
+        "evidence": "The bell recording is periodic, about 2.3 ms per cycle and roughly 439 Hz.",
+        "formula_or_concept": "frequency = 1/period",
+        "fixed_condition": "These are observations of the displayed recording."
+      },
+      {
+        "page": 16,
+        "evidence": "The violin spectrum includes a fundamental near 440 Hz and integer-multiple harmonics.",
+        "formula_or_concept": "Harmonics at approximately 880, 1320, 1760 and 2200 Hz",
+        "fixed_condition": "The displayed recording/spectrum is source evidence, not regenerated audio."
+      },
+      {
+        "page": 17,
+        "evidence": "The example constructs a cosine at 440 Hz and a sine at 880 Hz with amplitudes 1.0 and 0.5 and zero offsets.",
+        "formula_or_concept": "Superposition of two sinusoids",
+        "fixed_condition": "Example defaults remain identified; code is source data and is never executed."
+      }
+    ],
+    "regression": [
+      {
+        "page": 355,
+        "evidence": "The gift-aid example uses a sample of fifty freshmen and compares fitted lines on the observed scatterplot.",
+        "formula_or_concept": "Least-squares fitting of gift aid versus family income",
+        "fixed_condition": "The sample and plotted empirical points are source facts."
+      },
+      {
+        "page": 358,
+        "evidence": "The fitted slope uses standard deviations and correlation, and the fitted line passes through the sample means.",
+        "formula_or_concept": "b1 = (s_y/s_x) R",
+        "fixed_condition": "Means 101780/19940; SDs 63200/5460; R = -0.499."
+      },
+      {
+        "page": 359,
+        "evidence": "The source reports the fitted line and interprets its estimated coefficients.",
+        "formula_or_concept": "Rounded worked line: aid_hat = 24327 - 0.0431*income (dollars); software summary intercept 24319.3",
+        "fixed_condition": "Fitted estimates are fixed results; prediction input can vary within the observed range."
+      },
+      {
+        "page": 360,
+        "evidence": "Prediction is an estimate subject to cohort and model limitations.",
+        "formula_or_concept": "Prediction limitations",
+        "fixed_condition": "Do not infer a causal or guaranteed financial-aid rule."
+      }
+    ],
+    "probability": [
+      {
+        "page": 93,
+        "evidence": "A fair die illustrates disjoint individual outcomes and their addition rule.",
+        "formula_or_concept": "Addition for disjoint outcomes",
+        "fixed_condition": "Six source-defined die outcomes."
+      },
+      {
+        "page": 94,
+        "evidence": "The die events are A={1,2}, B={4,6} and D={2,3}; A and B are disjoint, while A and D share outcome 2.",
+        "formula_or_concept": "Membership and overlap",
+        "fixed_condition": "Source event membership must remain unchanged."
+      },
+      {
+        "page": 97,
+        "evidence": "Diamonds and face cards require subtracting overlap when computing inclusive-or probability.",
+        "formula_or_concept": "P(A union B) = P(A) + P(B) - P(A intersection B)",
+        "fixed_condition": "52-card example counts are fixed; no unjustified uniform aggregation."
+      },
+      {
+        "page": 98,
+        "evidence": "The two-dice sum table assigns unequal probabilities to sums 2 through 12.",
+        "formula_or_concept": "Weights 1,2,3,4,5,6,5,4,3,2,1 divided by 36",
+        "fixed_condition": "The sums are not uniformly likely."
+      }
+    ],
+    "search": [
+      {
+        "page": 226,
+        "evidence": "Basic Python-operation costs and general loop-growth rules precede the search section.",
+        "formula_or_concept": "O(n^a) body repeated n times gives O(n^(a+1)); fixed k does not change growth order",
+        "fixed_condition": "These are complexity rules, not measured timing data."
+      },
+      {
+        "page": 227,
+        "evidence": "Linear search scans the collection; bisection halves a sorted sequence, and hash-table lookup is separately discussed.",
+        "formula_or_concept": "Linear O(n); sorted bisection O(log n)",
+        "fixed_condition": "Bisection requires sorted input; no resolved hypothetical input sequence is provided."
+      }
+    ],
+    "complexity": [
+      {
+        "page": 223,
+        "evidence": "Algorithm analysis compares growth as input size increases.",
+        "formula_or_concept": "Asymptotic analysis",
+        "fixed_condition": "Growth class differs from measured machine timing."
+      },
+      {
+        "page": 224,
+        "evidence": "The illustrative count functions compare a linear expression with a quadratic one.",
+        "formula_or_concept": "100n+1 versus n^2+n+1",
+        "fixed_condition": "Source coefficients stay fixed; n is illustrative input size."
+      },
+      {
+        "page": 225,
+        "evidence": "The Big-O table orders common growth classes.",
+        "formula_or_concept": "Constant, logarithmic, linear, quadratic and other growth classes",
+        "fixed_condition": "Definitions/table classifications are source facts."
+      }
+    ],
+    "spectrum": [
+      {
+        "page": 35,
+        "evidence": "The conversion table presents electromagnetic scales using convenient frequency, wavelength and energy units.",
+        "formula_or_concept": "Examples: 10 kHz corresponds to 30 km; 1 GHz corresponds to 0.3 m",
+        "fixed_condition": "Every printed table cell and size comparison remains unchanged; no zero wavelength or fabricated propagation scene."
+      }
+    ],
+    "debugging": [
+      {
+        "page": 215,
+        "evidence": "The appendix distinguishes syntax, runtime and semantic errors and discusses debugging strategy.",
+        "formula_or_concept": "Three error categories",
+        "fixed_condition": "Category meanings and source advice; no numerical world is declared."
+      },
+      {
+        "page": 216,
+        "evidence": "Incremental changes and localizing a syntax fault are recommended.",
+        "formula_or_concept": "Incremental debugging",
+        "fixed_condition": "Static/formal reading and selection are justified; no executable debugger or drag handle is supplied."
+      }
+    ]
+  },
+  "preparation_note": "This supplementary evidence clarifies locations/rounded regression estimates in the original evidence draft. Corpus, expectations and the original frozen first-pass packet remain unchanged."
+}

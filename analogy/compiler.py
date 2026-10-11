@@ -1,4 +1,5 @@
 """One explicit strict Responses request; cached unsuitable outcomes and isolated failures."""
+from model_config import response_options
 import json
 from i18n import output_language_instruction
 from .schema import SCHEMA, INSTRUCTIONS, MAX_PAYLOAD
@@ -25,7 +26,7 @@ def context(analysis,source,catalog,registry,focus,allowed_pages):
 
 def request(client,model,data):
     language=data["analysis_language"]
-    response=client.responses.create(model=model,instructions=INSTRUCTIONS+"\n"+output_language_instruction(language if language in ("en","zh-TW") else "zh-TW"),
+    response=client.responses.create(**response_options(),instructions=INSTRUCTIONS+"\n"+output_language_instruction(language if language in ("en","zh-TW") else "zh-TW"),
         input=json.dumps(data,ensure_ascii=False),text={"format":dict(type="json_schema",name="analogy_world_v1",strict=True,schema=SCHEMA)})
     if getattr(response,"status",None)=="incomplete": raise Rejection("incomplete_response")
     for item in getattr(response,"output",[]) or []:

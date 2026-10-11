@@ -8,6 +8,7 @@ from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 import day23_benchmark as bench
+from provenance_fixtures import declared_analysis
 from day23_freeze import digest
 from day22_fixtures import discrete
 from learning_world import planner
@@ -124,7 +125,8 @@ class RunnerTests(unittest.TestCase):
 
 
 def recorded(mid, stage="planner"):
-    return json.loads((bench.HOME / "phase_a" / "declarations" / mid / (stage + ".json")).read_text(encoding="utf-8"))["raw"]
+    raw=json.loads((bench.HOME / "phase_a" / "declarations" / mid / (stage + ".json")).read_text(encoding="utf-8"))["raw"]
+    return declared_analysis(raw) if stage=="analysis" else raw
 
 
 class GeneralBoundaryTests(unittest.TestCase):
@@ -375,7 +377,10 @@ class ProductIntegrationTests(unittest.TestCase):
 class SemanticReviewTests(unittest.TestCase):
     def test_source_equations_and_actual_operations(self):
         import day23_review
-        self.assertEqual(len(day23_review.numeric_checks()), 6)
+        original=day23_review.raw
+        # Explicit test-only annotations; historic declarations/results untouched.
+        with patch.object(day23_review,'raw',side_effect=lambda mid,stage:declared_analysis(original(mid,stage)) if stage=='analysis' else original(mid,stage)):
+            self.assertEqual(len(day23_review.numeric_checks()), 6)
         self.assertEqual(len(day23_review.process_checks()), 3)
 
     def test_misleading_recursion_is_not_promoted_to_meaningful_success(self):
@@ -391,7 +396,9 @@ class SemanticReviewTests(unittest.TestCase):
             case = next(c for c in bench.read_manifest()["payload"]["materials"] if c["material_id"] == mid)
             source = bench.HOME / "phase_b" / "declarations" / mid
             client = bench.Responses(Path(folder), "replay", "offline", dict(remaining=0), source, MagicMock())
-            result = bench.evaluate(case, client)
+            original=bench.prepare_analysis
+            with patch.object(bench,'prepare_analysis',side_effect=lambda raw:original(declared_analysis(raw))):
+                result = bench.evaluate(case, client)
             self.assertTrue(result["compilation_pass"] and result["runtime_pass"])
             self.assertFalse((Path(folder) / "scene.json").exists())
             client.live_client.responses.create.assert_not_called()
@@ -410,7 +417,9 @@ class SemanticReviewTests(unittest.TestCase):
                     next(b for b in at.button if b.label == "Start").click().run()
                     self.assertTrue(next(b for b in at.button if b.label == "Cancel").disabled)
                 elif mid == "rc_charging":
-                    self.assertTrue(at.slider)
+                    # Unchanged recorded declarations have no provenance.
+                    self.assertFalse(at.slider)
+                    self.assertTrue(at.get('plotly_chart'))
                 else:
                     self.assertFalse(at.slider)
             self.assertEqual(api.call_count, 0)

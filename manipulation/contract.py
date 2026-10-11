@@ -106,6 +106,8 @@ def invert(target, parameters, current, x, y):
     else: raise ValueError("Unsupported inverse")
     for key,value in result.items():
         p=parameters[key]
+        from quantity_contract import can_commit
+        if not can_commit(p): raise ValueError("Read-only quantity inverse")
         if p["min"]==p["max"] or not math.isfinite(value) or not p["min"]-1e-10<=value<=p["max"]+1e-10:
             raise ValueError("Outside legal parameter range")
         result[key]=min(p["max"],max(p["min"],value))

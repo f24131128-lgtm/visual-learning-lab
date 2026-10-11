@@ -3,10 +3,11 @@
 import math
 
 from support import fixture
+from provenance_fixtures import declared_demo, declared_parameter
 
 
 def sinusoid_demo():
-    return {
+    return declared_demo({
         "id": "wave_parameters", "title": "振幅、角頻率與相位", "learning_goal": "一次調整一個參數，觀察波形如何改變。",
         "formula_display": r"v(t)=V_m\cos(\omega t+\theta\pi/180)",
         "x": {"id": "t", "label": "時間 t (s)", "min": 0, "max": 2 * math.pi, "points": 501},
@@ -19,7 +20,7 @@ def sinusoid_demo():
         "derived_metrics": [{"id": "period", "label": "週期 T", "expression": "2*pi/omega", "unit": "s"}],
         "try_this": ["固定角頻率與相位，增加振幅，觀察垂直尺度。", "將角頻率加倍，觀察相同時間內的週期數。", "將相位從 0° 調到 90°，比較波峰的位置。"],
         "source_pages": [1, 2], "related_step_ids": ["s1", "s2", "s3"],
-    }
+    }, runtime_time=True)
 
 
 def lab_fixture(two=False):
@@ -27,11 +28,11 @@ def lab_fixture(two=False):
     if two:
         second = sinusoid_demo()
         second.update(id="damped_wave", title="阻尼與振盪", related_step_ids=["s2"])
-        second["parameters"].append({"id": "a", "label": "衰減率 a", "min": 0, "max": 2, "default": 0.2, "step": 0.1, "unit": "1/s"})
+        second["parameters"].append(declared_parameter({"id": "a", "label": "衰減率 a", "min": 0, "max": 2, "default": 0.2, "step": 0.1, "unit": "1/s", "source_pages": [1, 2]}) | {"semantic_refs": []})
         second["series"][0]["expression"] = "exp(-a*t)*V_m*cos(omega*t + theta*pi/180)"
         second["formula_display"] = r"v(t)=e^{-at}V_m\cos(\omega t+\theta\pi/180)"
         demos.append(second)
-    return {"suitable": True, "reason": "教材中的關係適合透過參數變化觀察。", "demos": demos}
+    return {"version": "2.0", "suitable": True, "reason": "教材中的關係適合透過參數變化觀察。", "demos": demos}
 
 
 def learning_fixture(two=False):

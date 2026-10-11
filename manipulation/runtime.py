@@ -83,8 +83,15 @@ def render_lab(demo,saved,material,path):
     from workspace.state import get_workspace_state,set_workspace_focus
     wrapper=st.session_state.get("learning_scene_state")
     if wrapper and wrapper.get("material_id")!=material: wrapper=None
-    catalog=semantic_catalog((wrapper or {}).get("scene"),st.session_state.get("analysis",{}))
-    semantic_id=lab.semantic_target(demo,path,catalog,st.session_state.get("analysis",{}))
+    analysis = st.session_state.get("analysis", {})
+    formal = st.session_state.get("_formal_catalog_state", {})
+    if formal.get("material_id") == material:
+        analysis = analysis | {"_formal_representations": formal["structures"]}
+    catalog=semantic_catalog((wrapper or {}).get("scene"),analysis)
+    semantic_id=lab.semantic_target(demo,path,catalog,analysis)
+    from representation_contract import registrations
+    allowed = analysis.get("analyzed_pages", sorted({p for entry in catalog.values() for p in entry.get("pages", [])}))
+    if semantic_id not in registrations(demo, catalog, material, allowed): return False
     if not lab.targets(demo,saved["values"],semantic_id): return False
     try:
         data=lab_payload(demo,saved,material,semantic_id)

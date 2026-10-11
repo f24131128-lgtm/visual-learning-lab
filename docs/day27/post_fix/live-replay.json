@@ -1,0 +1,3396 @@
+{
+  "stage": "POST_FIX",
+  "status": "COMPLETE",
+  "not_untouched_holdout": true,
+  "selected_cases": [
+    "regression",
+    "probability",
+    "circuits",
+    "harmonic",
+    "signals"
+  ],
+  "denominator": 5,
+  "completed_cases": 5,
+  "cases": [
+    {
+      "stage": "POST_FIX",
+      "case": "regression",
+      "attempt": 1,
+      "A": "HUMAN_REVIEW_PENDING",
+      "failures": [],
+      "planner_result": "accepted",
+      "compiler_result": "NOT_APPLICABLE",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "main_schema": true,
+      "main_refs": {
+        "declared_count": 90,
+        "declared": [
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[6].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[8].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[20].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[21].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[22].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[24].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_evidence[0].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[1].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[2].page",
+            "page": 2
+          },
+          {
+            "path": "$.visual_evidence[3].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[4].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[5].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[6].page",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[5].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[4].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 5
+          }
+        ],
+        "invalid": [],
+        "valid": true
+      },
+      "lab_rejected": 1,
+      "quantity_declarations": [],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "612404c5fd1f6c45",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "summary_inputs",
+            "calculate_slope",
+            "anchor_mean_point",
+            "calculate_intercept",
+            "fitted_prediction"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "summary_inputs",
+          "calculate_slope",
+          "anchor_mean_point",
+          "calculate_intercept",
+          "fitted_prediction"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "representation_family": "static",
+      "requested_family": "static",
+      "adapted": false,
+      "atlas_validator": "accepted",
+      "direct_manipulation": {
+        "available": false,
+        "targets": [],
+        "absence_is_not_automatic_failure": true
+      },
+      "local": {
+        "lab": [],
+        "source_pdf_unchanged": true,
+        "selected_semantic_id": "calculate_intercept",
+        "selected_region": "p5-intercept-step",
+        "representation_ids": [
+          "calculate_intercept"
+        ],
+        "source_roundtrip": true,
+        "atlas_immutable": true,
+        "post_compilation_api_delta": 0
+      },
+      "grounding": "Validated IDs/pages/Atlas links; source semantic fidelity awaits human review",
+      "B_scope": "Mechanical backend/ownership checks; browser and A review recorded separately"
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "probability",
+      "attempt": 1,
+      "A": "HUMAN_REVIEW_PENDING",
+      "failures": [],
+      "planner_result": "accepted",
+      "compiler_result": "rejected",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "main_schema": true,
+      "main_refs": {
+        "declared_count": 120,
+        "declared": [
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[3].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[6].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[8].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[20].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[21].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[22].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[24].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[24].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[26].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[27].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[27].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[28].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[29].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[30].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.visual_evidence[0].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[1].page",
+            "page": 2
+          },
+          {
+            "path": "$.visual_evidence[2].page",
+            "page": 4
+          },
+          {
+            "path": "$.visual_evidence[3].page",
+            "page": 4
+          },
+          {
+            "path": "$.visual_evidence[4].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[5].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[6].page",
+            "page": 6
+          },
+          {
+            "path": "$.visual_evidence[7].page",
+            "page": 6
+          },
+          {
+            "path": "$.visual_evidence[8].page",
+            "page": 7
+          },
+          {
+            "path": "$.visual_evidence[9].page",
+            "page": 7
+          },
+          {
+            "path": "$.visual_evidence[10].page",
+            "page": 8
+          },
+          {
+            "path": "$.visual_evidence[11].page",
+            "page": 8
+          },
+          {
+            "path": "$.concept_map.nodes[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.concept_map.nodes[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.concept_map.nodes[0].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.concept_map.nodes[0].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.concept_map.nodes[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.concept_map.nodes[1].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.concept_map.nodes[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.concept_map.nodes[3].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.concept_map.nodes[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.concept_map.nodes[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.concept_map.nodes[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.concept_map.nodes[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.concept_map.nodes[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.concept_map.nodes[6].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.concept_map.nodes[7].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.concept_map.nodes[7].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.concept_map.nodes[8].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.concept_map.nodes[8].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.concept_map.nodes[8].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 5
+          }
+        ],
+        "invalid": [],
+        "valid": true
+      },
+      "lab_rejected": 0,
+      "quantity_declarations": [
+        {
+          "id": "demo_overlap",
+          "source_facts": [
+            {
+              "id": "deck_size",
+              "label": "Cards in the source deck",
+              "unit": "cards",
+              "value": 52.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                4
+              ],
+              "source_evidence": "The source describes a regular deck containing 52 unique cards."
+            },
+            {
+              "id": "diamond_count",
+              "label": "Diamonds in the source deck",
+              "unit": "cards",
+              "value": 13.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                4
+              ],
+              "source_evidence": "The diamond event contains 13 cards."
+            },
+            {
+              "id": "face_count",
+              "label": "Face cards in the source deck",
+              "unit": "cards",
+              "value": 12.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                4
+              ],
+              "source_evidence": "Jacks, queens, and kings give 12 face cards."
+            },
+            {
+              "id": "shared_count",
+              "label": "Diamond face cards in the source deck",
+              "unit": "cards",
+              "value": 3.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                4,
+                5
+              ],
+              "source_evidence": "J♦, Q♦, and K♦ belong to both source events."
+            }
+          ],
+          "parameters": [
+            {
+              "id": "shared_fraction",
+              "label": "Hypothetical fraction of B shared with A",
+              "unit": "fraction",
+              "min": 0.0,
+              "max": 1.0,
+              "default": 0.25,
+              "step": 0.01,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": null,
+              "source_evidence": "The General Addition Rule explicitly subtracts intersection probability. This fraction and its adjustment range are exploratory, not reported measurements. The chosen domain ensures valid event-region probabilities.",
+              "expose_control": true,
+              "source_pages": [
+                5
+              ],
+              "semantic_refs": [
+                "intersection"
+              ]
+            }
+          ],
+          "series": [
+            {
+              "id": "union_probability",
+              "label": "P(A or B)",
+              "expression": "diamond_count/deck_size + b_probability - shared_fraction*b_probability",
+              "provenance": "derived",
+              "semantic_refs": [
+                "union",
+                "general_addition"
+              ]
+            },
+            {
+              "id": "intersection_probability",
+              "label": "P(A and B)",
+              "expression": "shared_fraction*b_probability",
+              "provenance": "derived",
+              "semantic_refs": [
+                "intersection"
+              ]
+            }
+          ],
+          "derived_metrics": [],
+          "x": {
+            "id": "b_probability",
+            "label": "Hypothetical probability P(B)",
+            "min": 0.0,
+            "max": 0.25,
+            "points": 400,
+            "semantic_role": "independent_variable",
+            "provenance": "hypothetical_exploration"
+          }
+        }
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "structural",
+          "reason_length": 400,
+          "reason_fingerprint": "6162cb5926807487",
+          "required_capabilities": [
+            "equations",
+            "spatial_relations",
+            "finite_outcomes",
+            "set_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "event_probability",
+            "sample_space",
+            "events",
+            "disjoint",
+            "intersection",
+            "union",
+            "general_addition",
+            "distribution",
+            "complement"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "structural",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "event_probability",
+          "sample_space",
+          "events",
+          "disjoint",
+          "intersection",
+          "union",
+          "general_addition",
+          "distribution",
+          "complement"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": true,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "structural",
+      "requested_family": "structural",
+      "adapted": false,
+      "compiler_failure": "learning goal is empty or too long.",
+      "atlas_validator": "accepted",
+      "direct_manipulation": {
+        "available": false,
+        "targets": [],
+        "absence_is_not_automatic_failure": true
+      },
+      "local": {
+        "lab": [
+          {
+            "demo_id": "demo_overlap",
+            "source_facts": [
+              {
+                "id": "deck_size",
+                "label": "Cards in the source deck",
+                "unit": "cards",
+                "value": 52.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The source describes a regular deck containing 52 unique cards."
+              },
+              {
+                "id": "diamond_count",
+                "label": "Diamonds in the source deck",
+                "unit": "cards",
+                "value": 13.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "The diamond event contains 13 cards."
+              },
+              {
+                "id": "face_count",
+                "label": "Face cards in the source deck",
+                "unit": "cards",
+                "value": 12.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4
+                ],
+                "source_evidence": "Jacks, queens, and kings give 12 face cards."
+              },
+              {
+                "id": "shared_count",
+                "label": "Diamond face cards in the source deck",
+                "unit": "cards",
+                "value": 3.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  4,
+                  5
+                ],
+                "source_evidence": "J♦, Q♦, and K♦ belong to both source events."
+              }
+            ],
+            "source_baseline_immutable": true,
+            "initial_values": {
+              "shared_fraction": 0.25
+            },
+            "current_values": {
+              "shared_fraction": 0.6
+            },
+            "commits": [
+              {
+                "id": "shared_fraction",
+                "initial": 0.25,
+                "current": 0.6
+              }
+            ],
+            "rejections": [],
+            "unknown_commit_rejected": true,
+            "curve_changed": true
+          }
+        ],
+        "source_pdf_unchanged": true,
+        "selected_semantic_id": "general_addition",
+        "selected_region": "p5_addition_box",
+        "representation_ids": [
+          "general_addition",
+          "lab:demo_overlap:series:union_probability"
+        ],
+        "source_roundtrip": true,
+        "atlas_immutable": true,
+        "post_compilation_api_delta": 0
+      },
+      "grounding": "Validated IDs/pages/Atlas links; source semantic fidelity awaits human review",
+      "B_scope": "Mechanical backend/ownership checks; browser and A review recorded separately"
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "circuits",
+      "attempt": 1,
+      "A": "HUMAN_REVIEW_PENDING",
+      "failures": [],
+      "planner_result": "rejected",
+      "compiler_result": "NOT_APPLICABLE",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "main_schema": true,
+      "main_refs": {
+        "declared_count": 97,
+        "declared": [
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[6].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[8].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.visual_evidence[0].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[1].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[2].page",
+            "page": 2
+          },
+          {
+            "path": "$.visual_evidence[3].page",
+            "page": 4
+          },
+          {
+            "path": "$.visual_evidence[4].page",
+            "page": 6
+          },
+          {
+            "path": "$.visual_evidence[5].page",
+            "page": 7
+          },
+          {
+            "path": "$.visual_evidence[6].page",
+            "page": 8
+          },
+          {
+            "path": "$.visual_evidence[7].page",
+            "page": 8
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[5].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[5].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.visual_flow.nodes[5].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[0].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[1].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[3].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[1].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[2].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[3].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[3].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 8
+          }
+        ],
+        "invalid": [],
+        "valid": true
+      },
+      "lab_rejected": 0,
+      "quantity_declarations": [
+        {
+          "id": "demo_rc_response",
+          "source_facts": [
+            {
+              "id": "fact_charge_initial",
+              "label": "Charging example initial voltage",
+              "unit": "V",
+              "value": 0.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                8
+              ],
+              "source_evidence": "The charging example specifies V0 = 0 V."
+            },
+            {
+              "id": "fact_charge_input",
+              "label": "Charging example constant input",
+              "unit": "V",
+              "value": 5.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                8
+              ],
+              "source_evidence": "The charging example specifies VI = 5 V."
+            },
+            {
+              "id": "fact_discharge_initial",
+              "label": "Discharging example initial voltage",
+              "unit": "V",
+              "value": 5.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                8
+              ],
+              "source_evidence": "The discharging example specifies V0 = 5 V."
+            },
+            {
+              "id": "fact_discharge_input",
+              "label": "Discharging example constant input",
+              "unit": "V",
+              "value": 0.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                8
+              ],
+              "source_evidence": "The discharging example specifies VI = 0 V."
+            }
+          ],
+          "parameters": [
+            {
+              "id": "resistance",
+              "label": "Exploration resistance R",
+              "unit": "Ω",
+              "min": 1000.0,
+              "max": 10000.0,
+              "default": 2000.0,
+              "step": 100.0,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": null,
+              "source_evidence": "R appears in the circuit and response formula; no numerical resistance or adjustment range is supplied. This range is hypothetical.",
+              "expose_control": true,
+              "source_pages": [
+                1,
+                6
+              ],
+              "semantic_refs": []
+            },
+            {
+              "id": "capacitance",
+              "label": "Exploration capacitance C",
+              "unit": "F",
+              "min": 0.0001,
+              "max": 0.001,
+              "default": 0.0005,
+              "step": 1e-05,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": null,
+              "source_evidence": "C appears in the circuit and response formula; no numerical capacitance or adjustment range is supplied. This range is hypothetical.",
+              "expose_control": true,
+              "source_pages": [
+                1,
+                6
+              ],
+              "semantic_refs": []
+            },
+            {
+              "id": "initial_voltage",
+              "label": "Exploration initial voltage V0",
+              "unit": "V",
+              "min": 0.0,
+              "max": 5.0,
+              "default": 0.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": "fact_charge_initial",
+              "source_evidence": "The general solution uses V0; the immutable charging example specifies 0 V. Intermediate values are hypothetical exploration conditions.",
+              "expose_control": true,
+              "source_pages": [
+                6,
+                8
+              ],
+              "semantic_refs": []
+            },
+            {
+              "id": "input_voltage",
+              "label": "Exploration constant input VI",
+              "unit": "V",
+              "min": 0.0,
+              "max": 5.0,
+              "default": 5.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": "fact_charge_input",
+              "source_evidence": "The general solution uses constant VI; the immutable charging example specifies 5 V. Intermediate values are hypothetical exploration conditions.",
+              "expose_control": true,
+              "source_pages": [
+                2,
+                6,
+                8
+              ],
+              "semantic_refs": []
+            }
+          ],
+          "series": [
+            {
+              "id": "capacitor_voltage",
+              "label": "Capacitor voltage vC(t) (V)",
+              "expression": "input_voltage + (initial_voltage - input_voltage) * exp(-time_s / (resistance * capacitance))",
+              "provenance": "derived",
+              "semantic_refs": [
+                "flow_response"
+              ]
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "time_constant",
+              "label": "Time constant τ = RC",
+              "expression": "resistance * capacitance",
+              "unit": "s",
+              "provenance": "derived",
+              "semantic_refs": []
+            }
+          ],
+          "x": {
+            "id": "time_s",
+            "label": "Elapsed time t (s)",
+            "min": 0.0,
+            "max": 30.0,
+            "points": 1000,
+            "semantic_role": "runtime_time",
+            "provenance": null
+          }
+        }
+      ],
+      "planner_diagnostic": {
+        "stage": "normalize",
+        "code": "plan",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "0f0b2763bb6ad03b",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "flow_model",
+            "flow_particular",
+            "flow_homogeneous",
+            "flow_sum",
+            "flow_initial",
+            "flow_response"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": null,
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "supplied_semantic_ids": [
+          "flow_model",
+          "flow_particular",
+          "flow_homogeneous",
+          "flow_sum",
+          "flow_initial",
+          "flow_response"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": false,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "atlas_validator": "accepted",
+      "direct_manipulation": {
+        "available": false,
+        "targets": [],
+        "absence_is_not_automatic_failure": true
+      },
+      "local": {
+        "lab": [
+          {
+            "demo_id": "demo_rc_response",
+            "source_facts": [
+              {
+                "id": "fact_charge_initial",
+                "label": "Charging example initial voltage",
+                "unit": "V",
+                "value": 0.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The charging example specifies V0 = 0 V."
+              },
+              {
+                "id": "fact_charge_input",
+                "label": "Charging example constant input",
+                "unit": "V",
+                "value": 5.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The charging example specifies VI = 5 V."
+              },
+              {
+                "id": "fact_discharge_initial",
+                "label": "Discharging example initial voltage",
+                "unit": "V",
+                "value": 5.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The discharging example specifies V0 = 5 V."
+              },
+              {
+                "id": "fact_discharge_input",
+                "label": "Discharging example constant input",
+                "unit": "V",
+                "value": 0.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  8
+                ],
+                "source_evidence": "The discharging example specifies VI = 0 V."
+              }
+            ],
+            "source_baseline_immutable": true,
+            "initial_values": {
+              "resistance": 2000.0,
+              "capacitance": 0.0005,
+              "initial_voltage": 0.0,
+              "input_voltage": 5.0
+            },
+            "current_values": {
+              "resistance": 6400.0,
+              "capacitance": 0.00064,
+              "initial_voltage": 3.0,
+              "input_voltage": 3.0
+            },
+            "commits": [
+              {
+                "id": "resistance",
+                "initial": 2000.0,
+                "current": 6400.0
+              },
+              {
+                "id": "capacitance",
+                "initial": 0.0005,
+                "current": 0.00064
+              },
+              {
+                "id": "initial_voltage",
+                "initial": 0.0,
+                "current": 3.0
+              },
+              {
+                "id": "input_voltage",
+                "initial": 5.0,
+                "current": 3.0
+              }
+            ],
+            "rejections": [],
+            "unknown_commit_rejected": true,
+            "curve_changed": true
+          }
+        ],
+        "source_pdf_unchanged": true,
+        "selected_semantic_id": "flow_model",
+        "selected_region": "p1_circuit",
+        "representation_ids": [
+          "flow_model"
+        ],
+        "source_roundtrip": true,
+        "atlas_immutable": true,
+        "post_compilation_api_delta": 0
+      },
+      "grounding": "Validated IDs/pages/Atlas links; source semantic fidelity awaits human review",
+      "B_scope": "Mechanical backend/ownership checks; browser and A review recorded separately"
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "harmonic",
+      "attempt": 1,
+      "A": "HUMAN_REVIEW_PENDING",
+      "failures": [],
+      "planner_result": "accepted",
+      "compiler_result": "existing validated numeric lab",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "main_schema": true,
+      "main_refs": {
+        "declared_count": 112,
+        "declared": [
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[2].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[3].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[6].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[8].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[20].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[21].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[22].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[24].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[26].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[27].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[28].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[29].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.relationships[29].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[30].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[31].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[32].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[33].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[34].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[35].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[36].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[36].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[37].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[37].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.relationships[38].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.relationships[38].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.visual_evidence[0].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[1].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[2].page",
+            "page": 2
+          },
+          {
+            "path": "$.visual_evidence[3].page",
+            "page": 3
+          },
+          {
+            "path": "$.visual_evidence[4].page",
+            "page": 3
+          },
+          {
+            "path": "$.visual_evidence[5].page",
+            "page": 8
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[5].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[6].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.visual_flow.nodes[6].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.visual_flow.nodes[6].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[5].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.learning_path.steps[5].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.learning_path.steps[5].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 6
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[0].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[1].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[1].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[2].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[2].source_pages",
+            "page": 8
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 7
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 8
+          }
+        ],
+        "invalid": [],
+        "valid": true
+      },
+      "lab_rejected": 0,
+      "quantity_declarations": [
+        {
+          "id": "phase_shift_lab",
+          "source_facts": [
+            {
+              "id": "example_amplitude",
+              "label": "Source example amplitude",
+              "unit": "unspecified displacement units",
+              "value": 3.0,
+              "provenance": "source_fixed",
+              "source_pages": [
+                7
+              ],
+              "source_evidence": "The description of Figure 23.4a specifies A = 3."
+            },
+            {
+              "id": "example_period",
+              "label": "Source example period",
+              "unit": "unspecified time units",
+              "value": 3.141592653589793,
+              "provenance": "source_fixed",
+              "source_pages": [
+                7
+              ],
+              "source_evidence": "The description of Figure 23.4a specifies T = π."
+            },
+            {
+              "id": "example_phase",
+              "label": "Source example phase constant",
+              "unit": "rad",
+              "value": 0.7853981633974483,
+              "provenance": "source_fixed",
+              "source_pages": [
+                7,
+                8
+              ],
+              "source_evidence": "Figure 23.4a uses φ = π/4 and places the corresponding maximum at t = −T/8."
+            }
+          ],
+          "parameters": [
+            {
+              "id": "trial_amplitude",
+              "label": "Exploration amplitude A",
+              "unit": "unspecified displacement units",
+              "min": 0.5,
+              "max": 5.0,
+              "default": 3.0,
+              "step": 0.1,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": "example_amplitude",
+              "source_evidence": "The source specifies A = 3 for its example and identifies A as the amplitude. The adjustable range is generated for exploration, not reported by the source.",
+              "expose_control": true,
+              "source_pages": [
+                7
+              ],
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            },
+            {
+              "id": "trial_period",
+              "label": "Exploration period T",
+              "unit": "unspecified time units",
+              "min": 1.0,
+              "max": 6.0,
+              "default": 3.141592653589793,
+              "step": 0.05,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": "example_period",
+              "source_evidence": "The source relates ω₀ to T by ω₀ = 2π/T and uses T = π in Figure 23.4a. The adjustable range is generated for exploration.",
+              "expose_control": true,
+              "source_pages": [
+                1,
+                7
+              ],
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            },
+            {
+              "id": "trial_phase",
+              "label": "Exploration phase constant φ",
+              "unit": "rad",
+              "min": -3.141592653589793,
+              "max": 3.141592653589793,
+              "default": 0.7853981633974483,
+              "step": 0.01,
+              "parameter_kind": "adjustable",
+              "provenance": "hypothetical_exploration",
+              "source_baseline_ref": "example_phase",
+              "source_evidence": "The source demonstrates φ = π/4, 0, and −π/4 and explains positive and negative phase shifts. The continuous adjustable range is generated for exploration.",
+              "expose_control": true,
+              "source_pages": [
+                7,
+                8
+              ],
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            }
+          ],
+          "series": [
+            {
+              "id": "shifted_displacement",
+              "label": "Exploration displacement",
+              "expression": "trial_amplitude*cos(2*pi*lab_time/trial_period+trial_phase)",
+              "provenance": "derived",
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            },
+            {
+              "id": "unshifted_reference",
+              "label": "Same amplitude and period, zero phase",
+              "expression": "trial_amplitude*cos(2*pi*lab_time/trial_period)",
+              "provenance": "derived",
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            },
+            {
+              "id": "source_example_curve",
+              "label": "Immutable source example",
+              "expression": "example_amplitude*cos(2*pi*lab_time/example_period+example_phase)",
+              "provenance": "derived",
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            }
+          ],
+          "derived_metrics": [
+            {
+              "id": "exploration_time_shift",
+              "label": "Horizontal shift relative to zero phase",
+              "expression": "-trial_phase*trial_period/(2*pi)",
+              "unit": "unspecified time units",
+              "provenance": "derived",
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            },
+            {
+              "id": "exploration_angular_frequency",
+              "label": "Exploration angular frequency",
+              "expression": "2*pi/trial_period",
+              "unit": "rad per unspecified time unit",
+              "provenance": "derived",
+              "semantic_refs": [
+                "amplitude_phase"
+              ]
+            }
+          ],
+          "x": {
+            "id": "lab_time",
+            "label": "Time t (unspecified source time units)",
+            "min": -6.0,
+            "max": 6.0,
+            "points": 600,
+            "semantic_role": "runtime_time",
+            "provenance": null
+          }
+        }
+      ],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "dynamic",
+          "reason_length": 400,
+          "reason_fingerprint": "88e97aa7481724b6",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "spatial_relations",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "spring_model",
+            "motion_equation",
+            "sinusoidal_trial",
+            "natural_frequency",
+            "general_solution",
+            "apply_initial_conditions",
+            "amplitude_phase"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "dynamic",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "spring_model",
+          "motion_equation",
+          "sinusoidal_trial",
+          "natural_frequency",
+          "general_solution",
+          "apply_initial_conditions",
+          "amplitude_phase"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": true
+        }
+      },
+      "representation_family": "dynamic",
+      "requested_family": "dynamic",
+      "adapted": false,
+      "atlas_validator": "accepted",
+      "direct_manipulation": {
+        "available": false,
+        "targets": [],
+        "absence_is_not_automatic_failure": true
+      },
+      "local": {
+        "lab": [
+          {
+            "demo_id": "phase_shift_lab",
+            "source_facts": [
+              {
+                "id": "example_amplitude",
+                "label": "Source example amplitude",
+                "unit": "unspecified displacement units",
+                "value": 3.0,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  7
+                ],
+                "source_evidence": "The description of Figure 23.4a specifies A = 3."
+              },
+              {
+                "id": "example_period",
+                "label": "Source example period",
+                "unit": "unspecified time units",
+                "value": 3.141592653589793,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  7
+                ],
+                "source_evidence": "The description of Figure 23.4a specifies T = π."
+              },
+              {
+                "id": "example_phase",
+                "label": "Source example phase constant",
+                "unit": "rad",
+                "value": 0.7853981633974483,
+                "provenance": "source_fixed",
+                "source_pages": [
+                  7,
+                  8
+                ],
+                "source_evidence": "Figure 23.4a uses φ = π/4 and places the corresponding maximum at t = −T/8."
+              }
+            ],
+            "source_baseline_immutable": true,
+            "initial_values": {
+              "trial_amplitude": 3.0,
+              "trial_period": 3.141592653589793,
+              "trial_phase": 0.7853981633974483
+            },
+            "current_values": {
+              "trial_amplitude": 3.1999999999999997,
+              "trial_period": 4.0,
+              "trial_phase": 0.6283185307179586
+            },
+            "commits": [
+              {
+                "id": "trial_amplitude",
+                "initial": 3.0,
+                "current": 3.1999999999999997
+              },
+              {
+                "id": "trial_period",
+                "initial": 3.141592653589793,
+                "current": 4.0
+              },
+              {
+                "id": "trial_phase",
+                "initial": 0.7853981633974483,
+                "current": 0.6283185307179586
+              }
+            ],
+            "rejections": [],
+            "unknown_commit_rejected": true,
+            "curve_changed": true
+          }
+        ],
+        "source_pdf_unchanged": true,
+        "selected_semantic_id": "spring_model",
+        "selected_region": "p2_displacement_arrow",
+        "representation_ids": [
+          "spring_model"
+        ],
+        "source_roundtrip": true,
+        "atlas_immutable": true,
+        "post_compilation_api_delta": 0
+      },
+      "grounding": "Validated IDs/pages/Atlas links; source semantic fidelity awaits human review",
+      "B_scope": "Mechanical backend/ownership checks; browser and A review recorded separately"
+    },
+    {
+      "stage": "POST_FIX",
+      "case": "signals",
+      "attempt": 1,
+      "A": "HUMAN_REVIEW_PENDING",
+      "failures": [],
+      "planner_result": "accepted",
+      "compiler_result": "NOT_APPLICABLE",
+      "allowed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "main_schema": true,
+      "main_refs": {
+        "declared_count": 91,
+        "declared": [
+          {
+            "path": "$.key_concepts[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.key_concepts[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[3].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.key_concepts[4].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[5].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[6].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[7].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.key_concepts[8].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[9].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[10].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.key_concepts[11].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[2].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[3].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[5].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.relationships[6].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[7].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[8].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[9].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[10].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[11].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[12].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.relationships[13].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[14].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[15].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[16].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[17].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[18].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[19].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[20].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[21].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[22].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.relationships[23].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[24].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[25].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[26].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[27].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[28].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[29].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[30].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[31].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[32].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[33].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.relationships[33].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[34].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.relationships[35].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.visual_evidence[0].page",
+            "page": 1
+          },
+          {
+            "path": "$.visual_evidence[1].page",
+            "page": 2
+          },
+          {
+            "path": "$.visual_evidence[2].page",
+            "page": 3
+          },
+          {
+            "path": "$.visual_evidence[3].page",
+            "page": 5
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.visual_flow.nodes[0].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.visual_flow.nodes[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.visual_flow.nodes[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.visual_flow.nodes[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.steps[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.steps[1].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 2
+          },
+          {
+            "path": "$.learning_path.steps[2].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[3].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.steps[4].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[0].source_pages",
+            "page": 1
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[1].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.learning_path.checkpoint_questions[2].source_pages",
+            "page": 5
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[2].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[3].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[4].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_facts[5].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].parameters[1].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 3
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 4
+          },
+          {
+            "path": "$.interactive_lab.demos[0].source_pages",
+            "page": 5
+          }
+        ],
+        "invalid": [],
+        "valid": true
+      },
+      "lab_rejected": 1,
+      "quantity_declarations": [],
+      "planner_diagnostic": {
+        "stage": "accepted",
+        "code": "accepted",
+        "path": "$",
+        "generated": {
+          "planner_family": "static",
+          "reason_length": 400,
+          "reason_fingerprint": "70801878e8b59f34",
+          "required_capabilities": [
+            "equations",
+            "continuous_parameters",
+            "time_dynamics",
+            "transitions",
+            "structure",
+            "interaction_value"
+          ],
+          "focus_ids": [
+            "input_signal",
+            "compute_dft",
+            "component_spectrum",
+            "sum_components",
+            "reconstructed_signal"
+          ],
+          "entities": {
+            "collections": [],
+            "states": [],
+            "transitions": []
+          }
+        },
+        "compiled_family": "static",
+        "normalized_entity_ids": [],
+        "process_runtime_reached": false,
+        "legacy_visual_flow_used": false,
+        "recovery_codes": [],
+        "degraded": false,
+        "supplied_semantic_ids": [
+          "input_signal",
+          "compute_dft",
+          "component_spectrum",
+          "sum_components",
+          "reconstructed_signal"
+        ],
+        "runtime_capabilities": {
+          "process": true,
+          "spatial": true,
+          "structural": false,
+          "analogy": true,
+          "graph": true,
+          "lab": false
+        }
+      },
+      "representation_family": "static",
+      "requested_family": "static",
+      "adapted": false,
+      "atlas_validator": "accepted",
+      "direct_manipulation": {
+        "available": false,
+        "targets": [],
+        "absence_is_not_automatic_failure": true
+      },
+      "local": {
+        "lab": [],
+        "source_pdf_unchanged": true,
+        "selected_semantic_id": "input_signal",
+        "selected_region": "p1_bell_caption",
+        "representation_ids": [
+          "input_signal"
+        ],
+        "source_roundtrip": true,
+        "atlas_immutable": true,
+        "post_compilation_api_delta": 0
+      },
+      "grounding": "Validated IDs/pages/Atlas links; source semantic fidelity awaits human review",
+      "B_scope": "Mechanical backend/ownership checks; browser and A review recorded separately"
+    }
+  ],
+  "A": "HUMAN_REVIEW_PENDING",
+  "browser": {
+    "stage": "POST_FIX",
+    "cases": [
+      {
+        "case": "regression",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": null,
+        "linked_chart_changed": null,
+        "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "01-regression.png"
+      },
+      {
+        "case": "probability",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "02-probability.png"
+      },
+      {
+        "case": "circuits",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "03-rc.png"
+      },
+      {
+        "case": "harmonic",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": true,
+        "linked_chart_changed": true,
+        "interaction_absence": null,
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": "04-shm-source.png"
+      },
+      {
+        "case": "signals",
+        "success": true,
+        "error": null,
+        "steps": [
+          "Real PDF upload and actual recorded main analysis",
+          "Original first planner declaration accepted/rejected by production",
+          "Actual recorded deep Atlas declaration",
+          "Exact registered formal object opened via Grounded Twin"
+        ],
+        "page_errors": [],
+        "console_errors": [],
+        "focus_preserved": true,
+        "source_pdf_immutable": true,
+        "source_view_unchanged": true,
+        "roundtrip_mode": "source",
+        "canonical_value_changed": null,
+        "linked_chart_changed": null,
+        "interaction_absence": "No numeric drag/slider; formal or discrete controls retained, not an automatic failure",
+        "post_compilation_response_attempts": 0,
+        "post_compilation_network_delta": 0,
+        "screenshot": null
+      }
+    ],
+    "attempts": [
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791683807795-results.json",
+        "sha256": "99db4b2c65291051aeca1dd8fd87a65648a44a82615d2ffa98dfef9308301f47"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791684055750-results.json",
+        "sha256": "60a9de9df38392dcf76a5bd4d27821e59ef5c1f6b059fd590cdd708fb0bdd14d"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/circuits-desktop-1791684233273-results.json",
+        "sha256": "9094e6fcfec0888d6dd50f813235000b72ae5a092c3ec9a6edba43be77fa193a"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/harmonic-desktop-1791683940227-results.json",
+        "sha256": "444e62106c9d2e5d9ebec192013f091d0b7f1cd9c6d849061b3e057bdee52e8a"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/probability-desktop-1791683782402-results.json",
+        "sha256": "d87e630334b8e48802c740844aa9889fb75f4def9ec701284716f37e97af7b05"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/probability-desktop-1791684017499-results.json",
+        "sha256": "85a64dba3616079ad9218ced12fc79634e82016ceaee2bf29e9258deec2cf728"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/regression-desktop-1791683469348-results.json",
+        "sha256": "0960a0e5e8315cd853aa0ae6b84e93755e0bc13fd7eb3ff0b49855e36cafd811"
+      },
+      {
+        "path": ".day27-local/post_fix/browser/signals-desktop-1791684083436-results.json",
+        "sha256": "ca84657d16322135b8cb7db3d53925945ec231c141e8804dfa04ebd0be0378f7"
+      }
+    ],
+    "recorded_response_replays": 24,
+    "context_mismatches": 0,
+    "blocked_unrecorded_responses": 0,
+    "new_network_requests": 0,
+    "scope": "Real empty-app PDF upload and widget/pointer replay of exactly the saved model output; no model rerun."
+  },
+  "configuration": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "attempts_per_case": 1,
+    "semantic_retries": 0,
+    "sdk_retries": 0
+  }
+}

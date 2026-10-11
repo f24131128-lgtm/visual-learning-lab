@@ -28,7 +28,7 @@ from learning_canvas import (
     reset_canvas_state,
 )
 
-MODEL = "gpt-5.6-luna"
+from model_config import MODEL, response_options
 MAX_ANALYZED_PDF_PAGES = 8
 VISUALIZATION_TYPES = [
     "Concept Map",
@@ -1020,7 +1020,7 @@ Keep quoted source excerpts and mathematical variables in their original languag
 Never present a translated passage as original source evidence.
 """
     response = client.responses.create(
-        model=MODEL,
+        **response_options(),
         instructions=instructions,
         input=json.dumps(explanation_context, ensure_ascii=False),
         text={
@@ -1222,7 +1222,7 @@ Keep quoted source excerpts and mathematical variables in their original languag
 Never present a translated passage as original source evidence.
 """
     response = client.responses.create(
-        model=MODEL,
+        **response_options(),
         instructions=instructions,
         input=json.dumps(review_context, ensure_ascii=False),
         text={
@@ -3008,7 +3008,7 @@ Do not create rendered diagrams or 3D models in the response.
                 if analysis_input is not None:
                     with st.spinner(tr("Analyzing your content…")):
                         response = client.responses.create(
-                            model=MODEL,
+                            **response_options(),
                             instructions=prompt,
                             input=analysis_input,
                             text={
@@ -3072,6 +3072,12 @@ if analysis:
     comparison = clean_comparison(
         analysis.get("comparison"), allowed_source_pages
     )
+    # Registration uses the exact structures accepted by the existing renderers.
+    # This application-owned field is overwritten on every rerun; model output
+    # cannot register a rejected/absent formal object by setting suitable=true.
+    formal_structures = dict(concept_map=concept_map, visual_flow=visual_flow, comparison=comparison)
+    analysis = analysis | {"_formal_representations": formal_structures}
+    st.session_state["_formal_catalog_state"] = dict(material_id=analysis_id, structures=formal_structures)
     selected_visualization = {
         "flow": visual_flow, "concept_map": concept_map, "comparison": comparison,
     }.get(primary_visualization["type"])
@@ -3081,8 +3087,11 @@ if analysis:
     )
     if learning_path and learning_path["suitable"]:
         ensure_guided_learning_state(analysis_id, learning_path)
+    from source_atlas.model import semantic_catalog
     interactive_lab = clean_interactive_lab(
         analysis.get("interactive_lab"), allowed_source_pages, learning_path, valid_source_pages,
+        catalog=semantic_catalog(None, analysis),
+        material=analysis_id,
     )
     ensure_lab_state(analysis_id, interactive_lab)
     try:
@@ -3265,6 +3274,13 @@ if analysis:
             st.write(analysis.get("quick_summary", ""))
 
         if mode == "explore" and representation == "formal" and (not world_plan or world_plan["family"] != "none"):
+            # Explicit Twin navigation may focus an existing secondary formal
+            # object. This is presentation state, never a planner/source change.
+            formal_kind = workspace_state.get("formal_kind")
+            formal_view = {"flow": visual_flow, "concept_map": concept_map, "comparison": comparison}.get(formal_kind)
+            if formal_view and formal_view.get("suitable"):
+                primary_visualization = dict(type=formal_kind, reason="")
+                selected_visualization = formal_view
             with st.expander(tr("Suggested Visualization")):
                 suggestions = analysis.get("suggested_visualizations", [])
                 if isinstance(suggestions, list):

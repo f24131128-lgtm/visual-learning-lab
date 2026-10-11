@@ -8,6 +8,7 @@ from source_atlas.compiler import source_for
 from source_atlas.state import cache_key, sync_region, optional_scene
 from .grounded_twin import comparison_rows, derive_links
 from .state import get_workspace_focus, open_workspace
+from representation_contract import registrations
 
 KINDS = {"native_geometry": "Native text geometry · meaning remains estimated",
          "estimated_region": "Estimated visual region", "page_only": "Page-level support only"}
@@ -32,12 +33,13 @@ def context(material, analysis, wrapper, catalog, lab, path, allowed):
         saved = st.session_state.get("interactive_lab_state", {})
         if saved.get("material_id") == material:
             for demo in (lab or {}).get("demos", []):
-                semantic = direct_lab.semantic_target(demo, path, catalog, analysis)
                 values = saved["demos"][demo["id"]]["values"]
+                registered = registrations(demo, catalog, material, allowed)
+                for semantic_id, rows in registered.items(): reps.setdefault(semantic_id, []).extend(rows)
+                semantic = direct_lab.semantic_target(demo, path, catalog, analysis)
+                if semantic not in registered: semantic = None
                 ts = direct_lab.targets(demo, values, semantic)
                 targets.extend(ts)
-                if semantic:
-                    reps.setdefault(semantic, []).extend(dict(id=r["id"]) for r in demo["series"] + demo["derived_metrics"])
                 for target in ts: owners[target["id"]] = (demo["parameters"], values, demo["id"])
     links = derive_links(atlas_state, material, allowed, catalog, targets, reps,
                          atlas_state.get("document_model"), key)
@@ -79,7 +81,19 @@ def render_grounded_twin(workspace, analysis, wrapper, catalog, lab, path, allow
                         workspace["representation"] = "formal"
                         open_workspace(workspace, "explore", focus, catalog, wrapper)
                     st.button(tr("Open interactive twin"), key="workspace-twin-explore", type="primary", use_container_width=True, on_click=explore)
-            else: st.caption(tr(link["reason_not_manipulable"]))
+            else:
+                st.caption(tr(link["reason_not_manipulable"]))
+                if link["representation_ids"]:
+                    st.caption(tr("Linked representation: {ids}", ids=" · ".join(link["representation_ids"])))
+                    def formal():
+                        workspace["representation"] = "formal"
+                        kind = {"concept_map": "concept_map", "visual_flow": "flow", "comparison": "comparison"}.get(catalog[focus]["kind"])
+                        if kind: workspace["formal_kind"] = kind
+                        canvas = st.session_state.get("learning_canvas")
+                        if isinstance(canvas, dict) and canvas.get("material_id") == workspace["material_id"]:
+                            canvas["selected_id"] = focus
+                        open_workspace(workspace, "explore", focus, catalog, wrapper)
+                    st.button(tr("Open linked representation"), key="workspace-twin-formal", on_click=formal)
             if workspace["mode"] != "source":
                 st.button(tr("Return to supporting source"), key="workspace-twin-source", on_click=open_workspace,
                           args=(workspace, "source", focus, catalog, wrapper))

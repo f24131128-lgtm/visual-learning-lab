@@ -2,7 +2,7 @@
 
 Visual Learning Lab turns PDFs and text into **source-grounded interactive learning worlds**. Bring a chapter, select a formula or diagram, explore its model, and return to the unchanged original source.
 
-**Status: Day 26 / 30 — Competition Golden Path.** A 2026 iThome Ironman project. [Day 26 evidence](docs/DAY26_EVIDENCE.md) separates automated checks, one real-material browser pass and human review still required.
+**Status: Day 27 / 30 — Frozen benchmark awaiting human semantic review.** Production uses GPT-6.1 Sol (`gpt-6.1-sol`, reasoning `medium`). Ten unfamiliar real teaching excerpts yielded 8 backend/runtime PASS and 2 FAIL in the first pass; every failure remains in the denominator, and source-semantic verdicts are still pending. Deep five-case and stability four-case results, coverage limits and 37-request usage are in [Day 27 evidence](docs/DAY27_EVIDENCE.md). Observed local interaction after compilation made zero model calls.
 
 ```text
 PDF / Text → semantic analysis → source grounding → representation planning
@@ -74,5 +74,6 @@ Offline JSXGraph **1.13.3** uses its MIT option with pinned assets/notices; Plot
 | Day 24 | Safe direct manipulation through existing formal engines. [Evidence](docs/DAY24_EVIDENCE.md). |
 | Day 25 | Grounded Semantic Twin: source/representation/handle joins and source roundtrips. [Evidence](docs/DAY25_EVIDENCE.md). |
 | Day 26 | Simplify Explore and make one production vertical slice reviewable. [Evidence](docs/DAY26_EVIDENCE.md), [checkpoint](docs/DAY26_CHECKPOINT.md). |
+| Day 27 | Freeze ten real materials, preserve first attempts, examine five deep cases and four three-run stability cases; stop for human semantic review. [Evidence](docs/DAY27_EVIDENCE.md), [checkpoint](docs/DAY27_CHECKPOINT.md). |
 
 The [product vision](PRODUCT_VISION.md) and [UI checkpoint](docs/UI_REDESIGN_CHECKPOINT.md) describe direction and prior design evidence. Historical checkpoints preserve what was measured at that time.

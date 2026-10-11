@@ -32,7 +32,9 @@ def reset_parameters(store,spec,registry,wrapper,lab_state):
     import copy
     # A multi-parameter reset is atomic, including formal invariants/recordings.
     trial_store,trial_wrapper,trial_lab=copy.deepcopy(store),copy.deepcopy(wrapper),copy.deepcopy(lab_state)
-    for p in spec["parameters"]: set_parameter(trial_store,spec,p["id"],p["default"],registry,trial_wrapper,trial_lab)
+    from quantity_contract import can_commit
+    for p in spec["parameters"]:
+        if can_commit(p): set_parameter(trial_store,spec,p["id"],p["default"],registry,trial_wrapper,trial_lab)
     store.update(trial_store); wrapper.update(trial_wrapper); lab_state.update(trial_lab)
 
 
@@ -128,6 +130,10 @@ def _render_valid(spec,store,registry,wrapper,lab_state,workspace,catalog,compar
         reset_parameters(store,spec,registry,wrapper,lab_state)
     current=values(store,spec,registry,wrapper,lab_state)
     for p in spec["parameters"]:
+        from quantity_contract import can_commit
+        if not can_commit(p):
+            st.text(p["label"]+": "+str(current[p["id"]])); continue
+        st.caption(tr("Hypothetical control · the source stays unchanged."))
         slider_key=f"analogy-param-{prefix}-{p['id']}"
         # Set before widget creation: formal-side changes own bound values.
         st.session_state[slider_key]=float(current[p["id"]])

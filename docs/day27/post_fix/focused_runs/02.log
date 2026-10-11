@@ -1,0 +1,320 @@
+test_cross_material_stale_and_forged_registration_rejected (test_day27_postfix.OwnershipTests.test_cross_material_stale_and_forged_registration_rejected) ... ok
+test_declared_many_to_many_is_supported (test_day27_postfix.OwnershipTests.test_declared_many_to_many_is_supported) ... ok
+test_exact_representation_does_not_create_handle (test_day27_postfix.OwnershipTests.test_exact_representation_does_not_create_handle) ... ok
+test_formal_graph_and_comparison_use_existing_ids (test_day27_postfix.OwnershipTests.test_formal_graph_and_comparison_use_existing_ids) ... ok
+test_invalid_optional_lab_preserves_other_learning (test_day27_postfix.OwnershipTests.test_invalid_optional_lab_preserves_other_learning) ... ok
+test_lesson_membership_and_equal_labels_confer_no_owner (test_day27_postfix.OwnershipTests.test_lesson_membership_and_equal_labels_confer_no_owner) ... ok
+test_series_metric_and_control_register_exact_refs (test_day27_postfix.OwnershipTests.test_series_metric_and_control_register_exact_refs) ... ok
+test_source_roundtrip_and_unsupported_focus (test_day27_postfix.OwnershipTests.test_source_roundtrip_and_unsupported_focus) ... ok
+test_unknown_ref_and_disjoint_source_pages_rejected (test_day27_postfix.OwnershipTests.test_unknown_ref_and_disjoint_source_pages_rejected) ... ok
+test_atomic_batch_rejects_fixed_and_unsafe_values (test_day27_postfix.ProvenanceTests.test_atomic_batch_rejects_fixed_and_unsafe_values) ... ok
+test_bad_source_evidence_and_pages_rejected (test_day27_postfix.ProvenanceTests.test_bad_source_evidence_and_pages_rejected) ... ok
+test_derived_cannot_become_parameter_or_free_write (test_day27_postfix.ProvenanceTests.test_derived_cannot_become_parameter_or_free_write) ... ok
+test_empirical_probability_coefficient_and_example_shapes (test_day27_postfix.ProvenanceTests.test_empirical_probability_coefficient_and_example_shapes) ... ok
+test_fixed_cannot_declare_range_or_widget (test_day27_postfix.ProvenanceTests.test_fixed_cannot_declare_range_or_widget) ... ok
+test_fixed_parameter_is_never_a_control (test_day27_postfix.ProvenanceTests.test_fixed_parameter_is_never_a_control) ... ok
+test_forged_widget_and_stale_widget_preserve_all_values (test_day27_postfix.ProvenanceTests.test_forged_widget_and_stale_widget_preserve_all_values) ... ok
+test_legacy_is_read_only_and_not_reclassified (test_day27_postfix.ProvenanceTests.test_legacy_is_read_only_and_not_reclassified) ... ok
+test_provenance_decisions_do_not_read_labels (test_day27_postfix.ProvenanceTests.test_provenance_decisions_do_not_read_labels) ... ok
+test_reset_navigation_preserve_source_and_initial_vs_current (test_day27_postfix.ProvenanceTests.test_reset_navigation_preserve_source_and_initial_vs_current) ... ok
+test_runtime_time_is_not_provenance_or_parameter (test_day27_postfix.ProvenanceTests.test_runtime_time_is_not_provenance_or_parameter) ... ok
+test_separate_baseline_id_reference_is_checked (test_day27_postfix.ProvenanceTests.test_separate_baseline_id_reference_is_checked) ... ok
+test_variable_requires_explicit_exposure (test_day27_postfix.ProvenanceTests.test_variable_requires_explicit_exposure) ... ok
+test_world_patch_batch_and_tampered_state_protect_source_fact (test_day27_postfix.ProvenanceTests.test_world_patch_batch_and_tampered_state_protect_source_fact) ... ok
+test_language_identity_and_context_use_analysis_not_selector (test_day15.LabLogicTests.test_language_identity_and_context_use_analysis_not_selector) ... ok
+test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) ... 
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C670>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C5C0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C510>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C460>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C3B0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C300>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C250>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C1A0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C0F0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C040>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C040>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C0F0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C1A0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C250>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C300>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C3B0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C460>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C510>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C5C0>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C670>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C720>) ... FAIL
+  test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C7D0>) ... FAIL
+test_material_spec_state_and_local_mapping (test_day15.LabLogicTests.test_material_spec_state_and_local_mapping) ... FAIL
+test_sinusoid_amplitude_frequency_phase_period_and_fixed_baseline (test_day15.LabLogicTests.test_sinusoid_amplitude_frequency_phase_period_and_fixed_baseline) ... ok
+test_strict_schema_pages_and_step_ids (test_day15.LabLogicTests.test_strict_schema_pages_and_step_ids) ... ok
+test_axis_roundoff_is_ulp_bounded_not_real_overflow_acceptance (test_day18_compiler.CompilerContractTests.test_axis_roundoff_is_ulp_bounded_not_real_overflow_acceptance) ... ok
+test_canonical_wire_schema_required_keys_and_optional_empty_lists (test_day18_compiler.CompilerContractTests.test_canonical_wire_schema_required_keys_and_optional_empty_lists) ... ok
+test_exact_traditional_chinese_context_schema_and_internal_trace (test_day18_compiler.CompilerContractTests.test_exact_traditional_chinese_context_schema_and_internal_trace) ... ok
+test_invalid_primitive_binding_and_unsafe_expression_still_rejected (test_day18_compiler.CompilerContractTests.test_invalid_primitive_binding_and_unsafe_expression_still_rejected) ... ok
+test_missing_optional_fields_default_without_mutating_input (test_day18_compiler.CompilerContractTests.test_missing_optional_fields_default_without_mutating_input) ... ok
+test_missing_required_base_fields_and_unknown_fields_are_rejected (test_day18_compiler.CompilerContractTests.test_missing_required_base_fields_and_unknown_fields_are_rejected) ... 
+  test_missing_required_base_fields_and_unknown_fields_are_rejected (test_day18_compiler.CompilerContractTests.test_missing_required_base_fields_and_unknown_fields_are_rejected) (field='scene_version') ... FAIL
+test_original_live_style_rejection_has_precise_paths (test_day18_compiler.CompilerContractTests.test_original_live_style_rejection_has_precise_paths) ... ok
+test_present_malformed_ultra_fields_are_not_silently_dropped (test_day18_compiler.CompilerContractTests.test_present_malformed_ultra_fields_are_not_silently_dropped) ... ok
+test_probability_scene_still_validates (test_day18_compiler.CompilerContractTests.test_probability_scene_still_validates) ... ok
+test_real_response_recipe_focus_resolves_only_declared_representation (test_day18_compiler.CompilerContractTests.test_real_response_recipe_focus_resolves_only_declared_representation) ... ok
+test_valid_three_phase_base_expressions_and_shared_values (test_day18_compiler.CompilerContractTests.test_valid_three_phase_base_expressions_and_shared_values) ... ok
+test_depth_counts_cycles_unknown_references_and_executable_syntax (test_day23_phase_c.ContractSecurityTests.test_depth_counts_cycles_unknown_references_and_executable_syntax) ... ok
+test_fixed_domains_reject_fabricated_change_and_malformed_bounds (test_day23_phase_c.ContractSecurityTests.test_fixed_domains_reject_fabricated_change_and_malformed_bounds) ... ok
+test_forged_state_stale_duplicate_events_and_reset (test_day23_phase_c.ContractSecurityTests.test_forged_state_stale_duplicate_events_and_reset) ... ok
+test_multiple_children_return_to_distinct_bindings (test_day23_phase_c.ContractSecurityTests.test_multiple_children_return_to_distinct_bindings) ... ok
+test_no_topic_routing_and_unchanged_recorded_b_choices (test_day23_phase_c.ContractSecurityTests.test_no_topic_routing_and_unchanged_recorded_b_choices) ... ok
+test_optional_annotations_drop_but_bad_core_rejects (test_day23_phase_c.ContractSecurityTests.test_optional_annotations_drop_but_bad_core_rejects) ... ok
+test_phase_c_frozen_gold_and_runner_execution_probe (test_day23_phase_c.ContractSecurityTests.test_phase_c_frozen_gold_and_runner_execution_probe) ... ok
+test_retained_real_candidates_revalidate_separately_from_history (test_day23_phase_c.ContractSecurityTests.test_retained_real_candidates_revalidate_separately_from_history) ... ok
+test_same_expression_keeps_selected_source_identity (test_day23_phase_c.ContractSecurityTests.test_same_expression_keeps_selected_source_identity) ... ok
+test_affine_uses_same_bridge_two_targets_one_semantic (test_day25.TwinLogicTests.test_affine_uses_same_bridge_two_targets_one_semantic) ... ok
+test_ambiguous_region_preserves_focus_until_explicit_choice (test_day25.TwinLogicTests.test_ambiguous_region_preserves_focus_until_explicit_choice) ... ok
+test_colliding_scoped_targets_do_not_choose_arbitrary_owner (test_day25.TwinLogicTests.test_colliding_scoped_targets_do_not_choose_arbitrary_owner) ... ok
+test_compiled_baseline_current_delta_not_source_truth (test_day25.TwinLogicTests.test_compiled_baseline_current_delta_not_source_truth) ... ok
+test_direct_lab_commit_retires_stale_slider_but_new_control_works (test_day25.TwinLogicTests.test_direct_lab_commit_retires_stale_slider_but_new_control_works) ... ok
+test_fixed_parameter_and_unsupported_form_keep_formal_links (test_day25.TwinLogicTests.test_fixed_parameter_and_unsupported_form_keep_formal_links) ... ok
+test_generic_orchestration_no_topic_branches_or_execution (test_day25.TwinLogicTests.test_generic_orchestration_no_topic_branches_or_execution) ... ok
+test_hostile_region_coordinates_links_page_and_global_bounds (test_day25.TwinLogicTests.test_hostile_region_coordinates_links_page_and_global_bounds) ... ok
+test_many_regions_exact_identity_and_non_manipulable_quantity (test_day25.TwinLogicTests.test_many_regions_exact_identity_and_non_manipulable_quantity) ... ok
+test_native_preview_event_remains_local_without_semantic_focus (test_day25.TwinLogicTests.test_native_preview_event_remains_local_without_semantic_focus) ... ok
+test_parser_provenance_from_other_pdf_is_not_claimed (test_day25.TwinLogicTests.test_parser_provenance_from_other_pdf_is_not_claimed) ... ok
+test_provenance_never_promotes_note_or_low_confidence (test_day25.TwinLogicTests.test_provenance_never_promotes_note_or_low_confidence) ... ok
+test_reverse_focus_ranks_bbox_but_retains_selected_same_focus_region (test_day25.TwinLogicTests.test_reverse_focus_ranks_bbox_but_retains_selected_same_focus_region) ... ok
+test_source_event_stale_token_focus_page_and_target_spoof (test_day25.TwinLogicTests.test_source_event_stale_token_focus_page_and_target_spoof) ... ok
+test_source_twin_source_preserves_original_and_all_learning_state (test_day25.TwinLogicTests.test_source_twin_source_preserves_original_and_all_learning_state) ... ok
+test_stable_ids_under_reordering_and_label_changes (test_day25.TwinLogicTests.test_stable_ids_under_reordering_and_label_changes) ... ok
+test_stale_material_pdf_semantic_identity_and_unknown_target (test_day25.TwinLogicTests.test_stale_material_pdf_semantic_identity_and_unknown_target) ... ok
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C670>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C5C0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C510>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C460>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C3B0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C300>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C250>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C1A0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C0F0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x000002780184C040>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C040>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C0F0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C1A0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C250>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C300>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C3B0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C460>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C510>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C5C0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C670>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C720>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_malformed_demos_drop_independently (test_day15.LabLogicTests.test_malformed_demos_drop_independently) (mutation=<function LabLogicTests.test_malformed_demos_drop_independently.<locals>.<lambda> at 0x0000027802C3C7D0>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 117, in test_malformed_demos_drop_independently
+    self.assertTrue(result["suitable"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_material_spec_state_and_local_mapping (test_day15.LabLogicTests.test_material_spec_state_and_local_mapping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day15.py", line 150, in test_material_spec_state_and_local_mapping
+    self.assertEqual(len(lab.related_demos(clean, ["s2"])), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_missing_required_base_fields_and_unknown_fields_are_rejected (test_day18_compiler.CompilerContractTests.test_missing_required_base_fields_and_unknown_fields_are_rejected) (field='scene_version')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\scene\world\validator.py", line 81, in normalize_world
+    raise WorldValidationError("scene.scene_version: incompatible declaration")
+scene.world.validator.WorldValidationError: scene.scene_version: incompatible declaration
+
+The above exception was the direct cause of the following exception:
+
+scene.world.validator.WorldValidationError: scene.scene_version: incompatible declaration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Projects\visual-learning-lab\tests\test_day18_compiler.py", line 84, in test_missing_required_base_fields_and_unknown_fields_are_rejected
+    with self.assertRaisesRegex(WorldValidationError, "missing fields"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "missing fields" does not match "scene.scene_version: incompatible declaration"
+
+----------------------------------------------------------------------
+Ran 65 tests in 2.366s
+
+FAILED (failures=24)

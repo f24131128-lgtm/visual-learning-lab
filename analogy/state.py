@@ -6,6 +6,7 @@ from scene.world.engine import references
 from workspace.state import get_workspace_focus, set_workspace_focus, focusable
 from .schema import VERSION
 from .engine import project
+from quantity_contract import can_commit, check_commit
 
 
 def parameter_registry(wrapper, lab, path, catalog):
@@ -13,6 +14,7 @@ def parameter_registry(wrapper, lab, path, catalog):
     scene=wrapper.get("scene")
     if scene and scene["domain"]=="spatial_dynamics":
         for p in scene["parameters"]:
+            if not can_commit(p): continue
             linked=[]
             for identifier,entry in catalog.items():
                 if not focusable(identifier,catalog,wrapper): continue
@@ -25,10 +27,15 @@ def parameter_registry(wrapper, lab, path, catalog):
                 if p["id"] in seen: linked.append(identifier)
             registry["world:"+p["id"]]={k:p[k] for k in ("label","min","max","default")} | dict(owner="world", parameter_id=p["id"], semantic_ids=linked)
     else:
+        from representation_contract import registrations
+        material = wrapper.get("material_id")
+        allowed = sorted({p for item in catalog.values() for p in item.get("pages", [])})
         for demo in (lab or {}).get("demos",[]):
-            linked={r["id"] for s in (path or {}).get("steps",[]) if s["id"] in demo["related_step_ids"] for r in s.get("visual_refs",[]) if r["id"] in catalog}
+            registered = registrations(demo, catalog, material, allowed)
             for p in demo["parameters"]:
-                registry[f"lab:{demo['id']}:{p['id']}"]={k:p[k] for k in ("label","min","max","default")} | dict(owner="lab",demo_id=demo["id"],parameter_id=p["id"],semantic_ids=sorted(linked),demo_spec=demo)
+                if not can_commit(p): continue
+                linked={i for i, rows in registered.items() if any(row["kind"] == "parameters" and row["local_id"] == p["id"] for row in rows)}
+                registry[f"lab:{demo['id']}:{p['id']}"]={k:p[k] for k in ("label","min","max","default")} | dict(owner="lab",demo_id=demo["id"],parameter_id=p["id"],semantic_ids=sorted(linked),demo_spec=demo,material_id=material)
     return registry
 
 
@@ -71,7 +78,8 @@ def values(store,spec,registry,wrapper,lab_state):
 
 def set_parameter(store,spec,identifier,value,registry,wrapper,lab_state):
     p=next((p for p in spec["parameters"] if p["id"]==identifier),None)
-    if p is None or type(value) not in (int,float) or not math.isfinite(value) or not p["min"]<=value<=p["max"]: raise ValueError("parameter event")
+    if p is None: raise ValueError("parameter event")
+    check_commit(p, value)
     trial=values(store,spec,registry,wrapper,lab_state); trial[identifier]=value
     project(spec,trial)  # actual-state recheck before changing either model
     if p["formal_target"]:
@@ -82,12 +90,11 @@ def set_parameter(store,spec,identifier,value,registry,wrapper,lab_state):
             apply_patch(wrapper["scene"],state,dict(op="set_parameter",target_id=target["parameter_id"],value=formal))
         else:
             if not target["min"]<=formal<=target["max"]: raise ValueError("formal range")
-            if "demo_spec" in target:
-                from interactive_lab import compute_curves
-                candidate=dict(lab_state["demos"][target["demo_id"]]["values"])
-                candidate[target["parameter_id"]]=formal
-                compute_curves(target["demo_spec"],candidate)
-            lab_state["demos"][target["demo_id"]]["values"][target["parameter_id"]]=formal
+            from interactive_lab import commit_lab_values
+            if "demo_spec" not in target: raise ValueError("Unbound formal Lab declaration")
+            if lab_state.get("material_id") != target.get("material_id") or target.get("material_id") != wrapper.get("material_id"):
+                raise ValueError("Stale formal Lab material")
+            commit_lab_values(target["demo_spec"], lab_state["demos"][target["demo_id"]], {target["parameter_id"]: formal})
     else: store["local"].setdefault(store["active"],{})[identifier]=value
     store["revision"]+=1
 

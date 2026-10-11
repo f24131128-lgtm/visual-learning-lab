@@ -1,0 +1,406 @@
+{
+  "status": "AGENT_DRAFT_PENDING_HUMAN_ADOPTION",
+  "created_utc": "2026-10-10T16:03:05.194583+00:00",
+  "author": "Codex prepared source-grounded draft; not represented as human-authored",
+  "language": "en",
+  "deep_subset": [
+    "circular",
+    "harmonic",
+    "circuits",
+    "probability",
+    "spectrum"
+  ],
+  "stability_subset": [
+    "circular",
+    "harmonic",
+    "circuits",
+    "probability"
+  ],
+  "stability_protocol": "Use one fixed main analysis. Three independent identical production representation declarations per selected case. Prefer selected spatial/probability compiler; if unavailable use the planner declaration. These are predeclared stability samples, never semantic retries. Preserve rejection outcomes. Three extra declaration requests after the first-pass pipeline; first-pass request not counted among the three.",
+  "scoring": {
+    "PASS": "Evidence supports required source semantics and truthful supported behavior.",
+    "PARTIAL": "Useful bounded result with identified missing semantics/capability/grounding.",
+    "FAIL": "Unusable, invented, unsafe, wrong ownership or materially misleading behavior.",
+    "NOT APPLICABLE": "Capability not justified by the source, or a correctly static case. Not a substitute for untested."
+  },
+  "expectations": [
+    {
+      "material_id": "circular",
+      "concepts_present": [
+        "position on a circle",
+        "angular velocity and period",
+        "tangential velocity",
+        "radial acceleration"
+      ],
+      "important_original_pdf_pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "reasonable_families": [
+        "spatial_dynamics",
+        "numeric_lab",
+        "formal concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "source example coefficients remain compiled baseline; not measurements"
+      ],
+      "adjustable_quantities": [
+        "positive radius",
+        "positive uniform angular speed",
+        "time"
+      ],
+      "unsupported_semantics": [
+        "no gravitational orbit or motor torque model",
+        "no radius=0",
+        "no changing the original source examples"
+      ],
+      "static_degradation_conditions": "A formal/numeric view is correct if a consistent bounded planar world cannot compile."
+    },
+    {
+      "material_id": "harmonic",
+      "concepts_present": [
+        "amplitude and period",
+        "Hooke force and mass",
+        "omega=sqrt(k/m)",
+        "initial conditions and phase"
+      ],
+      "important_original_pdf_pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "reasonable_families": [
+        "spatial_dynamics",
+        "numeric_lab",
+        "formal concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "given initial conditions must remain identified as the source baseline"
+      ],
+      "adjustable_quantities": [
+        "positive mass and spring constant",
+        "non-negative amplitude",
+        "phase",
+        "time"
+      ],
+      "unsupported_semantics": [
+        "no damping or driving force",
+        "no amplitude interpreted as wavelength",
+        "no arbitrary 3D mechanics"
+      ],
+      "static_degradation_conditions": "Numeric/formal degradation is correct when the runtime cannot express the oscillator honestly."
+    },
+    {
+      "material_id": "circuits",
+      "concepts_present": [
+        "RC node equation",
+        "homogeneous and particular solutions",
+        "initial voltage",
+        "tau=RC",
+        "charging and discharging"
+      ],
+      "important_original_pdf_pages": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "dynamic_simulation",
+        "process_flow",
+        "formal comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": true,
+      "fixed_quantities": [
+        "5 V/0 V examples and boundary conditions are source baselines"
+      ],
+      "adjustable_quantities": [
+        "positive R and C",
+        "hypothetical input/initial voltage",
+        "time"
+      ],
+      "unsupported_semantics": [
+        "no invented measured component values",
+        "no nonlinear transistor or second-order RLC model",
+        "no physical circuit rewiring handle"
+      ],
+      "static_degradation_conditions": "A formula/table/flow is correct without an unambiguous waveform inverse; generic bounded hypothetical defaults must be labeled."
+    },
+    {
+      "material_id": "signals",
+      "concepts_present": [
+        "period/frequency",
+        "waveform/timbre",
+        "harmonics and spectral decomposition",
+        "two-sinusoid mixture"
+      ],
+      "important_original_pdf_pages": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "formal concept map",
+        "comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "439 Hz observed bell and plotted recording",
+        "440/880 Hz, 1.0/0.5 and offset=0 example baseline",
+        "original spectrum samples"
+      ],
+      "adjustable_quantities": [
+        "hypothetical sine/cosine frequency, amplitude and phase",
+        "bounded time window"
+      ],
+      "unsupported_semantics": [
+        "no exact recovery of the recorded audio/spectrum from the screenshot",
+        "no execution of thinkdsp Python or audio download",
+        "no invented measured Fourier coefficients"
+      ],
+      "static_degradation_conditions": "Static descriptions are correct if only measured recordings are modeled or a safe symbolic demo is unsupported."
+    },
+    {
+      "material_id": "regression",
+      "concepts_present": [
+        "sum of squared residuals",
+        "b1=(sy/sx)R",
+        "line passes through means",
+        "interpretation of slope/intercept",
+        "prediction limitations"
+      ],
+      "important_original_pdf_pages": [
+        355,
+        356,
+        357,
+        358,
+        359,
+        360
+      ],
+      "reasonable_families": [
+        "numeric_lab",
+        "formal comparison",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "50-student sample",
+        "means 101780/19940; sd 63200/5460; R=-0.499",
+        "fitted slope -0.0431 and intercept 24.319 in thousands",
+        "empirical source dots"
+      ],
+      "adjustable_quantities": [
+        "prediction input inside observed range",
+        "explicitly hypothetical trial line separate from fitted source coefficients"
+      ],
+      "unsupported_semantics": [
+        "no causal scholarship policy claim",
+        "no real student data reconstruction",
+        "do not make fitted estimates adjustable without a hypothetical distinction"
+      ],
+      "static_degradation_conditions": "A formal equation and source plot is correct if fixed empirical data cannot be represented; no drag of observed dots."
+    },
+    {
+      "material_id": "probability",
+      "concepts_present": [
+        "disjoint events",
+        "die outcome sets A={1,2}, B={4,6}, D={2,3}",
+        "inclusive or and intersection correction",
+        "complement",
+        "non-uniform dice-sum distribution"
+      ],
+      "important_original_pdf_pages": [
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "reasonable_families": [
+        "probability_sets",
+        "formal comparison",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "six fair die outcomes and source memberships",
+        "52-card counts",
+        "two-dice sum weights",
+        "given income/loan proportions"
+      ],
+      "adjustable_quantities": [
+        "local event selection/set operations",
+        "Monte Carlo sample count with original probabilities"
+      ],
+      "unsupported_semantics": [
+        "do not treat dice sums as uniformly likely",
+        "no arbitrary changes to source probabilities",
+        "no unlimited 52-outcome world if contract exceeds bounds"
+      ],
+      "static_degradation_conditions": "A bounded six-outcome die subset is honest with scope disclosed; other examples may stay formal. Dragging geometry is N/A."
+    },
+    {
+      "material_id": "search",
+      "concepts_present": [
+        "sequential search O(n)",
+        "sorted-list bisection O(log n)",
+        "constant-time list operations",
+        "hashing and dictionaries"
+      ],
+      "important_original_pdf_pages": [
+        226,
+        227
+      ],
+      "reasonable_families": [
+        "process_flow",
+        "formal flow",
+        "comparison"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "algorithm correctness and complexity assumptions",
+        "source contains no measured timing dataset"
+      ],
+      "adjustable_quantities": [
+        "local navigation through declared process",
+        "explicit hypothetical sorted input only if safely resolved"
+      ],
+      "unsupported_semantics": [
+        "no execution of generated Python",
+        "no unsupported arbitrary binary-search machine",
+        "no invented measured benchmarks"
+      ],
+      "static_degradation_conditions": "A read-only flow/comparison is correct when bounded execution is unsupported."
+    },
+    {
+      "material_id": "complexity",
+      "concepts_present": [
+        "asymptotic analysis",
+        "linear vs quadratic",
+        "100n+1 vs n^2+n+1",
+        "Big-O growth table"
+      ],
+      "important_original_pdf_pages": [
+        223,
+        224,
+        225
+      ],
+      "reasonable_families": [
+        "comparison",
+        "numeric_lab",
+        "concept map"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "source example coefficients 100 and 1",
+        "Big-O definitions and table classes"
+      ],
+      "adjustable_quantities": [
+        "positive integer input size n for illustrative operation counts"
+      ],
+      "unsupported_semantics": [
+        "do not present operation count as measured wall-clock time",
+        "no changing source algorithm coefficients",
+        "no source-supported hardware benchmark claim"
+      ],
+      "static_degradation_conditions": "A comparison/table is sufficient; numeric count curves are optional and must stay illustrative."
+    },
+    {
+      "material_id": "spectrum",
+      "concepts_present": [
+        "frequency/wavelength/energy unit conventions",
+        "scientific notation",
+        "unit conversion scale table",
+        "positive wavelength values"
+      ],
+      "important_original_pdf_pages": [
+        35
+      ],
+      "reasonable_families": [
+        "comparison",
+        "numeric_lab",
+        "formal table"
+      ],
+      "interactive_plausibility": true,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "every source table cell and size comparison",
+        "vacuum conversion baseline approximately c=3e8 m/s if explained as general physics"
+      ],
+      "adjustable_quantities": [
+        "explicitly hypothetical positive wavelength/frequency conversion within numeric limits"
+      ],
+      "unsupported_semantics": [
+        "no zero wavelength",
+        "no invented full spectrum dataset or new 3D propagation scene",
+        "no claimed exact page-box grounding before Atlas validation"
+      ],
+      "static_degradation_conditions": "Static table is correct if numeric dynamic ranges exceed the bounded evaluator. Only physical PDF page 35 is ingested: photo/stock pages are excluded."
+    },
+    {
+      "material_id": "debugging",
+      "concepts_present": [
+        "syntax/runtime/semantic errors",
+        "incremental testing",
+        "localizing syntax faults",
+        "debugging strategy"
+      ],
+      "important_original_pdf_pages": [
+        215,
+        216
+      ],
+      "reasonable_families": [
+        "formal flow",
+        "concept map",
+        "comparison"
+      ],
+      "interactive_plausibility": false,
+      "direct_manipulation_plausibility": false,
+      "fixed_quantities": [
+        "error-category meanings",
+        "source advice"
+      ],
+      "adjustable_quantities": [
+        "local reading/selection only"
+      ],
+      "unsupported_semantics": [
+        "no numerical physics world",
+        "no fabricated executable debugger or source code",
+        "no justified numeric drag handle"
+      ],
+      "static_degradation_conditions": "Formal/static representation is the intended success, preserving selection/source navigation without fabricated manipulation."
+    }
+  ]
+}

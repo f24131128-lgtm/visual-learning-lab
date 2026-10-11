@@ -1,0 +1,75 @@
+Branch: day17-learning-scene-wip
+HEAD: 477de4926220d0960b58500f292ea6df24154da6
+Command: git status --short
+
+ M .gitignore
+ M README.md
+ M THIRD_PARTY_NOTICES.md
+ M analogy/compiler.py
+ M analogy/runtime.py
+ M analogy/schema.py
+ M analogy/state.py
+ M analogy/validator.py
+ M app.py
+ M docs/day25/numeric-trace-math.json
+ M docs/day25/numeric-trace-phase.json
+ M docs/day25/numeric-trace-projectile.json
+ M dynamic_simulation.py
+ M i18n.py
+ M interactive_lab.py
+ M learning_world/compiler.py
+ M manipulation/contract.py
+ M manipulation/lab.py
+ M manipulation/runtime.py
+ M manipulation/world.py
+ M scene/compiler.py
+ M scene/world/engine.py
+ M scene/world/frontend/index.html
+ M scene/world/policy.py
+ M scene/world/runtime.py
+ M scene/world/schema.py
+ M scene/world/state.py
+ M scene/world/validator.py
+ M source_atlas/compiler.py
+ M source_atlas/model.py
+ M tests/analogy_fixtures.py
+ M tests/lab_fixtures.py
+ M tests/manipulation_fixtures.py
+ M tests/manual_phase_c.py
+ M tests/simulation_fixtures.py
+ M tests/support.py
+ M tests/test_analogy.py
+ M tests/test_day18_compiler.py
+ M tests/test_day22.py
+ M tests/test_day23.py
+ M tests/test_day23_phase_c.py
+ M tests/test_day24.py
+ M tests/test_day25.py
+ M tests/test_day26_parameter_semantics.py
+ M tests/world_fixtures.py
+ M workspace/twin_ui.py
+?? docs/DAY27_CHECKPOINT.md
+?? docs/DAY27_EVIDENCE.md
+?? docs/day27/
+?? model_config.py
+?? quantity_contract.py
+?? representation_contract.py
+?? tests/day27_benchmark.py
+?? tests/day27_browser.cjs
+?? tests/day27_freeze.py
+?? tests/day27_postfix_browser.cjs
+?? tests/day27_postfix_checkpoint.py
+?? tests/day27_postfix_checks.py
+?? tests/day27_postfix_final.py
+?? tests/day27_postfix_finish.py
+?? tests/day27_postfix_live.py
+?? tests/day27_postfix_replay.py
+?? tests/day27_postfix_report.py
+?? tests/day27_report.py
+?? tests/day27_sources.py
+?? tests/manual_day27.py
+?? tests/manual_day27_postfix.py
+?? tests/provenance_fixtures.py
+?? tests/test_day27.py
+?? tests/test_day27_benchmark.py
+?? tests/test_day27_postfix.py

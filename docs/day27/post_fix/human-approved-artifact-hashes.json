@@ -1,0 +1,33 @@
+{
+  "stage": "POST_FIX",
+  "kind": "HUMAN_APPROVED_COMPLETION_SUPPLEMENT",
+  "recorded_utc": "2026-10-11T02:54:09.721594+00:00",
+  "baseline_manifest": {
+    "path": "docs/day27/artifact-hashes.json",
+    "sha256": "818e71d84f3ec822545b0f4da90cf7978ce9540dd762fcb65f1d33443a572b19"
+  },
+  "historical_post_fix_manifest": {
+    "path": "docs/day27/post_fix/artifact-hashes.json",
+    "sha256": "ff9612f0778aadaab384e57a21917a15496adb4d88cd9ee38168734290b93b4c"
+  },
+  "production_sha256": "1b7021801c03e0dbe9f7fe02d18f08ffb836292dcff779949c0cd1bd338bd8db",
+  "files_sha256": {
+    "docs/day27/post_fix/final-regression-human-approved.attempt.json": "72718e2967143dc33c7227187ec221f4b1a1d0a9e7b2faf0292df89b40a36839",
+    "docs/day27/post_fix/final-regression-human-approved.json": "f4b4daa1b307b5dca08cc2ce5452437a88dbf7f86b012781a1ab2a30c3329e26",
+    "docs/day27/post_fix/final-regression-human-approved.log": "06951c75fdb2e28e5468e55bdc2b265350d55984d245a839f0391c0ab87a3d33",
+    "docs/day27/post_fix/focused-human-approved.json": "60891ebb4cf1664a1149791a4b1c6e35ecdef3f256c83c8317252e31f9832139",
+    "docs/day27/post_fix/focused-human-approved.log": "cb9765f2e2342eca940e88f30fc17b4807d47b3d4869670058713f95dc792d26",
+    "docs/day27/post_fix/focused_runs/11.json": "9d262948f8819448a1a821a76c6c58ca6734428603f64088633538b6f91e2413",
+    "docs/day27/post_fix/focused_runs/11.log": "efc1502e7b869f1101f8b1a5c5ecc3d63adce5f8d8d5e2d9e46286bd8f17e003",
+    "docs/day27/post_fix/human-approved-a-axis.json": "15703a9556a8fc07044ad3e0c7e43a02d8fa223fc3e14d7a033e2cde93d38137",
+    "docs/day27/post_fix/human-approved-a-axis.md": "fdf7dcc88a8832b65ab59f5fda7130fb017d1070cca5ba72f6371e5d1bf44ea2",
+    "docs/day27/post_fix/human-approved-completion.md": "097058a0ed3f6cd6bba7e44dcff4d9b9750aee5fe362e2565da02bc5bc49f21b",
+    "docs/day27/post_fix/human-approved-git-status.txt": "2348152950ddd9b17eff08d35debfd85242a675abed863cd9ce72350d8291b29",
+    "docs/day27/post_fix/human-approved-preflight.json": "15a6563f5408b108f20bb643ca69441c61cdd648c1124b146a6f28edb7d80246",
+    "docs/day27/post_fix/human-approved-validation.json": "907ea82d5d89e9e45051ae482769cfb7d8f584f0c929537c1fd70df6918402e0"
+  },
+  "manifest_excludes_itself": true,
+  "new_feature_changes": 0,
+  "new_test_source_changes": 0,
+  "new_model_requests": 0
+}

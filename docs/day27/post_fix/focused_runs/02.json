@@ -1,0 +1,19 @@
+{
+  "stage": "POST_FIX",
+  "kind": "focused_offline",
+  "timestamp": "2026-10-10T18:23:05.458408+00:00",
+  "modules": [
+    "test_day27_postfix",
+    "test_day15.LabLogicTests",
+    "test_day18_compiler.CompilerContractTests",
+    "test_day23_phase_c.ContractSecurityTests",
+    "test_day25.TwinLogicTests"
+  ],
+  "test_count": 65,
+  "passed": 41,
+  "failures": 24,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 2.366239900002256,
+  "paid_model_requests": 0
+}

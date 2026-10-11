@@ -3,13 +3,13 @@
     {
       "material": "day25-phase",
       "mode": "source",
-      "signature": "4f53cda18c2baa0c",
+      "signature": "6b56f6867ee385e2",
       "values": {}
     },
     {
       "material": "day25-math",
       "mode": "source",
-      "signature": "28dbd74101549dc2",
+      "signature": "b7baf2b690e1427a",
       "values": {
         "affine_demo": {
           "gain": 1.0,
@@ -20,7 +20,7 @@
     {
       "material": "day25-math",
       "mode": "source",
-      "signature": "28dbd74101549dc2",
+      "signature": "b7baf2b690e1427a",
       "values": {
         "affine_demo": {
           "gain": 1.0,
@@ -31,154 +31,55 @@
     {
       "material": "day25-math",
       "mode": "source",
-      "signature": "28dbd74101549dc2",
+      "signature": "b7baf2b690e1427a",
       "values": {
         "affine_demo": {
           "gain": 1.0,
           "offset": 0.0
+        }
+      }
+    },
+    {
+      "material": "day25-math",
+      "mode": "explore",
+      "signature": "b7baf2b690e1427a",
+      "values": {
+        "affine_demo": {
+          "gain": 1.0,
+          "offset": 0.0
+        }
+      }
+    },
+    {
+      "material": "day25-math",
+      "mode": "explore",
+      "signature": "b7baf2b690e1427a",
+      "values": {
+        "affine_demo": {
+          "gain": 1.0,
+          "offset": 2.0
+        }
+      }
+    },
+    {
+      "material": "day25-math",
+      "mode": "explore",
+      "signature": "b7baf2b690e1427a",
+      "values": {
+        "affine_demo": {
+          "gain": 1.0,
+          "offset": 2.0
         }
       }
     },
     {
       "material": "day25-math",
       "mode": "source",
-      "signature": "28dbd74101549dc2",
+      "signature": "b7baf2b690e1427a",
       "values": {
         "affine_demo": {
           "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 0.0
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "source",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
-        }
-      }
-    },
-    {
-      "material": "day25-math",
-      "mode": "explore",
-      "signature": "28dbd74101549dc2",
-      "values": {
-        "affine_demo": {
-          "gain": 1.0,
-          "offset": 2.0000001511706653
+          "offset": 2.0
         }
       }
     }

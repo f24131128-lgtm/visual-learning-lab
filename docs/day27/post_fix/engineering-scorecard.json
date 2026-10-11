@@ -1,0 +1,98 @@
+{
+  "stage": "POST_FIX",
+  "scope": "Facts/check outcomes, not A verdicts or a replacement for the frozen B scorecard.",
+  "denominator": 5,
+  "cases": [
+    {
+      "case": "regression",
+      "planner": "accepted",
+      "family": "static",
+      "compiler": "NOT_APPLICABLE",
+      "main_schema": true,
+      "lab_rejected": 1,
+      "atlas_validator": "accepted",
+      "representation_ids": [
+        "calculate_intercept"
+      ],
+      "direct_manipulation": false,
+      "source_roundtrip": true,
+      "source_pdf_unchanged": true,
+      "api_delta": 0,
+      "compiler_failure": null,
+      "pipeline_exceptions": []
+    },
+    {
+      "case": "probability",
+      "planner": "accepted",
+      "family": "structural",
+      "compiler": "rejected",
+      "main_schema": true,
+      "lab_rejected": 0,
+      "atlas_validator": "accepted",
+      "representation_ids": [
+        "general_addition",
+        "lab:demo_overlap:series:union_probability"
+      ],
+      "direct_manipulation": false,
+      "source_roundtrip": true,
+      "source_pdf_unchanged": true,
+      "api_delta": 0,
+      "compiler_failure": "learning goal is empty or too long.",
+      "pipeline_exceptions": []
+    },
+    {
+      "case": "circuits",
+      "planner": "rejected",
+      "family": null,
+      "compiler": "NOT_APPLICABLE",
+      "main_schema": true,
+      "lab_rejected": 0,
+      "atlas_validator": "accepted",
+      "representation_ids": [
+        "flow_model"
+      ],
+      "direct_manipulation": false,
+      "source_roundtrip": true,
+      "source_pdf_unchanged": true,
+      "api_delta": 0,
+      "compiler_failure": null,
+      "pipeline_exceptions": []
+    },
+    {
+      "case": "harmonic",
+      "planner": "accepted",
+      "family": "dynamic",
+      "compiler": "existing validated numeric lab",
+      "main_schema": true,
+      "lab_rejected": 0,
+      "atlas_validator": "accepted",
+      "representation_ids": [
+        "spring_model"
+      ],
+      "direct_manipulation": false,
+      "source_roundtrip": true,
+      "source_pdf_unchanged": true,
+      "api_delta": 0,
+      "compiler_failure": null,
+      "pipeline_exceptions": []
+    },
+    {
+      "case": "signals",
+      "planner": "accepted",
+      "family": "static",
+      "compiler": "NOT_APPLICABLE",
+      "main_schema": true,
+      "lab_rejected": 1,
+      "atlas_validator": "accepted",
+      "representation_ids": [
+        "input_signal"
+      ],
+      "direct_manipulation": false,
+      "source_roundtrip": true,
+      "source_pdf_unchanged": true,
+      "api_delta": 0,
+      "compiler_failure": null,
+      "pipeline_exceptions": []
+    }
+  ]
+}

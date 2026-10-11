@@ -32,7 +32,13 @@ if st.session_state.get("phase_c_review_case")!=choice:
  raw["analysis_language"]="en"
  if choice=="fixed_decay":
   from scene.state import cache_key,ensure_state,save_scene
-  scene=bench.normalize_scene(json.loads((directory/"scene.json").read_text(encoding="utf-8"))["raw"],[])
+  from scene.world.schema import VERSION
+  declaration=json.loads((directory/"scene.json").read_text(encoding="utf-8"))["raw"]
+  # Explicit offline adaptation for current-runtime regression; historical
+  # artifacts stay immutable and are not treated as compatible cached scenes.
+  from provenance_fixtures import declared_world
+  declaration=declared_world(declaration)
+  scene=bench.normalize_scene(declaration,[])
   wrapper=ensure_state(material,"en","spatial_dynamics");save_scene(wrapper,scene)
 with patch("openai.resources.responses.responses.Responses.create",side_effect=RuntimeError("Recorded Phase C review has no live API access")):
  runpy.run_path(str(ROOT/"app.py"),run_name="__main__")
