@@ -123,3 +123,29 @@ def render_source_fallback(material_id, source_context, allowed, analysis):
                 st.text(text[:1800])
                 shown = True
         if not shown: st.caption(tr("No source context is available."))
+
+
+def render_control_navigation(state, lab, catalog, allowed, wrapper=None):
+    """A concept-owned experiment route, separate from unlinked PDF regions."""
+    from .control_navigation import linked_control_demo, open_controls
+    from .state import set_workspace_focus
+    choices = [i for i in catalog if focusable_control(i, lab, catalog, state, allowed)]
+    if not choices: return
+    key = "workspace-control-concept-" + state["material_id"]
+    focus = get_workspace_focus(state, wrapper)
+    st.session_state[key] = focus if focus in choices else None
+    st.selectbox(tr("Choose a concept with experiment controls"), choices, index=None,
+                 key=key, format_func=lambda i: catalog[i]["label"],
+                 on_change=lambda: set_workspace_focus(state, st.session_state[key], catalog, wrapper))
+    demo = linked_control_demo(lab, catalog, state["material_id"], allowed, focus)
+    if demo:
+        st.caption(tr("This linked experiment uses parameter controls; no draggable handle is available."))
+        st.caption(tr("Source: {pages}", pages=" · ".join(str(p) for p in catalog[focus]["pages"] if p in allowed)))
+        st.button(tr("Open linked experiment controls"), key="workspace-source-controls", type="primary",
+                  on_click=open_controls, args=(state, lab, catalog, allowed, focus, wrapper))
+
+
+def focusable_control(identifier, lab, catalog, state, allowed):
+    from .control_navigation import linked_control_demo
+    return (catalog[identifier]["kind"] not in ("parameter", "time")
+            and linked_control_demo(lab, catalog, state["material_id"], allowed, identifier) is not None)

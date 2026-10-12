@@ -8,6 +8,16 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Prepared mode · live AI generation is disabled by server policy.": "準備示例模式 · 伺服器已停用新的 AI 生成。",
+    "Prepared material · previously generated; all exploration is local.": "準備教材 · 內容已預先生成；所有探索均在本機計算。",
+    "The prepared material could not be loaded. Your current work is preserved.": "無法載入準備教材；目前學習狀態已保留。",
+    "Choose a concept with experiment controls": "選取可使用實驗控制的概念",
+    "Open linked experiment controls": "開啟連結實驗的參數控制",
+    "This linked experiment uses parameter controls; no draggable handle is available.": "這個連結實驗使用參數控制；目前沒有可拖曳的物件。",
+    "Prepared offline example · previously generated content, no new AI requests.": "離線準備示例 · 內容已預先生成，本次不發出新的 AI 請求。",
+    "Own PDF: local upload preview only here. New analysis requires the production app and an explicitly approved AI request.": "自己的 PDF：此處僅能本機上傳預覽。新的分析需使用正式 app，並另行批准 AI 請求。",
+    "Unavailable in this offline example; use the existing local controls.": "此離線示例不提供新的 AI 生成；請使用已載入的本機控制項。",
+    "Try the prepared example": "試用準備好的示例",
     "Turn complex material into something you can explore.": "把教材變成可以探索的理解空間",
     "Change material": "更換教材",
     "Read. Explore. Understand.": "閱讀・探索・理解",

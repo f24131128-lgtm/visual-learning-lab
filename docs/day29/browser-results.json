@@ -1,0 +1,43 @@
+{
+  "golden_path": "prepared -> Source -> amplitude_phase controls -> A 3 to 2.9 -> Source -> reopen",
+  "reopened_sliders": [
+    {
+      "label": "Exploration amplitude A (unspecified displacement units)",
+      "value": null
+    },
+    {
+      "label": "Exploration period T (unspecified time units)",
+      "value": null
+    },
+    {
+      "label": "Exploration phase constant φ (rad)",
+      "value": null
+    }
+  ],
+  "two_browser_sessions": {
+    "same_loopback_server": true,
+    "A": "real prepared MIT SHM PDF",
+    "B": "synthetic text fixture",
+    "A_has_SHM": true,
+    "B_has_own_source": true,
+    "B_has_SHM": false,
+    "B_has_PDF_page": false
+  },
+  "narrow_viewport": {
+    "requested_width": 390,
+    "requested_height": 844,
+    "observed_width": 1280,
+    "observed_height": 720,
+    "status": "NOT TESTED",
+    "blocker": "Browser viewport capability accepted override but DOM and screenshot remained 1280x720",
+    "override_reset": true
+  },
+  "reopened_amplitude_2_90_visible": true,
+  "final_fresh_server": {
+    "default_upload_disabled": true,
+    "default_analysis_disabled": true,
+    "prepared_loaded": true,
+    "source_iframe_and_regions_visible": true,
+    "stale_import_cache_resolved_by_restart": true
+  }
+}

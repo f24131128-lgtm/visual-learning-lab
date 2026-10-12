@@ -1,0 +1,16 @@
+ M app.py
+ M docs/OPEN_SOURCE_REUSE_LEDGER.md
+ M i18n.py
+ M interactive_lab.py
+ M workspace/ui.py
+?? docs/DAY28_CHECKPOINT.md
+?? docs/DAY28_EVIDENCE.md
+?? docs/day28-ai-red-team/
+?? docs/day28/
+?? tests/day28_freeze.py
+?? tests/day28_prepared.py
+?? tests/manual_day28.py
+?? tests/manual_day28_red_team.py
+?? tests/test_day28_preparation.py
+?? tests/test_day28_red_team.py
+?? workspace/control_navigation.py

@@ -1,0 +1,26 @@
+- banner:
+  - button "Deploy":
+    - generic: Deploy
+  - button "Main menu":
+- paragraph: DAY29 TEST ONLY · A=real prepared PDF, B=synthetic text · separate browser sessions
+- generic: Visual Learning Lab
+- combobox "語言 / Language": English
+- button "Open":
+- status:
+  - paragraph: Prepared mode · live AI generation is disabled by server policy.
+- generic "keyboard_arrow_right Change material":
+  - generic: keyboard_arrow_right
+  - paragraph: Change material
+- radiogroup "Learning Workspace":
+  - radio "Learn"
+  - paragraph: Learn
+  - radio "Source" [checked]
+  - paragraph: Source
+  - radio "Explore"
+  - paragraph: Explore
+  - radio "Practice"
+  - paragraph: Practice
+- generic: SESSION B SOURCE CANARY. Incoming material is transformed into resulting material.
+- generic: "Current focus: Choose a concept or source object"
+- generic: Visual Learning Lab · Read. Explore. Understand.
+- paragraph: TEST MATERIAL day29-session-B · paid generation server-disabled

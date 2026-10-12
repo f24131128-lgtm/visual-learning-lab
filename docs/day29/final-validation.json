@@ -1,0 +1,160 @@
+{
+  "day": 29,
+  "mode": "offline/local only",
+  "starting_branch": "day17-learning-scene-wip",
+  "starting_head": "5a6ec3c8ab6e70892b2d6a299a7ef315e90cf40d",
+  "starting_tree": "Five dirty tracked files plus existing Day28 untracked evidence/tests and workspace/control_navigation.py; preserved",
+  "final_regression": {
+    "status": "PASS",
+    "exit_code": 0,
+    "count": 515,
+    "seconds": 355.853,
+    "failures": 0,
+    "errors": 0,
+    "log": "docs/day29/final-regression.log",
+    "complete_runs": 1
+  },
+  "request_guard": {
+    "unexpected_requests_blocked": 0,
+    "real_provider_calls": 0
+  },
+  "clean_smoke": {
+    "cold_homepage_seconds": 2.160222199978307,
+    "warm_homepage_seconds": 0.30910339998081326,
+    "prepared_load_seconds": 1.4185106998775154,
+    "source_navigation_seconds": 1.2745109999086708,
+    "parameter_update_seconds": 0.34409020002931356,
+    "request_calls": 0,
+    "file_calls": 0,
+    "source_immutable": true,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "isolated_prefix": "D:\\Projects\\visual-learning-lab\\.day29-local\\venv",
+    "hidden_test_directory_present": false,
+    "ignored_corpus_present": false,
+    "pymupdf_available": false,
+    "optional_pdfplumber_available": false,
+    "process_working_set_bytes": 205438976,
+    "process_peak_working_set_bytes": 210137088
+  },
+  "historical_integrity": {
+    "day28_files": {
+      "docs/day28/ENTRY_PATH_RECOMMENDATION.md": true,
+      "docs/day28/FILE_INDEX.md": true,
+      "docs/day28/FROZEN_SCORING.md": true,
+      "docs/day28/FROZEN_TASKS.md": true,
+      "docs/day28/HUMAN_DATA_TEMPLATE.csv": true,
+      "docs/day28/MODERATOR_GUIDE.md": true,
+      "docs/day28/participant-template.json": true,
+      "docs/day28/PARTICIPANT_INSTRUCTIONS.md": true,
+      "docs/day28/prepared-inputs.json": true,
+      "docs/day28/pretest/explore-controls.jpg": true,
+      "docs/day28/pretest/focused-final.log": true,
+      "docs/day28/pretest/focused.log": true,
+      "docs/day28/pretest/full-regression.log": true,
+      "docs/day28/pretest/results.json": true,
+      "docs/day28/pretest/shm-source-7.png": true,
+      "docs/day28/pretest/shm-source-8.png": true,
+      "docs/day28/PRETEST_CHECKPOINT.md": true,
+      "docs/day28/STUDY_A_PROTOCOL.md": true,
+      "docs/day28/STUDY_B_PROTOCOL.md": true,
+      "docs/day28/TASK_ORDER_ASSIGNMENTS.json": true,
+      "tests/day28_freeze.py": true,
+      "tests/day28_prepared.py": true,
+      "tests/manual_day28.py": true,
+      "tests/test_day28_preparation.py": true
+    },
+    "day28_500_pass_log_sha256": "1114cb580c20442faaf3900a832471b94e0fe7c36547333933019a1c91b96a6d"
+  },
+  "dependency_advisories": {
+    "distributions": 54,
+    "known_advisories": 0
+  },
+  "browser": {
+    "golden_path": "prepared -> Source -> amplitude_phase controls -> A 3 to 2.9 -> Source -> reopen",
+    "reopened_sliders": [
+      {
+        "label": "Exploration amplitude A (unspecified displacement units)",
+        "value": null
+      },
+      {
+        "label": "Exploration period T (unspecified time units)",
+        "value": null
+      },
+      {
+        "label": "Exploration phase constant φ (rad)",
+        "value": null
+      }
+    ],
+    "two_browser_sessions": {
+      "same_loopback_server": true,
+      "A": "real prepared MIT SHM PDF",
+      "B": "synthetic text fixture",
+      "A_has_SHM": true,
+      "B_has_own_source": true,
+      "B_has_SHM": false,
+      "B_has_PDF_page": false
+    },
+    "narrow_viewport": {
+      "requested_width": 390,
+      "requested_height": 844,
+      "observed_width": 1280,
+      "observed_height": 720,
+      "status": "NOT TESTED",
+      "blocker": "Browser viewport capability accepted override but DOM and screenshot remained 1280x720",
+      "override_reset": true
+    },
+    "reopened_amplitude_2_90_visible": true,
+    "final_fresh_server": {
+      "default_upload_disabled": true,
+      "default_analysis_disabled": true,
+      "prepared_loaded": true,
+      "source_iframe_and_regions_visible": true,
+      "stale_import_cache_resolved_by_restart": true
+    }
+  },
+  "red_team": {
+    "recorded_asserted_rows": 58,
+    "all_recorded_rows_pass": true
+  },
+  "changed_file_key_indicator_scan": {
+    "files": 96,
+    "indicators": 0,
+    "scope": "Same redacted format indicator, <=5 MiB; not arbitrary-token entropy detection"
+  },
+  "area_status": {
+    "semantic_source_integrity": "PASS",
+    "input_validation": "PARTIAL",
+    "secret_handling": "PASS",
+    "prompt_injection_resistance": "PARTIAL",
+    "expression_runtime_safety": "PASS",
+    "xss_safety": "PASS",
+    "session_isolation": "PASS",
+    "dependency_vulnerabilities": "PARTIAL",
+    "third_party_licensing": "PARTIAL",
+    "cost_abuse_control": "PASS",
+    "prepared_demo": "PASS",
+    "public_live_generation": "FAIL",
+    "clean_local_deployment": "PASS",
+    "performance": "PARTIAL",
+    "final_regression": "PASS"
+  },
+  "screenshots_sha256": {
+    "01-prepared-home.jpg": "7b802a38c79fe07be39db96f51515e45833f88cfe317e7f4926c1467980920bb",
+    "02-original-source.jpg": "5d9112c7b5a94a2ea518fb30eba04eacb966e958a820d5d03956c92e328e4f96",
+    "03-local-exploration.jpg": "5b40ee5a244d3afdd0b3efffc906b5f935e6c76d942782c2d97d102e73e7a4db",
+    "04-return-source.jpg": "0ef50d4b938a8869490cedda0dc3941a258160cda88006ed225a9e9f072ecb27"
+  },
+  "public_prepared_demo": "Restricted noncommercial prepared-only candidate; no public deployment performed",
+  "live_generation": "NOT READY for public access; default server-denied; private opt-in requires external controls",
+  "limitations": [
+    "No paid model red team",
+    "No actual Cloud deploy",
+    "Narrow viewport override did not apply: NOT TESTED",
+    "No hostile PDF process sandbox",
+    "No high-concurrency load test",
+    "Historical AGPL and commercial distribution review remain open"
+  ],
+  "commit": false,
+  "push": false,
+  "credential_rotation": false
+}

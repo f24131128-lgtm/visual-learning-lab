@@ -2,7 +2,7 @@
 
 Visual Learning Lab turns PDFs and text into **source-grounded interactive learning worlds**. Bring a chapter, select a formula or diagram, explore its model, and return to the unchanged original source.
 
-**Status: Day 27 / 30 — Frozen benchmark awaiting human semantic review.** Production uses GPT-6.1 Sol (`gpt-6.1-sol`, reasoning `medium`). Ten unfamiliar real teaching excerpts yielded 8 backend/runtime PASS and 2 FAIL in the first pass; every failure remains in the denominator, and source-semantic verdicts are still pending. Deep five-case and stability four-case results, coverage limits and 37-request usage are in [Day 27 evidence](docs/DAY27_EVIDENCE.md). Observed local interaction after compilation made zero model calls.
+**Status: Day 29 / 30 — production hardening, prepared-only release gate.** The default entrypoint disables paid generation and uploads, even when an owner key is present. Its labeled, previously generated noncommercial competition material works without a key. [Day 29 evidence](docs/DAY29_EVIDENCE.md) records the exact release restrictions and tests. Production model configuration remains GPT-6.1 Sol (`gpt-6.1-sol`, reasoning `medium`). Frozen Day27 benchmark and Day28 AI-simulated records remain unchanged; human learning-effectiveness evidence is still pending.
 
 ```text
 PDF / Text → semantic analysis → source grounding → representation planning
@@ -41,7 +41,9 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Run from the repository root. Configure `OPENAI_API_KEY` in `.streamlit/secrets.toml` or Community Cloud secrets. Never commit that file or an actual key. PDF input is sent to OpenAI for the explicit main analysis; targeted scene builds reuse bounded stored context, and Atlas builds use up to three selected page images.
+Run from the repository root. The default prepared mode needs no key and sends no material to OpenAI. Use the prepared-example button, then Source → linked experiment controls → Source. The bundled MIT OCW excerpt and attribution use **CC BY-NC-SA 4.0**; keep this demo noncommercial and retain attribution/license notices.
+
+Live analysis is **not approved for public owner-paid deployment**. A deliberate server-side `VLL_LIVE_AI=private` setting enables the existing workflow only behind independently enforced private access. That setting is not authentication. A private operator configures `OPENAI_API_KEY` in `.streamlit/secrets.toml`; never commit it. Private requests have zero SDK retries, a 90-second timeout and bounded output; these are not a spend ceiling or multi-instance rate limit. See [deployment instructions](docs/day29/deployment-smoke.md) and [cost/abuse policy](docs/day29/api-cost-and-abuse.md).
 
 Optional native document geometry:
 
@@ -59,9 +61,9 @@ python -X utf8 -B -m unittest discover -s tests -q
 
 Tests cover malicious declarations/events, source/reference bounds, atomic rejection, state synchronization, request discipline and regressions. Browser gestures and source fidelity require separate acceptance; automated fixtures do not prove arbitrary-PDF correctness or learning outcomes.
 
-`app.py` is the Streamlit Community Cloud entrypoint. Session state and caches are bounded and in memory. Hostile-PDF process isolation, broad real-document fidelity, real-device ergonomics and learning efficacy remain open. Current spatial models are planar; richer volumetric 3D is deferred.
+`app.py` is the Streamlit entrypoint. A fresh Python 3.12 environment with product-only source passed the prepared workflow without ignored PDFs, test imports, PyMuPDF or optional pdfplumber. This is local Windows evidence, not Linux/cloud/high-concurrency certification. `requirements-day29-lock.txt` records the resolved deployment dependency closure; re-audit other platform wheels. Session state is not authentication. Hostile-PDF process isolation, arbitrary-document fidelity and real-device accessibility remain open limits.
 
-Offline JSXGraph **1.13.3** uses its MIT option with pinned assets/notices; Plotly supplies existing numeric plots. **PyMuPDF AGPL/commercial deployment obligations remain unresolved product debt.** A permissive optional parser does not resolve them. See [third-party notices](THIRD_PARTY_NOTICES.md) and the [reuse/license ledger](docs/OPEN_SOURCE_REUSE_LEDGER.md).
+Offline JSXGraph **1.13.3** uses its MIT option with pinned assets/notices; Plotly supplies existing numeric plots. Production Source Lens now uses **pypdfium2 5.13.0**, with PDFium operations serialized and crop/rotation coordinates checked against actual rasters. PyMuPDF is a test-only fixture dependency in `requirements-test.txt`; do not deploy that environment. Retain the complete PDFium wheel license trees. This is an engineering license decision, not legal approval of historical distributions. See [license decision](docs/day29/license-decision.md), [third-party notices](THIRD_PARTY_NOTICES.md) and the [reuse ledger](docs/OPEN_SOURCE_REUSE_LEDGER.md).
 
 ## Project evolution
 

@@ -1,12 +1,15 @@
 """Visual Learning Lab — Day 19 source-to-scene semantic atlas."""
+from production_safety import response_data, UNTRUSTED_INSTRUCTION
 
 import hashlib
 import json
 import textwrap
 
 from graphviz import Digraph
-from openai import OpenAI
+from production_safety import create_client as OpenAI, live_enabled
 from pypdf import PdfReader
+from production_safety import checked_pdf, checked_text, checked_analysis
+from prepared_demo import install_prepared
 import streamlit as st
 
 from i18n import RESPONSE_LANGUAGES, current_language, output_language_instruction, tr
@@ -485,11 +488,12 @@ FOCUSED_REVIEW_SCHEMA = {
 def extract_pdf_text(uploaded_pdf):
     """Extract up to eight text-bearing PDF pages with explicit page markers."""
     uploaded_pdf.seek(0)
-    reader = PdfReader(uploaded_pdf)
+    reader = checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None))
     text_pages = []
 
     for page_number, page in enumerate(reader.pages, start=1):
         page_text = (page.extract_text() or "").strip()
+        checked_text(page_text)
         if page_text:
             text_pages.append((page_number, page_text))
 
@@ -498,6 +502,7 @@ def extract_pdf_text(uploaded_pdf):
         f"[Page {page_number}]\n{page_text}"
         for page_number, page_text in analyzed_pages
     )
+    checked_text(labeled_text)
     return {
         "text": labeled_text,
         "total_pages": len(reader.pages),
@@ -570,7 +575,8 @@ def build_analysis_input(client, source_text, uploaded_pdf):
     if uploaded_pdf is None:
         return source_text
 
-    pdf_name = getattr(uploaded_pdf, "name", None) or "uploaded.pdf"
+    checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None))
+    pdf_name = "uploaded.pdf"
     try:
         uploaded_file = client.files.create(
             file=(pdf_name, uploaded_pdf.getvalue(), "application/pdf"),
@@ -1021,7 +1027,7 @@ Never present a translated passage as original source evidence.
 """
     response = client.responses.create(
         **response_options(),
-        instructions=instructions,
+        instructions=UNTRUSTED_INSTRUCTION + "\n" + instructions,
         input=json.dumps(explanation_context, ensure_ascii=False),
         text={
             "format": {
@@ -1032,7 +1038,7 @@ Never present a translated passage as original source evidence.
             }
         },
     )
-    explanation = clean_explanation(json.loads(response.output_text))
+    explanation = clean_explanation(response_data(response))
     if explanation is None:
         raise ValueError("The model returned an invalid explanation object.")
     return explanation
@@ -1223,7 +1229,7 @@ Never present a translated passage as original source evidence.
 """
     response = client.responses.create(
         **response_options(),
-        instructions=instructions,
+        instructions=UNTRUSTED_INSTRUCTION + "\n" + instructions,
         input=json.dumps(review_context, ensure_ascii=False),
         text={
             "format": {
@@ -1234,7 +1240,7 @@ Never present a translated passage as original source evidence.
             }
         },
     )
-    raw_review = json.loads(response.output_text)
+    raw_review = response_data(response)
     focused_review = clean_focused_review(
         raw_review, allowed_pages, valid_step_ids
     )
@@ -1264,7 +1270,7 @@ def render_explain_action(
     cache = st.session_state.setdefault("explanation_cache", {})
     errors = st.session_state.setdefault("explanation_errors", {})
 
-    if st.button(button_label or tr("Explain this"), key=f"explain-{cache_key}", type="tertiary"):
+    if st.button(button_label or tr("Explain this"), disabled=not live_enabled(), key=f"explain-{cache_key}", type="tertiary"):
         st.session_state["active_explanation_key"] = cache_key
         if cache_key not in cache:
             try:
@@ -1768,7 +1774,7 @@ def render_adaptive_review(
     if adaptive_state.get("focused_review") is None:
         if st.button(
             copy["build"],
-            key=f"adaptive-build-focused-{pattern_key}",
+            disabled=not live_enabled(), key=f"adaptive-build-focused-{pattern_key}",
             type="primary",
         ):
             focused_review_cache = st.session_state.setdefault(
@@ -2036,6 +2042,8 @@ def clean_visual_flow(raw_flow, allowed_pages):
     raw_edges = raw_flow.get("edges")
     if not isinstance(raw_nodes, list) or not isinstance(raw_edges, list):
         return None
+    if len(raw_nodes) > 16 or len(raw_edges) > 48:
+        return None
 
     nodes = []
     node_ids = set()
@@ -2119,6 +2127,8 @@ def clean_concept_map(raw_map, allowed_pages):
     raw_nodes = raw_map.get("nodes")
     raw_edges = raw_map.get("edges")
     if not isinstance(raw_nodes, list) or not isinstance(raw_edges, list):
+        return None
+    if len(raw_nodes) > 16 or len(raw_edges) > 48:
         return None
 
     nodes = []
@@ -2787,35 +2797,27 @@ st.set_page_config(page_title="Visual Learning Lab", layout="wide")
 
 render_header()
 
+if not live_enabled():
+    st.info(tr("Prepared mode · live AI generation is disabled by server policy."))
+    if not st.session_state.get("analysis"):
+        st.button(tr("Try the prepared example"), key="prepared-open",
+                  on_click=install_prepared, args=(st.session_state, globals()))
+
 with material_input():
     uploaded_pdf = st.file_uploader(
         tr("Upload a PDF"),
         type=["pdf"], key="material-pdf",
+        disabled=not live_enabled(),
         help=tr("PDFs are analyzed through both extracted text and visual pages."),
     )
     content = st.text_area(
         tr("Or paste your content"),
-        height=200, key="material-text",
+        height=200, key="material-text", max_chars=48000,
         placeholder=tr("Paste your notes, a tricky explanation, or a concept you want to explore…"),
     )
     st.caption(tr("Use one source at a time · PDF text and visual page content are analyzed together."))
     st.caption(tr("Original source excerpts stay in their original language."))
-    if st.button(tr("Visualize"), key="analyze-material", type="primary", use_container_width=True):
-        st.session_state.pop("analysis", None)
-        st.session_state.pop("source_info", None)
-        st.session_state.pop("allowed_source_pages", None)
-        st.session_state.pop("source_context", None)
-        st.session_state.pop("analysis_id", None)
-        st.session_state["explanation_cache"] = {}
-        st.session_state["explanation_errors"] = {}
-        st.session_state.pop("active_explanation_key", None)
-        reset_guided_learning_state()
-        reset_canvas_state()
-        reset_lab_state()
-        reset_simulation_state()
-        reset_scene_state()
-        st.session_state.pop("analysis_language", None)
-
+    if st.button(tr("Visualize"), key="analyze-material", disabled=not live_enabled(), type="primary", use_container_width=True):
         has_pdf = uploaded_pdf is not None
         has_pasted_text = bool(content.strip())
 
@@ -2868,16 +2870,6 @@ with material_input():
             if not source_text:
                 st.stop()
 
-            st.session_state["source_info"] = source_info
-            st.session_state["allowed_source_pages"] = allowed_source_pages
-            st.session_state["source_context"] = {
-                "kind": source_kind,
-                "source_text": source_text if source_kind == "text" else "",
-                "page_texts": page_texts,
-            }
-            st.session_state["analysis_id"] = build_analysis_id(
-                source_kind, source_bytes, current_language()
-            )
             prompt = """You are the learning-content analyst for Visual Learning Lab.
 
 Analyze the user's learning content faithfully and make it easier to study.
@@ -2993,6 +2985,7 @@ Do not create rendered diagrams or 3D models in the response.
             prompt += LAB_INSTRUCTIONS + "\n" + output_language_instruction(current_language())
 
             try:
+                checked_text(source_text)
                 api_key = st.secrets["OPENAI_API_KEY"]
                 client = OpenAI(api_key=api_key)
                 try:
@@ -3009,7 +3002,7 @@ Do not create rendered diagrams or 3D models in the response.
                     with st.spinner(tr("Analyzing your content…")):
                         response = client.responses.create(
                             **response_options(),
-                            instructions=prompt,
+                            instructions=UNTRUSTED_INSTRUCTION + "\n" + prompt,
                             input=analysis_input,
                             text={
                                 "format": {
@@ -3020,9 +3013,32 @@ Do not create rendered diagrams or 3D models in the response.
                                 }
                             },
                         )
-                    analysis = json.loads(response.output_text)
-                    if not isinstance(analysis, dict):
-                        raise ValueError("The model returned an invalid analysis object.")
+                    analysis = checked_analysis(response_data(response), ANALYSIS_SCHEMA)
+                    st.session_state.pop("analysis", None)
+                    st.session_state.pop("source_info", None)
+                    st.session_state.pop("allowed_source_pages", None)
+                    st.session_state.pop("source_context", None)
+                    st.session_state.pop("analysis_id", None)
+                    st.session_state["explanation_cache"] = {}
+                    st.session_state["explanation_errors"] = {}
+                    st.session_state.pop("active_explanation_key", None)
+                    reset_guided_learning_state()
+                    reset_canvas_state()
+                    reset_lab_state()
+                    reset_simulation_state()
+                    reset_scene_state()
+                    st.session_state.pop("analysis_language", None)
+                    st.session_state.pop("prepared_demo", None)
+                    st.session_state["source_info"] = source_info
+                    st.session_state["allowed_source_pages"] = allowed_source_pages
+                    st.session_state["source_context"] = {
+                        "kind": source_kind,
+                        "source_text": source_text if source_kind == "text" else "",
+                        "page_texts": page_texts,
+                    }
+                    st.session_state["analysis_id"] = build_analysis_id(
+                        source_kind, source_bytes, current_language()
+                    )
                     analysis["analysis_language"] = current_language()
                     st.session_state["analysis_language"] = current_language()
                     st.session_state["analysis"] = analysis
@@ -3045,6 +3061,9 @@ Do not create rendered diagrams or 3D models in the response.
 
 analysis = st.session_state.get("analysis")
 if analysis:
+    if st.session_state.get("prepared_demo"):
+        st.caption(tr("Prepared material · previously generated; all exploration is local."))
+        st.caption("MIT OpenCourseWare / Peter Dourmashkin · Chapter 23: Simple Harmonic Motion · CC BY-NC-SA 4.0 · original pages 3–10, unchanged.")
     # Migrate a pre-Day-15 session once; subsequent UI switches cannot change it.
     if analysis.get("analysis_language") not in RESPONSE_LANGUAGES:
         analysis["analysis_language"] = (
@@ -3141,6 +3160,23 @@ if analysis:
             source_context_panel = None
     with stage:
         source_bundle = None
+        controls_rendered = False
+        if mode == "source":
+            from workspace.ui import render_control_navigation
+            render_control_navigation(workspace_state, interactive_lab, catalog, allowed_source_pages, wrapper)
+        if mode == "explore" and representation == "formal":
+            from workspace.control_navigation import active_control_demo
+            from workspace.state import get_workspace_focus
+            control_demo = active_control_demo(workspace_state, interactive_lab, catalog,
+                                               allowed_source_pages, get_workspace_focus(workspace_state, wrapper))
+            if control_demo:
+                from interactive_lab import select_demo
+                select_demo(st.session_state["interactive_lab_state"], control_demo["id"])
+                st.button(tr("Return to supporting source"), key="workspace-controls-source", on_click=open_workspace,
+                          args=(workspace_state, "source"))
+                render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson,
+                                       format_page_references, controls_first=True)
+                controls_rendered = True
         if mode == "source" or (mode == "explore" and representation == "formal"
                                 and (not world_plan or world_plan["family"] not in ("static", "none"))):
             source_bundle = render_scene_builder(analysis, analysis_id, source_context, allowed_source_pages,
@@ -3335,7 +3371,8 @@ if analysis:
                 )
 
             if not world_plan or world_plan["family"] not in ("static", "none"):
-                render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+                if not controls_rendered:
+                    render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
                 render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
 
         if mode == "explore":

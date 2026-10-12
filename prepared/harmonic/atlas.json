@@ -1,0 +1,541 @@
+{
+  "atlas_version": "1.0",
+  "processed_pages": [
+    3,
+    1,
+    2
+  ],
+  "regions": [
+    {
+      "region_id": "p3_force_diagram",
+      "page": 3,
+      "bbox": {
+        "x0": 0.371,
+        "y0": 0.092,
+        "x1": 0.642,
+        "y1": 0.19
+      },
+      "type": "diagram",
+      "label": "Displaced block and restoring-force diagram",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "force diagram",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p2_spring_diagram",
+        "p3_newton_equation"
+      ],
+      "layer": "structure",
+      "grounding_note": "The upper figure shows a block on a horizontal surface, a leftward force arrow, a rightward displacement arrow, and a vector equation below.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_force_vector",
+      "page": 3,
+      "bbox": {
+        "x0": 0.506,
+        "y0": 0.105,
+        "x1": 0.571,
+        "y1": 0.126
+      },
+      "type": "vector",
+      "label": "Leftward spring-force vector",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "F_s",
+      "parent_region_id": "p3_force_diagram",
+      "related_region_ids": [
+        "p3_displacement_arrow",
+        "p3_force_formula"
+      ],
+      "layer": "vectors",
+      "grounding_note": "The arrow immediately left of the block points left and is labeled F_s.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_displacement_arrow",
+      "page": 3,
+      "bbox": {
+        "x0": 0.509,
+        "y0": 0.135,
+        "x1": 0.615,
+        "y1": 0.16
+      },
+      "type": "arrow",
+      "label": "Rightward displacement from the reference position",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "x(t)",
+      "parent_region_id": "p3_force_diagram",
+      "related_region_ids": [
+        "p3_force_vector"
+      ],
+      "layer": "vectors",
+      "grounding_note": "Below the surface line, a reference tick and rightward arrow indicate x(t).",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_force_formula",
+      "page": 3,
+      "bbox": {
+        "x0": 0.412,
+        "y0": 0.161,
+        "x1": 0.601,
+        "y1": 0.19
+      },
+      "type": "formula",
+      "label": "Vector restoring-force law",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "F⃗_s = −F_s î = −kx î",
+      "parent_region_id": "p3_force_diagram",
+      "related_region_ids": [
+        "p3_force_vector",
+        "p3_newton_equation"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The displayed vector relation is directly below the block diagram; the negative sign indicates opposition to positive displacement.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_newton_equation",
+      "page": 3,
+      "bbox": {
+        "x0": 0.439,
+        "y0": 0.28,
+        "x1": 0.857,
+        "y1": 0.323
+      },
+      "type": "formula",
+      "label": "Newton’s second law for the spring–mass system",
+      "semantic_ids": [
+        "motion_equation"
+      ],
+      "source_text_excerpt": "−kx = m d²x/dt². (23.2.1)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_force_formula",
+        "p3_sho_equation"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Centered equation below the sentence introducing Newton’s second law, with its equation number at the right.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_sho_equation",
+      "page": 3,
+      "bbox": {
+        "x0": 0.442,
+        "y0": 0.43,
+        "x1": 0.857,
+        "y1": 0.47
+      },
+      "type": "formula",
+      "label": "Simple harmonic oscillator differential equation",
+      "semantic_ids": [
+        "motion_equation"
+      ],
+      "source_text_excerpt": "d²x/dt² = −(k/m)x. (23.2.2)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_newton_equation",
+        "p3_cosine_trial"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The centered second-derivative equation appears beneath the paragraph describing the oscillator equation.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p3_cosine_trial",
+      "page": 3,
+      "bbox": {
+        "x0": 0.354,
+        "y0": 0.681,
+        "x1": 0.857,
+        "y1": 0.708
+      },
+      "type": "formula",
+      "label": "Cosine trial position function",
+      "semantic_ids": [
+        "sinusoidal_trial"
+      ],
+      "source_text_excerpt": "x(t) = A cos((2π/T)t) = A cos(ω₀t), (23.2.3)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_sho_equation"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The displayed cosine ansatz is near the lower middle of the page. Its second derivatives are not displayed on this page.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_sine_formula",
+      "page": 1,
+      "bbox": {
+        "x0": 0.417,
+        "y0": 0.157,
+        "x1": 0.857,
+        "y1": 0.184
+      },
+      "type": "formula",
+      "label": "Sinusoidal function with amplitude and period",
+      "semantic_ids": [],
+      "source_text_excerpt": "y(t) = A sin(2πt/T) (23.1.1)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_sinusoidal_graph"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Displayed equation above the amplitude explanation and Figure 23.1. No catalog entity specifically represents this page’s general sinusoidal definition.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_sinusoidal_graph",
+      "page": 1,
+      "bbox": {
+        "x0": 0.246,
+        "y0": 0.281,
+        "x1": 0.752,
+        "y1": 0.509
+      },
+      "type": "graph_region",
+      "label": "Sinusoidal quantity versus time",
+      "semantic_ids": [],
+      "source_text_excerpt": "",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_sine_formula",
+        "p1_periodicity_formula"
+      ],
+      "layer": "structure",
+      "grounding_note": "Figure 23.1 contains a repeating sinusoidal curve, horizontal time axis, vertical y(t) axis, extrema labels, and a period marker.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_sine_curve",
+      "page": 1,
+      "bbox": {
+        "x0": 0.251,
+        "y0": 0.302,
+        "x1": 0.749,
+        "y1": 0.49
+      },
+      "type": "curve",
+      "label": "Repeating sinusoidal curve",
+      "semantic_ids": [],
+      "source_text_excerpt": "",
+      "parent_region_id": "p1_sinusoidal_graph",
+      "related_region_ids": [
+        "p1_positive_amplitude",
+        "p1_negative_amplitude",
+        "p1_period_arrow"
+      ],
+      "layer": "structure",
+      "grounding_note": "The broad box encloses the plotted waveform across several peaks and troughs; axes and grid lines overlap it.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_period_arrow",
+      "page": 1,
+      "bbox": {
+        "x0": 0.497,
+        "y0": 0.282,
+        "x1": 0.663,
+        "y1": 0.303
+      },
+      "type": "arrow",
+      "label": "Horizontal one-period interval",
+      "semantic_ids": [],
+      "source_text_excerpt": "T",
+      "parent_region_id": "p1_sinusoidal_graph",
+      "related_region_ids": [
+        "p1_sine_curve",
+        "p1_periodicity_formula",
+        "p1_frequency_formula"
+      ],
+      "layer": "vectors",
+      "grounding_note": "Two outward-pointing arrowheads above the graph delimit the horizontal interval labeled T.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_positive_amplitude",
+      "page": 1,
+      "bbox": {
+        "x0": 0.453,
+        "y0": 0.293,
+        "x1": 0.494,
+        "y1": 0.314
+      },
+      "type": "label",
+      "label": "Positive amplitude limit",
+      "semantic_ids": [],
+      "source_text_excerpt": "+A",
+      "parent_region_id": "p1_sinusoidal_graph",
+      "related_region_ids": [
+        "p1_sine_curve",
+        "p1_negative_amplitude"
+      ],
+      "layer": "labels",
+      "grounding_note": "The +A label lies just left of the vertical axis at the upper peak level.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_negative_amplitude",
+      "page": 1,
+      "bbox": {
+        "x0": 0.462,
+        "y0": 0.476,
+        "x1": 0.496,
+        "y1": 0.496
+      },
+      "type": "label",
+      "label": "Negative amplitude limit",
+      "semantic_ids": [],
+      "source_text_excerpt": "−A",
+      "parent_region_id": "p1_sinusoidal_graph",
+      "related_region_ids": [
+        "p1_sine_curve",
+        "p1_positive_amplitude"
+      ],
+      "layer": "labels",
+      "grounding_note": "The −A label lies just left of the vertical axis at the trough level.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_periodicity_formula",
+      "page": 1,
+      "bbox": {
+        "x0": 0.227,
+        "y0": 0.623,
+        "x1": 0.858,
+        "y1": 0.67
+      },
+      "type": "formula",
+      "label": "Verification of repetition after one period",
+      "semantic_ids": [],
+      "source_text_excerpt": "y(t + T) = A sin[(2π/T)(t + T)] = A sin[(2π/T)t + 2π] = A sin[(2π/T)t] = y(t). (23.1.2)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_sinusoidal_graph",
+        "p1_period_arrow"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The wide displayed equality chain below Figure 23.1 establishes periodicity.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_frequency_formula",
+      "page": 1,
+      "bbox": {
+        "x0": 0.46,
+        "y0": 0.703,
+        "x1": 0.857,
+        "y1": 0.727
+      },
+      "type": "formula",
+      "label": "Frequency as inverse period",
+      "semantic_ids": [],
+      "source_text_excerpt": "f ≡ 1/T. (23.1.3)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_period_arrow",
+        "p1_angular_frequency_formula"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Short centered equation below the sentence defining frequency.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p1_angular_frequency_formula",
+      "page": 1,
+      "bbox": {
+        "x0": 0.418,
+        "y0": 0.791,
+        "x1": 0.857,
+        "y1": 0.817
+      },
+      "type": "formula",
+      "label": "Angular frequency, period, and frequency relation",
+      "semantic_ids": [],
+      "source_text_excerpt": "ω₀ ≡ 2π/T = 2πf, (23.1.4)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_frequency_formula",
+        "p2_equivalent_sinusoids"
+      ],
+      "layer": "formulas",
+      "grounding_note": "This equation defines angular frequency through period and frequency; it does not display the spring-system natural-frequency formula.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_equivalent_sinusoids",
+      "page": 2,
+      "bbox": {
+        "x0": 0.305,
+        "y0": 0.196,
+        "x1": 0.857,
+        "y1": 0.223
+      },
+      "type": "formula",
+      "label": "Equivalent period, frequency, and angular-frequency forms",
+      "semantic_ids": [],
+      "source_text_excerpt": "y(t) = A sin(2πt/T) = A sin(2πft) = A sin(ω₀t). (23.1.5)",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p1_sine_formula",
+        "p1_angular_frequency_formula"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The displayed equality chain is above the section heading on analytic simple harmonic motion.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_spring_diagram",
+      "page": 2,
+      "bbox": {
+        "x0": 0.309,
+        "y0": 0.329,
+        "x1": 0.578,
+        "y1": 0.571
+      },
+      "type": "diagram",
+      "label": "Spring–block system at equilibrium and when stretched",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p3_force_diagram"
+      ],
+      "layer": "structure",
+      "grounding_note": "Figure 23.2 has two vertically stacked wall–spring–block arrangements with length and displacement markers.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_equilibrium_arrangement",
+      "page": 2,
+      "bbox": {
+        "x0": 0.311,
+        "y0": 0.331,
+        "x1": 0.576,
+        "y1": 0.442
+      },
+      "type": "component",
+      "label": "Equilibrium spring–block arrangement",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "equilibrium position",
+      "parent_region_id": "p2_spring_diagram",
+      "related_region_ids": [
+        "p2_origin_label",
+        "p2_positive_direction",
+        "p2_stretched_arrangement"
+      ],
+      "layer": "structure",
+      "grounding_note": "The upper arrangement shows the equilibrium spring length and the coordinate origin below the block’s left edge.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_stretched_arrangement",
+      "page": 2,
+      "bbox": {
+        "x0": 0.311,
+        "y0": 0.456,
+        "x1": 0.573,
+        "y1": 0.569
+      },
+      "type": "component",
+      "label": "Stretched spring–block arrangement",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "stretched position",
+      "parent_region_id": "p2_spring_diagram",
+      "related_region_ids": [
+        "p2_equilibrium_arrangement",
+        "p2_displacement_arrow"
+      ],
+      "layer": "structure",
+      "grounding_note": "The lower arrangement has a longer spring and a block shifted right relative to the equilibrium reference.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_origin_label",
+      "page": 2,
+      "bbox": {
+        "x0": 0.415,
+        "y0": 0.405,
+        "x1": 0.473,
+        "y1": 0.424
+      },
+      "type": "label",
+      "label": "Coordinate origin at equilibrium",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "x = 0",
+      "parent_region_id": "p2_equilibrium_arrangement",
+      "related_region_ids": [
+        "p2_displacement_arrow"
+      ],
+      "layer": "labels",
+      "grounding_note": "The x = 0 label is immediately below the upper block’s left-edge reference tick.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_positive_direction",
+      "page": 2,
+      "bbox": {
+        "x0": 0.53,
+        "y0": 0.352,
+        "x1": 0.575,
+        "y1": 0.385
+      },
+      "type": "vector",
+      "label": "Positive horizontal unit-vector direction",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "î",
+      "parent_region_id": "p2_equilibrium_arrangement",
+      "related_region_ids": [
+        "p2_displacement_arrow",
+        "p3_force_vector"
+      ],
+      "layer": "vectors",
+      "grounding_note": "A right-pointing arrow labeled with the horizontal unit vector appears to the right of the upper block.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p2_displacement_arrow",
+      "page": 2,
+      "bbox": {
+        "x0": 0.438,
+        "y0": 0.518,
+        "x1": 0.544,
+        "y1": 0.542
+      },
+      "type": "arrow",
+      "label": "Displacement measured from equilibrium",
+      "semantic_ids": [
+        "spring_model"
+      ],
+      "source_text_excerpt": "x(t)",
+      "parent_region_id": "p2_stretched_arrangement",
+      "related_region_ids": [
+        "p2_origin_label",
+        "p2_positive_direction",
+        "p3_displacement_arrow"
+      ],
+      "layer": "vectors",
+      "grounding_note": "Below the lower surface, a reference tick aligned with the equilibrium origin starts a rightward displacement arrow labeled x(t).",
+      "confidence": "high"
+    }
+  ]
+}

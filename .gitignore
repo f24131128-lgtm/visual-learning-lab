@@ -1,3 +1,6 @@
 .streamlit/secrets.toml
 /.day26-local/
 /.day27-local/
+/.day29-local/
+__pycache__/
+*.pyc

@@ -43,10 +43,27 @@ The exact local resolved versions and license paths are in
 - Pillow/charset-normalizer already existed; their distribution notices remain
   required. This file does not replace an audit of all existing dependencies.
 
-Existing PyMuPDF remains AGPL/commercial: choosing a permissive native-text parser
-does not erase the application's existing raster-library obligations. Resolve
-the intended deployment/distribution license before public delivery. No AGPL,
-GPL, custom-licensed competitor code or models were copied in this sprint.
+Historical Day20 deployment used PyMuPDF under AGPL/commercial terms. Day29
+replaces production raster/search use with an independent public-API pypdfium2
+5.13.0 adapter (`pdf_renderer.py`). No PyMuPDF import remains in production;
+it is retained for offline fixtures/parity only in `requirements-test.txt`.
+Do not deploy the test environment. Historical distributions are not cleared.
+
+## Day29 production PDFium and prepared material
+
+Retain pypdfium2's complete `LICENSES` and platform `data/*/BUILD_LICENSES`
+trees, including BSD-3-Clause/Apache-2.0, PDFium and native dependencies.
+Metadata also includes CC-BY-4.0 documentation/data notices; this does not
+relicense every binary. No PDF JS, document actions or XFA are initialized.
+
+Prepared source: MIT OpenCourseWare / Peter Dourmashkin, Chapter 23: Simple
+Harmonic Motion, unchanged original physical PDF pages 3–10 excerpt.
+https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/resources/mit8_01scs16_chapter23/
+License: CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/.
+Retain attribution, noncommercial use and applicable ShareAlike obligations.
+Generated declarations/estimated overlays are product annotations, not MIT
+endorsement or exact-location guarantees. `prepared/harmonic/manifest.json`
+records hashes and provenance. No paid generation was used to package it.
 # JSXGraph direct manipulation — Day 24
 
 Vendored browser core **JSXGraph 1.13.3** and its CSS, chosen under the **MIT**

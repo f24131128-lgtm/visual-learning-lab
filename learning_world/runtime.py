@@ -1,5 +1,6 @@
 """Explore adapter: planning is explicit; selection and discrete actions are local."""
 import streamlit as st
+from production_safety import create_client as OpenAI, live_enabled
 from graphviz import Digraph
 from i18n import tr
 from workspace.state import get_workspace_focus, set_workspace_focus, focusable
@@ -24,11 +25,11 @@ def representation(analysis, material, source, pages, model, workspace, wrapper,
     focus = get_workspace_focus(workspace, wrapper)
     key = compiler.identity(material, language, source, catalog, caps, focus)
     pending = key in store["pending"]
-    recheck = st.button(tr("Recheck saved representation locally") if pending else tr("Choose a learning representation"), key="world-plan-"+material, disabled=not catalog or key in store["cache"])
+    recheck = st.button(tr("Recheck saved representation locally") if pending else tr("Choose a learning representation"), key="world-plan-"+material, disabled=not catalog or key in store["cache"] or (not pending and not live_enabled()))
     regenerate = False
     if pending and key not in store["cache"]:
         st.caption(tr("The candidate is retained. Local recheck makes no AI request; a new candidate makes one explicit request."))
-        regenerate = st.button(tr("Generate a new representation candidate"), key="world-plan-new-"+material)
+        regenerate = st.button(tr("Generate a new representation candidate"), key="world-plan-new-"+material, disabled=not live_enabled())
     if recheck or regenerate:
         try:
             data = compiler.context(analysis, source, catalog, pages, caps, focus)
@@ -36,7 +37,6 @@ def representation(analysis, material, source, pages, model, workspace, wrapper,
                 if pending and not regenerate:
                     result = compiler.build(store, key, None, model, data, catalog, pages, caps)
                 else:
-                    from openai import OpenAI
                     result = compiler.build(store, key, OpenAI(api_key=st.secrets["OPENAI_API_KEY"], max_retries=0), model, data, catalog, pages, caps, force_new=regenerate)
             if result:
                 workspace["representation"] = result["family"] if result["family"] in ("process", "execution", "analogy") else "formal"

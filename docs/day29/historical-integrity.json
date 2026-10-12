@@ -1,0 +1,29 @@
+{
+  "day28_files": {
+    "docs/day28/ENTRY_PATH_RECOMMENDATION.md": true,
+    "docs/day28/FILE_INDEX.md": true,
+    "docs/day28/FROZEN_SCORING.md": true,
+    "docs/day28/FROZEN_TASKS.md": true,
+    "docs/day28/HUMAN_DATA_TEMPLATE.csv": true,
+    "docs/day28/MODERATOR_GUIDE.md": true,
+    "docs/day28/participant-template.json": true,
+    "docs/day28/PARTICIPANT_INSTRUCTIONS.md": true,
+    "docs/day28/prepared-inputs.json": true,
+    "docs/day28/pretest/explore-controls.jpg": true,
+    "docs/day28/pretest/focused-final.log": true,
+    "docs/day28/pretest/focused.log": true,
+    "docs/day28/pretest/full-regression.log": true,
+    "docs/day28/pretest/results.json": true,
+    "docs/day28/pretest/shm-source-7.png": true,
+    "docs/day28/pretest/shm-source-8.png": true,
+    "docs/day28/PRETEST_CHECKPOINT.md": true,
+    "docs/day28/STUDY_A_PROTOCOL.md": true,
+    "docs/day28/STUDY_B_PROTOCOL.md": true,
+    "docs/day28/TASK_ORDER_ASSIGNMENTS.json": true,
+    "tests/day28_freeze.py": true,
+    "tests/day28_prepared.py": true,
+    "tests/manual_day28.py": true,
+    "tests/test_day28_preparation.py": true
+  },
+  "day28_500_pass_log_sha256": "1114cb580c20442faaf3900a832471b94e0fe7c36547333933019a1c91b96a6d"
+}

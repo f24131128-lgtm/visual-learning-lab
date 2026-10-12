@@ -1,0 +1,17 @@
+{
+  "protocol_version": "day28-v1-review-pending",
+  "study_a_before_b": true,
+  "assignment_rule": "Consecutive arrival codes; no reassignment based on performance or familiarity",
+  "task_order": ["A", "B"],
+  "participants": [
+    {"participant_code": "P01", "sequence": [{"position": 1, "task_id": "A", "condition": "PDF"}, {"position": 2, "task_id": "B", "condition": "VLL"}]},
+    {"participant_code": "P02", "sequence": [{"position": 1, "task_id": "A", "condition": "VLL"}, {"position": 2, "task_id": "B", "condition": "PDF"}]},
+    {"participant_code": "P03", "sequence": [{"position": 1, "task_id": "A", "condition": "PDF"}, {"position": 2, "task_id": "B", "condition": "VLL"}]},
+    {"participant_code": "P04", "sequence": [{"position": 1, "task_id": "A", "condition": "VLL"}, {"position": 2, "task_id": "B", "condition": "PDF"}]},
+    {"participant_code": "P05", "sequence": [{"position": 1, "task_id": "A", "condition": "PDF"}, {"position": 2, "task_id": "B", "condition": "VLL"}]}
+  ],
+  "imbalance_for_n_3": "2 PDF-first / 1 VLL-first",
+  "imbalance_for_n_4": "2 PDF-first / 2 VLL-first",
+  "imbalance_for_n_5": "3 PDF-first / 2 VLL-first",
+  "limitations": ["Task A always precedes Task B", "Prior Study A SHM exposure", "Learning and order effects remain"]
+}

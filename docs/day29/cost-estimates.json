@@ -1,0 +1,68 @@
+{
+  "measurement": "Historical Day27 POST_FIX usage repriced, not Day29 requests or an invoice",
+  "source": "docs/day27/post_fix/request-usage.json",
+  "request_count": 16,
+  "official_price_source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+  "retrieved": "2026-10-12",
+  "model": "gpt-6.1-sol",
+  "reasoning": "medium",
+  "usd_per_million": {
+    "input": 2,
+    "cached_input": 0.1,
+    "cache_write": 2.5,
+    "output": 10
+  },
+  "assumptions": "Input detail buckets are disjoint; reasoning is included in output, not charged twice. Standard tier; no tax, long-context premium or contract adjustment.",
+  "groups": {
+    "atlas": {
+      "count": 5,
+      "total_estimated_usd": 0.3248575,
+      "minimum_estimated_usd": 0.054881,
+      "maximum_estimated_usd": 0.070756,
+      "totals": {
+        "input_tokens": 48258,
+        "cached_tokens": 0,
+        "cache_write_tokens": 48243,
+        "output_tokens": 20422
+      }
+    },
+    "main": {
+      "count": 5,
+      "total_estimated_usd": 0.5849374,
+      "minimum_estimated_usd": 0.1028666,
+      "maximum_estimated_usd": 0.1410791,
+      "totals": {
+        "input_tokens": 111081,
+        "cached_tokens": 16724,
+        "cache_write_tokens": 94342,
+        "output_tokens": 34738
+      }
+    },
+    "planner": {
+      "count": 5,
+      "total_estimated_usd": 0.06172130000000001,
+      "minimum_estimated_usd": 0.008953200000000001,
+      "maximum_estimated_usd": 0.0151685,
+      "totals": {
+        "input_tokens": 21760,
+        "cached_tokens": 6488,
+        "cache_write_tokens": 15257,
+        "output_tokens": 2290
+      }
+    },
+    "scene": {
+      "count": 1,
+      "total_estimated_usd": 0.0425335,
+      "minimum_estimated_usd": 0.0425335,
+      "maximum_estimated_usd": 0.0425335,
+      "totals": {
+        "input_tokens": 5974,
+        "cached_tokens": 0,
+        "cache_write_tokens": 5971,
+        "output_tokens": 2760
+      }
+    }
+  },
+  "unmeasured_actions": "Explain This, Focused Review, Dynamic Simulation and Analogy have no measurements in this historical record; token caps are not input-cost ceilings.",
+  "day29_paid_requests": 0
+}

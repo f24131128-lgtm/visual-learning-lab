@@ -1,0 +1,6 @@
+# Offline fixture construction only; never install into the deployed app.
+-r requirements.txt
+-r requirements-documents.txt
+pymupdf==1.26.7
+jsonschema>=4.23,<5
+pip-audit>=2.9,<3

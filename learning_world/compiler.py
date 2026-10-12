@@ -1,4 +1,5 @@
 """One explicit plan+process request, bounded context/cache, isolated failures."""
+from production_safety import response_data, UNTRUSTED_INSTRUCTION
 from model_config import response_options
 import json
 from i18n import output_language_instruction
@@ -70,14 +71,14 @@ def build(store, key, client, model, data, catalog, pages, caps, force_new=False
             language = data["analysis_language"]
             store["request_count"] = store.get("request_count", 0) + 1
             response = client.responses.create(**response_options(),
-                instructions=INSTRUCTIONS + "\n" + output_language_instruction(language),
+                instructions=UNTRUSTED_INSTRUCTION + "\n" + INSTRUCTIONS + "\n" + output_language_instruction(language),
                 input=json.dumps(data, ensure_ascii=False),
                 text={"format": dict(type="json_schema", name="learning_world_plan_v1", strict=True, schema=SCHEMA)})
             stage = "response"
             if getattr(response, "status", None) == "incomplete": raise Rejection("incomplete")
             if any(getattr(c, "type", None) == "refusal" for o in getattr(response, "output", []) or [] for c in getattr(o, "content", []) or []): raise Rejection("refusal")
             if not isinstance(response.output_text, str) or len(response.output_text.encode()) > MAX_PAYLOAD: raise Rejection("response_bound")
-            raw = json.loads(response.output_text)
+            raw = response_data(response)
             if isinstance(raw, dict) and (set(raw) == set(SCHEMA["properties"]) or
                     (raw.get("version") == "1.0" and set(raw) == set(SCHEMA["properties"]) - {"execution"})):
                 pending[key] = raw

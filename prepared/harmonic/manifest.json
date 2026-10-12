@@ -1,0 +1,23 @@
+{
+  "source": "MIT OpenCourseWare / Peter Dourmashkin, Chapter 23: Simple Harmonic Motion",
+  "url": "https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/resources/mit8_01scs16_chapter23/",
+  "original_pages": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "license": "CC BY-NC-SA 4.0",
+  "prepared": true,
+  "provenance": "Unedited source subset and existing Day27 human-approved main/Atlas declarations reused by Day28",
+  "limits": "Estimated Atlas grounding; source formulas without exact semantic ownership have no fabricated control link.",
+  "sha256": {
+    "source.pdf": "f3e563a5e3796cba4a3edc83dbce40ae0c0f07f5ac0122869c2845805e07c8d1",
+    "analysis.json": "2263aa43cb8f4060089d69177cb472ed23b3d1a5dfe80595827467fbefbcd92d",
+    "atlas.json": "455cf225680060c0a089c45da9cfd0c21a762c76aa44e001b8a72bdf83e49614"
+  }
+}

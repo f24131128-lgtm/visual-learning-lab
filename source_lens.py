@@ -9,9 +9,9 @@ from i18n import tr
 from PIL import Image, ImageDraw
 
 try:
-    import pymupdf
+    import pdf_renderer
 except (ImportError, OSError):
-    pymupdf = None
+    pdf_renderer = None
 
 RENDER_DPI = 144
 MAX_PAGE_SIDE = 1800
@@ -91,15 +91,9 @@ def get_page_render(state, material_id, page_number, allowed_pages):
         result = cache.pop(key)
         cache[key] = result
         return result
-    if pymupdf is None:
+    if pdf_renderer is None:
         raise RuntimeError("PDF rendering is unavailable.")
-    with pymupdf.open(stream=state["pdf_bytes"], filetype="pdf") as document:
-        if not 1 <= page_number <= len(document):
-            raise ValueError("The source page is outside this PDF.")
-        page = document[page_number - 1]
-        scale = min(RENDER_DPI / 72, MAX_PAGE_SIDE / max(page.rect.width, page.rect.height))
-        pixmap = page.get_pixmap(matrix=pymupdf.Matrix(scale, scale), alpha=False)
-        result = {"png": pixmap.tobytes("png"), "width": pixmap.width, "height": pixmap.height}
+    result = pdf_renderer.render(state["pdf_bytes"], page_number, RENDER_DPI, MAX_PAGE_SIDE)
     while cache and (len(cache) >= 8 or sum(len(item["png"]) for item in cache.values()) + len(result["png"]) > MAX_CACHE_BYTES):
         cache.pop(next(iter(cache)))
     if len(result["png"]) <= MAX_CACHE_BYTES:
@@ -113,22 +107,8 @@ def locate_anchor(state, page_number, phrase):
     if key in state["anchors"]:
         return state["anchors"][key]
     rectangles = []
-    if pymupdf is not None and phrase:
-        with pymupdf.open(stream=state["pdf_bytes"], filetype="pdf") as document:
-            page = document[page_number - 1]
-            normalized = " ".join(page.get_text().split()).casefold()
-            needle = " ".join(phrase.split()).casefold()
-            # Repeated phrases are ambiguous. An exact native PDF match is required.
-            if normalized.count(needle) == 1:
-                matches = page.search_for(phrase)
-                if 0 < len(matches) <= 4:
-                    for match in matches:
-                        rect = match * page.rotation_matrix
-                        if not rect.is_empty and page.rect.contains(rect):
-                            rectangles.append(tuple((value / dimension) for value, dimension in zip(
-                                (rect.x0, rect.y0, rect.x1, rect.y1),
-                                (page.rect.width, page.rect.height, page.rect.width, page.rect.height),
-                            )))
+    if pdf_renderer is not None and phrase:
+        rectangles = pdf_renderer.anchors(state["pdf_bytes"], page_number, phrase)
     if len(state["anchors"]) >= 64:
         state["anchors"].pop(next(iter(state["anchors"])))
     state["anchors"][key] = rectangles

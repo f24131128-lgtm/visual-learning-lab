@@ -1,0 +1,45 @@
+{
+  "record_status": "BLANK_TEMPLATE_NOT_HUMAN_DATA",
+  "protocol_version": "day28-v1-review-pending",
+  "study_series": null,
+  "participant_code": null,
+  "participation_agreed": null,
+  "optional_context": {"broad_study_field": null, "topic_familiarity_low_medium_high": null},
+  "first_time_vll": null,
+  "product": {"commit": null, "git_tree": null, "production_sha256": null, "freeze_manifest_sha256": null, "browser_version": null, "viewport": null, "ui_language": "zh-TW", "analysis_language": "en", "accommodations": []},
+  "study_a": {
+    "status": null,
+    "outcome_FULL_PARTIAL_FAIL": null,
+    "first_source_inspection_s": null,
+    "representation_discovery_s": null,
+    "first_state_change_s": null,
+    "supporting_source_return_s": null,
+    "completion_time_s": null,
+    "stopping_time_s": null,
+    "independent_core_sequence_completed": null,
+    "noticed_result": null,
+    "noticed_source_exploration_distinction": null,
+    "returned_supporting_source": null,
+    "changed_state_understood": null,
+    "source_unchanged_understood": null,
+    "neutral_understanding_response": null,
+    "human_outcome_reason": null,
+    "intervention_count": null,
+    "interventions": [],
+    "intervention_entry_fields": ["sequence", "elapsed_s", "trigger", "exact_words", "action", "outcome"],
+    "friction": [],
+    "friction_entry_fields": ["sequence", "elapsed_s", "category", "observed_action", "participant_quote", "blocking", "related_intervention", "resolved"],
+    "friction_categories": ["homepage_unclear", "source_not_found", "explorable_concept_not_found", "linked_representation_unclear", "change_unclear", "source_baseline_confused", "source_return_failed", "interface_text_unclear", "generation_loading_failure", "browser_layout", "other"],
+    "actual_action_sequence": [],
+    "ratings_q1_to_q5": [null, null, null, null, null],
+    "open_answers_q6_to_q8": [null, null, null],
+    "prior_to_b_parameters_explored": [],
+    "prior_to_b_conceptual_help_received": null
+  },
+  "study_b": {
+    "tasks": [
+      {"task_id": "A", "position": 1, "condition": null, "status": null, "elapsed_s": null, "completion_time_s": null, "human_score_0_1_2": null, "human_correctness_label": null, "human_score_reason": null, "confidence_1_to_5": null, "understanding_1_to_5": null, "source_evidence_used": null, "source_evidence_note": null, "reasoning_verbatim_anonymized": null, "procedure_assistance": [], "vll_views_used": [], "scorer_role": null},
+      {"task_id": "B", "position": 2, "condition": null, "status": null, "elapsed_s": null, "completion_time_s": null, "human_score_0_1_2": null, "human_correctness_label": null, "human_score_reason": null, "confidence_1_to_5": null, "understanding_1_to_5": null, "source_evidence_used": null, "source_evidence_note": null, "reasoning_verbatim_anonymized": null, "procedure_assistance": [], "vll_views_used": [], "scorer_role": null}
+    ]
+  }
+}

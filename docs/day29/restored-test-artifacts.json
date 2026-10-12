@@ -1,0 +1,21 @@
+{
+  "restored_to_original_clean_blob": [
+    "__pycache__/app.cpython-312.pyc",
+    "__pycache__/dynamic_simulation.cpython-312.pyc",
+    "__pycache__/i18n.cpython-312.pyc",
+    "__pycache__/interactive_lab.cpython-312.pyc",
+    "__pycache__/learning_canvas.cpython-312.pyc",
+    "__pycache__/presentation.cpython-312.pyc",
+    "__pycache__/source_lens.cpython-312.pyc",
+    "scene/__pycache__/compiler.cpython-312.pyc",
+    "scene/__pycache__/expressions.cpython-312.pyc",
+    "scene/__pycache__/renderers.cpython-312.pyc",
+    "scene/__pycache__/runtime.cpython-312.pyc",
+    "scene/__pycache__/schema.cpython-312.pyc",
+    "scene/__pycache__/state.cpython-312.pyc",
+    "scene/__pycache__/validator.cpython-312.pyc",
+    "tests/__pycache__/support.cpython-312.pyc",
+    "workspace/__pycache__/state.cpython-312.pyc"
+  ],
+  "method": "Git blob read/write, no checkout/reset"
+}

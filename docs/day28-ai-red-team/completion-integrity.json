@@ -1,0 +1,30 @@
+{
+  "label": "AI-SIMULATED RED TEAM DONE; human study not completed",
+  "focused_tests": 7,
+  "full_regression_tests": 500,
+  "full_regression_seconds": 303.017,
+  "new_paid_api_requests": 0,
+  "files_sha256": {
+    "app.py": "cbcb03c5b8c6a98aa4ce1555c9323220b09e91f354423f6fb7271b9f0f092c88",
+    "i18n.py": "8b7cafb2c242a9881694371a99411e05aa71a3d2593b42f0df454fb3e53dbe9c",
+    "interactive_lab.py": "74bccbca31ebfac82b9ffa5e40114e92cf9e5f8013bd83c9278d3b010a5edc13",
+    "workspace/ui.py": "67e073b942c6e9fd0a340134443fbb72d210c918b4532d7d713d68161579f9ca",
+    "workspace/control_navigation.py": "92e0d5079ee09938bfaec99d5bbe4bcedacdb3d78636e5b16dfa362c5da3635a",
+    "tests/manual_day28_red_team.py": "4ac9166bf93fcba319bf030f2eb581c3501d8dc45875470d590900ab89758145",
+    "tests/test_day28_red_team.py": "eefa8434203ddddf8eca6255ecab8271f8a81dbb14bc6ca86b72bd8c1aff4a7b",
+    "docs/OPEN_SOURCE_REUSE_LEDGER.md": "88163828e20ccf21c7f59b8d5e3b01d37cdc3622e9d132aceea276f7e2bc9318",
+    "docs/DAY28_EVIDENCE.md": "b4d0779c90b9ab7090fd170b8090c4fc54c827fb0d6081dbc9d545134baf81a0",
+    "docs/DAY28_CHECKPOINT.md": "aab3fde3ced58b3f16d3ec927629a09d849713d75e60fc0bc9b059abfd59b2bb",
+    "docs/day28/AI_SIMULATED_EVIDENCE.md": "9506c6cd8115f621ec8fcce644bd10189d1c8ceae13373a943b190445e8224e0",
+    "docs/day28-ai-red-team/focused.log": "7c75a5f4e0a6136b2bc10c938170bdd5b9e6f3e9f4ed585a1dd8bfc6e122a75b",
+    "docs/day28-ai-red-team/full-regression.log": "1114cb580c20442faaf3900a832471b94e0fe7c36547333933019a1c91b96a6d",
+    "docs/day28-ai-red-team/git-status-final.txt": "6cd420c80248be1c31affd6c4e932a355a56e54e644ba2fa556863a6e4775015",
+    "docs/day28-ai-red-team/baseline-integrity.json": "2280cc8bc2865a8cce293f971dc13e91b8b1782e6232b978b0c7ef19634e5d2e",
+    "docs/day28-ai-red-team/evidence/after-controls-change.jpg": "2394c53b0a957f25922bfc38a5cfbda6970b702f8b5aaf2a7735ae90ac33cfa1",
+    "docs/day28-ai-red-team/evidence/after-offline-home.jpg": "8affedbbe4eeebf11d413ddc52bfa88c828efac86f6f3c3eb741c3fa397e5d73",
+    "docs/day28-ai-red-team/evidence/after-return-source-page.jpg": "521dc08f1798ed56d1c3c87a8009feb22d47c2cb70bb88c7e30faa4f91bbdee4",
+    "docs/day28-ai-red-team/evidence/after-return-source.jpg": "1c52cd7607961e6c8f01ee7e8fd57d9964a6f7a11fee694b0783f13dd1d1538b",
+    "docs/day28-ai-red-team/evidence/after-source-control-link.jpg": "af2074341737ab7bbb1e0f04e7b9b022f6445776e4c8994cd8ea05ca77622b85",
+    "docs/day28-ai-red-team/evidence/post-fix-operations.json": "fe34103cf006a2bb1242d3d259f6321517a00f0b4edb467280bc0e2930654eb0"
+  }
+}

@@ -1,5 +1,21 @@
 # Open-source reuse and prior-art ledger
 
+## Day29 rendering/security review — 2026-10-12
+
+| Alternative | Decision | Deployment, provenance, maintenance and exact licenses |
+|---|---|---|
+| pypdfium2 5.13.0 | WRAP / REUSE | Independent `pdf_renderer.py` uses public APIs plus documented raw PageToDevice. Existing optional parser already depended on PDFium; promote pinned wheel to production. BSD-3-Clause/Apache-2.0 plus wheel LICENSES/BUILD_LICENSES, not a single blanket license. Recent documented 5.x APIs and bundled native builds; mutex required. Tested full crop/rotation frame, page navigation and native anchors. |
+| pdfplumber 0.11.10 | REUSE native extraction; DEFER raster wrapper | MIT native text/geometry adapter remains optional; its raster path itself uses PDFium. Making it mandatory adds pdfminer/cryptography and a second geometry wrapper without removing the native dependency. Native text is not OCR. |
+| pypdf 6.20.0 clean resolved | REUSE text/structure; DEFER raster | BSD-3-Clause; retained as existing extractor/frame validator. No equivalent public bitmap renderer, so cannot replace Source Lens alone. |
+| PyMuPDF 1.26.7 | DEFER production; test comparator only | AGPL/commercial terms; required only by existing fixture constructors and independent parity tests. Removed from production requirements/imports, without erasing historical obligations or claiming commercial permission. |
+
+Primary upstream references: [PDFium API/threading](https://pypdfium2.readthedocs.io/en/stable/python_api.html),
+[pypdfium2 licensing/builds](https://pypdfium2.readthedocs.io/en/stable/readme.html),
+[pdfplumber](https://github.com/jsvine/pdfplumber), [pypdf](https://github.com/py-pdf/pypdf),
+[PyMuPDF](https://pymupdf.readthedocs.io/en/latest/about.html).
+No copied implementation, weights, new graph/RAG engine or learning renderer.
+Exact wheel notices and vendored JSXGraph hashes: `docs/day29/dependency-metadata.json`.
+
 Date checked: **2026-10-02**. Repository links are official source/README evidence;
 official product sites are linked in the landscape when different. Licenses can
 change between revisions: recheck the exact artifact and all transitive/model
@@ -280,3 +296,23 @@ material, under OCW CC BY-NC-SA 4.0 terms. Original PDF not committed; four
 screenshots have source attribution and additions identified in
 `THIRD_PARTY_NOTICES.md` and `docs/DAY26_EVIDENCE.md`. This is not a software
 dependency or source-fidelity endorsement.
+# Day 28 — AI-SIMULATED RED TEAM control navigation (2026-10-12)
+
+Inspected existing `workspace/state.py`, representation ownership registrations,
+Numeric Lab canonical values and Source Atlas navigation before changing the UI.
+No renderer, parser, dependency, model schema or weights added.
+
+| Alternative | Decision | Deployment / provenance / maintenance |
+|---|---|---|
+| Existing Streamlit button callbacks + canonical Workspace focus | REUSE | Local rerun; exact validated material/spec/semantic ownership; no model request. [Official behavior](https://docs.streamlit.io/develop/concepts/design/buttons), actively maintained upstream. |
+| Existing expander, opened with controls placed first | WRAP | Public `expanded` API, no new JS/assets; independently written small adapter. [Official API](https://docs.streamlit.io/develop/api-reference/layout/st.expander). |
+| Tabs replacing the exploration layout | DEFER | Would reorder more UI and add state/rendering costs; unnecessary for two fixes. [Official API](https://docs.streamlit.io/develop/api-reference/layout/st.tabs). |
+| Browser scroll anchors alone | LEARN / DEFER | Cheap but do not select an owned demo or expose collapsed controls; use existing navigation instead. |
+
+Streamlit package / public APIs: Apache-2.0, exact upstream
+[LICENSE path](https://github.com/streamlit/streamlit/blob/develop/LICENSE).
+Existing distribution notice retained; no upstream code copied. The offline
+research entrypoint wraps button APIs and blocks Responses/file uploads; it is
+separate from the frozen human entrypoint and production validators. Existing
+PyMuPDF AGPL/commercial deployment review remains unresolved. This narrow API
+comparison is not a repeat of Day27 research or a transitive license audit.

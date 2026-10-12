@@ -375,7 +375,7 @@ def build_lab_chart(demo, values, compare):
     return figure
 
 
-def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
+def _render_demo(demo, state, learning_path, go_to_lesson, format_pages, controls_first=False):
     prefix = f"lab-widget-{state['material_id']}-{state['signature']}-{demo['id']}"
     saved = state["demos"][demo["id"]]
     st.markdown(f"#### {demo['title']}")
@@ -385,8 +385,8 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
     st.latex(demo["formula_display"])
     if demo["source_pages"]:
         st.caption(tr("Source: {pages}", pages=format_pages(demo["source_pages"])))
-    plot = st.container()
-    controls = st.expander(tr("Parameters and comparison"))
+    plot = None if controls_first else st.container()
+    controls = st.expander(tr("Parameters and comparison"), expanded=controls_first)
     with controls:
         if demo.get("source_facts"):
             st.markdown("**" + tr("Source values") + "**")
@@ -415,6 +415,7 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
         compare_key = f"{prefix}-compare"
         st.session_state[compare_key] = saved["compare"]
         st.checkbox(tr("Compare with default"), key=compare_key, on_change=_save_compare, args=(state, demo["id"], compare_key))
+    if plot is None: plot = st.container()
     with plot:
         try:
             from manipulation.runtime import render_lab as render_manipulation
@@ -444,7 +445,7 @@ def _render_demo(demo, state, learning_path, go_to_lesson, format_pages):
                 st.rerun()
 
 
-def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format_pages):
+def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format_pages, *, controls_first=False):
     if lab["rejected"]:
         st.caption(tr("Some experiment data was invalid and was skipped. Other learning content is still available."))
     if not lab["suitable"]:
@@ -462,6 +463,6 @@ def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format
     demo = next(demo for demo in lab["demos"] if demo["id"] == state["selected_id"])
     with st.container():
         try:
-            _render_demo(demo, state, learning_path, go_to_lesson, format_pages)
+            _render_demo(demo, state, learning_path, go_to_lesson, format_pages, controls_first)
         except Exception:
             st.info(tr("This experiment could not be displayed. Your lesson and review are still available."))

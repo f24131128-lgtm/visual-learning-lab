@@ -100,7 +100,7 @@ class ProductionModelTests(unittest.TestCase):
                     self.assertFalse(any(kw.arg in ("model", "reasoning") for kw in call.keywords), name)
                     sites.append(name)
         self.assertEqual(len(sites), 8)
-        self.assertEqual(response_options(), {"model":"gpt-6.1-sol", "reasoning":{"effort":"medium"}})
+        self.assertEqual(response_options(), {"model":"gpt-6.1-sol", "reasoning":{"effort":"medium"}, "max_output_tokens":16000, "store":False})
         opts=response_options(); opts["reasoning"]["effort"]="none"
         self.assertEqual(response_options()["reasoning"]["effort"], "medium")
 

@@ -1,0 +1,76 @@
+- banner:
+  - button "Deploy":
+    - generic: Deploy
+  - button "Main menu":
+- generic: Visual Learning Lab
+- combobox "語言 / Language": 繁體中文
+- button "Open":
+- status:
+  - paragraph: 準備示例模式 · 伺服器已停用新的 AI 生成。
+- generic "keyboard_arrow_right 更換教材":
+  - generic: keyboard_arrow_right
+  - paragraph: 更換教材
+- paragraph: 準備教材 · 內容已預先生成；所有探索均在本機計算。
+- paragraph: "MIT OpenCourseWare / Peter Dourmashkin · Chapter 23: Simple Harmonic Motion · CC BY-NC-SA 4.0 · original pages 3–10, unchanged."
+- status:
+  - paragraph: 下次分析會使用新選擇的語言。目前的生成內容、深入說明與重點複習維持本次分析語言。
+- radiogroup "學習工作區":
+  - radio "理解"
+  - paragraph: 理解
+  - radio "來源" [checked] [active]
+  - paragraph: 來源
+  - radio "探索"
+  - paragraph: 探索
+  - radio "練習"
+  - paragraph: 練習
+- paragraph: 選取可使用實驗控制的概念
+- combobox "選取可使用實驗控制的概念"
+- button "Open":
+- generic "keyboard_arrow_right 來源準備工具":
+  - generic: keyboard_arrow_right
+  - paragraph: 來源準備工具
+- generic: 第 1 頁
+- button:
+- generic: 第 2 頁
+- button:
+- generic: 第 3 頁
+- button:
+- heading "原始來源" [level=4]:
+  - text: 原始來源
+  - link "Link to heading":
+    - /url: "#b2fb23d3"
+- paragraph: 視覺定位為模型估計，請以原始 PDF 核對。
+- paragraph: 來源頁面
+- combobox "來源頁面": 第 1 頁
+- button "Open":
+- paragraph: 選取來源物件
+- combobox "選取來源物件"
+- button "Open":
+- iframe:
+  - generic: 縮放
+  - slider "縮放"
+  - button "重設檢視"
+  - button "聚焦來源區域" [disabled]
+  - generic "更多來源工具"
+  - option "全部圖層" [selected]
+  - option "結構"
+  - option "標籤"
+  - option "向量／箭頭"
+  - option "公式"
+  - option "概念關係"
+  - group "互動來源檢視器":
+    - button "Sinusoidal function with amplitude and period"
+    - button "Sinusoidal quantity versus time"
+    - button "Repeating sinusoidal curve"
+    - button "Horizontal one-period interval"
+    - button "Positive amplitude limit"
+    - button "Negative amplitude limit"
+    - button "Verification of repetition after one period"
+    - button "Frequency as inverse period"
+    - button "Angular frequency, period, and frequency relation"
+  - generic: 區域為估計定位，請核對原頁；隱藏標籤時點擊遮罩可揭示。
+- generic: 目前焦點：選取概念或來源物件
+- generic "keyboard_arrow_right 延伸學習":
+  - generic: keyboard_arrow_right
+  - paragraph: 延伸學習
+- generic: Visual Learning Lab · 閱讀・探索・理解

@@ -5,3 +5,12 @@ backgroundColor = "#f8f9f6"
 secondaryBackgroundColor = "#eff2ee"
 textColor = "#26332e"
 font = "sans serif"
+
+[server]
+maxUploadSize = 10
+maxMessageSize = 32
+enableXsrfProtection = true
+enableCORS = true
+
+[browser]
+gatherUsageStats = false

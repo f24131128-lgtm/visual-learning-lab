@@ -1,0 +1,19 @@
+{
+  "corpus": "Synthetic, created locally; no actual exhaustion",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "allocation": "Input already allocated before timer; not a memory benchmark",
+  "results": [
+    {
+      "case": "oversize bytes",
+      "bytes": 10485765,
+      "seconds": 1.3799872249364853e-05,
+      "status": "REJECTED"
+    },
+    {
+      "case": "81 blank pages",
+      "bytes": 10185,
+      "seconds": 0.008358499966561794,
+      "status": "REJECTED"
+    }
+  ]
+}

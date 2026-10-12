@@ -1,4 +1,5 @@
 """Explicit Learning Scene compiler request and application integration."""
+from production_safety import response_data, UNTRUSTED_INSTRUCTION
 
 from model_config import response_options
 import json
@@ -6,7 +7,7 @@ import logging
 import os
 import unicodedata
 
-from openai import OpenAI
+from production_safety import create_client as OpenAI, live_enabled
 import streamlit as st
 
 from i18n import RESPONSE_LANGUAGES, output_language_instruction, tr
@@ -209,12 +210,12 @@ def request_scene(client, model, context):
     spatial = context.get("domain") == WORLD_DOMAIN
     response = client.responses.create(
         **response_options(),
-        instructions=(WORLD_INSTRUCTIONS if spatial else SCENE_INSTRUCTIONS) + "\n" + output_language_instruction(language),
+        instructions=UNTRUSTED_INSTRUCTION + "\n" + (WORLD_INSTRUCTIONS if spatial else SCENE_INSTRUCTIONS) + "\n" + output_language_instruction(language),
         input=json.dumps(context, ensure_ascii=False),
         text={"format": {"type": "json_schema", "name": "spatial_learning_world_v2" if spatial else "learning_scene_v1", "strict": True,
                          "schema": WORLD_SCHEMA if spatial else LEARNING_SCENE_SCHEMA}},
     )
-    raw = json.loads(response.output_text)
+    raw = response_data(response)
     log_scene_declaration(raw)
     return raw
 
@@ -276,7 +277,7 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
             build_label = ("Regenerate Spatial Learning World" if spatial else "Regenerate Learning Scene") if retry else ("Build Spatial Learning World" if spatial else "Build Learning Scene")
             # Rejections remain cached across reruns/navigation. Only an explicit
             # learner retry may make another request for this material identity.
-            if st.button(tr(build_label), key=f"scene-widget-build-{material_id}", type="primary"):
+            if st.button(tr(build_label), key=f"scene-widget-build-{material_id}", disabled=not live_enabled(), type="primary"):
                 returned = False
                 try:
                     logger.debug("Learning Scene compiler requested material=%s", material_id)

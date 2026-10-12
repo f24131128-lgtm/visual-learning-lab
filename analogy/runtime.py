@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import re
 import streamlit as st
+from production_safety import create_client as OpenAI, live_enabled
 import streamlit.components.v1 as components
 from i18n import tr
 from scene.state import fingerprint
@@ -59,18 +60,17 @@ def render(analysis,material,source,pages,model,workspace,wrapper,lab,path,lab_s
     if key in store["cache"] and (active_spec is None or focus not in {e["id"] for e in active_spec["formal_entities"]}): store["active"]=key
     covered=bool(active_spec and active_spec["suitable"] and focus in {e["id"] for e in active_spec["formal_entities"]})
     retained=key in store.get("pending",{})
-    build_clicked=st.button(tr("Recheck saved analogy locally") if retained else tr("Build Analogy World"),key="analogy-build-"+material,disabled=focus is None or key in store["cache"] or covered,type="primary")
+    build_clicked=st.button(tr("Recheck saved analogy locally") if retained else tr("Build Analogy World"),key="analogy-build-"+material,disabled=focus is None or key in store["cache"] or covered or (not retained and not live_enabled()),type="primary")
     fresh_clicked=False
     if retained and key not in store["cache"] and not covered:
         st.caption(tr("The failed candidate is saved in this session. Rechecking makes no AI request; generating a new candidate makes one explicit request."))
-        fresh_clicked=st.button(tr("Generate a new analogy candidate"),key="analogy-new-"+material)
+        fresh_clicked=st.button(tr("Generate a new analogy candidate"),key="analogy-new-"+material, disabled=not live_enabled())
     if build_clicked or fresh_clicked:
         stage="context"
         try:
             if retained and not fresh_clicked:
                 compiler.build(store,key,None,model,None,catalog,registry,pages)
             else:
-                from openai import OpenAI
                 data=compiler.context(analysis,source,catalog,registry,focus,pages)
                 stage="client"
                 with st.spinner(tr("Building an analogy…")):

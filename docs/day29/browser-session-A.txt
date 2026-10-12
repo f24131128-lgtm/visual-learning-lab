@@ -1,0 +1,124 @@
+- banner:
+  - button "Deploy":
+    - generic: Deploy
+  - button "Main menu":
+- paragraph: DAY29 TEST ONLY · A=real prepared PDF, B=synthetic text · separate browser sessions
+- generic: Visual Learning Lab
+- combobox "語言 / Language": 繁體中文
+- button "Open":
+- status:
+  - paragraph: 準備示例模式 · 伺服器已停用新的 AI 生成。
+- generic "keyboard_arrow_right 更換教材":
+  - generic: keyboard_arrow_right
+  - paragraph: 更換教材
+- paragraph: 準備教材 · 內容已預先生成；所有探索均在本機計算。
+- paragraph: "MIT OpenCourseWare / Peter Dourmashkin · Chapter 23: Simple Harmonic Motion · CC BY-NC-SA 4.0 · original pages 3–10, unchanged."
+- status:
+  - paragraph: 下次分析會使用新選擇的語言。目前的生成內容、深入說明與重點複習維持本次分析語言。
+- radiogroup "學習工作區":
+  - radio "理解" [checked]
+  - paragraph: 理解
+  - radio "來源"
+  - paragraph: 來源
+  - radio "探索"
+  - paragraph: 探索
+  - radio "練習"
+  - paragraph: 練習
+- paragraph: 探索互動模型，再回到「來源」核對原始教材。
+- button "探索這份教材":
+  - generic "探索這份教材":
+    - paragraph: 探索這份教材
+- button "查看原始教材":
+  - generic "查看原始教材":
+    - paragraph: 查看原始教材
+- heading "學習概覽" [level=3]:
+  - text: 學習概覽
+  - link "Link to heading":
+    - /url: "#bd294ffa"
+- paragraph: PDF 來源：共 8 頁，其中 8 頁可擷取文字；已分析 8 頁。
+- heading "重點摘要" [level=4]:
+  - text: 重點摘要
+  - link "Link to heading":
+    - /url: "#9e4f0248"
+- paragraph: Simple harmonic motion is sinusoidal motion produced by a restoring force proportional to displacement. For a frictionless spring–mass system, Newton’s second law gives x″ = −(k/m)x, which leads to angular frequency ω₀ = √(k/m). Initial position and velocity determine the particular motion, while amplitude and phase describe its size and timing.
+- heading "關鍵概念" [level=4]:
+  - text: 關鍵概念
+  - link "Link to heading":
+    - /url: "#9a374467"
+- list:
+  - strong: Simple harmonic motion
+  - text: — A physical quantity varies sinusoidally with time. Equivalent representations include y(t) = A sin(2πt/T) = A sin(2πft) = A sin(ω₀t).
+- paragraph: 來源：第 1–2 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Amplitude
+  - text: — The positive amplitude A is the maximum displacement from equilibrium. A sinusoidal displacement ranges between −A and +A.
+- paragraph: 來源：第 1, 7 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Period, frequency, and angular frequency
+  - text: — The period T is the repetition time, so y(t + T) = y(t). Frequency is f = 1/T in hertz, and angular frequency is ω₀ = 2π/T = 2πf in radians per second.
+- paragraph: 來源：第 1 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Equilibrium and displacement
+  - text: — Position x is measured from the spring’s equilibrium position. Positive x means extension, negative x means compression, and the initial displacement is x₀ = l₀ − l_eq.
+- paragraph: 來源：第 2 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Linear restoring force
+  - text: — The spring force is Fₓ = −kx. Its sign opposes displacement, so it acts toward equilibrium.
+- paragraph: 來源：第 2–3 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Simple harmonic oscillator equation
+  - text: — Newton’s second law gives m x″ = −kx, or x″ = −(k/m)x. Acceleration is proportional to negative displacement rather than being constant.
+- paragraph: 來源：第 3 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Natural angular frequency and period
+  - text: — Substituting a sinusoidal trial solution into the oscillator equation requires ω₀² = k/m. Thus ω₀ = √(k/m) and T = 2π√(m/k).
+- paragraph: 來源：第 3–4 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Superposition and the general solution
+  - text: — Because the oscillator equation is linear, sums of solutions remain solutions. Its general solution is x(t) = C cos(ω₀t) + D sin(ω₀t).
+- paragraph: 來源：第 5 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Initial conditions
+  - text: — Evaluating position and velocity at t = 0 gives C = x₀ and D = vₓ,₀/ω₀. Therefore x(t) = x₀ cos(ω₀t) + (vₓ,₀/ω₀) sin(ω₀t).
+- paragraph: 來源：第 6 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Amplitude–phase representation
+  - text: — The general solution can also be written x(t) = A cos(ω₀t + φ), with C = A cosφ, D = −A sinφ, and A = √(C² + D²). The phase must satisfy both coefficient relations; the inverse-tangent expression requires choosing the appropriate quadrant.
+- paragraph: 來源：第 6–7 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- list:
+  - strong: Phase shift
+  - text: — The phase is ω₀t + φ, and φ is the phase constant. Positive φ shifts the curve left and negative φ shifts it right. The maximum associated with phase zero occurs at t = −φ/ω₀.
+- paragraph: 來源：第 7–8 頁
+- button "深入說明" [disabled]:
+  - paragraph: 深入說明
+- generic "keyboard_arrow_right 視覺證據":
+  - generic: keyboard_arrow_right
+  - paragraph: 視覺證據
+- generic "keyboard_arrow_right 概念關係":
+  - generic: keyboard_arrow_right
+  - paragraph: 概念關係
+- button "開始引導練習":
+  - paragraph: 開始引導練習
+- generic: 目前焦點：選取概念或來源物件
+- generic: Visual Learning Lab · 閱讀・探索・理解
+- paragraph: TEST MATERIAL f3ad366c0ed4fb3b33fc961f16e91885692d1162746fa81051184429400be327 · paid generation server-disabled

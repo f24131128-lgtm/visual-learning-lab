@@ -1,0 +1,960 @@
+{
+  "quick_summary": "Simple harmonic motion is sinusoidal motion produced by a restoring force proportional to displacement. For a frictionless spring–mass system, Newton’s second law gives x″ = −(k/m)x, which leads to angular frequency ω₀ = √(k/m). Initial position and velocity determine the particular motion, while amplitude and phase describe its size and timing.",
+  "key_concepts": [
+    {
+      "concept": "Simple harmonic motion",
+      "explanation": "A physical quantity varies sinusoidally with time. Equivalent representations include y(t) = A sin(2πt/T) = A sin(2πft) = A sin(ω₀t).",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "concept": "Amplitude",
+      "explanation": "The positive amplitude A is the maximum displacement from equilibrium. A sinusoidal displacement ranges between −A and +A.",
+      "source_pages": [
+        1,
+        7
+      ]
+    },
+    {
+      "concept": "Period, frequency, and angular frequency",
+      "explanation": "The period T is the repetition time, so y(t + T) = y(t). Frequency is f = 1/T in hertz, and angular frequency is ω₀ = 2π/T = 2πf in radians per second.",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "concept": "Equilibrium and displacement",
+      "explanation": "Position x is measured from the spring’s equilibrium position. Positive x means extension, negative x means compression, and the initial displacement is x₀ = l₀ − l_eq.",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "concept": "Linear restoring force",
+      "explanation": "The spring force is Fₓ = −kx. Its sign opposes displacement, so it acts toward equilibrium.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Simple harmonic oscillator equation",
+      "explanation": "Newton’s second law gives m x″ = −kx, or x″ = −(k/m)x. Acceleration is proportional to negative displacement rather than being constant.",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "concept": "Natural angular frequency and period",
+      "explanation": "Substituting a sinusoidal trial solution into the oscillator equation requires ω₀² = k/m. Thus ω₀ = √(k/m) and T = 2π√(m/k).",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "concept": "Superposition and the general solution",
+      "explanation": "Because the oscillator equation is linear, sums of solutions remain solutions. Its general solution is x(t) = C cos(ω₀t) + D sin(ω₀t).",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "concept": "Initial conditions",
+      "explanation": "Evaluating position and velocity at t = 0 gives C = x₀ and D = vₓ,₀/ω₀. Therefore x(t) = x₀ cos(ω₀t) + (vₓ,₀/ω₀) sin(ω₀t).",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Amplitude–phase representation",
+      "explanation": "The general solution can also be written x(t) = A cos(ω₀t + φ), with C = A cosφ, D = −A sinφ, and A = √(C² + D²). The phase must satisfy both coefficient relations; the inverse-tangent expression requires choosing the appropriate quadrant.",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "concept": "Phase shift",
+      "explanation": "The phase is ω₀t + φ, and φ is the phase constant. Positive φ shifts the curve left and negative φ shifts it right. The maximum associated with phase zero occurs at t = −φ/ω₀.",
+      "source_pages": [
+        7,
+        8
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Simple harmonic motion",
+      "relation": "has sinusoidal time dependence",
+      "target": "y(t) = A sin(ω₀t)",
+      "source_pages": [
+        1,
+        2
+      ]
+    },
+    {
+      "source": "Amplitude A",
+      "relation": "sets displacement bounds",
+      "target": "−A ≤ y(t) ≤ A",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Period T",
+      "relation": "is the time interval satisfying",
+      "target": "y(t + T) = y(t)",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Frequency f",
+      "relation": "equals the reciprocal of",
+      "target": "Period T",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Angular frequency ω₀",
+      "relation": "equals",
+      "target": "2πf = 2π/T",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Frequency f",
+      "relation": "is measured in",
+      "target": "Hertz (s⁻¹)",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Angular frequency ω₀",
+      "relation": "is measured in",
+      "target": "Radians per second",
+      "source_pages": [
+        1
+      ]
+    },
+    {
+      "source": "Angular frequency in SHM",
+      "relation": "is",
+      "target": "Constant",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Uniform circular motion",
+      "relation": "has angular speed equal to",
+      "target": "Angular frequency",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Nonuniform circular motion",
+      "relation": "has",
+      "target": "Nonconstant angular speed",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spring displacement x",
+      "relation": "is measured relative to",
+      "target": "Equilibrium position",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Positive displacement",
+      "relation": "corresponds to",
+      "target": "Spring extension",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Negative displacement",
+      "relation": "corresponds to",
+      "target": "Spring compression",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Initial displacement x₀",
+      "relation": "equals",
+      "target": "l₀ − l_eq",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Spring restoring force",
+      "relation": "obeys",
+      "target": "Fₓ = −kx",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Spring restoring force",
+      "relation": "acts opposite to",
+      "target": "Displacement from equilibrium",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Newton’s second law and Fₓ = −kx",
+      "relation": "give",
+      "target": "x″ = −(k/m)x",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Acceleration",
+      "relation": "is proportional to",
+      "target": "Negative displacement",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Trial solution x(t) = A cos(ω₀t)",
+      "relation": "has second derivative",
+      "target": "x″ = −ω₀²x",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "source": "Matching the trial solution to the oscillator equation",
+      "relation": "requires",
+      "target": "ω₀ = √(k/m)",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Spring–mass period",
+      "relation": "equals",
+      "target": "T = 2π√(m/k)",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Pure cosine solution",
+      "relation": "describes initial conditions",
+      "target": "x₀ = A and vₓ,₀ = 0",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Pure sine solution",
+      "relation": "describes initial conditions",
+      "target": "x₀ = 0 and vₓ,₀ = ω₀B",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Linearity of the oscillator equation",
+      "relation": "allows",
+      "target": "Superposition of solutions",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Sine and cosine solutions",
+      "relation": "combine into",
+      "target": "x(t) = C cos(ω₀t) + D sin(ω₀t)",
+      "source_pages": [
+        5
+      ]
+    },
+    {
+      "source": "Velocity vₓ(t)",
+      "relation": "is the time derivative of",
+      "target": "Position x(t)",
+      "source_pages": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "source": "Initial position x₀",
+      "relation": "determines",
+      "target": "Cosine coefficient C = x₀",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Initial velocity vₓ,₀",
+      "relation": "determines",
+      "target": "Sine coefficient D = vₓ,₀/ω₀",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Initial conditions",
+      "relation": "select",
+      "target": "x(t) = x₀ cos(ω₀t) + (vₓ,₀/ω₀) sin(ω₀t)",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Amplitude–phase form",
+      "relation": "is equivalent to",
+      "target": "The sine–cosine general solution",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "source": "Cosine coefficient C",
+      "relation": "equals",
+      "target": "A cosφ",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Sine coefficient D",
+      "relation": "equals",
+      "target": "−A sinφ",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Amplitude A",
+      "relation": "equals",
+      "target": "√(C² + D²) = √(x₀² + (vₓ,₀/ω₀)²)",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Phase constant φ",
+      "relation": "satisfies",
+      "target": "tanφ = −D/C = −vₓ,₀/(ω₀x₀), where the ratios are defined",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Phase",
+      "relation": "equals",
+      "target": "ω₀t + φ",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Displacement maxima",
+      "relation": "occur when",
+      "target": "ω₀t + φ = 2πn",
+      "source_pages": [
+        7
+      ]
+    },
+    {
+      "source": "Positive phase constant",
+      "relation": "shifts the displacement curve",
+      "target": "Left, toward earlier times",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Negative phase constant",
+      "relation": "shifts the displacement curve",
+      "target": "Right, toward later times",
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "source": "Phase constant φ",
+      "relation": "gives the time shift",
+      "target": "−φ/ω₀",
+      "source_pages": [
+        7,
+        8
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 1,
+      "type": "graph",
+      "description": "Figure 23.1 shows a sinusoidal displacement–time curve with extrema labeled +A and −A and a horizontal interval labeled T.",
+      "learning_value": "Separates vertical amplitude from horizontal period and shows the repeating waveform."
+    },
+    {
+      "page": 1,
+      "type": "formula",
+      "description": "The displayed equations give y(t) = A sin(2πt/T), verify y(t + T) = y(t), and define f = 1/T and ω₀ = 2π/T.",
+      "learning_value": "Connects the plotted cycle to equivalent mathematical descriptions of its timing."
+    },
+    {
+      "page": 2,
+      "type": "diagram",
+      "description": "Figure 23.2 shows the wall–spring–block arrangement at equilibrium and in a stretched position, with l_eq, l₀, x = 0, x(t), and the positive direction labeled.",
+      "learning_value": "Clarifies that displacement is measured from equilibrium rather than from the wall."
+    },
+    {
+      "page": 3,
+      "type": "diagram",
+      "description": "Figure 23.3 shows a block displaced to the right with its spring-force arrow pointing left and the vector relation F_s = −kx î.",
+      "learning_value": "Makes the negative sign in the restoring-force law physically interpretable."
+    },
+    {
+      "page": 3,
+      "type": "formula",
+      "description": "The displayed equations connect −kx = m d²x/dt² to d²x/dt² = −(k/m)x and introduce the cosine trial solution.",
+      "learning_value": "Shows the mathematical transition from a force model to an equation of motion."
+    },
+    {
+      "page": 8,
+      "type": "graph",
+      "description": "Figure 23.4 contains three sinusoidal plots for φ = π/4, φ = 0, and φ = −π/4, with peak times marked at −T/8 and T/8 in the shifted cases.",
+      "learning_value": "Demonstrates that phase changes timing without changing amplitude or period."
+    }
+  ],
+  "visual_flow": {
+    "suitable": true,
+    "reason": "The central analytical development follows a connected derivation from a spring-force model to an initial-condition-specific sinusoidal motion.",
+    "nodes": [
+      {
+        "id": "spring_model",
+        "label": "Measure x from equilibrium; Fₓ = −kx",
+        "source_pages": [
+          2,
+          3
+        ]
+      },
+      {
+        "id": "motion_equation",
+        "label": "Apply Newton’s law: x″ = −(k/m)x",
+        "source_pages": [
+          3
+        ]
+      },
+      {
+        "id": "sinusoidal_trial",
+        "label": "Try a sinusoid: x″ = −ω₀²x",
+        "source_pages": [
+          3,
+          4
+        ]
+      },
+      {
+        "id": "natural_frequency",
+        "label": "Match coefficients: ω₀ = √(k/m)",
+        "source_pages": [
+          4
+        ]
+      },
+      {
+        "id": "general_solution",
+        "label": "Combine solutions: C cos(ω₀t) + D sin(ω₀t)",
+        "source_pages": [
+          5
+        ]
+      },
+      {
+        "id": "apply_initial_conditions",
+        "label": "Set C = x₀ and D = vₓ,₀/ω₀",
+        "source_pages": [
+          6
+        ]
+      },
+      {
+        "id": "amplitude_phase",
+        "label": "Express the motion as A cos(ω₀t + φ)",
+        "source_pages": [
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "spring_model",
+        "target": "motion_equation",
+        "label": "Use Fₓ = maₓ"
+      },
+      {
+        "source": "motion_equation",
+        "target": "sinusoidal_trial",
+        "label": "Seek the required derivative property"
+      },
+      {
+        "source": "sinusoidal_trial",
+        "target": "natural_frequency",
+        "label": "Substitute and verify"
+      },
+      {
+        "source": "natural_frequency",
+        "target": "general_solution",
+        "label": "Use sine–cosine superposition"
+      },
+      {
+        "source": "general_solution",
+        "target": "apply_initial_conditions",
+        "label": "Evaluate at t = 0"
+      },
+      {
+        "source": "apply_initial_conditions",
+        "target": "amplitude_phase",
+        "label": "Convert coefficients to amplitude and phase"
+      }
+    ]
+  },
+  "concept_map": {
+    "suitable": false,
+    "reason": "A derivation flow better captures the main structure than an unordered conceptual map.",
+    "nodes": [],
+    "edges": []
+  },
+  "comparison": {
+    "suitable": false,
+    "reason": "The phase plots support the derivation, but a side-by-side comparison is not the dominant structure of the material.",
+    "title": "",
+    "items": [],
+    "criteria": [],
+    "takeaway": ""
+  },
+  "learning_path": {
+    "suitable": true,
+    "title": "From Spring Force to Sinusoidal Motion",
+    "reason": "The lesson follows the source’s analytical development, beginning with periodic-motion notation and ending with amplitude and phase.",
+    "steps": [
+      {
+        "id": "step_periodic",
+        "title": "Read a sinusoidal motion",
+        "learning_goal": "Distinguish amplitude, period, frequency, and angular frequency.",
+        "explanation": "In y(t) = A sin(ω₀t), A sets the displacement bounds and ω₀ sets the timing. One cycle takes T, with f = 1/T and ω₀ = 2π/T. Repetition means y(t + T) = y(t).",
+        "source_pages": [
+          1,
+          2
+        ],
+        "connection_to_previous": "This establishes the notation needed before analyzing the spring system.",
+        "visual_refs": []
+      },
+      {
+        "id": "step_force",
+        "title": "Turn a restoring force into an equation of motion",
+        "learning_goal": "Explain why the spring’s acceleration points toward equilibrium.",
+        "explanation": "Choose x = 0 at equilibrium. An extended spring has x > 0 but Fₓ < 0; a compressed spring has x < 0 but Fₓ > 0. Combining Fₓ = −kx with Newton’s second law gives x″ = −(k/m)x.",
+        "source_pages": [
+          2,
+          3
+        ],
+        "connection_to_previous": "The sinusoidal description is now connected to a physical force law.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "spring_model"
+          },
+          {
+            "type": "visual_flow_node",
+            "id": "motion_equation"
+          }
+        ]
+      },
+      {
+        "id": "step_frequency",
+        "title": "Verify a sinusoid and determine its frequency",
+        "learning_goal": "Derive ω₀ = √(k/m) by matching second derivatives.",
+        "explanation": "For x(t) = A cos(ω₀t), differentiating twice gives x″ = −ω₀²x. This matches the spring equation when ω₀² = k/m. Therefore T = 2π√(m/k): increasing mass lengthens the period, while increasing stiffness shortens it.",
+        "source_pages": [
+          3,
+          4
+        ],
+        "connection_to_previous": "The equation of motion tells us which derivative property a valid solution must have.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "sinusoidal_trial"
+          },
+          {
+            "type": "visual_flow_node",
+            "id": "natural_frequency"
+          }
+        ]
+      },
+      {
+        "id": "step_superposition",
+        "title": "Build a solution that can match different starts",
+        "learning_goal": "Understand why both sine and cosine terms are needed.",
+        "explanation": "A pure cosine starts at nonzero displacement with zero velocity. A pure sine starts at equilibrium and can have nonzero velocity. Since the equation is linear, their sum is also a solution: x(t) = C cos(ω₀t) + D sin(ω₀t).",
+        "source_pages": [
+          4,
+          5
+        ],
+        "connection_to_previous": "Knowing the frequency does not yet specify the initial position and velocity; two independent coefficients provide that flexibility.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "general_solution"
+          }
+        ]
+      },
+      {
+        "id": "step_initial",
+        "title": "Use initial position and velocity",
+        "learning_goal": "Determine C and D from x₀ and vₓ,₀.",
+        "explanation": "Differentiate the general solution to obtain vₓ(t) = −ω₀C sin(ω₀t) + ω₀D cos(ω₀t). At t = 0, position gives C = x₀ and velocity gives D = vₓ,₀/ω₀. These select the particular motion for any initial position and velocity.",
+        "source_pages": [
+          6
+        ],
+        "connection_to_previous": "The general solution’s free coefficients are now fixed by the physical starting conditions.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "apply_initial_conditions"
+          }
+        ]
+      },
+      {
+        "id": "step_phase",
+        "title": "Interpret amplitude and phase",
+        "learning_goal": "Connect initial conditions to oscillation size and horizontal shift.",
+        "explanation": "Rewrite the motion as A cos(ω₀t + φ). Matching coefficients gives C = A cosφ and D = −A sinφ, so A = √(x₀² + (vₓ,₀/ω₀)²). Use both coefficient signs to choose the correct phase quadrant. The horizontal shift is −φ/ω₀ = −φT/(2π): positive φ shifts left, while negative φ shifts right.",
+        "source_pages": [
+          6,
+          7,
+          8
+        ],
+        "connection_to_previous": "The same initial-condition-specific solution is recast into quantities that are easy to recognize on a graph.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "amplitude_phase"
+          }
+        ]
+      }
+    ],
+    "checkpoint_questions": [
+      {
+        "id": "check_restoring",
+        "question": "A block is to the right of equilibrium, so x > 0. What does the spring model predict?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Acceleration is positive because displacement is positive."
+          },
+          {
+            "id": "b",
+            "text": "Acceleration is negative and proportional to displacement magnitude."
+          },
+          {
+            "id": "c",
+            "text": "Acceleration is zero unless the block is moving."
+          },
+          {
+            "id": "d",
+            "text": "Acceleration is a constant negative value throughout the motion."
+          }
+        ],
+        "correct_option_id": "b",
+        "explanation": "The equation x″ = −(k/m)x gives negative acceleration for positive displacement. Its magnitude changes with displacement.",
+        "source_pages": [
+          2,
+          3
+        ],
+        "related_step_ids": [
+          "step_force"
+        ]
+      },
+      {
+        "id": "check_period",
+        "question": "If the mass is multiplied by four while the spring constant stays unchanged, what happens to the oscillation period?",
+        "options": [
+          {
+            "id": "a",
+            "text": "The period is multiplied by four."
+          },
+          {
+            "id": "b",
+            "text": "The period is divided by two."
+          },
+          {
+            "id": "c",
+            "text": "The period stays unchanged."
+          },
+          {
+            "id": "d",
+            "text": "The period is multiplied by two."
+          }
+        ],
+        "correct_option_id": "d",
+        "explanation": "Since T = 2π√(m/k), multiplying m by four multiplies T by √4 = 2.",
+        "source_pages": [
+          4
+        ],
+        "related_step_ids": [
+          "step_frequency"
+        ]
+      },
+      {
+        "id": "check_initial_phase",
+        "question": "A block starts at equilibrium with positive velocity. Which expression matches these initial conditions?",
+        "options": [
+          {
+            "id": "a",
+            "text": "x(t) = (vₓ,₀/ω₀) sin(ω₀t)"
+          },
+          {
+            "id": "b",
+            "text": "x(t) = (vₓ,₀/ω₀) cos(ω₀t)"
+          },
+          {
+            "id": "c",
+            "text": "x(t) = −(vₓ,₀/ω₀) sin(ω₀t)"
+          },
+          {
+            "id": "d",
+            "text": "x(t) = −(vₓ,₀/ω₀) cos(ω₀t)"
+          }
+        ],
+        "correct_option_id": "a",
+        "explanation": "With x₀ = 0, the cosine coefficient vanishes. The positive sine coefficient gives x(0) = 0 and x′(0) = vₓ,₀ > 0.",
+        "source_pages": [
+          5,
+          6
+        ],
+        "related_step_ids": [
+          "step_superposition",
+          "step_initial"
+        ]
+      }
+    ]
+  },
+  "interactive_lab": {
+    "version": "2.0",
+    "suitable": true,
+    "reason": "The explicit amplitude–phase equation supports a bounded experiment showing how amplitude, period, and phase affect a sinusoidal curve. The source’s example values remain immutable; separate hypothetical controls explore alternatives. The example does not specify displacement or time units, so the lab retains unspecified source units.",
+    "demos": [
+      {
+        "id": "phase_shift_lab",
+        "title": "Explore Amplitude, Period, and Phase",
+        "learning_goal": "Distinguish changes in oscillation size, cycle duration, and horizontal timing.",
+        "formula_display": "x(t) = A cos(2πt/T + φ);  x_reference(t) = A cos(2πt/T);  Δt = −φT/(2π). Time and displacement use the example’s unspecified units; φ is in radians.",
+        "source_facts": [
+          {
+            "id": "example_amplitude",
+            "label": "Source example amplitude",
+            "unit": "unspecified displacement units",
+            "value": 3,
+            "provenance": "source_fixed",
+            "source_pages": [
+              7
+            ],
+            "source_evidence": "The description of Figure 23.4a specifies A = 3."
+          },
+          {
+            "id": "example_period",
+            "label": "Source example period",
+            "unit": "unspecified time units",
+            "value": 3.141592653589793,
+            "provenance": "source_fixed",
+            "source_pages": [
+              7
+            ],
+            "source_evidence": "The description of Figure 23.4a specifies T = π."
+          },
+          {
+            "id": "example_phase",
+            "label": "Source example phase constant",
+            "unit": "rad",
+            "value": 0.7853981633974483,
+            "provenance": "source_fixed",
+            "source_pages": [
+              7,
+              8
+            ],
+            "source_evidence": "Figure 23.4a uses φ = π/4 and places the corresponding maximum at t = −T/8."
+          }
+        ],
+        "x": {
+          "id": "lab_time",
+          "label": "Time t (unspecified source time units)",
+          "min": -6,
+          "max": 6,
+          "points": 600,
+          "semantic_role": "runtime_time",
+          "provenance": null
+        },
+        "parameters": [
+          {
+            "id": "trial_amplitude",
+            "label": "Exploration amplitude A",
+            "min": 0.5,
+            "max": 5,
+            "default": 3,
+            "step": 0.1,
+            "unit": "unspecified displacement units",
+            "source_pages": [
+              7
+            ],
+            "provenance": "hypothetical_exploration",
+            "source_baseline_ref": "example_amplitude",
+            "source_evidence": "The source specifies A = 3 for its example and identifies A as the amplitude. The adjustable range is generated for exploration, not reported by the source.",
+            "expose_control": true,
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          },
+          {
+            "id": "trial_period",
+            "label": "Exploration period T",
+            "min": 1,
+            "max": 6,
+            "default": 3.141592653589793,
+            "step": 0.05,
+            "unit": "unspecified time units",
+            "source_pages": [
+              1,
+              7
+            ],
+            "provenance": "hypothetical_exploration",
+            "source_baseline_ref": "example_period",
+            "source_evidence": "The source relates ω₀ to T by ω₀ = 2π/T and uses T = π in Figure 23.4a. The adjustable range is generated for exploration.",
+            "expose_control": true,
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          },
+          {
+            "id": "trial_phase",
+            "label": "Exploration phase constant φ",
+            "min": -3.141592653589793,
+            "max": 3.141592653589793,
+            "default": 0.7853981633974483,
+            "step": 0.01,
+            "unit": "rad",
+            "source_pages": [
+              7,
+              8
+            ],
+            "provenance": "hypothetical_exploration",
+            "source_baseline_ref": "example_phase",
+            "source_evidence": "The source demonstrates φ = π/4, 0, and −π/4 and explains positive and negative phase shifts. The continuous adjustable range is generated for exploration.",
+            "expose_control": true,
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          }
+        ],
+        "series": [
+          {
+            "id": "shifted_displacement",
+            "label": "Exploration displacement",
+            "expression": "trial_amplitude*cos(2*pi*lab_time/trial_period+trial_phase)",
+            "provenance": "derived",
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          },
+          {
+            "id": "unshifted_reference",
+            "label": "Same amplitude and period, zero phase",
+            "expression": "trial_amplitude*cos(2*pi*lab_time/trial_period)",
+            "provenance": "derived",
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          },
+          {
+            "id": "source_example_curve",
+            "label": "Immutable source example",
+            "expression": "example_amplitude*cos(2*pi*lab_time/example_period+example_phase)",
+            "provenance": "derived",
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          }
+        ],
+        "derived_metrics": [
+          {
+            "id": "exploration_time_shift",
+            "label": "Horizontal shift relative to zero phase",
+            "expression": "-trial_phase*trial_period/(2*pi)",
+            "unit": "unspecified time units",
+            "provenance": "derived",
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          },
+          {
+            "id": "exploration_angular_frequency",
+            "label": "Exploration angular frequency",
+            "expression": "2*pi/trial_period",
+            "unit": "rad per unspecified time unit",
+            "provenance": "derived",
+            "semantic_refs": [
+              "amplitude_phase"
+            ]
+          }
+        ],
+        "try_this": [
+          "Hold amplitude and period fixed; move phase from positive through zero to negative and watch the peak move relative to the zero-phase curve.",
+          "Hold period and phase fixed; change amplitude and compare peak height with peak timing.",
+          "Hold amplitude and phase fixed; increase the period and observe both cycle spacing and the horizontal-shift metric."
+        ],
+        "source_pages": [
+          1,
+          7,
+          8
+        ],
+        "related_step_ids": [
+          "step_periodic",
+          "step_phase"
+        ]
+      }
+    ]
+  },
+  "learning_scene_candidate": {
+    "suitable": true,
+    "domain": "spatial_dynamics",
+    "reason": "The source supplies a one-dimensional frictionless spring–mass model, a restoring-force law, explicit position and velocity equations, and parameters k, m, x₀, and vₓ,₀ suitable for a bounded quantitative motion scene."
+  },
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The main learning structure is an explicit analytical process: model the spring force, derive the oscillator equation, verify sinusoidal solutions, determine frequency, and apply initial conditions before interpreting amplitude and phase."
+  },
+  "suggested_visualizations": [
+    "Flow",
+    "Image / Diagram",
+    "3D / Motion"
+  ]
+}

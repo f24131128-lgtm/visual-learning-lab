@@ -1,0 +1,10 @@
+{
+  "status": "PREP_ONLY_REVIEW_PENDING",
+  "material": "MIT OCW Chapter 23: Simple Harmonic Motion",
+  "provenance": "Unedited Day27 POST_FIX human-approved SHM analysis and Atlas",
+  "files_sha256": {
+    ".day27-local/subsets/harmonic.pdf": "f3e563a5e3796cba4a3edc83dbce40ae0c0f07f5ac0122869c2845805e07c8d1",
+    ".day27-local/post_fix/responses/harmonic--main.json": "2220537366c2e7313d611120471757a20eea8426b0c3adf0e9db9061c4d94395",
+    ".day27-local/post_fix/responses/harmonic--atlas.json": "7536d842c9e38f73b4835becd8135763209f5704a412262e2c27545c83de3b5a"
+  }
+}

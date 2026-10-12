@@ -1,11 +1,12 @@
 """Explicit vision grounding of at most three already-analyzed page rasters."""
+from production_safety import response_data, UNTRUSTED_INSTRUCTION
 
 import base64
 from model_config import response_options
 import json
 import logging
 
-from openai import OpenAI
+from production_safety import create_client as OpenAI, live_enabled
 import streamlit as st
 
 from i18n import output_language_instruction, tr
@@ -45,11 +46,11 @@ def request_atlas(client, model, analysis, source_context, source_state, materia
         content.extend([{"type": "input_text", "text": f"Original PDF page {page}, complete raster {render['width']}x{render['height']}."},
                         {"type": "input_image", "image_url": "data:image/png;base64,"+base64.b64encode(render["png"]).decode(), "detail": "high"}])
     response = client.responses.create(**response_options(),
-        instructions=INSTRUCTIONS+"\n"+output_language_instruction(analysis.get("analysis_language", "zh-TW")),
+        instructions=UNTRUSTED_INSTRUCTION + "\n" + INSTRUCTIONS+"\n"+output_language_instruction(analysis.get("analysis_language", "zh-TW")),
         input=[{"role": "user", "content": content}],
         text={"format": {"type": "json_schema", "name": "source_atlas_v1", "strict": True, "schema": ATLAS_SCHEMA}})
     if not isinstance(response.output_text, str) or len(response.output_text) > 150000: raise ValueError("atlas response: size bound")
-    return json.loads(response.output_text)
+    return response_data(response)
 
 
 def source_for(material_id):
@@ -86,7 +87,7 @@ def _render_atlas_builder(analysis, material_id, source_context, allowed, model,
         state = ensure_state(key)
         from document_intelligence.ui import render_controls
         native_preview = render_controls(state, source, pages, allowed)
-        if st.button(tr("Build Source Atlas"), type="secondary", key="atlas-widget-build-"+material_id, disabled=state["attempted"]) and not state["attempted"]:
+        if st.button(tr("Build Source Atlas"), type="secondary", key="atlas-widget-build-"+material_id, disabled=state["attempted"] or not live_enabled()) and not state["attempted"]:
             returned = False
             try:
                 with st.spinner(tr("Grounding selected source pages…")):

@@ -1,10 +1,11 @@
 """Optional targeted scene requests, session caches, and learning navigation."""
+from production_safety import response_data, UNTRUSTED_INSTRUCTION
 
 import hashlib
 from model_config import response_options
 import json
 
-from openai import OpenAI
+from production_safety import create_client as OpenAI, live_enabled
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -125,11 +126,11 @@ def spec_cache_key(state, demo):
 def request_simulation(client, model, context):
     """The only Day 16 API site: one strict, bounded targeted Responses request."""
     response = client.responses.create(
-        **response_options(), instructions=SIMULATION_INSTRUCTIONS + "\n" + output_language_instruction(context["analysis_language"]),
-        input=json.dumps(context, ensure_ascii=False), max_output_tokens=8000,
+        **response_options(8000), instructions=UNTRUSTED_INSTRUCTION + "\n" + SIMULATION_INSTRUCTIONS + "\n" + output_language_instruction(context["analysis_language"]),
+        input=json.dumps(context, ensure_ascii=False),
         text={"format": {"type": "json_schema", "name": "dynamic_simulation", "strict": True, "schema": DYNAMIC_SIMULATION_SCHEMA}},
     )
-    return json.loads(response.output_text)
+    return response_data(response)
 
 
 def build_or_open_simulation(state, demo):
@@ -196,7 +197,7 @@ def render_simulation_links(lab, step_ids, material_id, key_prefix, recommended=
         st.button(tr("Open simulation: {title}" if spec else "Create dynamic simulation: {title}", title=title),
                   key=f"sim-widget-link-{key_prefix}-{material_id}-{demo['id']}",
                   help=tr("Opens the saved simulation locally." if spec else "Optional: makes one AI request, then animation and controls are local."),
-                  on_click=build_or_open_simulation, args=(state, demo))
+                  disabled=spec is None and not live_enabled(), on_click=build_or_open_simulation, args=(state, demo))
         st.markdown(f"[{tr('Go to Dynamic Simulation Studio')}](#dynamic-simulation-studio)")
 
 
@@ -216,7 +217,7 @@ def render_simulation_studio(lab, material_id, learning_path, go_to_lesson, form
     st.markdown('<span id="dynamic-simulation-studio"></span>', unsafe_allow_html=True)
     st.button(tr("Open simulation" if spec else "Create dynamic simulation"), key=f"{prefix}-build",
               help=tr("Opens the saved simulation locally." if spec else "Optional: makes one AI request, then animation and controls are local."),
-              on_click=build_or_open_simulation, args=(state, demo))
+              disabled=spec is None and not live_enabled(), on_click=build_or_open_simulation, args=(state, demo))
     if demo["id"] in state["errors"]:
         st.info(tr(state["errors"][demo["id"]]))
     if spec is None:

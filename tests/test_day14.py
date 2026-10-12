@@ -149,7 +149,7 @@ class LocalLogicTests(unittest.TestCase):
     def test_pdf_render_cache_source_identity_and_invalid_pages(self):
         pdf = sample_pdf()
         state = lens.new_source_state("m", pdf)
-        with patch.object(lens.pymupdf, "open", wraps=lens.pymupdf.open) as opened:
+        with patch.object(lens.pdf_renderer, "render", wraps=lens.pdf_renderer.render) as opened:
             first = lens.get_page_render(state, "m", 1, [1, 2, 3])
             again = lens.get_page_render(state, "m", 1, [1, 2, 3])
             self.assertIs(first, again)
@@ -179,7 +179,7 @@ class LocalLogicTests(unittest.TestCase):
         self.assertTrue(rectangles)
         self.assertNotEqual(lens.highlighted_image(render, rectangles), render["png"])
         self.assertEqual(lens.locate_anchor(state, 1, "not in this PDF"), [])
-        with patch.object(lens.pymupdf, "open", side_effect=AssertionError("cached anchor should not reopen PDF")):
+        with patch.object(lens.pdf_renderer, "anchors", side_effect=AssertionError("cached anchor should not reopen PDF")):
             self.assertEqual(lens.locate_anchor(state, 1, anchor["phrase"]), rectangles)
 
     def test_existing_inputs_page_validation_and_graph_builders(self):
@@ -204,7 +204,8 @@ class LocalLogicTests(unittest.TestCase):
         with patch.object(lens, "MAX_CACHE_BYTES", len(first["png"]) + 1):
             lens.get_page_render(state, "m", 2, [1, 2])
             self.assertLessEqual(sum(len(item["png"]) for item in state["pages"].values()), len(first["png"]) + 1)
-        with lens.pymupdf.open() as doc:
+        import pymupdf
+        with pymupdf.open() as doc:
             page = doc.new_page()
             page.insert_text((60, 80), "Repeated source phrase")
             page.insert_text((60, 110), "Repeated source phrase")

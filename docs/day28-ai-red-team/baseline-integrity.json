@@ -1,0 +1,16 @@
+{
+  "label": "AI-SIMULATED RED TEAM original evidence; preserved from prior session",
+  "files_sha256": {
+    "docs/day28-ai-red-team/evidence/AI01-change.jpg": "3f5f7d762de81868b11116143cfd0ccc2c5e020496293862bf9278fbb60ea71b",
+    "docs/day28-ai-red-team/evidence/AI01-home.jpg": "e89e992742bcf32f79e6a1c2e9bc7ca4edd7a2184c2e98c471388200886dd36b",
+    "docs/day28-ai-red-team/evidence/AI01-source-dead-end.jpg": "ac071096a339cc6857dcf30c3b4f572063ddeefb06700eb270347946f9e3e2c1",
+    "docs/day28-ai-red-team/evidence/AI02-formula-dead-end.jpg": "f08619f773033b6a7d6889c3167f7470fc35368d596aa82af2f677ec18bb45bf",
+    "docs/day28-ai-red-team/evidence/AI03-build-failure.jpg": "7871205d34468fd6dfab70ccaf14ed0c2acceeee69659f702d4520079d393eab",
+    "docs/day28-ai-red-team/evidence/AI03-empty-start.jpg": "a2f93b501acc8f1ebcb57c64e388342daf21243b2306018a1538a763c589bfad",
+    "docs/day28-ai-red-team/evidence/AI04-page-limit.jpg": "1d0a96f22d249624b1743671cb2a9a3513577bce1f885f4121a8f6e40c9c9d50",
+    "docs/day28-ai-red-team/evidence/AI05-home.jpg": "e89e992742bcf32f79e6a1c2e9bc7ca4edd7a2184c2e98c471388200886dd36b",
+    "docs/day28-ai-red-team/evidence/AI05-loading.jpg": "5f01f32796a88bd88ee2e832c06954ecbe6d28c835e0b672d57d2bd2eada69b7",
+    "docs/day28-ai-red-team/evidence/operations.json": "4fbf4e2255e136e4a90a5b5d1f3c685fd3c7d6d55dd55a6ad5b9b9e2b18641fb",
+    "docs/day28/freeze-manifest.json": "70fbd2739e1a4ece160fb7ac5eff2060e323a7032c50ee84b867ad96c1e12d20"
+  }
+}

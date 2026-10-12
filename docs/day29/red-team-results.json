@@ -1,0 +1,350 @@
+[
+  {
+    "attack": "Expression 1/0",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression sqrt(-1)",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression log(0)",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression 10**1000",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression exp(1000)",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression __import__(\"os\")",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression open(\"../../secrets.toml\")",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression x.__class__",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression x[0]",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Expression sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(1))))))))))))))))))))",
+    "expected_defense": "AST/function/depth/numeric allowlists",
+    "observed": "Rejected without execution",
+    "status": "PASS"
+  },
+  {
+    "attack": "Stale/forged/nonfinite/action runtime events",
+    "expected_defense": "Validate trial then atomic commit",
+    "observed": "Four events ignored; exact state preserved",
+    "status": "PASS"
+  },
+  {
+    "attack": "Forged Atlas source owner / NaN box",
+    "expected_defense": "Drop broken refs and optional region",
+    "observed": "No forged owner or invalid box survives",
+    "status": "PASS"
+  },
+  {
+    "attack": "Main malformed base / excessive concepts or graph nodes",
+    "expected_defense": "Validate required base; isolate bounded optional graphs",
+    "observed": "Four main envelopes rejected; two oversized optional graphs rejected",
+    "status": "PASS"
+  },
+  {
+    "attack": "unexpected fields",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "unsupported representation",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "malformed semantic ID",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "forged semantic owner",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "invalid provenance",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "fake manipulation target",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "unsupported inverse",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "excessive objects",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "unbounded time",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "malformed range",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "positive radius zero",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "zero wavelength-like divisor",
+    "expected_defense": "World schema/reference/domain/inverse bounds",
+    "observed": "World rejected; existing state untouched",
+    "status": "PASS"
+  },
+  {
+    "attack": "traversal",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "misleading extension",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "invalid MIME",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "damaged PDF",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "invalid signature",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "oversized PDF",
+    "expected_defense": "Byte/signature/name/MIME/parser bounds",
+    "observed": "Rejected; no path opened",
+    "status": "PASS"
+  },
+  {
+    "attack": "Excessive page/object counts",
+    "expected_defense": "80-page/20k-object bounds",
+    "observed": "Bounded 81 blank pages and lowered object limit rejected",
+    "status": "PASS"
+  },
+  {
+    "attack": "Renderer replacement parity",
+    "expected_defense": "Whole crop/rotation frame and verified native anchors",
+    "observed": "0/90/180/270 dimensions + mean raster error<8/255 + actual ink; second page + equation image rendered",
+    "status": "PASS"
+  },
+  {
+    "attack": "Cross-session prepared mutable state",
+    "expected_defense": "Fresh per-session object graph",
+    "observed": "A source/cache/focus mutation absent from B",
+    "status": "PASS"
+  },
+  {
+    "attack": "Caller requests unlimited retry/timeout",
+    "expected_defense": "Owned limits override caller",
+    "observed": "max_retries=0; timeout=90s",
+    "status": "PASS"
+  },
+  {
+    "attack": "Injected source instructions/capability/tool/page request",
+    "expected_defense": "Fixed instructions; data in input; no tools; page whitelist",
+    "observed": "Captured request isolated; forged pages filtered. Real model obedience NOT TESTED",
+    "status": "PASS"
+  },
+  {
+    "attack": "Configured owner key in public mode",
+    "expected_defense": "Deny before SDK initialization",
+    "observed": "SDK calls=0",
+    "status": "PASS"
+  },
+  {
+    "attack": "NaN",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "Infinity",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "overflow JSON",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "duplicate field",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "deep declaration",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "oversized response",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "output exhaustion",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "malformed response",
+    "expected_defense": "Reject bounded response envelope",
+    "observed": "Rejected before semantic installation",
+    "status": "PASS"
+  },
+  {
+    "attack": "XSS <script>alert(1)</script>",
+    "expected_defense": "Treat labels as data; encode fixed output; retain source data",
+    "observed": "World title and PDF excerpt remain data; Flow component HTML-escapes label",
+    "status": "PASS"
+  },
+  {
+    "attack": "XSS <img src=x onerror=alert(1)>",
+    "expected_defense": "Treat labels as data; encode fixed output; retain source data",
+    "observed": "World title and PDF excerpt remain data; Flow component HTML-escapes label",
+    "status": "PASS"
+  },
+  {
+    "attack": "Fixed component labels",
+    "expected_defense": "DOM textContent",
+    "observed": "Three fixed hosts inspected; runtime browser XSS probe is separate",
+    "status": "PASS"
+  },
+  {
+    "attack": "invalid key",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "timeout",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "HTTP 429",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "HTTP 500",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "HTTP 503",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "network loss",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "malformed response",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "output exhaustion",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "unexpected field",
+    "expected_defense": "One attempt; safe error; transaction preserves previous source",
+    "observed": "1 mocked request; no exception body; previous material unchanged",
+    "status": "PASS"
+  },
+  {
+    "attack": "Missing key + public prepared load",
+    "expected_defense": "No-key operation and no paid client",
+    "observed": "Homepage + prepared load PASS; client calls=0",
+    "status": "PASS"
+  }
+]
