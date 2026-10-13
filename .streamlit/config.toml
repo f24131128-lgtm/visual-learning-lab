@@ -7,7 +7,7 @@ textColor = "#26332e"
 font = "sans serif"
 
 [server]
-maxUploadSize = 10
+maxUploadSize = 2
 maxMessageSize = 32
 enableXsrfProtection = true
 enableCORS = true

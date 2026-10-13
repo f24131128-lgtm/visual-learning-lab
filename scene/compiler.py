@@ -281,10 +281,9 @@ def render_scene_builder(analysis, material_id, source_context, allowed_pages, m
                 returned = False
                 try:
                     logger.debug("Learning Scene compiler requested material=%s", material_id)
-                    api_key = st.secrets["OPENAI_API_KEY"]
                     context = build_scene_context(analysis, source_context, allowed_pages, domain)
                     with st.spinner(tr("Compiling the Learning Scene…")):
-                        raw = request_scene(OpenAI(api_key=api_key), model, context)
+                        raw = request_scene(OpenAI(action='scene'), model, context)
                     returned = True
                     logger.debug("Learning Scene compiler returned object=%s", isinstance(raw, dict))
                     scene = normalize_scene(raw, allowed_pages)

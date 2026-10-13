@@ -37,7 +37,7 @@ def representation(analysis, material, source, pages, model, workspace, wrapper,
                 if pending and not regenerate:
                     result = compiler.build(store, key, None, model, data, catalog, pages, caps)
                 else:
-                    result = compiler.build(store, key, OpenAI(api_key=st.secrets["OPENAI_API_KEY"], max_retries=0), model, data, catalog, pages, caps, force_new=regenerate)
+                    result = compiler.build(store, key, OpenAI(action='planner'), model, data, catalog, pages, caps, force_new=regenerate)
             if result:
                 workspace["representation"] = result["family"] if result["family"] in ("process", "execution", "analogy") else "formal"
         except Exception as error:

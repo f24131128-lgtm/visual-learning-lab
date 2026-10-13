@@ -91,7 +91,7 @@ def _render_atlas_builder(analysis, material_id, source_context, allowed, model,
             returned = False
             try:
                 with st.spinner(tr("Grounding selected source pages…")):
-                    raw = request_atlas(OpenAI(api_key=st.secrets["OPENAI_API_KEY"], max_retries=0), model, analysis, source_context, source, material_id, pages, allowed, catalog, state.get("document_model"))
+                    raw = request_atlas(OpenAI(action='atlas'), model, analysis, source_context, source, material_id, pages, allowed, catalog, state.get("document_model"))
                     returned = True
                     atlas = normalize_atlas(raw, pages, catalog, source_context.get("page_texts"))
                     if state.get("document_model") is not None:

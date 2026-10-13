@@ -485,10 +485,15 @@ FOCUSED_REVIEW_SCHEMA = {
 }
 
 
-def extract_pdf_text(uploaded_pdf):
+def extract_pdf_text(uploaded_pdf, *, public=None):
     """Extract up to eight text-bearing PDF pages with explicit page markers."""
     uploaded_pdf.seek(0)
-    reader = checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None))
+    from public_access import mode
+    public = mode() == 'limited-public' if public is None else public
+    if public:
+        from pdf_ingest import run_worker
+        return run_worker('extract',uploaded_pdf.getvalue(),name=getattr(uploaded_pdf,'name',None),mime=getattr(uploaded_pdf,'type',None))
+    reader = checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None), public=public)
     text_pages = []
 
     for page_number, page in enumerate(reader.pages, start=1):
@@ -575,7 +580,8 @@ def build_analysis_input(client, source_text, uploaded_pdf):
     if uploaded_pdf is None:
         return source_text
 
-    checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None))
+    from public_access import mode
+    checked_pdf(uploaded_pdf.getvalue(), getattr(uploaded_pdf, "name", None), getattr(uploaded_pdf, "type", None),public=mode()=='limited-public')
     pdf_name = "uploaded.pdf"
     try:
         uploaded_file = client.files.create(
@@ -1274,8 +1280,7 @@ def render_explain_action(
         st.session_state["active_explanation_key"] = cache_key
         if cache_key not in cache:
             try:
-                api_key = st.secrets["OPENAI_API_KEY"]
-                client = OpenAI(api_key=api_key)
+                client = OpenAI(action='explain')
                 with st.spinner(tr("Explaining this part…")):
                     cache[cache_key] = request_explanation(
                         client, explanation_context
@@ -1786,8 +1791,7 @@ def render_adaptive_review(
                 adaptive_state["error"] = None
             else:
                 try:
-                    api_key = st.secrets["OPENAI_API_KEY"]
-                    client = OpenAI(api_key=api_key)
+                    client = OpenAI(action='review')
                     review_context = build_focused_review_context(
                         analysis,
                         learning_path,
@@ -2797,11 +2801,13 @@ st.set_page_config(page_title="Visual Learning Lab", layout="wide")
 
 render_header()
 
+from public_access import render_public_access
+render_public_access()
+
 if not live_enabled():
     st.info(tr("Prepared mode · live AI generation is disabled by server policy."))
-    if not st.session_state.get("analysis"):
-        st.button(tr("Try the prepared example"), key="prepared-open",
-                  on_click=install_prepared, args=(st.session_state, globals()))
+st.button(tr("Try the prepared example"), key="prepared-open",
+          on_click=install_prepared, args=(st.session_state, globals()))
 
 with material_input():
     uploaded_pdf = st.file_uploader(
@@ -2986,8 +2992,7 @@ Do not create rendered diagrams or 3D models in the response.
 
             try:
                 checked_text(source_text)
-                api_key = st.secrets["OPENAI_API_KEY"]
-                client = OpenAI(api_key=api_key)
+                client = OpenAI(action='analysis')
                 try:
                     analysis_input = build_analysis_input(
                         client, source_text, uploaded_pdf if has_pdf else None

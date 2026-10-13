@@ -74,7 +74,7 @@ def render(analysis,material,source,pages,model,workspace,wrapper,lab,path,lab_s
                 data=compiler.context(analysis,source,catalog,registry,focus,pages)
                 stage="client"
                 with st.spinner(tr("Building an analogy…")):
-                    compiler.build(store,key,OpenAI(api_key=st.secrets["OPENAI_API_KEY"],max_retries=0),model,data,catalog,registry,pages,force_new=fresh_clicked)
+                    compiler.build(store,key,OpenAI(action='analogy'),model,data,catalog,registry,pages,force_new=fresh_clicked)
         except Exception as error: record(store,key,stage,error)
     if key in store["errors"] and store.get("diagnostics",{}).get(key,{}).get("stage")!="renderer":
         st.info(tr("The analogy could not be built safely. Your formal learning remains available. You may retry explicitly."))

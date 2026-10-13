@@ -127,3 +127,32 @@ https://creativecommons.org/licenses/by-nc/3.0/,
 https://creativecommons.org/licenses/by-sa/3.0/.
 This attribution does not relicense application code or resolve existing
 PyMuPDF AGPL/commercial deployment obligations.
+
+## Limited public release — 2026-10-13
+
+Streamlit authentication uses Authlib **1.8.0**, BSD-3-Clause; copyright 2017
+Hsiaoming Yang. joserfc **1.7.5**, BSD-3-Clause; copyright 2023 Hsiaoming Yang.
+Exact Authlib source notice: https://github.com/authlib/authlib/blob/v1.8.0/LICENSE.
+These are installed public APIs, with independently authored quota adapters;
+no provider tokens, model weights or upstream sample code are bundled.
+
+psycopg and psycopg-binary **3.3.6** are **LGPL-3.0-only**, independently installed
+driver distributions (not AGPL). Retain their full installed notices and source
+availability/replacement obligations when redistributing; native libpq/OpenSSL
+dependencies have their own notices. Exact driver source:
+https://github.com/psycopg/psycopg/tree/3.3.6 and LICENSE.txt at that tag.
+Installing a wheel is not a blanket license clearance for another platform's
+bundled libraries. Linux native-wheel/license review remains a release gate.
+
+New transitive distributions: cffi **2.1.1** (MIT-0), pycparser **3.11**
+(BSD-3-Clause), cryptography **50.0.2** (Apache-2.0 OR BSD-3-Clause; choose its
+BSD option, retain both distributed texts). Exact installed metadata, nine
+copied license files and hashes are retained in
+`docs/public-release/new-dependency-licenses.json` and its `licenses/` tree.
+Existing PDFium license trees and JSXGraph notices remain unchanged. PyMuPDF
+remains test-only; do not deploy `requirements-test.txt` or historical fixtures.
+
+Public smoke source/screenshot: the unchanged first two pages of the existing
+prepared MIT OCW Chapter 23 excerpt, with the attribution and CC BY-NC-SA 4.0
+terms above. Replayed analysis is explicitly an offline test, not new paid AI
+grounding evidence. These software notices do not alter source-material terms.

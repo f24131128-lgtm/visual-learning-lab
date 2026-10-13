@@ -14,6 +14,10 @@ PDFIUM_LOCK = threading.RLock()
 
 
 def render(data, number, dpi, side):
+    from public_access import mode
+    if mode()=='limited-public':
+        from pdf_ingest import run_worker
+        return run_worker('render',data,number=number,dpi=dpi,side=side)
     checked_pdf(data)
     with PDFIUM_LOCK, pdfium.PdfDocument(data) as document:
         if type(number) is not int or not 1 <= number <= len(document):
@@ -31,6 +35,10 @@ def render(data, number, dpi, side):
 
 
 def anchors(data, number, phrase):
+    from public_access import mode
+    if mode()=='limited-public':
+        from pdf_ingest import run_worker
+        return run_worker('anchors',data,number=number,phrase=phrase)
     checked_pdf(data)
     if not isinstance(phrase, str) or not 0 < len(phrase) <= 500:
         return []

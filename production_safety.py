@@ -1,7 +1,7 @@
 """Server-owned generation policy and bounded source envelopes.
 
-Private mode requires an external access boundary; this is not authentication.
-Public/default mode cannot initialize a paid client, even if a key is configured.
+Private development mode requires an external access boundary. Default mode
+denies AI. Explicit limited-public mode uses verified OIDC and a durable ledger.
 """
 import io
 import json
@@ -25,28 +25,43 @@ UNTRUSTED_INSTRUCTION = (
 
 
 def live_enabled():
-    return os.environ.get("VLL_LIVE_AI") == "private"
+    from public_access import mode, public_available
+    selected = mode()
+    return selected == "private" or (selected == "limited-public" and public_available())
 
 
 def create_client(*args, **kwargs):
-    if not live_enabled():
+    from public_access import mode
+    selected = mode()
+    action = kwargs.pop('action', 'analysis')
+    if selected == 'limited-public':
+        from metered_client import public_client
+        return public_client(action)
+    if selected != 'private':
         raise RuntimeError("Live AI generation is disabled by server policy")
     from openai import OpenAI
+    if not args and 'api_key' not in kwargs:
+        import streamlit as st
+        kwargs['api_key'] = st.secrets['OPENAI_API_KEY']
     kwargs.update(max_retries=0, timeout=REQUEST_TIMEOUT)
     return OpenAI(*args, **kwargs)
 
 
-def checked_pdf(data, name=None, mime=None):
-    if not isinstance(data, bytes) or not 0 < len(data) <= MAX_PDF_BYTES:
+def checked_pdf(data, name=None, mime=None, *, public=False):
+    byte_limit, page_limit = (2*1024*1024, 2) if public else (MAX_PDF_BYTES, MAX_PDF_PAGES)
+    if not isinstance(data, bytes) or not 0 < len(data) <= byte_limit:
         raise ValueError("PDF byte bound")
     if name is not None and (not isinstance(name, str) or '/' in name or '\\' in name or not name.lower().endswith('.pdf')):
         raise ValueError("PDF filename")
     if mime not in (None, "application/pdf", "application/x-pdf"):
         raise ValueError("PDF MIME")
+    if public:
+        from pdf_ingest import run_worker
+        return run_worker('inspect',data,name=name,mime=mime)
     if not data[:1024].lstrip().startswith(b"%PDF-"):
         raise ValueError("PDF signature")
     reader = PdfReader(io.BytesIO(data))
-    if reader.is_encrypted or not 1 <= len(reader.pages) <= MAX_PDF_PAGES:
+    if reader.is_encrypted or not 1 <= len(reader.pages) <= page_limit:
         raise ValueError("PDF page bound or encryption")
     if sum(len(v) for v in reader.xref.values()) + len(reader.xref_objStm) > MAX_PDF_OBJECTS:
         raise ValueError("PDF object bound")

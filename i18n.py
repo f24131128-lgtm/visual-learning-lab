@@ -8,6 +8,18 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Limited AI is unavailable. The prepared example remains available.": "限額 AI 目前無法使用；準備示例仍可使用。",
+    "Sign in to use your limited AI allowance. Prepared exploration needs no login.": "登入後可使用個人的限額 AI；準備示例探索不需登入。",
+    "Sign in for limited AI": "登入使用限額 AI",
+    "Sign in with Google for limited AI": "使用 Google 登入體驗限額 AI",
+    "Verify Google sign-in": "驗證 Google 登入",
+    "Google sign-in verified. Paid AI remains disabled.": "Google 登入已驗證；付費 AI 仍然關閉。",
+    "Persistent ledger verified. No AI request was made.": "持久帳本已驗證；沒有發出 AI 請求。",
+    "The persistent ledger is not verified yet. Paid AI remains disabled.": "持久帳本尚未驗證；付費 AI 仍然關閉。",
+    "Sign out": "登出",
+    "Sign-in is unavailable. Please use the prepared example.": "目前無法登入，請使用準備示例。",
+    "Limited AI: {analyses} analyses and {generations} extra generations remaining.": "限額 AI：剩餘 {analyses} 次分析、{generations} 次額外生成。",
+    "The shared AI allowance is unavailable. Local exploration and the prepared example still work.": "全站 AI 額度目前無法使用；本機探索與準備示例仍可使用。",
     "Prepared mode · live AI generation is disabled by server policy.": "準備示例模式 · 伺服器已停用新的 AI 生成。",
     "Prepared material · previously generated; all exploration is local.": "準備教材 · 內容已預先生成；所有探索均在本機計算。",
     "The prepared material could not be loaded. Your current work is preserved.": "無法載入準備教材；目前學習狀態已保留。",

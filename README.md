@@ -43,7 +43,16 @@ python -m streamlit run app.py
 
 Run from the repository root. The default prepared mode needs no key and sends no material to OpenAI. Use the prepared-example button, then Source → linked experiment controls → Source. The bundled MIT OCW excerpt and attribution use **CC BY-NC-SA 4.0**; keep this demo noncommercial and retain attribution/license notices.
 
-Live analysis is **not approved for public owner-paid deployment**. A deliberate server-side `VLL_LIVE_AI=private` setting enables the existing workflow only behind independently enforced private access. That setting is not authentication. A private operator configures `OPENAI_API_KEY` in `.streamlit/secrets.toml`; never commit it. Private requests have zero SDK retries, a 90-second timeout and bounded output; these are not a spend ceiling or multi-instance rate limit. See [deployment instructions](docs/day29/deployment-smoke.md) and [cost/abuse policy](docs/day29/api-cost-and-abuse.md).
+Public owner-paid deployment is **awaiting approval and external setup**. Server mode `VLL_LIVE_AI=limited-public` requires a dedicated Project/key, verified OIDC and a persisted PostgreSQL admission ledger. Policy: USD 10 lifetime; 20 requests/UTC day; one concurrent request; 2 analyses + 6 extra generations per account; visitor PDFs <=2 MiB and 2 total pages. All existing paid paths share this policy; local operations and the prepared demo remain usable after exhaustion. Missing configuration denies paid access. See [public policy](docs/public-release/POLICY.md), [release gate](docs/public-release/DEPLOYMENT.md) and [secret template](docs/public-release/secrets.example.toml).
+
+The owner has provisioned external resources and authorized the code update to
+main, while paid activation remains pending live acceptance. Keep `VLL_LIVE_AI`
+empty during verification. Valid Google auth can be checked in this paid-off
+mode; a logged-in account may inspect an existing ledger without an AI request.
+Use the [existing-site template](docs/public-release/cloud-secrets.example.toml)
+and [update checkpoint](docs/public-release/PUSH_READINESS.md).
+
+A deliberate server-side `VLL_LIVE_AI=private` enables the existing workflow only behind independently enforced private access. That setting is not authentication and must never be used for public hosting. A private operator configures `OPENAI_API_KEY` in `.streamlit/secrets.toml`; never commit it. See the historical [Day29 deployment instructions](docs/day29/deployment-smoke.md).
 
 Optional native document geometry:
 
@@ -61,7 +70,7 @@ python -X utf8 -B -m unittest discover -s tests -q
 
 Tests cover malicious declarations/events, source/reference bounds, atomic rejection, state synchronization, request discipline and regressions. Browser gestures and source fidelity require separate acceptance; automated fixtures do not prove arbitrary-PDF correctness or learning outcomes.
 
-`app.py` is the Streamlit entrypoint. A fresh Python 3.12 environment with product-only source passed the prepared workflow without ignored PDFs, test imports, PyMuPDF or optional pdfplumber. This is local Windows evidence, not Linux/cloud/high-concurrency certification. `requirements-day29-lock.txt` records the resolved deployment dependency closure; re-audit other platform wheels. Session state is not authentication. Hostile-PDF process isolation, arbitrary-document fidelity and real-device accessibility remain open limits.
+`app.py` is the Streamlit entrypoint. A fresh Python 3.12 environment with product-only source passed the prepared workflow without ignored PDFs, test imports, PyMuPDF or optional pdfplumber. This is local Windows evidence, not Linux/cloud/high-concurrency certification. `requirements-public-lock.txt` records the reviewed public runtime; `requirements-day29-lock.txt` preserves the prior closure. Public PDF ingestion/rasterization uses a bounded fixed-code process; Linux resource limits remain untested here, and this is not a filesystem/network sandbox. Arbitrary-document fidelity and real-device accessibility remain open limits.
 
 Offline JSXGraph **1.13.3** uses its MIT option with pinned assets/notices; Plotly supplies existing numeric plots. Production Source Lens now uses **pypdfium2 5.13.0**, with PDFium operations serialized and crop/rotation coordinates checked against actual rasters. PyMuPDF is a test-only fixture dependency in `requirements-test.txt`; do not deploy that environment. Retain the complete PDFium wheel license trees. This is an engineering license decision, not legal approval of historical distributions. See [license decision](docs/day29/license-decision.md), [third-party notices](THIRD_PARTY_NOTICES.md) and the [reuse ledger](docs/OPEN_SOURCE_REUSE_LEDGER.md).
 

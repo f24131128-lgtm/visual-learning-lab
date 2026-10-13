@@ -1,0 +1,2 @@
+# Retain the exact copied upstream license bytes and their recorded hashes.
+docs/public-release/licenses/** -text -whitespace

@@ -28,7 +28,7 @@ def prepare(helpers):
             raise ValueError("Prepared material integrity")
         files[name] = data
     pdf = files["source.pdf"]
-    extracted = helpers["extract_pdf_text"](io.BytesIO(pdf))
+    extracted = helpers["extract_pdf_text"](io.BytesIO(pdf), public=False)
     pages = extracted["analyzed_page_numbers"]
     material = helpers["build_analysis_id"]("pdf", pdf, "en")
     analysis = json.loads(files["analysis.json"])

@@ -148,7 +148,7 @@ def build_or_open_simulation(state, demo):
         return
     try:
         # No automatic SDK retries: a failed attempt can be retried explicitly.
-        client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"], max_retries=0)
+        client = OpenAI(action='simulation')
         with st.spinner(tr("Creating a dynamic simulation…")):
             raw = request_simulation(client, state["model"], state["contexts"][demo["id"]])
         def validate_pages(pages, allowed):

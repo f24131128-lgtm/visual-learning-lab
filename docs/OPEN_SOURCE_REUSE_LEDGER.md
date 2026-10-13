@@ -316,3 +316,29 @@ research entrypoint wraps button APIs and blocks Responses/file uploads; it is
 separate from the frozen human entrypoint and production validators. Existing
 PyMuPDF AGPL/commercial deployment review remains unresolved. This narrow API
 comparison is not a repeat of Day27 research or a transitive license audit.
+
+# Limited public release — 2026-10-13
+
+Inspected all eight existing paid constructors, Day29 admission/default-deny
+boundary, PDFium adapter, prepared loader and existing validators before edits.
+No parser, visualization renderer, graph/RAG subsystem or new learning schema
+was introduced. Fixed process isolation wraps existing pypdf/PDFium operations.
+
+| Alternative | Decision | Deployment / provenance / license |
+|---|---|---|
+| [Streamlit native OIDC](https://docs.streamlit.io/develop/concepts/connections/authentication) with installed Authlib 1.8.0 | REUSE / WRAP | Verified issuer/subject behind Streamlit's server cookie; no independent login protocol implementation. Streamlit 1.65.0 Apache-2.0; Authlib's [exact v1.8.0 LICENSE](https://github.com/authlib/authlib/blob/v1.8.0/LICENSE) and installed notice are BSD-3-Clause. Requires an actual external OIDC client/HTTPS callback, not verified locally. |
+| Anonymous session/IP IDs | DEFER | Cheap, but tabs/cookies/shared IPs cannot enforce a durable account allowance. Never accepted by the public ledger. |
+| Finite invite codes | DEFER | Effective bounded entitlements could supplement a later curated audience, but require issuance/rotation/storage rules and code sharing review; no bespoke identity system added. |
+| [PostgreSQL row locks](https://www.postgresql.org/docs/current/explicit-locking.html) via [psycopg transactions](https://www.psycopg.org/psycopg3/docs/basic/transactions.html) | REUSE / WRAP | One persisted policy row serializes shared admission/settlement. External durable database/TLS/account required; outage denies AI. psycopg + binary 3.3.6 exact installed LGPL-3.0-only notices retained; bundled native/other-platform terms need separate review. No driver source copied/modified. |
+| SQLite / Streamlit memory/cache quota | TEST ONLY / DEFER PRODUCTION | SQLite is reproducible for offline contention/transaction tests. Local host storage or process caches cannot guarantee a lifetime ceiling across Cloud instances/restarts. No production fallback. |
+| [Redis atomic Lua execution](https://redis.io/docs/latest/develop/programmability/eval-intro/) | LEARN / DEFER | Atomic counters are possible, but persistence/eviction/restart and exact selected server/provider license need a separate decision. No Redis package/server/script installed; PostgreSQL keeps durable accounting and settlement together. |
+| OpenAI enforced spend limits vs alerts | REUSE AS SECOND LAYER | [Current official docs](https://developers.openai.com/api/docs/guides/spend-limits) describe enforced limits, with possible enforcement delay/overshoot. Actual account configuration unverified. Persisted USD 10 admission remains independent; no soft-alert-only claim or trust in notifications as rejection. |
+
+New direct requirements: `streamlit[auth]` and `psycopg[binary]`. Reviewed Windows
+closure: 61 distributions, including seven newly required packages, recorded in
+`requirements-public-lock.txt`. Exact new notices/hashes are recorded in
+`docs/public-release/new-dependency-licenses.json`; preserve installed native
+wheel notices in deployments. No source code/assets/weights copied from any
+upstream. Existing Day29 PDFium production replacement and test-only PyMuPDF
+boundary remain. Real OIDC/PostgreSQL/Cloud checks are outstanding; local test
+results do not claim their completion.
