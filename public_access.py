@@ -41,18 +41,29 @@ class PublicConfig:
 
 def check_auth_configuration():
     """Validate Google independently, so login can be checked with paid AI off."""
+    reason='auth_load'
     try:
         import streamlit as st
         auth=st.secrets['auth']
-        if not all(isinstance(auth.get(n),str) and auth[n] for n in ('redirect_uri','cookie_secret','client_id','client_secret','server_metadata_url')):raise ValueError()
+        for n in ('redirect_uri','cookie_secret','client_id','client_secret','server_metadata_url'):
+            reason='auth_field_'+n
+            if not isinstance(auth.get(n),str) or not auth[n]:raise ValueError()
+        reason='auth_cookie_length'
         if len(auth['cookie_secret'])<32:raise ValueError()
+        reason='auth_callback'
         callback=urlparse(auth['redirect_uri'])
         if (callback.scheme!='https' or not callback.hostname or callback.username or callback.password
                 or callback.path!='/oauth2callback' or callback.query or callback.fragment):raise ValueError()
+        reason='auth_metadata'
         if auth['server_metadata_url']!=GOOGLE_METADATA:raise ValueError()
+        reason='auth_client_id'
         if not auth['client_id'].endswith('.apps.googleusercontent.com'):raise ValueError()
+        reason='auth_token_exposure'
         if auth.get('expose_tokens'):raise ValueError()
-    except Exception:raise AdmissionDenied('configuration_required') from None
+    except Exception:
+        import logging
+        logging.getLogger(__name__).warning('Google configuration unavailable: %s',reason)
+        raise AdmissionDenied('configuration_required') from None
 
 
 def configuration():
@@ -129,7 +140,11 @@ def render_public_access():
     if selected=='private':return
     if selected!='limited-public':
         try:check_auth_configuration()
-        except AdmissionDenied:return
+        except AdmissionDenied:
+            try:
+                if 'auth' in st.secrets:st.info(tr('Google sign-in configuration is unavailable. Paid AI remains disabled.'))
+            except Exception:pass
+            return
         st.caption(tr('Prepared mode · live AI generation is disabled by server policy.'))
         try:verified_subject(GOOGLE_ISSUER)
         except AdmissionDenied:

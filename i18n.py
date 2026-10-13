@@ -13,6 +13,7 @@ UI_TEXT = {"zh-TW": {
     "Sign in for limited AI": "登入使用限額 AI",
     "Sign in with Google for limited AI": "使用 Google 登入體驗限額 AI",
     "Verify Google sign-in": "驗證 Google 登入",
+    "Google sign-in configuration is unavailable. Paid AI remains disabled.": "Google 登入設定尚未通過檢查；付費 AI 仍然關閉。",
     "Google sign-in verified. Paid AI remains disabled.": "Google 登入已驗證；付費 AI 仍然關閉。",
     "Persistent ledger verified. No AI request was made.": "持久帳本已驗證；沒有發出 AI 請求。",
     "The persistent ledger is not verified yet. Paid AI remains disabled.": "持久帳本尚未驗證；付費 AI 仍然關閉。",

@@ -214,6 +214,15 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual(first,identity('account-a','new@example.test'))
         self.assertNotEqual(first,identity('account-b','old@example.test'))
 
+    def test_auth_diagnostic_logs_only_fixed_reason_without_credential_values(self):
+        from public_access import check_auth_configuration
+        raw=self.google_secrets();raw['auth']['client_secret']='private-canary-value'
+        raw['auth']['cookie_secret']='short-private-canary'
+        with patch('streamlit.secrets',raw),self.assertLogs('public_access',level='WARNING') as logged:
+            with self.assertRaises(AdmissionDenied):check_auth_configuration()
+        self.assertIn('auth_cookie_length',' '.join(logged.output))
+        self.assertNotIn('private-canary',' '.join(logged.output))
+
     def test_verified_subject_persists_without_email_or_session_id(self):
         config=self.config();user=SimpleNamespace(is_logged_in=True,get=lambda k: {'iss':config.issuer,'sub':'stable-user'}.get(k))
         with patch('streamlit.user',user):a=principal(config);b=principal(config)
