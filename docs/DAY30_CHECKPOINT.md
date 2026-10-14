@@ -28,3 +28,14 @@ logs must not be staged. Never stage `.streamlit/secrets.toml`.
 
 Exact app command: `python -m streamlit run app.py`.
 See [full evidence](DAY30_EVIDENCE.md) for current results and limitations.
+
+
+Deployment: code commit `650f2dad8926b4eac5705c3b3cd4227036de32c5` pushed normally to main.
+Cloud pulled the code but retained an imported prepared module and currently
+shows an attribution ImportError (stale-import explanation pending restart).
+Automatic review blocked confirming Reboot app because disrupting live sessions
+needs explicit owner authorization. No restart, secret/sharing/paid-mode/Neon
+change occurred. Approval question is pending; do not bypass the rejection.
+Manual alternative: Cloud lower-right Manage app → menu → Reboot app → Reboot.
+After restart, verify both examples and the physical drag/return sequence before
+claiming Cloud success. Local screenshots and 110/562 tests already pass.

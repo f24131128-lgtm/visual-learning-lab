@@ -1,0 +1,13 @@
+{
+  "code_commit": "650f2dad8926b4eac5705c3b3cd4227036de32c5",
+  "reviewed_files": 51,
+  "credential_pattern_hits": [],
+  "committed_asset_hashes": {
+    "source.pdf": true,
+    "analysis.json": true,
+    "scene.json": true,
+    "atlas.json": true,
+    "archived_scene.json": true
+  },
+  "sensitive_files_committed": false
+}

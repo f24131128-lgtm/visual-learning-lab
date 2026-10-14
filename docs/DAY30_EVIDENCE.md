@@ -185,3 +185,29 @@ Cloud acceptance. Public sharing policy will not be changed by automation.
 Run from repository root: `python -m streamlit run app.py`.
 Paid AI remains disabled (`VLL_LIVE_AI=""`). No model/key, OIDC, secrets, Neon,
 ledger initialization/reset, spending policy or release gate was activated.
+
+
+## Deployment observation — 2026-10-15
+
+Code commit `650f2dad8926b4eac5705c3b3cd4227036de32c5` was pushed normally:
+`9502c4b..650f2da HEAD -> main`. Cloud logs confirm a GitHub pull and dependency
+processing at 20:16 UTC on Oct 14 (04:16 Oct 15 Asia/Taipei). The fresh browser
+then displayed **ImportError: cannot import name attribution from prepared_demo**.
+The committed module defines that function; an in-place update retaining an old
+imported module is the working explanation, not yet a verified restart result.
+Existing server logs identify Python 3.12.15 / Streamlit 1.65.0. Earlier unrelated
+warnings/errors remain historical; they are not called new Day30 failures.
+
+Manage app → menu → Reboot app exposed a confirmation warning that all current
+users would be disrupted. Automatic approval review rejected confirmation because
+explicit authorization for that production interruption was missing. **No reboot
+was executed.** Owner approval has been requested; alternatively the owner can
+perform Manage app → menu → Reboot app → Reboot manually. No sharing, secrets,
+OIDC, ledger or paid-mode setting was changed. Cloud acceptance remains pending,
+and local tests/screenshots are not presented as Cloud success.
+
+Cookie-free HTTP probes returned root 303 and the probed app-shell path 404;
+those are inconclusive for anonymous interactive acceptance, not a public-access
+PASS. The actual fresh browser reached the app's error page without invoking
+Google login. Final anonymous/demo acceptance requires a recovered app and real
+interaction. [Deployment record](day30/cloud-acceptance.json).

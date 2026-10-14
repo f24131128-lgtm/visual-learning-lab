@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15 Asia/Taipei",
+  "code_commit": "650f2dad8926b4eac5705c3b3cd4227036de32c5",
+  "normal_push": true,
+  "cloud_pull_seen": true,
+  "cloud_python": "3.12.15",
+  "cloud_streamlit": "1.65.0",
+  "first_cloud_result": "ImportError: cannot import name attribution from prepared_demo",
+  "module_cache_cause": "Inferred stale imported module during in-place update; restart verification pending",
+  "reboot_executed": false,
+  "reboot_confirmation_blocked_by_auto_review": true,
+  "review_reason": "Restart disrupts current users; explicit production reboot/blast-radius authorization required",
+  "harmonic_cloud_acceptance": false,
+  "projectile_cloud_drag_acceptance": false,
+  "cloud_paid_mode_changed": false,
+  "cloud_secrets_changed": false,
+  "sharing_changed": false,
+  "neon_changed": false,
+  "real_provider_calls_made_by_agent": 0
+}

@@ -24,3 +24,5 @@ Cloud 驗收另記於 DAY30_EVIDENCE；本機圖不可標成 Cloud。
 
 沒有產生 GIF／MP4；可選的錄影不阻擋交付。若日後錄製，必須錄下真實拖曳與
 release 等待，不能用手作幀模擬反應，也不能暴露帳號、secrets 或 private corpus。
+
+本機素材根目錄：`D:\Projects\visual-learning-lab\docs\day30`。上表六個檔名就是各張截圖的本機檔名。

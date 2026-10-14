@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/",
+    "status": 303,
+    "redirect": true,
+    "request_cookie_present": false
+  },
+  {
+    "path": "/~/+/",
+    "status": 404,
+    "redirect": false,
+    "request_cookie_present": false
+  }
+]

@@ -12,6 +12,8 @@ PDF／文字轉成有來源支持的學習表示：從原頁選一個概念，�
 · [30 天正式文章](https://ithelp.ithome.com.tw/users/20184158/ironman/9852)
 · [Day1–30 專案導覽](docs/day30/SERIES_INDEX.md)
 
+**部署驗收進行中：** Cloud 已拉取新版，但目前有匯入快取錯誤，等待 owner 批准一次程序重啟。兩份示例的本機驗收與最終測試已通過，尚未宣稱 Cloud 可用。
+
 ![真實操作畫面：簡諧波形與固定來源參考](docs/day30/03-harmonic-updated.jpg)
 
 *實際 Streamlit 介面截圖，非概念稿。這張圖來自本機正式入口的離線驗收；
