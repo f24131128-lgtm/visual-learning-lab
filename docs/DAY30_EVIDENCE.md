@@ -108,8 +108,6 @@ of errors is not claimed for the entire development session.
 Reload returned to a fresh landing; session navigation preserves values, but no
 permanent browser-reload storage is claimed. A second real browser tab loaded default A=3 while the first retained A=4.9,
 with a separate fresh landing after reload ([session evidence](day30/session-isolation.json)).
-A second real browser tab loaded default A=3 while the first retained A=4.9
-([session evidence](day30/session-isolation.json)).
 Session isolation, stale/duplicate,
 wrong-scene, NaN and out-of-domain atomic rejection are covered by pure/AppTest
 checks; those injected bad events are not called physical browser drags.
