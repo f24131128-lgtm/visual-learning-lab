@@ -1,2 +1,4 @@
 # Retain the exact copied upstream license bytes and their recorded hashes.
 docs/public-release/licenses/** -text -whitespace
+# Prepared manifests verify exact bytes, including the authored line endings.
+prepared/harmonic/*.json -text -whitespace

@@ -67,20 +67,31 @@ def check_auth_configuration():
 
 
 def configuration():
+    reason='public_load'
     try:
         import streamlit as st
         raw=st.secrets['public_ai']
         key,project,dsn,issuer,salt=(raw[n] for n in ('api_key','project_id','ledger_dsn','identity_issuer','quota_hmac_secret'))
+        reason='public_field_types'
         if not all(isinstance(v,str) for v in (key,project,dsn,issuer,salt)):raise ValueError()
+        reason='public_key_or_project'
         if not key or not re.fullmatch(r'proj_[A-Za-z0-9_-]{4,100}',project):raise ValueError()
+        reason='public_ledger_dsn'
         if not dsn.startswith(('postgresql://','postgres://')) or not urlparse(dsn).hostname:raise ValueError()
+        reason='public_issuer_or_quota_secret'
         if issuer!=GOOGLE_ISSUER or len(salt)<32:raise ValueError()
+        reason='public_project_attestation'
         if raw.get('dedicated_project_verified') is not True:raise ValueError()
+        reason='public_budget'
         if raw.get('budget_microusd')!=BUDGET:raise ValueError()
+        reason='public_price_review'
         if raw.get('price_review_date')!='2026-10-13':raise ValueError()
+        reason='public_auth'
         check_auth_configuration()
         return PublicConfig(key,project,dsn,issuer,salt,raw.get('ca_cert','system'))
     except Exception:
+        import logging
+        logging.getLogger(__name__).warning('Public AI configuration unavailable: %s',reason)
         raise AdmissionDenied('configuration_required') from None
 
 
@@ -160,7 +171,17 @@ def render_public_access():
             st.caption(tr('Persistent ledger verified. No AI request was made.'))
             st.caption(tr('Limited AI: {analyses} analyses and {generations} extra generations remaining.',
                           analyses=max(0,2-status['analyses']),generations=max(0,6-status['generations'])))
-        except AdmissionDenied:
+        except AdmissionDenied as error:
+            import logging
+            code=str(error)
+            if code not in ('configuration_required','identity_required','ledger_unavailable','policy_mismatch','pricing_review_required'):
+                code='verification_failed'
+            logging.getLogger(__name__).warning('Ledger verification unavailable: %s',code)
+            if code=='ledger_unavailable':
+                # A policy checksum is not an authentication credential. An
+                # operator can initialize an EMPTY ledger in the provider SQL
+                # console without copying API keys or quota secrets there.
+                logging.getLogger(__name__).warning('Ledger initialization policy checksum: %s',config.fingerprint)
             st.info(tr('The persistent ledger is not verified yet. Paid AI remains disabled.'))
         return
     try:

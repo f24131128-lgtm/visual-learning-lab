@@ -223,6 +223,15 @@ class ConfigurationTests(unittest.TestCase):
         self.assertIn('auth_cookie_length',' '.join(logged.output))
         self.assertNotIn('private-canary',' '.join(logged.output))
 
+    def test_public_diagnostic_identifies_attestation_without_logging_key_or_dsn(self):
+        raw=self.google_secrets();raw['public_ai']['dedicated_project_verified']=False
+        raw['public_ai']['api_key']='private-key-canary';raw['public_ai']['ledger_dsn']='postgresql://private-dsn-canary/db'
+        with patch('streamlit.secrets',raw),self.assertLogs('public_access',level='WARNING') as logged:
+            with self.assertRaises(AdmissionDenied):configuration()
+        self.assertIn('public_project_attestation',' '.join(logged.output))
+        self.assertNotIn('private-key-canary',' '.join(logged.output))
+        self.assertNotIn('private-dsn-canary',' '.join(logged.output))
+
     def test_verified_subject_persists_without_email_or_session_id(self):
         config=self.config();user=SimpleNamespace(is_logged_in=True,get=lambda k: {'iss':config.issuer,'sub':'stable-user'}.get(k))
         with patch('streamlit.user',user):a=principal(config);b=principal(config)
