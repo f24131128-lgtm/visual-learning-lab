@@ -9,7 +9,7 @@ from graphviz import Digraph
 from production_safety import create_client as OpenAI, live_enabled
 from pypdf import PdfReader
 from production_safety import checked_pdf, checked_text, checked_analysis
-from prepared_demo import install_prepared
+from prepared_demo import install_prepared, attribution as prepared_attribution
 import streamlit as st
 
 from i18n import RESPONSE_LANGUAGES, current_language, output_language_instruction, tr
@@ -2802,14 +2802,26 @@ st.set_page_config(page_title="Visual Learning Lab", layout="wide")
 render_header()
 
 from public_access import render_public_access
-render_public_access()
+with st.container() if not st.session_state.get("analysis") else st.expander(tr("Prepared examples")):
+    st.markdown("#### " + tr("Start with a prepared example"))
+    st.caption(tr("Previously generated and validated · no account, key or new AI request."))
+    if st.session_state.get("prepared_demo"):
+        st.caption(prepared_attribution(st.session_state["prepared_demo"]))
+    wave_card, projectile_card = st.columns(2)
+    wave_card.button(tr("Harmonic Motion · explore waves"), key="prepared-open",
+              on_click=install_prepared, args=(st.session_state, globals()), use_container_width=True)
+    projectile_card.button(tr("Projectile Motion · drag velocity"), key="prepared-projectile",
+              on_click=install_prepared, args=(st.session_state, globals(), "projectile"), use_container_width=True)
+    wave_card.caption(tr("Amplitude / period / phase · immutable source reference"))
+    projectile_card.caption(tr("Day26 archive derivative · revalidated velocity-vector twin"))
 
-if not live_enabled():
-    st.info(tr("Prepared mode · live AI generation is disabled by server policy."))
-st.button(tr("Try the prepared example"), key="prepared-open",
-          on_click=install_prepared, args=(st.session_state, globals()))
+with st.expander(tr("Bring your own material"), expanded=live_enabled()):
+    render_public_access()
+    if not live_enabled():
+        st.caption(tr("New analysis is unavailable until authenticated AI passes its release gate. Prepared examples need no login."))
 
-with material_input():
+    material_input_slot = material_input()
+with material_input_slot:
     uploaded_pdf = st.file_uploader(
         tr("Upload a PDF"),
         type=["pdf"], key="material-pdf",
@@ -3068,14 +3080,15 @@ analysis = st.session_state.get("analysis")
 if analysis:
     if st.session_state.get("prepared_demo"):
         st.caption(tr("Prepared material · previously generated; all exploration is local."))
-        st.caption("MIT OpenCourseWare / Peter Dourmashkin · Chapter 23: Simple Harmonic Motion · CC BY-NC-SA 4.0 · original pages 3–10, unchanged.")
+        if st.session_state["prepared_demo"] == "projectile":
+            st.caption(tr("Day26 archive derivative · revalidated velocity-vector twin"))
     # Migrate a pre-Day-15 session once; subsequent UI switches cannot change it.
     if analysis.get("analysis_language") not in RESPONSE_LANGUAGES:
         analysis["analysis_language"] = (
             "zh-TW" if get_explanation_language(analysis) == "Traditional Chinese" else "en"
         )
     st.session_state["analysis_language"] = analysis["analysis_language"]
-    if current_language() != analysis["analysis_language"]:
+    if current_language() != analysis["analysis_language"] and not st.session_state.get("prepared_demo"):
         st.info(tr("Generated content will use the selected language after your next analysis. Current explanations and reviews keep the active analysis language."))
     allowed_source_pages = st.session_state.get("allowed_source_pages", [])
     source_info = st.session_state.get("source_info")
@@ -3117,7 +3130,11 @@ if analysis:
         catalog=semantic_catalog(None, analysis),
         material=analysis_id,
     )
-    ensure_lab_state(analysis_id, interactive_lab)
+    initializing_lab = "interactive_lab_state" not in st.session_state
+    lab_state = ensure_lab_state(analysis_id, interactive_lab)
+    if initializing_lab and st.session_state.get("prepared_demo") == "harmonic":
+        for saved in lab_state["demos"].values():
+            saved["compare"] = False
     try:
         ensure_simulation_state(analysis_id, interactive_lab, analysis, learning_path,
                                 source_context, allowed_source_pages, valid_source_pages, MODEL)
@@ -3153,7 +3170,7 @@ if analysis:
     st.session_state["workspace_explain"] = explain_source_region
     # The slot updates after local render events, keeping focus metadata current.
     with st.container(key="learning-stage"):
-        if mode in ("source", "explore"):
+        if mode in ("source", "explore") and not (mode == "explore" and st.session_state.get("prepared_demo") == "harmonic"):
             stage, rail = st.columns([2.6, 1], gap="large")
             with rail:
                 with st.container(key="context-rail"):
@@ -3174,15 +3191,18 @@ if analysis:
             from workspace.state import get_workspace_focus
             control_demo = active_control_demo(workspace_state, interactive_lab, catalog,
                                                allowed_source_pages, get_workspace_focus(workspace_state, wrapper))
+            if st.session_state.get("prepared_demo") and len(interactive_lab.get("demos", [])) == 1 and not wrapper.get("scene"):
+                control_demo = interactive_lab["demos"][0]
             if control_demo:
                 from interactive_lab import select_demo
                 select_demo(st.session_state["interactive_lab_state"], control_demo["id"])
-                st.button(tr("Return to supporting source"), key="workspace-controls-source", on_click=open_workspace,
-                          args=(workspace_state, "source"))
+                if not st.session_state.get("prepared_demo"):
+                    st.button(tr("Return to supporting source"), key="workspace-controls-source", on_click=open_workspace,
+                              args=(workspace_state, "source"))
                 render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson,
                                        format_page_references, controls_first=True)
                 controls_rendered = True
-        if mode == "source" or (mode == "explore" and representation == "formal"
+        if mode == "source" or (mode == "explore" and not (controls_rendered and st.session_state.get("prepared_demo") == "harmonic") and representation == "formal"
                                 and (not world_plan or world_plan["family"] not in ("static", "none"))):
             source_bundle = render_scene_builder(analysis, analysis_id, source_context, allowed_source_pages,
                                                 MODEL, format_page_references, workspace_mode=mode,
@@ -3315,70 +3335,73 @@ if analysis:
             st.write(analysis.get("quick_summary", ""))
 
         if mode == "explore" and representation == "formal" and (not world_plan or world_plan["family"] != "none"):
-            # Explicit Twin navigation may focus an existing secondary formal
-            # object. This is presentation state, never a planner/source change.
-            formal_kind = workspace_state.get("formal_kind")
-            formal_view = {"flow": visual_flow, "concept_map": concept_map, "comparison": comparison}.get(formal_kind)
-            if formal_view and formal_view.get("suitable"):
-                primary_visualization = dict(type=formal_kind, reason="")
-                selected_visualization = formal_view
-            with st.expander(tr("Suggested Visualization")):
-                suggestions = analysis.get("suggested_visualizations", [])
-                if isinstance(suggestions, list):
-                    st.caption(", ".join(tr(value) for value in suggestions if isinstance(value, str)))
-            selection_reason = primary_visualization["reason"]
+            with st.expander(tr("Further representations")) if st.session_state.get("prepared_demo") else st.container():
+                # Explicit Twin navigation may focus an existing secondary formal
+                # object. This is presentation state, never a planner/source change.
+                formal_kind = workspace_state.get("formal_kind")
+                formal_view = {"flow": visual_flow, "concept_map": concept_map, "comparison": comparison}.get(formal_kind)
+                if formal_view and formal_view.get("suitable"):
+                    primary_visualization = dict(type=formal_kind, reason="")
+                    selected_visualization = formal_view
+                with st.expander(tr("Suggested Visualization")):
+                    suggestions = analysis.get("suggested_visualizations", [])
+                    if isinstance(suggestions, list):
+                        st.caption(", ".join(tr(value) for value in suggestions if isinstance(value, str)))
+                selection_reason = primary_visualization["reason"]
 
-            if primary_visualization["type"] == "flow":
-                st.markdown("### " + tr("Visual Flow"))
-                if not visual_flow or not visual_flow["suitable"]:
-                    st.info(
-                        tr("The selected Visual Flow could not be rendered because its structured data was incomplete.")
-                    )
-                if selection_reason:
-                    st.caption(selection_reason)
-            elif primary_visualization["type"] == "concept_map":
-                st.markdown("### " + tr("Concept Map"))
-                if not concept_map or not concept_map["suitable"]:
-                    st.info(
-                        tr("The selected Concept Map could not be rendered because its structured data was incomplete.")
-                    )
-                if selection_reason:
-                    st.caption(selection_reason)
-            elif primary_visualization["type"] == "comparison":
-                st.markdown("### " + tr("Comparison"))
-                comparison_rows = build_comparison_table(comparison)
-                if comparison_rows:
-                    st.markdown(f"#### {comparison['title']}")
-                    st.table(comparison_rows)
-                    st.markdown("**" + tr("Takeaway") + "**")
-                    st.write(comparison["takeaway"])
+                if primary_visualization["type"] == "flow":
+                    st.markdown("### " + tr("Visual Flow"))
+                    if not visual_flow or not visual_flow["suitable"]:
+                        st.info(
+                            tr("The selected Visual Flow could not be rendered because its structured data was incomplete.")
+                        )
+                    if selection_reason:
+                        st.caption(selection_reason)
+                elif primary_visualization["type"] == "concept_map":
+                    st.markdown("### " + tr("Concept Map"))
+                    if not concept_map or not concept_map["suitable"]:
+                        st.info(
+                            tr("The selected Concept Map could not be rendered because its structured data was incomplete.")
+                        )
+                    if selection_reason:
+                        st.caption(selection_reason)
+                elif primary_visualization["type"] == "comparison":
+                    st.markdown("### " + tr("Comparison"))
+                    comparison_rows = build_comparison_table(comparison)
+                    if comparison_rows:
+                        st.markdown(f"#### {comparison['title']}")
+                        st.table(comparison_rows)
+                        st.markdown("**" + tr("Takeaway") + "**")
+                        st.write(comparison["takeaway"])
+                    else:
+                        st.info(
+                            tr("The selected Comparison could not be rendered because its structured data was incomplete.")
+                        )
+                    if selection_reason:
+                        st.caption(selection_reason)
                 else:
+                    st.markdown("### " + tr("Primary Visualization"))
                     st.info(
-                        tr("The selected Comparison could not be rendered because its structured data was incomplete.")
+                        tr("No strong primary visualization was detected for this material.")
                     )
-                if selection_reason:
-                    st.caption(selection_reason)
-            else:
-                st.markdown("### " + tr("Primary Visualization"))
-                st.info(
-                    tr("No strong primary visualization was detected for this material.")
-                )
-                if selection_reason:
-                    st.caption(selection_reason)
+                    if selection_reason:
+                        st.caption(selection_reason)
 
-            if primary_visualization["type"] != "none":
-                render_learning_canvas(
-                    primary_visualization["type"], selected_visualization, learning_path,
-                    analysis, source_context, allowed_source_pages, analysis_id,
-                    build_flow_graph if primary_visualization["type"] == "flow" else build_concept_map_graph,
-                    build_explanation_context, render_explain_action, format_page_references,
-                    interactive_lab,
-                )
+                if primary_visualization["type"] != "none":
+                    render_learning_canvas(
+                        primary_visualization["type"], selected_visualization, learning_path,
+                        analysis, source_context, allowed_source_pages, analysis_id,
+                        build_flow_graph if primary_visualization["type"] == "flow" else build_concept_map_graph,
+                        build_explanation_context, render_explain_action, format_page_references,
+                        interactive_lab,
+                    )
 
-            if not world_plan or world_plan["family"] not in ("static", "none"):
-                if not controls_rendered:
-                    render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
-                render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+                if not world_plan or world_plan["family"] not in ("static", "none"):
+                    if not controls_rendered:
+                        if st.session_state.get("prepared_demo") == "projectile":
+                            st.caption(tr("Historical Numeric Lab · read-only and independent of the spatial World."))
+                        render_interactive_lab(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
+                    render_simulation_studio(interactive_lab, analysis_id, learning_path, go_to_lesson, format_page_references)
 
         if mode == "explore":
             from learning_world.runtime import render_diagnostics

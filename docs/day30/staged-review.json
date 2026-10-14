@@ -1,0 +1,14 @@
+{
+  "staged_files": 44,
+  "credential_pattern_hits": [],
+  "unexpected_logs_or_secret_paths": false,
+  "staged_asset_hashes": {
+    "source.pdf": true,
+    "analysis.json": true,
+    "scene.json": true,
+    "atlas.json": true,
+    "archived_scene.json": true
+  },
+  "source_noncommercial_license_notice_present": true,
+  "software_legal_clearance_claimed": false
+}

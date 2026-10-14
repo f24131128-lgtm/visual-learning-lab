@@ -1,0 +1,18 @@
+{
+  "mode": "recovery",
+  "tests": 54,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "seconds": 135.187,
+  "real_provider_calls": 0,
+  "unexpected_provider_attempts": 0,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "historical_test_reports_restored": [
+    "docs\\DAY30_CHECKPOINT.md",
+    "docs\\DAY30_EVIDENCE.md",
+    "docs\\day29\\red-team-results.json"
+  ],
+  "isolated_legacy_mocked_generation": true
+}

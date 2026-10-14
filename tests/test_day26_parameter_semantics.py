@@ -148,7 +148,7 @@ class ValidationFailureProductTests(unittest.TestCase):
         client = MagicMock()
         bad = projectile_with_height(); bad["parameters"][-1]["min"] = -1.
         client.responses.create.return_value = SimpleNamespace(output_text=json.dumps(bad))
-        with patch.object(compiler, "OpenAI", return_value=client), patch.object(canvas, "streamlit_flow", side_effect=lambda key, state, **kw: state):
+        with patch.object(compiler, "OpenAI", return_value=client), patch.object(compiler, "live_enabled", return_value=True), patch.object(canvas, "streamlit_flow", side_effect=lambda key, state, **kw: state):
             app = AppTest.from_file(str(ROOT/"app.py"), default_timeout=30)
             analysis = spatial_analysis(); analysis["analysis_language"] = "zh-TW"
             context = dict(kind="text", source_text="Ground-level projectile: x=v cosθ t; y=v sinθ t−g t²/2.", page_texts={})

@@ -2,3 +2,5 @@
 docs/public-release/licenses/** -text -whitespace
 # Prepared manifests verify exact bytes, including the authored line endings.
 prepared/harmonic/*.json -text -whitespace
+prepared/projectile/*.json -text -whitespace
+prepared/projectile/source.pdf -text

@@ -342,3 +342,26 @@ wheel notices in deployments. No source code/assets/weights copied from any
 upstream. Existing Day29 PDFium production replacement and test-only PyMuPDF
 boundary remain. Real OIDC/PostgreSQL/Cloud checks are outstanding; local test
 results do not claim their completion.
+
+
+# Day30 — prepared competition experience (2026-10-14)
+
+Inspected prepared_demo.py, Numeric Lab, Source Atlas cache, canonical World,
+workspace ownership and direct-manipulation adapters before changes. The exact
+three-series harmonic cosine has no supported affine Lab inverse: **REUSE**
+validated sliders; **DEFER** inventing a waveform handle or a second engine.
+No parser, graph/RAG subsystem, renderer library or dependency is introduced.
+
+| Alternative | Decision | Deployment, provenance, exact license / maintenance |
+|---|---|---|
+| Existing Plotly graph_objects + Streamlit chart | REUSE | Existing installed Plotly 6.x MIT and Streamlit 1.65.0 Apache-2.0. [Legend public API](https://plotly.com/python/legend/) and [upstream license](https://github.com/plotly/plotly.py/blob/main/LICENSE.txt), actively maintained. Independently written trace layout; no copied code. |
+| Streamlit columns, containers and disclosures | WRAP | [Official responsive columns](https://docs.streamlit.io/develop/api-reference/layout/st.columns), [exact license](https://github.com/streamlit/streamlit/blob/1.65.0/LICENSE). No frontend build or extra asset; compact controls naturally stack on narrow screens. |
+| Existing JSXGraph direct component / World reducer | REUSE | Offline 1.13.3 under its MIT option, exact assets/notices in manipulation/frontend/vendor-manifest.json and LICENSE.jsxgraph.txt; same numeric projection, release commit and stale guards. [Tagged upstream](https://github.com/jsxgraph/jsxgraph/tree/v1.13.3). No generated browser expressions. |
+| New waveform drag implementation, canvas renderer or 3D dependency | DEFER | Additional inverse proof, maintenance, bandwidth and review cost; unnecessary to expose proven sliders and existing velocity-vector inverse. No package or weights downloaded. |
+| Exact Day26 normalized archive + original MIT Chapter 5 PDF | WRAP | Owner explicitly approved a labeled v2.4 derivative; full formula/ID preservation and provenance changes recorded in prepared/projectile/PROVENANCE.md. Source hash matches history. CC BY-NC-SA 4.0 educational source under [OCW terms](https://ocw.mit.edu/pages/privacy-and-terms-of-use/); noncommercial showcase only, attribution/license link retained. No AI request. |
+
+No source asset is treated as MIT software merely because its publisher is MIT.
+The full PDF retains its source context and original bytes. No third-party source
+code, weights or proprietary folder copied. Current production PDFium and wheel
+license obligations remain; PyMuPDF is test-only and historical distribution
+obligations are not retroactively cleared. Passing tests is not legal approval.

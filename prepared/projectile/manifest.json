@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "source": "MIT OpenCourseWare / Peter Dourmashkin, Chapter 5: Two Dimensional Kinematics",
+  "url": "https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/resources/mit8_01scs22_chapter5/",
+  "license": "CC BY-NC-SA 4.0",
+  "prepared": true,
+  "provenance": "Owner-approved Day26 archive derivative, revalidated under World 2.4; not an unmodified historical AI response.",
+  "archive_sha256": "2501e0e915172fea100312aa9409c798257683f48842635fa361108ba528363b",
+  "historical_material": "d091acbc3a9025eddaad30a3d9fa71b2a6061fa292e84922a4c82ea5017b402f",
+  "source_pdf_bytes": 2316314,
+  "source_pdf_pages": 16,
+  "initial_page": 4,
+  "initial_region": "p4_velocity_decomposition_diagram",
+  "sha256": {
+    "source.pdf": "688a232388f914ed834e02b28ba343c10b3866e23c3cd94ff38f859957d0c5ec",
+    "analysis.json": "8142b7574b0257f2b3d1f093726325ecb6c20db8cbc22fc156b16e6c0069341a",
+    "scene.json": "98ff658284f524831c9e0c6a3f481af32070c6294aac3558ce15bc60b52637a7",
+    "atlas.json": "22ea7a46b7ce7bfcad2173d9a8043ce0b3b8f56392a311d5dedfa1ed216ac8e6",
+    "archived_scene.json": "8ed7351837231bfbeb190adad86a3547f5a3ced36702b4525cf1ce9167dd9c23"
+  }
+}

@@ -1,0 +1,770 @@
+{
+  "scene_version": "2.2",
+  "domain": "spatial_dynamics",
+  "scene_id": "ideal_projectile_motion",
+  "title": "Ideal Two-Dimensional Projectile Motion",
+  "learning_goal": "Resolve projectile motion into independent horizontal and vertical components, examine the parabolic flight path, and identify velocity, acceleration, maximum-height, and impact conditions.",
+  "assumptions": [
+    "Air resistance and all interactions other than uniform gravity are neglected.",
+    "The gravitational field is uniform and points downward.",
+    "The coordinate origin is on the ground directly below the launch point, so the initial horizontal position is zero.",
+    "The projectile is considered only from launch until it reaches ground level."
+  ],
+  "source_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "time": {
+    "min": 0,
+    "max": 25,
+    "frames": 120,
+    "unit": "s",
+    "strategy": "derived_duration",
+    "duration_expression": "(v0*sin(angle)+sqrt((v0*sin(angle))**2+2*gravity*y0))/gravity",
+    "periods": 1
+  },
+  "axes": {
+    "x_min": -88.52919493402285,
+    "x_max": 1180.6441316093085,
+    "y_min": -152.1914264000104,
+    "y_max": 581.8496739461789,
+    "x_label": "Horizontal position x (m)",
+    "y_label": "Vertical position y (m)"
+  },
+  "parameters": [
+    {
+      "id": "v0",
+      "label": "Initial speed",
+      "unit": "m/s",
+      "min": 5,
+      "max": 100,
+      "default": 20,
+      "step": 1,
+      "source_pages": [
+        4,
+        7
+      ],
+      "quantity_kind": "speed",
+      "range_source": "pedagogical",
+      "display_unit": "native"
+    },
+    {
+      "id": "angle",
+      "label": "Launch angle",
+      "unit": "rad",
+      "min": 0.0872664626,
+      "max": 1.4835298642,
+      "default": 0.7853981634,
+      "step": 0.0174532925,
+      "source_pages": [
+        4,
+        7
+      ],
+      "quantity_kind": "inclination_angle",
+      "range_source": "pedagogical",
+      "display_unit": "degrees"
+    },
+    {
+      "id": "y0",
+      "label": "Initial height",
+      "unit": "m",
+      "min": 0.5,
+      "max": 20,
+      "default": 2,
+      "step": 0.5,
+      "source_pages": [
+        4,
+        7
+      ],
+      "quantity_kind": "length",
+      "range_source": "pedagogical",
+      "display_unit": "native"
+    },
+    {
+      "id": "gravity",
+      "label": "Gravitational acceleration",
+      "unit": "m/s^2",
+      "min": 9.8,
+      "max": 9.8,
+      "default": 9.8,
+      "step": 0,
+      "source_pages": [
+        5,
+        6
+      ],
+      "quantity_kind": "acceleration",
+      "range_source": "source",
+      "display_unit": "native",
+      "parameter_kind": "fixed"
+    }
+  ],
+  "quantities": [
+    {
+      "id": "vx0",
+      "label": "Initial horizontal velocity",
+      "unit": "m/s",
+      "expression": "v0*cos(angle)",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "id": "vy0",
+      "label": "Initial vertical velocity",
+      "unit": "m/s",
+      "expression": "v0*sin(angle)",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "id": "x_position",
+      "label": "Horizontal position",
+      "unit": "m",
+      "expression": "vx0*time",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "id": "y_position",
+      "label": "Vertical position",
+      "unit": "m",
+      "expression": "y0+vy0*time-0.5*gravity*time**2",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "id": "vx",
+      "label": "Horizontal velocity",
+      "unit": "m/s",
+      "expression": "vx0",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "id": "vy",
+      "label": "Vertical velocity",
+      "unit": "m/s",
+      "expression": "vy0-gravity*time",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "id": "ax",
+      "label": "Horizontal acceleration",
+      "unit": "m/s^2",
+      "expression": "0",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "ay",
+      "label": "Vertical acceleration",
+      "unit": "m/s^2",
+      "expression": "-gravity",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "speed",
+      "label": "Instantaneous speed",
+      "unit": "m/s",
+      "expression": "sqrt(vx**2+vy**2)",
+      "source_pages": [
+        2,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "time_top",
+      "label": "Time to maximum height",
+      "unit": "s",
+      "expression": "vy0/gravity",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "id": "maximum_height",
+      "label": "Maximum height",
+      "unit": "m",
+      "expression": "y0+vy0**2/(2*gravity)",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "id": "flight_duration",
+      "label": "Ground-impact time",
+      "unit": "s",
+      "expression": "(vy0+sqrt(vy0**2+2*gravity*y0))/gravity",
+      "source_pages": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "x_axis_dx",
+      "label": "Horizontal axis x component",
+      "unit": "m",
+      "expression": "1",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "x_axis_dy",
+      "label": "Horizontal axis y component",
+      "unit": "m",
+      "expression": "0",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "y_axis_dx",
+      "label": "Vertical axis x component",
+      "unit": "m",
+      "expression": "0",
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "y_axis_dy",
+      "label": "Vertical axis y component",
+      "unit": "m",
+      "expression": "1",
+      "source_pages": [
+        3,
+        4
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "projectile_point",
+      "label": "Projectile",
+      "type": "point",
+      "semantic_id": "x_position",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [
+        "x_position",
+        "y_position"
+      ],
+      "source_pages": [
+        3,
+        4,
+        6
+      ]
+    },
+    {
+      "id": "projectile_trajectory",
+      "label": "Projectile trajectory",
+      "type": "trajectory",
+      "semantic_id": "x_position",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [],
+      "source_pages": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "velocity_vector",
+      "label": "Velocity vector",
+      "type": "vector",
+      "semantic_id": "vx",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [
+        "x_position",
+        "y_position"
+      ],
+      "source_pages": [
+        2,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "acceleration_vector",
+      "label": "Acceleration vector",
+      "type": "vector",
+      "semantic_id": "ay",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [
+        "x_position",
+        "y_position"
+      ],
+      "source_pages": [
+        3,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "initial_velocity_vector",
+      "label": "Initial velocity vector",
+      "type": "vector",
+      "semantic_id": "vx0",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [],
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "id": "horizontal_axis",
+      "label": "Horizontal axis",
+      "type": "axis",
+      "semantic_id": "x_position",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [],
+      "source_pages": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "vertical_axis",
+      "label": "Vertical axis",
+      "type": "axis",
+      "semantic_id": "y_position",
+      "origin": [
+        0,
+        0
+      ],
+      "origin_quantity_ids": [],
+      "source_pages": [
+        3,
+        4
+      ]
+    }
+  ],
+  "series": [
+    {
+      "id": "height_series",
+      "label": "Height versus time",
+      "semantic_id": "y_position",
+      "source_pages": [
+        6
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "speed_metric",
+      "label": "Current speed",
+      "semantic_id": "speed",
+      "unit": "m/s",
+      "source_pages": [
+        2,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "height_metric",
+      "label": "Maximum height",
+      "semantic_id": "maximum_height",
+      "unit": "m",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "id": "top_time_metric",
+      "label": "Time at maximum height",
+      "semantic_id": "time_top",
+      "unit": "s",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "id": "flight_time_metric",
+      "label": "Ground-impact time",
+      "semantic_id": "flight_duration",
+      "unit": "s",
+      "source_pages": [
+        6,
+        7
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "id": "bind_projectile_point",
+      "type": "point_position",
+      "target_id": "projectile_point",
+      "quantity_ids": [
+        "x_position",
+        "y_position"
+      ]
+    },
+    {
+      "id": "bind_projectile_trajectory",
+      "type": "point_position",
+      "target_id": "projectile_trajectory",
+      "quantity_ids": [
+        "x_position",
+        "y_position"
+      ]
+    },
+    {
+      "id": "bind_velocity_vector",
+      "type": "vector_components",
+      "target_id": "velocity_vector",
+      "quantity_ids": [
+        "vx",
+        "vy"
+      ]
+    },
+    {
+      "id": "bind_acceleration_vector",
+      "type": "vector_components",
+      "target_id": "acceleration_vector",
+      "quantity_ids": [
+        "ax",
+        "ay"
+      ]
+    },
+    {
+      "id": "bind_initial_velocity_vector",
+      "type": "vector_components",
+      "target_id": "initial_velocity_vector",
+      "quantity_ids": [
+        "vx0",
+        "vy0"
+      ]
+    },
+    {
+      "id": "bind_horizontal_axis",
+      "type": "vector_components",
+      "target_id": "horizontal_axis",
+      "quantity_ids": [
+        "x_axis_dx",
+        "x_axis_dy"
+      ]
+    },
+    {
+      "id": "bind_vertical_axis",
+      "type": "vector_components",
+      "target_id": "vertical_axis",
+      "quantity_ids": [
+        "y_axis_dx",
+        "y_axis_dy"
+      ]
+    },
+    {
+      "id": "bind_height_series",
+      "type": "curve_value",
+      "target_id": "height_series",
+      "quantity_ids": [
+        "y_position"
+      ]
+    },
+    {
+      "id": "bind_speed_metric",
+      "type": "metric_value",
+      "target_id": "speed_metric",
+      "quantity_ids": [
+        "speed"
+      ]
+    },
+    {
+      "id": "bind_height_metric",
+      "type": "metric_value",
+      "target_id": "height_metric",
+      "quantity_ids": [
+        "maximum_height"
+      ]
+    },
+    {
+      "id": "bind_top_time_metric",
+      "type": "metric_value",
+      "target_id": "top_time_metric",
+      "quantity_ids": [
+        "time_top"
+      ]
+    },
+    {
+      "id": "bind_flight_time_metric",
+      "type": "metric_value",
+      "target_id": "flight_time_metric",
+      "quantity_ids": [
+        "flight_duration"
+      ]
+    }
+  ],
+  "inverse_bindings": [
+    {
+      "id": "inverse_initial_angle",
+      "type": "angle_to_parameter",
+      "object_id": "initial_velocity_vector",
+      "target_id": "angle",
+      "rate_expression": null,
+      "offset_expression": "0",
+      "scale": 1
+    }
+  ],
+  "invariants": [
+    {
+      "id": "horizontal_acceleration_zero",
+      "label": "Horizontal acceleration is zero",
+      "type": "approx_equal",
+      "left_expression": "ax",
+      "right_expression": "0",
+      "lower": 0,
+      "upper": 0,
+      "tolerance": 1e-10,
+      "samples": 5
+    },
+    {
+      "id": "vertical_acceleration_gravity",
+      "label": "Vertical acceleration equals negative gravity",
+      "type": "approx_equal",
+      "left_expression": "ay",
+      "right_expression": "-gravity",
+      "lower": 0,
+      "upper": 0,
+      "tolerance": 1e-10,
+      "samples": 5
+    },
+    {
+      "id": "horizontal_velocity_constant",
+      "label": "Horizontal velocity remains constant",
+      "type": "constant_over_time",
+      "left_expression": "vx",
+      "right_expression": "vx0",
+      "lower": 0,
+      "upper": 0,
+      "tolerance": 1e-10,
+      "samples": 5
+    },
+    {
+      "id": "speed_components_relation",
+      "label": "Speed follows from velocity components",
+      "type": "approx_equal",
+      "left_expression": "speed**2",
+      "right_expression": "vx**2+vy**2",
+      "lower": 0,
+      "upper": 0,
+      "tolerance": 1e-10,
+      "samples": 5
+    },
+    {
+      "id": "ground_bounded_height",
+      "label": "Height remains nonnegative during flight",
+      "type": "bounded",
+      "left_expression": "y_position",
+      "right_expression": "0",
+      "lower": 0,
+      "upper": 100000,
+      "tolerance": 1e-10,
+      "samples": 32
+    }
+  ],
+  "experiments": [
+    {
+      "id": "experiment_baseline_flight",
+      "title": "Explore the ideal projectile orbit",
+      "learning_goal": "Observe the horizontal and vertical components of ideal projectile motion and the resulting flight path.",
+      "steps": [
+        {
+          "op": "restore_baseline",
+          "target_id": "",
+          "value": null
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 0
+        },
+        {
+          "op": "set_focus",
+          "target_id": "y_position",
+          "value": null
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 1.5
+        },
+        {
+          "op": "set_focus",
+          "target_id": "speed",
+          "value": null
+        }
+      ],
+      "observation_targets": [
+        "x_position",
+        "y_position",
+        "vx",
+        "vy",
+        "speed"
+      ],
+      "source_pages": [
+        3,
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "id": "experiment_maximum_height",
+      "title": "Locate maximum height",
+      "learning_goal": "Verify that maximum height occurs when the vertical velocity reaches zero.",
+      "steps": [
+        {
+          "op": "restore_baseline",
+          "target_id": "",
+          "value": null
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 0
+        },
+        {
+          "op": "set_focus",
+          "target_id": "time_top",
+          "value": null
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 1.44307565
+        },
+        {
+          "op": "set_focus",
+          "target_id": "vy",
+          "value": null
+        }
+      ],
+      "observation_targets": [
+        "time_top",
+        "maximum_height",
+        "vy",
+        "y_position"
+      ],
+      "source_pages": [
+        7,
+        8
+      ]
+    },
+    {
+      "id": "experiment_change_launch_angle",
+      "title": "Change the launch angle",
+      "learning_goal": "Compare how initial velocity components and maximum height change with launch angle.",
+      "steps": [
+        {
+          "op": "restore_baseline",
+          "target_id": "",
+          "value": null
+        },
+        {
+          "op": "set_parameter",
+          "target_id": "angle",
+          "value": 0.5235987756
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 1
+        },
+        {
+          "op": "set_focus",
+          "target_id": "vy0",
+          "value": null
+        },
+        {
+          "op": "set_time",
+          "target_id": "time",
+          "value": 2
+        },
+        {
+          "op": "set_focus",
+          "target_id": "maximum_height",
+          "value": null
+        }
+      ],
+      "observation_targets": [
+        "vx0",
+        "vy0",
+        "maximum_height",
+        "x_position",
+        "y_position"
+      ],
+      "source_pages": [
+        4,
+        6,
+        8
+      ]
+    }
+  ],
+  "quantity_order": [
+    "vx0",
+    "vy0",
+    "ax",
+    "ay",
+    "x_axis_dx",
+    "x_axis_dy",
+    "y_axis_dx",
+    "y_axis_dy",
+    "x_position",
+    "y_position",
+    "vx",
+    "vy",
+    "time_top",
+    "maximum_height",
+    "flight_duration",
+    "speed"
+  ],
+  "time_envelope": {
+    "min": 0,
+    "max": 20.529323678308245
+  },
+  "validation_report": {
+    "sample_checks": 1300,
+    "parameter_scenarios": 25,
+    "focus_aliases": [],
+    "seconds": 0.4256449998356402
+  }
+}

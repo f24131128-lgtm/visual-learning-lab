@@ -1,0 +1,18 @@
+{
+  "example": "harmonic",
+  "material": "f3ad366c0ed4fb3b33fc961f16e91885692d1162746fa81051184429400be327",
+  "world": null,
+  "mode": "explore",
+  "lab_values": {
+    "phase_shift_lab": {
+      "trial_amplitude": 5.0,
+      "trial_period": 6.0,
+      "trial_phase": -3.141592653589793
+    }
+  },
+  "blocked_provider_attempts": 0,
+  "real_provider_calls": 0,
+  "source_hashes": {
+    "pdf_bytes": "f3e563a5e3796cba4a3edc83dbce40ae0c0f07f5ac0122869c2845805e07c8d1"
+  }
+}

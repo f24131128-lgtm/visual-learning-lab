@@ -1,0 +1,18 @@
+{
+  "mode": "focused",
+  "tests": 110,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "seconds": 78.519,
+  "real_provider_calls": 0,
+  "unexpected_provider_attempts": 0,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "historical_test_reports_restored": [
+    "docs\\day25\\numeric-trace-phase.json",
+    "docs\\day25\\numeric-trace-projectile.json"
+  ],
+  "isolated_legacy_mocked_generation": false,
+  "legacy_mocked_methods": 0
+}

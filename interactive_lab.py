@@ -12,7 +12,7 @@ from i18n import FONT_STACK, tr
 from semantic_contract import numeric_domain
 from quantity_contract import (FACTS_SCHEMA, PROVENANCE_FIELDS, ROLE_SCHEMA, can_commit,
     check_commit, check_values, normalize_facts, source_values, validate_parameter,
-    evaluate_quantity, validate_quantity_expression)
+    evaluate_quantity, validate_quantity_expression, expression_names)
 from representation_contract import REFS_SCHEMA, bind as bind_ownership
 from safe_math import MAX_POINTS, MathExpressionError, evaluate_expression, valid_identifier, valid_variable, validate_expression
 
@@ -346,7 +346,7 @@ def _reset_parameters(state, demo, prefix):
         st.session_state[f"{prefix}-{parameter['id']}"] = parameter["default"]
 
 
-def build_lab_chart(demo, values, compare):
+def build_lab_chart(demo, values, compare, *, prepared_labels=False):
     # Optional chart imports stay within the isolated rendering boundary.
     import plotly.graph_objects as go
     from presentation import PLOT_STYLE
@@ -355,18 +355,24 @@ def build_lab_chart(demo, values, compare):
     baseline = compute_curves(demo, default_values(demo))[1] if compare else {}
     figure = go.Figure()
     colors = ["#6750C5", "#087E8B", "#B85B17"]
+    present = tr if prepared_labels else str
     for index, series in enumerate(demo["series"]):
         color = colors[index]
-        label = html.escape(series["label"])
-        if compare:
+        label = html.escape(present(series["label"]))
+        # A curve depending only on immutable facts is a source reference,
+        # not a second pair of initial/current exploration traces.
+        references = expression_names(series["expression"], set(source_values(demo)) | set(values) | {demo["x"]["id"]})
+        fixed = not set(references).intersection(values)
+        if compare and not fixed:
             figure.add_trace(go.Scatter(x=x, y=baseline[series["id"]], name=f"{label} · {tr('Initial exploration')}",
                                        mode="lines", line={"color": color, "width": 2, "dash": "dash"}, opacity=0.55))
-        figure.add_trace(go.Scatter(x=x, y=current[series["id"]], name=f"{label} · {tr('Current exploration')}" if compare else label,
-                                   mode="lines", line={"color": color, "width": 3}))
-    figure.update_layout(template="plotly_white", height=390, margin={"l": 12, "r": 12, "t": 20, "b": 12},
+        figure.add_trace(go.Scatter(x=x, y=current[series["id"]], name=f"{label} · {tr('Current exploration')}" if compare and not fixed else label,
+                                   mode="lines", line={"color": "#85642c" if fixed else color, "width": 3,
+                                                        "dash": "dash" if fixed else "solid"}))
+    figure.update_layout(template="plotly_white", height=440, margin={"l": 12, "r": 12, "t": 20, "b": 12},
                          font={"family": FONT_STACK, "size": 14, "color": PLOT_STYLE["foreground"]}, hovermode="x unified",
                          paper_bgcolor="rgba(0,0,0,0)",
-                         xaxis_title=html.escape(demo["x"]["label"]), yaxis_title=tr("Value"),
+                         xaxis_title=html.escape(present(demo["x"]["label"])), yaxis_title=tr("Value"),
                          showlegend=compare or len(demo["series"]) > 1,
                          legend={"orientation": "h", "y": -0.22},
                          uirevision=demo["id"])
@@ -378,61 +384,66 @@ def build_lab_chart(demo, values, compare):
 def _render_demo(demo, state, learning_path, go_to_lesson, format_pages, controls_first=False):
     prefix = f"lab-widget-{state['material_id']}-{state['signature']}-{demo['id']}"
     saved = state["demos"][demo["id"]]
-    st.markdown(f"#### {demo['title']}")
-    st.write(demo["learning_goal"])
+    prepared_labels = bool(st.session_state.get("prepared_demo"))
+    present = tr if prepared_labels else str
+    st.markdown(f"#### {present(demo['title'])}")
+    if not controls_first:
+        st.caption(present(demo["learning_goal"]))
     if demo.get("contract_version") == "legacy_read_only":
         st.caption(tr("Earlier experiment · values are read-only until provenance is declared."))
-    st.latex(demo["formula_display"])
-    if demo["source_pages"]:
-        st.caption(tr("Source: {pages}", pages=format_pages(demo["source_pages"])))
-    plot = None if controls_first else st.container()
-    controls = st.expander(tr("Parameters and comparison"), expanded=controls_first)
+    plot = st.container()
+    controls = st.container() if controls_first else st.expander(tr("Parameters and comparison"))
     with controls:
-        if demo.get("source_facts"):
-            st.markdown("**" + tr("Source values") + "**")
-            for fact in demo["source_facts"]:
-                st.text(f"{fact['label']}: {fact['value']:.6g} {fact['unit']}")
-                st.caption(fact["source_evidence"])
-                if fact["source_pages"]: st.caption(tr("Source: {pages}", pages=format_pages(fact["source_pages"])))
-        st.button(tr("Reset parameters"), key=f"{prefix}-reset", on_click=_reset_parameters, args=(state, demo, prefix))
-        for parameter in demo["parameters"]:
-            key = f"{prefix}-{parameter['id']}"
-            generation = saved.get("control_generation", 0)
-            if generation: key += f"-control-{generation}"
-            st.session_state[key] = saved["values"][parameter["id"]]
-            label = parameter["label"] + (f" ({parameter['unit']})" if parameter["unit"] else "")
-            if not can_commit(parameter):
-                st.text(label+": "+f"{parameter['default']:.5g}")
-                st.caption(tr("Source value" if parameter.get("provenance") == "source_fixed" else "Read-only value"))
-                continue
-            st.caption(tr("Generated exploration range"))
-            if parameter.get("provenance") == "hypothetical_exploration": st.caption(tr("Hypothetical control · the source stays unchanged."))
-            st.caption(tr("Initial exploration: {value}", value=f"{parameter['default']:.6g}"))
-            st.slider(label, min_value=parameter["min"], max_value=parameter["max"], step=parameter["step"],
-                      key=key, on_change=_save_parameter, args=(state, demo["id"], parameter["id"], key, generation))
-            if st.session_state.pop(key+"-numeric-rejected", False):
-                st.info(tr("This experiment is undefined for these values. Adjust the parameters or reset to defaults."))
+        st.caption(tr("Hypothetical controls · dashed source reference stays unchanged." if demo.get("source_facts") else "Generated exploration range"))
+        columns = st.columns(len(demo["parameters"])) if controls_first else [st.container() for _ in demo["parameters"]]
+        for column, parameter in zip(columns, demo["parameters"]):
+            with column:
+                key = f"{prefix}-{parameter['id']}"
+                generation = saved.get("control_generation", 0)
+                if generation: key += f"-control-{generation}"
+                st.session_state[key] = saved["values"][parameter["id"]]
+                label = present(parameter["label"]) + (f" ({present(parameter['unit'])})" if parameter["unit"] else "")
+                if not can_commit(parameter):
+                    st.text(label+": "+f"{parameter['default']:.5g}")
+                    st.caption(tr("Source value" if parameter.get("provenance") == "source_fixed" else "Read-only value"))
+                    continue
+                st.caption(tr("Initial exploration: {value}", value=f"{parameter['default']:.6g}"))
+                st.slider(label, min_value=parameter["min"], max_value=parameter["max"], step=parameter["step"],
+                          key=key, on_change=_save_parameter, args=(state, demo["id"], parameter["id"], key, generation))
+                if st.session_state.pop(key+"-numeric-rejected", False):
+                    st.info(tr("This experiment is undefined for these values. Adjust the parameters or reset to defaults."))
         compare_key = f"{prefix}-compare"
         st.session_state[compare_key] = saved["compare"]
         st.checkbox(tr("Compare with default"), key=compare_key, on_change=_save_compare, args=(state, demo["id"], compare_key))
-    if plot is None: plot = st.container()
+        st.button(tr("Reset parameters"), key=f"{prefix}-reset", on_click=_reset_parameters, args=(state, demo, prefix))
     with plot:
         try:
             from manipulation.runtime import render_lab as render_manipulation
             direct = render_manipulation(demo, saved, state["material_id"], learning_path)
-            chart = build_lab_chart(demo, saved["values"], saved["compare"])
-            with st.expander(tr("Curve and default comparison"), expanded=saved["compare"]) if direct else st.container():
+            chart = build_lab_chart(demo, saved["values"], saved["compare"], prepared_labels=prepared_labels)
+            with st.container():
                 st.plotly_chart(chart, use_container_width=True, key=f"{prefix}-chart", config={"displaylogo": False})
         except MathExpressionError:
             st.info(tr("This experiment is undefined for these values. Adjust the parameters or reset to defaults."))
         except Exception:
             st.info(tr("This experiment could not be displayed. Your lesson and review are still available."))
-        for metric in demo["derived_metrics"]:
+        metric_columns = st.columns(max(1, len(demo["derived_metrics"])))
+        for column, metric in zip(metric_columns, demo["derived_metrics"]):
             try:
                 value = evaluate_quantity(metric["expression"], source_values(demo) | saved["values"])
-                st.metric(metric["label"], f"{value:.5g} {metric['unit']}".strip())
+                column.metric(present(metric["label"]), f"{value:.5g} {present(metric['unit'])}".strip())
             except MathExpressionError:
                 st.caption(tr("Metric unavailable for these parameters: {label}", label=metric["label"]))
+    # Generated display text is literal text, not necessarily valid TeX.
+    with st.expander(tr("Model, source values and exploration ranges")):
+        st.text(demo["formula_display"])
+        st.caption(tr("Source: {pages}", pages=format_pages(demo["source_pages"])))
+        for fact in demo.get("source_facts", []):
+            st.text(f"{present(fact['label'])}: {fact['value']:.6g} {present(fact['unit'])}")
+            st.caption(fact["source_evidence"])
+            if fact["source_pages"]: st.caption(tr("Source: {pages}", pages=format_pages(fact["source_pages"])))
+        for parameter in demo["parameters"]:
+            st.caption(present(parameter["label"]) + ": " + parameter.get("source_evidence", ""))
     if demo["try_this"]:
         st.markdown(f"**{tr('Try this')}**")
         for prompt in demo["try_this"]:
@@ -451,8 +462,9 @@ def render_interactive_lab(lab, material_id, learning_path, go_to_lesson, format
     if not lab["suitable"]:
         return  # No empty panel for conceptual material or legacy analyses.
     # A single stable anchor survives both UI languages.
-    st.subheader(tr("Interactive Lab"), anchor="interactive-lab")
-    st.caption(tr("Explore the model. Changes are computed locally."))
+    if not controls_first:
+        st.subheader(tr("Interactive Lab"), anchor="interactive-lab")
+        st.caption(tr("Explore the model. Changes are computed locally."))
     state = ensure_lab_state(material_id, lab)
     if len(lab["demos"]) > 1:
         columns = st.columns(len(lab["demos"]))

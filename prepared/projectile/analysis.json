@@ -1,0 +1,614 @@
+{
+  "quick_summary": "Two-dimensional projectile motion is analyzed by resolving vectors into independent horizontal and vertical components. With air resistance neglected, gravity produces constant downward acceleration, horizontal velocity remains constant, the trajectory is parabolic, and collision or maximum-height conditions follow from the component equations.",
+  "key_concepts": [
+    {
+      "concept": "Vector description of planar motion",
+      "explanation": "Position, velocity, and acceleration in two dimensions are represented as x- and y-components: r(t)=x(t)î+y(t)ĵ, with velocity and acceleration obtained by differentiating component-wise.",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "concept": "Initial velocity decomposition",
+      "explanation": "An initial speed v₀ launched at angle θ₀ has components vₓ,₀=v₀ cosθ₀ and vᵧ,₀=v₀ sinθ₀.",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "concept": "Projectile-force model",
+      "explanation": "When air resistance and other interactions are neglected, the only force is gravity, Fg=−mg ĵ, giving aᵧ=−g and aₓ=0.",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "concept": "Component equations of motion",
+      "explanation": "Integrating the constant accelerations gives vₓ=vₓ,₀, x=x₀+vₓ,₀t, vᵧ=vᵧ,₀−gt, and y=y₀+vᵧ,₀t−½gt².",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "concept": "Maximum height condition",
+      "explanation": "At the highest point, the vertical velocity is zero. Thus ttop=v₀ sinθ₀/g, and the maximum height is y₀+v₀² sin²θ₀/(2g).",
+      "source_pages": [
+        8,
+        9
+      ]
+    },
+    {
+      "concept": "Parabolic orbit",
+      "explanation": "Eliminating time between x(t) and y(t) produces a quadratic y(x), so ideal projectile motion follows a parabola.",
+      "source_pages": [
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "concept": "Trajectory slope and velocity direction",
+      "explanation": "The slope dy/dx equals vᵧ/vₓ and determines the direction angle of the velocity vector, but the geometric orbit alone does not determine the speed.",
+      "source_pages": [
+        8,
+        10
+      ]
+    },
+    {
+      "concept": "Hitting a falling target",
+      "explanation": "For a ball aimed at a simultaneously released pail, matching horizontal and vertical positions shows θ₀=tan⁻¹((h₁−h₂)/s), independent of launch speed; collision time decreases as launch speed increases.",
+      "source_pages": [
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Position vector",
+      "relation": "is differentiated to obtain",
+      "target": "Velocity vector",
+      "source_pages": [
+        2
+      ]
+    },
+    {
+      "source": "Velocity vector",
+      "relation": "is differentiated to obtain",
+      "target": "Acceleration vector",
+      "source_pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "source": "Initial speed and launch angle",
+      "relation": "determine",
+      "target": "Initial velocity components",
+      "source_pages": [
+        4
+      ]
+    },
+    {
+      "source": "Gravity-only force model",
+      "relation": "produces",
+      "target": "aₓ=0 and aᵧ=−g",
+      "source_pages": [
+        5,
+        6
+      ]
+    },
+    {
+      "source": "aₓ=0",
+      "relation": "keeps constant",
+      "target": "Horizontal velocity vₓ",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "aᵧ=−g",
+      "relation": "makes",
+      "target": "Vertical velocity decrease linearly with time",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Horizontal and vertical component equations",
+      "relation": "combine to give",
+      "target": "Projectile position and velocity vectors",
+      "source_pages": [
+        6
+      ]
+    },
+    {
+      "source": "Zero vertical velocity",
+      "relation": "identifies",
+      "target": "Maximum height",
+      "source_pages": [
+        8
+      ]
+    },
+    {
+      "source": "Time-dependent position equations",
+      "relation": "with time eliminated produce",
+      "target": "Parabolic orbit",
+      "source_pages": [
+        9
+      ]
+    },
+    {
+      "source": "Orbit slope dy/dx",
+      "relation": "equals",
+      "target": "Velocity-component ratio vᵧ/vₓ",
+      "source_pages": [
+        10
+      ]
+    },
+    {
+      "source": "Air resistance",
+      "relation": "causes",
+      "target": "Actual trajectory to differ from ideal parabolic trajectory",
+      "source_pages": [
+        3
+      ]
+    },
+    {
+      "source": "Equal collision coordinates",
+      "relation": "determine",
+      "target": "Hitting-the-pail conditions",
+      "source_pages": [
+        12,
+        13
+      ]
+    },
+    {
+      "source": "Hitting-the-pail angle",
+      "relation": "is independent of",
+      "target": "Initial launch speed",
+      "source_pages": [
+        13
+      ]
+    },
+    {
+      "source": "Initial launch speed",
+      "relation": "controls",
+      "target": "Collision time",
+      "source_pages": [
+        14
+      ]
+    }
+  ],
+  "visual_evidence": [
+    {
+      "page": 3,
+      "type": "diagram",
+      "description": "Figure 5.1 compares an ideal parabolic orbit with an air-resistance-affected actual orbit; Figure 5.2 shows the projectile coordinate system and position vector.",
+      "learning_value": "Contrasts the ideal model with its limitation and connects x-y coordinates to the projectile’s vector position."
+    },
+    {
+      "page": 4,
+      "type": "diagram",
+      "description": "Figure 5.3 decomposes the initial velocity vector into horizontal and vertical components.",
+      "learning_value": "Makes the trigonometric component relations vₓ,₀=v₀cosθ₀ and vᵧ,₀=v₀sinθ₀ visually concrete."
+    },
+    {
+      "page": 5,
+      "type": "diagram",
+      "description": "Figure 5.4 is a free-body diagram showing gravity acting downward.",
+      "learning_value": "Directly supports the conclusion that acceleration is vertical and downward."
+    },
+    {
+      "page": 7,
+      "type": "graph",
+      "description": "Figures 5.5 and 5.6 show the parabolic path y(x) and the vertical position y(t) for the worked stone example.",
+      "learning_value": "Distinguishes spatial trajectory from time evolution and illustrates how graph slope represents velocity."
+    },
+    {
+      "page": 8,
+      "type": "graph",
+      "description": "Figure 5.7 plots vertical velocity vᵧ(t) as a decreasing straight line crossing zero at the highest point.",
+      "learning_value": "Shows why vᵧ=0 identifies maximum height and why the sign change marks the transition from ascent to descent."
+    },
+    {
+      "page": 9,
+      "type": "diagram",
+      "description": "Figure 5.8 depicts the parabolic orbit with velocity components and the local tangent direction.",
+      "learning_value": "Connects the orbit’s tangent slope with the instantaneous velocity direction."
+    },
+    {
+      "page": 11,
+      "type": "diagram",
+      "description": "Figure 5.9 illustrates the falling-pail and thrown-ball setup, including h₁, h₂, and horizontal separation s.",
+      "learning_value": "Frames the simultaneous-motion collision problem geometrically."
+    }
+  ],
+  "visual_flow": {
+    "suitable": true,
+    "reason": "The central idea is an ordered derivation: specify initial components, apply the gravity-only force model, integrate acceleration, obtain the trajectory, and impose conditions for features such as maximum height or collision.",
+    "nodes": [
+      {
+        "id": "initial_state",
+        "label": "Resolve initial position and velocity",
+        "source_pages": [
+          2,
+          4
+        ]
+      },
+      {
+        "id": "gravity_model",
+        "label": "Apply gravity-only acceleration",
+        "source_pages": [
+          5,
+          6
+        ]
+      },
+      {
+        "id": "integrate_motion",
+        "label": "Integrate components in time",
+        "source_pages": [
+          6
+        ]
+      },
+      {
+        "id": "trajectory",
+        "label": "Obtain parabolic trajectory",
+        "source_pages": [
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "event_conditions",
+        "label": "Apply maximum-height or collision conditions",
+        "source_pages": [
+          8,
+          12,
+          13,
+          14
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "initial_state",
+        "target": "gravity_model",
+        "label": "sets initial conditions and model"
+      },
+      {
+        "source": "gravity_model",
+        "target": "integrate_motion",
+        "label": "supplies ax=0, ay=−g"
+      },
+      {
+        "source": "integrate_motion",
+        "target": "trajectory",
+        "label": "eliminate time"
+      },
+      {
+        "source": "trajectory",
+        "target": "event_conditions",
+        "label": "evaluate special positions and encounters"
+      }
+    ]
+  },
+  "concept_map": {
+    "suitable": false,
+    "reason": "A process flow better represents the chapter’s main derivation than a static conceptual map.",
+    "nodes": [],
+    "edges": []
+  },
+  "comparison": {
+    "suitable": false,
+    "reason": "The material includes contrasts such as ideal versus air-resisted motion, but comparison is not its dominant learning structure.",
+    "title": "",
+    "items": [],
+    "criteria": [],
+    "takeaway": ""
+  },
+  "learning_path": {
+    "suitable": true,
+    "title": "From Vector Components to Projectile Outcomes",
+    "reason": "The chapter develops projectile motion through a clear mathematical progression from representation and forces to equations, geometry, and applications.",
+    "steps": [
+      {
+        "id": "step_components",
+        "title": "Represent motion with components",
+        "learning_goal": "Express position, velocity, and acceleration in Cartesian components.",
+        "explanation": "Treat x and y independently: r=x î+y ĵ, v=vₓ î+vᵧ ĵ, and a=aₓ î+aᵧ ĵ. Resolve the launch velocity using the speed and angle.",
+        "source_pages": [
+          2,
+          3,
+          4
+        ],
+        "connection_to_previous": "This establishes the language needed to analyze motion in two dimensions.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "initial_state"
+          }
+        ]
+      },
+      {
+        "id": "step_forces",
+        "title": "Translate gravity into acceleration",
+        "learning_goal": "Derive the horizontal and vertical accelerations for ideal projectile motion.",
+        "explanation": "The gravity force is downward, Fg=−mg ĵ. Newton’s second law gives aₓ=0 and aᵧ=−g, independent of the projectile’s mass.",
+        "source_pages": [
+          5,
+          6
+        ],
+        "connection_to_previous": "Once the components are defined, the force model determines how each component changes.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "gravity_model"
+          }
+        ]
+      },
+      {
+        "id": "step_time_equations",
+        "title": "Integrate to obtain x(t), y(t), and velocity",
+        "learning_goal": "Use the constant accelerations to write the complete time-dependent motion.",
+        "explanation": "Horizontal motion is uniform: x=x₀+vₓ,₀t. Vertical motion is uniformly accelerated: y=y₀+vᵧ,₀t−½gt² and vᵧ=vᵧ,₀−gt.",
+        "source_pages": [
+          6
+        ],
+        "connection_to_previous": "Integrating the accelerations produces the position and velocity functions that describe the flight.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "integrate_motion"
+          }
+        ]
+      },
+      {
+        "id": "step_parabola",
+        "title": "Interpret the trajectory geometrically",
+        "learning_goal": "Understand why the path is parabolic and how its slope relates to velocity direction.",
+        "explanation": "Eliminating t gives a quadratic y(x). The slope dy/dx=vᵧ/vₓ determines the direction of motion at a point, while the graph alone does not determine speed.",
+        "source_pages": [
+          9,
+          10,
+          11
+        ],
+        "connection_to_previous": "The time equations can be combined to describe the path without using time explicitly.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "trajectory"
+          }
+        ]
+      },
+      {
+        "id": "step_events",
+        "title": "Solve special-event problems",
+        "learning_goal": "Apply physical conditions to find maximum height and collision results.",
+        "explanation": "At maximum height vᵧ=0. For the falling-pail problem, require the ball and pail to share x and y at the same time, yielding θ₀=tan⁻¹((h₁−h₂)/s) and tₐ=√(s²+(h₁−h₂)²)/v₀.",
+        "source_pages": [
+          8,
+          9,
+          12,
+          13,
+          14
+        ],
+        "connection_to_previous": "Once the trajectory and velocity are known, physical events are found by imposing their defining conditions.",
+        "visual_refs": [
+          {
+            "type": "visual_flow_node",
+            "id": "event_conditions"
+          }
+        ]
+      }
+    ],
+    "checkpoint_questions": [
+      {
+        "id": "q_components",
+        "question": "A projectile is launched with speed v₀ at angle θ₀. Which pair gives its initial velocity components?",
+        "options": [
+          {
+            "id": "a",
+            "text": "vₓ,₀=v₀sinθ₀ and vᵧ,₀=v₀cosθ₀"
+          },
+          {
+            "id": "b",
+            "text": "vₓ,₀=v₀cosθ₀ and vᵧ,₀=v₀sinθ₀"
+          },
+          {
+            "id": "c",
+            "text": "vₓ,₀=v₀ and vᵧ,₀=v₀"
+          },
+          {
+            "id": "d",
+            "text": "vₓ,₀=v₀tanθ₀ and vᵧ,₀=v₀"
+          }
+        ],
+        "correct_option_id": "b",
+        "explanation": "The horizontal component is adjacent to θ₀ and the vertical component is opposite, so vₓ,₀=v₀cosθ₀ and vᵧ,₀=v₀sinθ₀.",
+        "source_pages": [
+          4
+        ],
+        "related_step_ids": [
+          "step_components"
+        ]
+      },
+      {
+        "id": "q_apex",
+        "question": "Why is the vertical velocity zero at the projectile’s highest point?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Gravity becomes zero there"
+          },
+          {
+            "id": "b",
+            "text": "The horizontal velocity changes direction"
+          },
+          {
+            "id": "c",
+            "text": "The vertical position stops increasing before it begins decreasing"
+          },
+          {
+            "id": "d",
+            "text": "The projectile has no acceleration at that point"
+          }
+        ],
+        "correct_option_id": "c",
+        "explanation": "At the apex, y(t) changes from increasing to decreasing, so its slope dy/dt=vᵧ is zero; gravity still acts downward.",
+        "source_pages": [
+          8
+        ],
+        "related_step_ids": [
+          "step_time_equations",
+          "step_events"
+        ]
+      },
+      {
+        "id": "q_pail",
+        "question": "In the falling-pail problem, why does the required aiming angle not depend on the ball’s initial speed?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Both objects experience the same downward acceleration, which cancels when their position conditions are compared"
+          },
+          {
+            "id": "b",
+            "text": "The ball has no vertical velocity"
+          },
+          {
+            "id": "c",
+            "text": "The pail remains fixed horizontally because gravity is absent"
+          },
+          {
+            "id": "d",
+            "text": "The collision time is always independent of speed"
+          }
+        ],
+        "correct_option_id": "a",
+        "explanation": "The ball and pail share the same gravitational acceleration, so comparing their vertical positions leaves v₀ only in factors that cancel when the horizontal and vertical conditions are divided.",
+        "source_pages": [
+          12,
+          13
+        ],
+        "related_step_ids": [
+          "step_events"
+        ]
+      }
+    ]
+  },
+  "interactive_lab": {
+    "suitable": true,
+    "reason": "The source provides an explicit projectile orbit equation whose shape and maximum height become clearer when launch speed, angle, and release height are varied.",
+    "demos": [
+      {
+        "id": "projectile_orbit",
+        "title": "Explore the ideal projectile orbit",
+        "learning_goal": "See how launch speed, launch angle, and initial height change the parabolic path and the time to maximum height.",
+        "formula_display": "y(x)=y₀+x tan(θ)−g x²/[2v₀² cos²(θ)], with θ in radians",
+        "x": {
+          "id": "x",
+          "label": "Horizontal distance x",
+          "min": 0,
+          "max": 50,
+          "points": 500
+        },
+        "parameters": [
+          {
+            "id": "v0",
+            "label": "Initial speed v₀",
+            "min": 10,
+            "max": 40,
+            "default": 20,
+            "step": 1,
+            "unit": "m/s"
+          },
+          {
+            "id": "theta",
+            "label": "Launch angle θ (radians)",
+            "min": 0.2,
+            "max": 1.3,
+            "default": 0.785398,
+            "step": 0.01,
+            "unit": "rad"
+          },
+          {
+            "id": "y0",
+            "label": "Initial height y₀",
+            "min": 0,
+            "max": 10,
+            "default": 2,
+            "step": 0.5,
+            "unit": "m"
+          },
+          {
+            "id": "g",
+            "label": "Gravitational acceleration g",
+            "min": 9.8,
+            "max": 9.8,
+            "default": 9.8,
+            "step": 0,
+            "unit": "m/s²"
+          }
+        ],
+        "series": [
+          {
+            "id": "trajectory",
+            "label": "Projectile trajectory y(x)",
+            "expression": "y0+x*tan(theta)-g*x**2/(2*v0**2*cos(theta)**2)"
+          }
+        ],
+        "derived_metrics": [
+          {
+            "id": "top_time",
+            "label": "Time to maximum height",
+            "expression": "v0*sin(theta)/g",
+            "unit": "s"
+          },
+          {
+            "id": "max_height",
+            "label": "Maximum height",
+            "expression": "y0+v0**2*sin(theta)**2/(2*g)",
+            "unit": "m"
+          }
+        ],
+        "try_this": [
+          "Change only θ and compare the launch slope and maximum height.",
+          "Increase v₀ and observe how the parabola widens and the top time changes.",
+          "Raise y₀ and check how the entire trajectory and maximum height shift."
+        ],
+        "source_pages": [
+          4,
+          6,
+          9
+        ],
+        "related_step_ids": [
+          "step_components",
+          "step_time_equations",
+          "step_parabola",
+          "step_events"
+        ]
+      }
+    ]
+  },
+  "learning_scene_candidate": {
+    "suitable": true,
+    "domain": "spatial_dynamics",
+    "reason": "The chapter gives a source-grounded quantitative model of two-dimensional motion with positions, velocity vectors, trajectories, gravity, and adjustable parameters such as launch speed, angle, height, and time."
+  },
+  "primary_visualization": {
+    "type": "flow",
+    "reason": "The most important understanding is the ordered derivation from component initial conditions through the gravity model and integration to the parabolic trajectory and event conditions."
+  },
+  "suggested_visualizations": [
+    "Flow",
+    "Image / Diagram",
+    "3D / Motion"
+  ],
+  "analysis_language": "en"
+}

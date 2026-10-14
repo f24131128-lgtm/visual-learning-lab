@@ -3,5 +3,6 @@
 /.day27-local/
 /.day29-local/
 /.post29-local/
+/.day30-local/
 __pycache__/
 *.pyc

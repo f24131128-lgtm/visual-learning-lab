@@ -91,6 +91,25 @@ UI grounding annotations and model exploration are additions; the original
 source image remains unchanged. No MIT endorsement is implied. This notice
 does not relicense application code or its software dependencies.
 
+## MIT OCW Chapter 5 — Day30 prepared derivative
+
+`prepared/projectile/source.pdf` now includes the **unchanged complete** Chapter 5
+PDF (16 pages, SHA-256
+`688a232388f914ed834e02b28ba343c10b3866e23c3cd94ff38f859957d0c5ec`). The earlier
+Day26 statement above describes that historical stage, before this addition.
+Peter Dourmashkin / MIT OpenCourseWare course team, 8.01SC Classical Mechanics,
+Fall 2016, *Two Dimensional Kinematics*.
+[Original resource](https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/resources/mit8_01scs22_chapter5/).
+[OCW terms](https://ocw.mit.edu/pages/privacy-and-terms-of-use/),
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/),
+[complete legal code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+Use this educational showcase noncommercially; retain attribution, the license
+link, notices and applicable ShareAlike conditions. No endorsement is implied.
+The archived-model derivative, provenance additions and screenshots are identified
+in [PROVENANCE.md](prepared/projectile/PROVENANCE.md). Exploration annotations are
+additions; PDF pixels, text and boxes never follow exploration values. These
+source terms do not relicense software or clear historical distribution duties.
+
 ## Real teaching corpus and screenshots — Day 27
 
 Original PDFs and extracted subsets are not committed. Exact URLs, original

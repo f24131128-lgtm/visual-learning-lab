@@ -86,7 +86,9 @@ class RedTeamTests(unittest.TestCase):
             next(b for b in app.button if b.key == "workspace-source-controls").click().run()
             self.assertFalse(app.exception)
             self.assertEqual(app.session_state["learning_workspace"]["mode"], "explore")
-            self.assertTrue(next(e for e in app.expander if e.label == "參數與對照").proto.expanded)
+            # Controls are now inline immediately after the always-visible chart.
+            self.assertTrue(app.get("plotly_chart"))
+            self.assertEqual(len(app.slider), 3)
             amplitude = next(s for s in app.slider if "trial_amplitude" in s.key)
             amplitude.set_value(2.9).run()
             self.assertFalse(app.exception)

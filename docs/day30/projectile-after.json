@@ -1,0 +1,47 @@
+{
+  "example": "projectile",
+  "material": "d091acbc3a9025eddaad30a3d9fa71b2a6061fa292e84922a4c82ea5017b402f",
+  "world": {
+    "time": 0,
+    "parameters": {
+      "v0": 60.983080863703194,
+      "angle": 0.9585637722084824,
+      "y0": 2,
+      "gravity": 9.8
+    },
+    "focus": "vx0",
+    "baseline": null,
+    "previous": {
+      "time": 0,
+      "parameters": {
+        "v0": 20,
+        "angle": 0.7853981634,
+        "y0": 2,
+        "gravity": 9.8
+      },
+      "focus": "vx0",
+      "baseline": null
+    },
+    "revision": 3,
+    "recording": false,
+    "recording_origin": null,
+    "recorded": [],
+    "last_token": "1791991496090-05t59eiais9",
+    "experiment": null,
+    "replay_generation": 0
+  },
+  "mode": "explore",
+  "lab_values": {
+    "projectile_orbit": {
+      "v0": 20.0,
+      "theta": 0.785398,
+      "y0": 2.0,
+      "g": 9.8
+    }
+  },
+  "blocked_provider_attempts": 0,
+  "real_provider_calls": 0,
+  "source_hashes": {
+    "pdf_bytes": "688a232388f914ed834e02b28ba343c10b3866e23c3cd94ff38f859957d0c5ec"
+  }
+}

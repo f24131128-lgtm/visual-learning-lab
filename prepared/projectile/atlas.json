@@ -1,0 +1,287 @@
+{
+  "atlas_version": "1.0",
+  "processed_pages": [
+    4,
+    5,
+    6
+  ],
+  "regions": [
+    {
+      "region_id": "p6_motion_integrals",
+      "page": 6,
+      "bbox": {
+        "x0": 0.145,
+        "y0": 0.475,
+        "x1": 0.85,
+        "y1": 0.69
+      },
+      "type": "formula",
+      "label": "Integrated component equations for velocity and position",
+      "semantic_ids": [
+        "x_position",
+        "y_position",
+        "vx",
+        "vy",
+        "ax",
+        "ay",
+        "gravity",
+        "vx0"
+      ],
+      "source_text_excerpt": "v_x(t)=v_{x,0}, x(t)=x_0+v_{x,0}t, v_y(t)=v_{y,0}-gt, y(t)=y_0+v_{y,0}t-(1/2)gt^2.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p6_vector_equations",
+        "p6_acceleration_vector"
+      ],
+      "layer": "formulas",
+      "grounding_note": "A clearly bounded multi-line equation block in the lower-middle portion of the page; individual equation baselines are not separated into tiny boxes.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p6_vector_equations",
+      "page": 6,
+      "bbox": {
+        "x0": 0.29,
+        "y0": 0.746,
+        "x1": 0.86,
+        "y1": 0.844
+      },
+      "type": "vector",
+      "label": "Complete vector equations for position, velocity, and acceleration",
+      "semantic_ids": [
+        "x_position",
+        "y_position",
+        "vx",
+        "vy",
+        "ax",
+        "ay",
+        "gravity",
+        "vx0"
+      ],
+      "source_text_excerpt": "r(t)=x(t) î+y(t) ĵ; v(t)=v_x(t) î+v_y(t) ĵ; a(t)=a_y ĵ.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p6_motion_integrals",
+        "p6_acceleration_vector"
+      ],
+      "layer": "vectors",
+      "grounding_note": "The three centered vector equations are visibly grouped beneath the explanatory sentence and above the example heading.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p6_acceleration_vector",
+      "page": 6,
+      "bbox": {
+        "x0": 0.382,
+        "y0": 0.806,
+        "x1": 0.79,
+        "y1": 0.847
+      },
+      "type": "formula",
+      "label": "Acceleration vector equation",
+      "semantic_ids": [
+        "ax",
+        "ay",
+        "gravity"
+      ],
+      "source_text_excerpt": "a(t)=a_x(t) î+a_y(t) ĵ=a_y ĵ.",
+      "parent_region_id": "p6_vector_equations",
+      "related_region_ids": [
+        "p5_force_diagram"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The final line of the vector-equation group explicitly shows acceleration only in the vertical direction.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p6_example_heading",
+      "page": 6,
+      "bbox": {
+        "x0": 0.145,
+        "y0": 0.866,
+        "x1": 0.72,
+        "y1": 0.893
+      },
+      "type": "example",
+      "label": "Time of Flight and Maximum Height of a Projectile",
+      "semantic_ids": [
+        "flight_duration",
+        "maximum_height"
+      ],
+      "source_text_excerpt": "Example 5.1 Time of Flight and Maximum Height of a Projectile",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p6_motion_integrals"
+      ],
+      "layer": "labels",
+      "grounding_note": "The bold example heading is clearly visible near the bottom of the page; the associated worked example continues beyond this page.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p4_velocity_decomposition_diagram",
+      "page": 4,
+      "bbox": {
+        "x0": 0.406,
+        "y0": 0.188,
+        "x1": 0.597,
+        "y1": 0.328
+      },
+      "type": "diagram",
+      "label": "Projectile trajectory and initial velocity decomposition",
+      "semantic_ids": [
+        "v0",
+        "angle",
+        "vx0",
+        "vy0",
+        "x_axis_dx",
+        "x_axis_dy",
+        "y_axis_dx",
+        "y_axis_dy"
+      ],
+      "source_text_excerpt": "Figure 5.3 A vector decomposition of the initial velocity",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p4_component_formula"
+      ],
+      "layer": "structure",
+      "grounding_note": "The diagram visibly contains the parabolic trajectory, coordinate axes, initial velocity vector, component arrows, and launch angle.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p4_component_formula",
+      "page": 4,
+      "bbox": {
+        "x0": 0.403,
+        "y0": 0.414,
+        "x1": 0.865,
+        "y1": 0.607
+      },
+      "type": "formula",
+      "label": "Initial velocity component relations",
+      "semantic_ids": [
+        "v0",
+        "angle",
+        "vx0",
+        "vy0",
+        "speed"
+      ],
+      "source_text_excerpt": "v_{x,0}=v_0 cos θ_0; v_{y,0}=v_0 sin θ_0; v_0=(v_{x,0}^2+v_{y,0}^2)^{1/2}.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p4_velocity_decomposition_diagram"
+      ],
+      "layer": "formulas",
+      "grounding_note": "The displayed component and magnitude equations are centered in the middle of the page and are legible as a grouped set.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p4_initial_position_vector",
+      "page": 4,
+      "bbox": {
+        "x0": 0.431,
+        "y0": 0.837,
+        "x1": 0.866,
+        "y1": 0.874
+      },
+      "type": "formula",
+      "label": "Initial position vector",
+      "semantic_ids": [
+        "y0",
+        "x_axis_dx",
+        "x_axis_dy",
+        "y_axis_dx",
+        "y_axis_dy"
+      ],
+      "source_text_excerpt": "r_0=x_0 î+y_0 ĵ.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p4_velocity_decomposition_diagram"
+      ],
+      "layer": "vectors",
+      "grounding_note": "A single centered vector equation appears near the lower portion of the page; x_0 is visible in the source but is not a supplied semantic entity.",
+      "confidence": "medium"
+    },
+    {
+      "region_id": "p5_force_diagram",
+      "page": 5,
+      "bbox": {
+        "x0": 0.414,
+        "y0": 0.221,
+        "x1": 0.596,
+        "y1": 0.347
+      },
+      "type": "diagram",
+      "label": "Free-body force diagram with downward gravity",
+      "semantic_ids": [
+        "gravity",
+        "ax",
+        "ay",
+        "x_axis_dx",
+        "x_axis_dy",
+        "y_axis_dx",
+        "y_axis_dy"
+      ],
+      "source_text_excerpt": "Figure 5.4 Free-body force diagram on the object with the action of gravity",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p5_acceleration_formulas"
+      ],
+      "layer": "structure",
+      "grounding_note": "The figure clearly shows the coordinate axes, projectile point, and a downward gravitational-force arrow.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p5_force_vector_formula",
+      "page": 5,
+      "bbox": {
+        "x0": 0.444,
+        "y0": 0.433,
+        "x1": 0.859,
+        "y1": 0.461
+      },
+      "type": "formula",
+      "label": "Gravitational force vector",
+      "semantic_ids": [
+        "gravity",
+        "y_axis_dx",
+        "y_axis_dy"
+      ],
+      "source_text_excerpt": "F⃗^g=−mg ĵ.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p5_force_diagram",
+        "p5_acceleration_formulas"
+      ],
+      "layer": "vectors",
+      "grounding_note": "The displayed force decomposition is isolated as a centered equation below the figure caption.",
+      "confidence": "high"
+    },
+    {
+      "region_id": "p5_acceleration_formulas",
+      "page": 5,
+      "bbox": {
+        "x0": 0.445,
+        "y0": 0.691,
+        "x1": 0.86,
+        "y1": 0.817
+      },
+      "type": "formula",
+      "label": "Component equations for acceleration",
+      "semantic_ids": [
+        "gravity",
+        "ax",
+        "ay"
+      ],
+      "source_text_excerpt": "−mg=ma_y; 0=ma_x; a_y=−g.",
+      "parent_region_id": null,
+      "related_region_ids": [
+        "p5_force_diagram",
+        "p5_force_vector_formula",
+        "p6_motion_integrals"
+      ],
+      "layer": "formulas",
+      "grounding_note": "Three centered equations are visibly grouped in the lower-middle portion of the page and support zero horizontal and constant downward vertical acceleration.",
+      "confidence": "high"
+    }
+  ]
+}

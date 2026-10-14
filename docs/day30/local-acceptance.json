@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-14/15 Asia/Taipei",
+  "entrypoint": "app.py through tests/manual_day30.py (observation + provider deny only)",
+  "actual_browser_drag": true,
+  "pointer_from": [
+    412,
+    424
+  ],
+  "pointer_to": [
+    450,
+    360
+  ],
+  "before": {
+    "v0": 20,
+    "angle": 0.7853981634,
+    "y0": 2,
+    "gravity": 9.8
+  },
+  "committed": {
+    "v0": 60.983080863703194,
+    "angle": 0.9585637722084824,
+    "y0": 2,
+    "gravity": 9.8
+  },
+  "before_projection": {
+    "projectile_point": [
+      0.0,
+      2.0
+    ],
+    "projectile_trajectory": [
+      0.0,
+      2.0
+    ],
+    "velocity_vector": [
+      0.0,
+      2.0,
+      14.142135623694864,
+      14.142135623767038
+    ],
+    "acceleration_vector": [
+      0.0,
+      2.0,
+      0.0,
+      -9.8
+    ],
+    "initial_velocity_vector": [
+      0.0,
+      0.0,
+      14.142135623694864,
+      14.142135623767038
+    ],
+    "horizontal_axis": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "vertical_axis": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "height_series": [
+      2.0
+    ],
+    "speed_metric": [
+      20.0
+    ],
+    "height_metric": [
+      12.204081632705137
+    ],
+    "top_time_metric": [
+      1.4430750636496976
+    ],
+    "flight_time_metric": [
+      3.0212477109331632
+    ]
+  },
+  "after_projection": {
+    "projectile_point": [
+      0.0,
+      2.0
+    ],
+    "projectile_trajectory": [
+      0.0,
+      2.0
+    ],
+    "velocity_vector": [
+      0.0,
+      2.0,
+      35.046728971962615,
+      49.90654205607476
+    ],
+    "acceleration_vector": [
+      0.0,
+      2.0,
+      0.0,
+      -9.8
+    ],
+    "initial_velocity_vector": [
+      0.0,
+      0.0,
+      35.046728971962615,
+      49.90654205607476
+    ],
+    "horizontal_axis": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "vertical_axis": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "height_series": [
+      2.0
+    ],
+    "speed_metric": [
+      60.983080863703194
+    ],
+    "height_metric": [
+      129.07463979565097
+    ],
+    "top_time_metric": [
+      5.0925042914361995
+    ],
+    "flight_time_metric": [
+      10.224927035482352
+    ]
+  },
+  "revision_before": 1,
+  "revision_after": 3,
+  "source_hash_unchanged": true,
+  "exact_world_roundtrip": true,
+  "unsupported_focus": "x_position",
+  "unsupported_twin_button_count": 0,
+  "keyboard_slider_committed_speed": 62,
+  "real_provider_calls": 0,
+  "unexpected_provider_attempts": 0,
+  "desktop": [
+    1440,
+    1000
+  ],
+  "narrow_source": [
+    900,
+    900
+  ],
+  "mobile_wave": [
+    390,
+    844
+  ],
+  "document_horizontal_overflow": false,
+  "source_content_license": "MIT OCW CC BY-NC-SA 4.0",
+  "browser_operator": "Codex, not a human learner"
+}
