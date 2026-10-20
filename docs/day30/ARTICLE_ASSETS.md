@@ -26,3 +26,38 @@ Cloud 驗收另記於 DAY30_EVIDENCE；本機圖不可標成 Cloud。
 release 等待，不能用手作幀模擬反應，也不能暴露帳號、secrets 或 private corpus。
 
 本機素材根目錄：`D:\Projects\visual-learning-lab\docs\day30`。上表六個檔名就是各張截圖的本機檔名。
+
+## 2026-10-20 實際 Cloud 畫面（改為 Public 前）
+
+新增素材位於 `D:\Projects\visual-learning-lab\docs\day30\cloud-20261020`：
+[入口](cloud-20261020/00-landing.jpg)、[原始波形](cloud-20261020/01-harmonic-before.jpg)、
+[更新後波形](cloud-20261020/02-harmonic-updated.jpg)、[來源](cloud-20261020/03-projectile-source.jpg)、
+[拖曳前](cloud-20261020/04-projectile-before.jpg)、[拖曳提交後](cloud-20261020/05-projectile-drag.jpg)、
+[完整軌跡](cloud-20261020/06-projectile-trajectory.jpg)、[付費關閉／未登入](cloud-20261020/07-paid-off-anonymous.jpg)、
+[來源往返](cloud-20261020/08-source-roundtrip.jpg)、[未公開的分享狀態](cloud-20261020/09-sharing-private.jpg)。
+
+這些來自 owner 可存取的 Cloud 與新的 app session，app 內未 Google 登入。
+Cloud public toggle 關閉，不能標成公開匿名驗收成功。見[本次記錄](cloud-20261020/ACCEPTANCE.md)。
+
+## 2026-10-20 公開匿名驗收畫面
+
+Owner 改為 Public 後，先登出 Cloud、關閉舊分頁，再開新 app session。以下均為
+實際已登出訪客畫面，與前面的 owner-session 證據分開，沒有將舊圖改名成新驗收。
+
+素材根目錄：`D:\Projects\visual-learning-lab\docs\day30\cloud-public-20261020`。
+
+| 檔案 | 用途 |
+|---|---|
+| [00-cloud-signed-out.jpg](cloud-public-20261020/00-cloud-signed-out.jpg) | Cloud 顯示 Continue to sign-in，沒有帳號或私人資料 |
+| [01-public-landing.jpg](cloud-public-20261020/01-public-landing.jpg) | 匿名可進入，訪客介面沒有 Manage app |
+| [02-anonymous-paid-off.jpg](cloud-public-20261020/02-anonymous-paid-off.jpg) | Google 未登入、新 AI 生成停用 |
+| [03-harmonic-before.jpg](cloud-public-20261020/03-harmonic-before.jpg) | 調參前真實波形 |
+| [04-harmonic-updated.jpg](cloud-public-20261020/04-harmonic-updated.jpg) | A/T/phi 更新後波形、指標與滑桿；新版 README hero |
+| [05-projectile-source.jpg](cloud-public-20261020/05-projectile-source.jpg) | Figure 5.3 原始圖與編譯初值 |
+| [06-projectile-before.jpg](cloud-public-20261020/06-projectile-before.jpg) | 20 m/s、45 度的端點 |
+| [07-projectile-drag.jpg](cloud-public-20261020/07-projectile-drag.jpg) | 真實拖曳 release 後正式值61.066 /49.656 |
+| [08-projectile-trajectory.jpg](cloud-public-20261020/08-projectile-trajectory.jpg) | 完整軌跡及指標 |
+| [09-source-roundtrip.jpg](cloud-public-20261020/09-source-roundtrip.jpg) | 原圖不變，保留探索值 |
+
+[驗收方法、限制與 JSON](cloud-public-20261020/ACCEPTANCE.md)。這是登出後新 session，
+不是獨立無痕 profile；不宣稱刪除了瀏覽器所有 cookies。既有 MIT 教材授權條件仍適用。

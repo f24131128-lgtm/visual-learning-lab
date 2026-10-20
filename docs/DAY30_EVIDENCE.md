@@ -8,6 +8,11 @@ No reset, restore, clean, force checkout or force push. No unrelated log/corpus 
 secret is part of the release. The reference commit's Google/OIDC/metering work
 is preserved. Paid AI stays off; no Cloud secrets or Neon changes.
 
+Latest follow-up: **2026-10-20, after the owner enabled Public**: logged-out public
+anonymous acceptance passed for both examples. The browser signed out of Cloud,
+closed both previous app tabs, then opened fresh app sessions; this was not an
+incognito profile. See [the current public record](day30/cloud-public-20261020/ACCEPTANCE.md).
+
 ## What changed
 
 - Two actual prepared buttons before the own-material disclosure. Harmonic opens
@@ -176,9 +181,10 @@ Six real local screenshots: [landing](day30/01-landing.jpg),
 [fair ChatGPT comparison protocol](day30/FAIR_COMPARISON.md).
 The comparison was not run; no fake baseline or superior learning-gain claim.
 
-Push and final Cloud acceptance are pending this document's initial preparation.
-They will be appended from actual observations; local acceptance does not imply
-Cloud acceptance. Public sharing policy will not be changed by automation.
+The initial preparation predated the normal push and Cloud checks. Subsequent
+deployment observations below retain their original dates; the latest Cloud
+status is in the 2026-10-20 follow-up. The agent did not change sharing; the owner
+enabled Public before the final anonymous follow-up.
 
 Run from repository root: `python -m streamlit run app.py`.
 Paid AI remains disabled (`VLL_LIVE_AI=""`). No model/key, OIDC, secrets, Neon,
@@ -209,3 +215,91 @@ those are inconclusive for anonymous interactive acceptance, not a public-access
 PASS. The actual fresh browser reached the app's error page without invoking
 Google login. Final anonymous/demo acceptance requires a recovered app and real
 interaction. [Deployment record](day30/cloud-acceptance.json).
+
+## Authorized Cloud follow-up — 2026-10-20
+
+Owner explicitly authorized exactly one Reboot app, including interruption of
+active sessions. It was executed once: Cloud logs show a new main clone/pull at
+01:20:45–46 UTC and server start at 01:21:00.459 UTC (09:21 Asia/Taipei), Python
+3.12.15 / Streamlit 1.66.0. Remote main was
+`b66f07002349f905981d9d831f539a76df3f0c02`. Cloud logs do not expose a process Git
+SHA; fresh clone/pull of main plus the unchanged remote SHA is the revision
+evidence, not a claim that an in-process `git rev-parse` was obtained.
+
+ImportError did not recur. The landing already worked when first opened this
+day before the authorized reboot, so this does not prove the reboot itself was
+the causal repair. Post-reboot logs have no ImportError/uncaught traceback, with
+nonblocking `use_container_width` deprecation warnings. No runtime fix or further
+reboot was needed.
+
+Harmonic: actual separate slider commits A=5, T=6, phi=-pi; rendered SVG curves
+changed, shift=3, omega=1.0472. Projectile: physical drag (370,298)→(415,240), release,
+wait for acknowledgment, then verify canonical UI table: speed 20→60.895 m/s,
+angle 45→49.519 degrees, maximum height 12.204→111.46 m, impact time 3.0212→9.4956 s.
+The full spatial trajectory and height/time polyline changed against an independent
+default session. The first attempt missed after page movement and did not commit;
+tentative preview values were not counted as committed results.
+
+Source roundtrip and reopening Explore preserved the exact displayed committed
+metrics. The original page-4 PNG equals the independent unexplored session byte
+for byte: SHA-256 `222f7857f26d5e74bf1e6a0bcf988ed32a06b948f4d0cb3344e54a025c44455d`.
+This is Cloud page-raster integrity evidence, not a newly downloaded full-PDF hash.
+
+**Access limitation:** New Streamlit sessions were app-Google-unsigned-in, with
+the sign-in button and server-paid-off caption visible. The browser still has
+Cloud owner authentication. Read-only inspection of Share → Invite after loading
+showed **Make this app public unchecked** (`input.checked=false`). Thus both
+Cloud functional paths passed in the owner-accessible browser, but genuine
+public anonymous acceptance did not pass. No cookie-isolated incognito profile
+was available through the browser interface. Sharing was not changed.
+
+Owner action, only if a public showcase is desired: Share → Invite → turn on
+Make this app public, then test the app URL in a fresh incognito browser without
+Cloud or Google sign-in. That permission change is outside this reboot grant.
+
+No Secrets, Neon, OAuth, spending policy or VLL_LIVE_AI change; no model-generating
+action was taken. Zero-call assurance uses the paid-off UI, audited fixed loader
+and local reducers, and the existing mocked request-boundary regressions. No
+Cloud provider billing/Neon audit was performed. Real screenshots, bounded DOM
+witnesses and numerical results: [Cloud acceptance](day30/cloud-20261020/ACCEPTANCE.md).
+
+## Public anonymous acceptance — 2026-10-20, after owner changed sharing
+
+The owner reported changing Cloud sharing to Public. No sharing permission was
+changed by the agent. Since the available browser has no incognito/profile or
+cookie-clear interface, the agent signed out through Cloud's normal account UI,
+verified **Continue to sign-in**, closed both existing app tabs, then opened two
+brand-new app sessions. The public app had **Fork** and **Hosted with Streamlit**,
+with no Manage app/Share owner controls. Cloud still showed sign-in after a
+reload at the end. App Google login was never used. This establishes actual
+logged-out anonymous access, not an assertion that all unrelated browser cookies
+were deleted or that an independent incognito profile was available.
+
+Harmonic: actual slider actions changed A=3→5, T=pi→6, phi=pi/4→-pi, with each
+commit awaited separately. The visible graph and rendered line hashes changed;
+settled shift=3 and omega=1.0472, with the fixed source reference still visible.
+
+Projectile: selected Initial horizontal velocity and Figure 5.3, then physically
+dragged the endpoint (370,448)→(415,390), released and waited for the canonical
+table. Settled speed=61.066 m/s, angle=49.656 degrees, vx0=39.5327 m/s, maximum
+height=112.52 m and ground-impact time=9.5412 s. Both space and height/time
+polylines changed from the same session's actual pre-drag DOM. Returning to the
+source and reopening Explore preserved the exact displayed committed metrics.
+Page-4 PNG bytes before/after match SHA-256
+`39951cfb15f3ea501012863a8849891ecd5579c8dd3ac6f6693a55f7de20d524`.
+This run's raster hash is distinct from the earlier owner-session run; only each
+run's direct before/after equality is claimed. No original PDF content was edited.
+
+Cloud UI explicitly showed prepared mode / server-disabled AI and a disabled
+Analyze action. The agent made no model-generation action or provider request.
+Fixed prepared loading and local reducers reuse the existing request-denial
+regression evidence; there was no Cloud billing or Neon audit. VLL_LIVE_AI,
+Secrets, Neon, OAuth, USD10 budget and dependencies remain unchanged. No new
+feature, runtime patch, reboot or test suite was run during this public follow-up.
+The earlier 110/562 results retain their dates; they are not new test counts.
+
+Ten authentic screenshots and bounded machine-readable evidence are under
+[public Cloud acceptance](day30/cloud-public-20261020/ACCEPTANCE.md). Earlier
+private-phase evidence is retained with its original limits. Only reviewed
+documentation, screenshots and evidence JSON are included in the release;
+unrelated logs, corpus, bytecode, private account details and secrets are excluded.

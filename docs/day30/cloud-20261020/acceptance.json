@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-20 Asia/Taipei",
+  "url": "https://visual-learning-lab-kdemsgmw3swykt5zpqbkc5.streamlit.app/",
+  "main_commit": "b66f07002349f905981d9d831f539a76df3f0c02",
+  "commit_evidence": "git ls-remote main plus Cloud fresh clone/pull of main; Cloud UI does not expose the process Git SHA",
+  "reboot_count": 1,
+  "reboot_start_utc": "2026-10-20 01:20:45",
+  "server_start_utc": "2026-10-20 01:21:00.459",
+  "runtime": {
+    "latestStartFound": true,
+    "lines": [
+      "[01:20:45] 🐙 Cloning repository...\"",
+      "  - code: \"[01:20:46] 🐙 Cloning into '/mount/src/visual-learning-lab'...\"",
+      "  - code: \"[01:20:46] 🐙 Cloned repository!\"",
+      "  - code: \"[01:20:46] 🐙 Pulling code changes from Github...\"",
+      "  - code: Using Python 3.12.15 environment at /home/adminuser/venv",
+      "  - code: Found Streamlit version 1.66.0 in the environment",
+      "  - code: Using Python 3.12.15 environment at /home/adminuser/venv",
+      "  - code: Using Python 3.12.15 environment at /home/adminuser/venv",
+      "  - code: \"[01:20:58] 📦 Processed dependencies!\"",
+      "  - code: 2026-10-20 01:21:00.459 Uvicorn server started on :::8501"
+    ],
+    "hasTraceback": false
+  },
+  "cloud_python": "3.12.15",
+  "cloud_streamlit": "1.66.0",
+  "import_error_present": false,
+  "warning": "use_container_width deprecation in Cloud server logs; no functional exception",
+  "harmonic": {
+    "passed": true,
+    "initial": {
+      "amplitude": 3,
+      "period": 3.14159,
+      "phase": 0.785398
+    },
+    "settled": {
+      "amplitude": 5,
+      "period": 6,
+      "phase": -3.141592653589793,
+      "horizontal_shift": 3,
+      "angular_frequency": 1.0472
+    },
+    "input": "separate native keyboard End / End / Home commits on three real sliders",
+    "svg_dom_witness": "harmonic-dom-evidence.json"
+  },
+  "projectile": {
+    "passed": true,
+    "first_attempt": {
+      "from": [
+        370,
+        342
+      ],
+      "to": [
+        415,
+        282
+      ],
+      "committed": false,
+      "reason": "page shifted during initial focus; endpoint not hit"
+    },
+    "committed_drag": {
+      "from": [
+        370,
+        298
+      ],
+      "to": [
+        415,
+        240
+      ]
+    },
+    "before_display": "本機互動探索\n50\n100\n150\n−50\n−100\n−150\n20\n40\n60\n80\n100\n−20\n−40\n−60\n−80\n−100\nInitial velocity vector\n15\n20\n25\nInitial speed\n20 m/s\nLaunch angle\n45 °\nInitial height\n2 m\nGravitational acceleration\n9.8 m/s^2\nCurrent speed\n20 m/s\nMaximum height\n12.204 m\nTime at maximum height\n1.4431 s\nGround-impact time\n3.0212 s\n目前探索值 · 探索變更不會改寫來源內容。 模型初始值: Initial speed 20 · Launch angle 45 · Initial height 2 · Gravitational acceleration 9.8",
+    "committed_display": "本機互動探索\n50\n100\n150\n−50\n−100\n−150\n20\n40\n60\n80\n100\n−20\n−40\n−60\n−80\n−100\nInitial velocity vector\n120\n140\n160\n180\n200\n220\n240\nInitial speed\n60.895 m/s\nLaunch angle\n49.519 °\nInitial height\n2 m\nGravitational acceleration\n9.8 m/s^2\nCurrent speed\n60.895 m/s\nMaximum height\n111.46 m\nTime at maximum height\n4.7263 s\nGround-impact time\n9.4956 s\n目前探索值 · 探索變更不會改寫來源內容。 模型初始值: Initial speed 20 · Launch angle 45 · Initial height 2 · Gravitational acceleration 9.8",
+    "after_roundtrip_display": "本機互動探索\n50\n100\n150\n−50\n−100\n−150\n20\n40\n60\n80\n100\n−20\n−40\n−60\n−80\n−100\nInitial velocity vector\n120\n140\n160\n180\n200\n220\n240\nInitial speed\n60.895 m/s\nLaunch angle\n49.519 °\nInitial height\n2 m\nGravitational acceleration\n9.8 m/s^2\nCurrent speed\n60.895 m/s\nMaximum height\n111.46 m\nTime at maximum height\n4.7263 s\nGround-impact time\n9.4956 s\n目前探索值 · 探索變更不會改寫來源內容。 模型初始值: Initial speed 20 · Launch angle 45 · Initial height 2 · Gravitational acceleration 9.8",
+    "roundtrip_preserved": true,
+    "source_page": 4,
+    "source_png_sha256": "222f7857f26d5e74bf1e6a0bcf988ed32a06b948f4d0cb3344e54a025c44455d",
+    "independent_default_source_png_sha256": "222f7857f26d5e74bf1e6a0bcf988ed32a06b948f4d0cb3344e54a025c44455d",
+    "source_png_unchanged": true,
+    "trajectory_polyline_changed": true
+  },
+  "access": {
+    "fresh_streamlit_sessions": true,
+    "google_app_login_performed": false,
+    "app_verified_subject": false,
+    "evidence": "Verify Google sign-in remained available; server-paid-off caption and disabled analysis button observed",
+    "cloud_admin_cookie_present": true,
+    "clean_incognito_profile": false,
+    "public_toggle_checked": false,
+    "public_anonymous_acceptance": false,
+    "sharing_modified": false
+  },
+  "paid": {
+    "live_ai_changed": false,
+    "secrets_changed": false,
+    "neon_changed": false,
+    "google_oauth_changed": false,
+    "budget_changed": false,
+    "real_provider_requests_made_by_agent": 0,
+    "verification": "fixed prepared loader and local reducers; UI policy off; regression mocks; no Cloud billing/ledger audit"
+  },
+  "browser_console": {
+    "harmonic": [],
+    "projectile": []
+  },
+  "supplementary_local_day30_tests": {
+    "status": "interrupted_without_result",
+    "command": "python -X utf8 -B -m unittest discover -s tests -p test_day30.py",
+    "reason": "No completed unittest result after several minutes; stopped only this own process. Not counted as a pass.",
+    "previous_final_focused": 110,
+    "previous_final_full": 562,
+    "previous_results_date": "2026-10-15",
+    "runtime_modified": false
+  }
+}

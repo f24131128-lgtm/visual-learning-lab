@@ -12,17 +12,18 @@ PDF／文字轉成有來源支持的學習表示：從原頁選一個概念，�
 · [30 天正式文章](https://ithelp.ithome.com.tw/users/20184158/ironman/9852)
 · [Day1–30 專案導覽](docs/day30/SERIES_INDEX.md)
 
-**部署驗收進行中：** Cloud 已拉取新版，但目前有匯入快取錯誤，等待 owner 批准一次程序重啟。兩份示例的本機驗收與最終測試已通過，尚未宣稱 Cloud 可用。
+**2026-10-20 Cloud 狀態：公開匿名互動驗收通過。** Owner 設為 Public 後，測試瀏覽器先登出 Cloud、關閉舊 app 分頁，再建立新的訪客 session。兩份示例均可直接操作，不需 Google 登入或 API key；付費 AI 維持關閉。[真實畫面與驗收方法](docs/day30/cloud-public-20261020/ACCEPTANCE.md)。
 
-![真實操作畫面：簡諧波形與固定來源參考](docs/day30/03-harmonic-updated.jpg)
+![Cloud 匿名實際操作：簡諧波形與固定來源參考](docs/day30/cloud-public-20261020/04-harmonic-updated.jpg)
 
-*實際 Streamlit 介面截圖，非概念稿。這張圖來自本機正式入口的離線驗收；
-Cloud 驗收另列於證據文件。教材：MIT OCW / Peter Dourmashkin，CC BY-NC-SA 4.0。*
+*實際公開 Cloud 的已登出訪客截圖，非概念稿。使用登出後的新 app session，
+不是獨立無痕 profile。教材：MIT OCW / Peter Dourmashkin，CC BY-NC-SA 4.0。*
 
 ## 免登入，先動手探索
 
-首頁有兩份已準備好的非商業教學示例，一次點擊載入；不需帳號、OpenAI key
-或新的模型請求。Cloud 是否已部署本版，以 [發布證據](docs/DAY30_EVIDENCE.md) 為準。
+首頁有兩份已準備好的非商業教學示例，一次點擊載入；不需 Google 登入、OpenAI key
+或新的模型請求。公開匿名訪客已完成波形更新、真實向量拖曳、正式數值與來源往返驗收，
+詳見 [發布證據](docs/DAY30_EVIDENCE.md)。
 
 | 示例 | 可以做什麼 | 來源與界線 |
 |---|---|---|
