@@ -26,5 +26,16 @@ Existing modified historical reports and untracked work are excluded from this c
   public AI has not been enabled. Public release still needs current pricing review,
   verified identity/ledger and independent acceptance.
 
-Full offline regression and PR details are appended after completion. No root software
-license has been invented; existing material/software notices remain separate.
+## Final validation
+
+- Full offline regression: 566 passed, 0 failures/errors/skips, 417.373 seconds;
+  real provider calls and unexpected provider attempts both zero. The full run
+  loaded four launcher tests before the replacement-key test was added; the final
+  five launcher tests passed separately afterward.
+- Current focused/full reports are saved in maintenance-2026-11-13/. Original
+  Day30 result files are restored rather than rewriting the historical baseline.
+- Draft PR: https://github.com/f24131128-lgtm/visual-learning-lab/pull/2.
+  GitHub Actions has started; its remote outcome is separate from local results.
+- No paid completion was made; two read-only credential checks both returned 401.
+
+No root software license has been invented; existing notices remain separate.
