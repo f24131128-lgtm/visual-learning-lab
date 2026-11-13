@@ -14,7 +14,9 @@ PDF／文字轉成有來源支持的學習表示：從原頁選一個概念，�
 · [30 天正式文章](https://ithelp.ithome.com.tw/users/20184158/ironman/9852)
 · [Day1–30 專案導覽](docs/day30/SERIES_INDEX.md)
 
-**2026-10-20 Cloud 狀態：公開匿名互動驗收通過。** Owner 設為 Public 後，測試瀏覽器先登出 Cloud、關閉舊 app 分頁，再建立新的訪客 session。兩份示例均可直接操作，不需 Google 登入或 API key；付費 AI 維持關閉。[真實畫面與驗收方法](docs/day30/cloud-public-20261020/ACCEPTANCE.md)。
+**2026-11-13 收尾狀態：** 公開網站已從閒置休眠喚醒，Google 登入已實際驗證；自己的 PDF 上傳及 AI 分析仍受持久帳本與到期價格政策限制，**尚未開放**。[目前狀態與最後發布步驟](docs/CLOSEOUT.md)。
+
+2026-10-20 曾完成兩份示例的公開匿名互動驗收，不需 Google 登入或 API key；這不等於自己的 PDF 分析已開放。[當時真實畫面與方法](docs/day30/cloud-public-20261020/ACCEPTANCE.md)。
 
 ![Cloud 匿名實際操作：簡諧波形與固定來源參考](docs/day30/cloud-public-20261020/04-harmonic-updated.jpg)
 

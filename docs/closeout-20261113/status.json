@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-13 Asia/Taipei",
+  "local_commit": "3ade08e80e897757be809cb5f9ed261bf2646ad6",
+  "public_website_awakened": true,
+  "google_login_verified": true,
+  "cloud_ui_ledger_verified": false,
+  "pdf_upload_enabled": false,
+  "live_ai_enabled": false,
+  "local_preflight": {
+    "configured": false,
+    "ledger_connected": false,
+    "scope": "Local configuration only; not a Cloud secrets inspection"
+  },
+  "github_fetch": {
+    "attempts": 2,
+    "result": "Could not resolve host: github.com"
+  },
+  "paid_calls": 0,
+  "secrets_changed": false,
+  "ledger_reset": false,
+  "budget_changed": false,
+  "owner_cloud_login_pending": true
+}
