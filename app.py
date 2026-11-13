@@ -2802,6 +2802,8 @@ st.set_page_config(page_title="Visual Learning Lab", layout="wide")
 render_header()
 
 from public_access import render_public_access
+if not st.session_state.get("analysis"):
+    st.info(tr("Your first learning session") + " · " + tr("1. Choose an example below. 2. Change a value or drag a supported handle. 3. Return to Source to check the original material."))
 with st.container() if not st.session_state.get("analysis") else st.expander(tr("Prepared examples")):
     st.markdown("#### " + tr("Start with a prepared example"))
     st.caption(tr("Previously generated and validated · no account, key or new AI request."))
@@ -2817,6 +2819,8 @@ with st.container() if not st.session_state.get("analysis") else st.expander(tr(
 
 with st.expander(tr("Bring your own material"), expanded=live_enabled()):
     render_public_access()
+    if live_enabled():
+        st.caption(tr("Personal analysis is enabled on this server. Upload one PDF or paste notes, then choose Visualize. Explicit AI actions send material to OpenAI and may incur charges."))
     if not live_enabled():
         st.caption(tr("New analysis is unavailable until authenticated AI passes its release gate. Prepared examples need no login."))
 

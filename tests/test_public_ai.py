@@ -36,7 +36,13 @@ def options():return dict(response_options(),instructions='Fixed instructions',i
 class LedgerFixture(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.db=Path(self.tmp.name)/'ledger.sqlite'
-        self.connect=lambda:sqlite3.connect(self.db,timeout=3)
+        # Quota scenarios use a deterministic in-policy database clock. The
+        # explicit expiry test below still supplies 2030 and must fail closed.
+        def connect():
+            connection=sqlite3.connect(self.db,timeout=3)
+            connection.create_function('current_date',0,lambda:'2026-10-20')
+            return connection
+        self.connect=connect
         self.store=Ledger(self.connect,'offline-policy','sqlite');self.store.initialize()
         self.person=hashlib.sha256(b'account A').hexdigest()
     def tearDown(self):self.tmp.cleanup()

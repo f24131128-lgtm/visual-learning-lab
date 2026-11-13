@@ -8,6 +8,10 @@ RESPONSE_LANGUAGES = {"zh-TW": "Traditional Chinese", "en": "English"}
 FONT_STACK = '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif'
 
 UI_TEXT = {"zh-TW": {
+    "Your first learning session": "第一次使用，從這裡開始",
+    "1. Choose an example below. 2. Change a value or drag a supported handle. 3. Return to Source to check the original material.": "① 選下方示例　② 調參數或拖曳可操作端點　③ 回到「來源」核對原文。",
+    "Personal analysis is enabled on this server. Upload one PDF or paste notes, then choose Visualize. Explicit AI actions send material to OpenAI and may incur charges.": "此環境已開啟個人分析：上傳一份 PDF 或貼上筆記，再按「開始理解」。明確的 AI 操作會將教材傳給 OpenAI，並可能產生費用。",
+
     "Further representations": "更多表示與進階工具",
     "Historical Numeric Lab · read-only and independent of the spatial World.": "封存的數值實驗室 · 唯讀，與上方空間場景各自保留狀態。",
     "Amplitude / period / phase · immutable source reference": "調整振幅、週期與相位，對照固定的來源曲線。",

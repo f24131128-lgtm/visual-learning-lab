@@ -1,5 +1,7 @@
 # Visual Learning Lab
 
+[![Offline tests](https://github.com/f24131128-lgtm/visual-learning-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/f24131128-lgtm/visual-learning-lab/actions/workflows/tests.yml)
+
 ### 把教材變成可以探索的理解空間
 
 讀一段公式，和親手改變它，是兩種不同的理解方式。Visual Learning Lab 把
@@ -18,6 +20,13 @@ PDF／文字轉成有來源支持的學習表示：從原頁選一個概念，�
 
 *實際公開 Cloud 的已登出訪客截圖，非概念稿。使用登出後的新 app session，
 不是獨立無痕 profile。教材：MIT OCW / Peter Dourmashkin，CC BY-NC-SA 4.0。*
+
+## 使用自己的教材
+
+個人 PDF／筆記可在本機使用既有 AI 分析；金鑰以隱藏輸入提供，不寫入檔案。
+安裝依賴後執行 `python tools/run_local.py`。只想看示例用 `--demo`。
+[逐步使用與故障排除](docs/USER_GUIDE.md) · [參與開發](CONTRIBUTING.md) · [安全回報](SECURITY.md)。
+本機私人模式和公開網站的付費發布狀態分開；公開分析仍需通過原有登入與額度驗收。
 
 ## 免登入，先動手探索
 

@@ -42,7 +42,7 @@ def create_client(*args, **kwargs):
     from openai import OpenAI
     if not args and 'api_key' not in kwargs:
         import streamlit as st
-        kwargs['api_key'] = st.secrets['OPENAI_API_KEY']
+        kwargs['api_key'] = os.environ.get('OPENAI_API_KEY') or st.secrets['OPENAI_API_KEY']
     kwargs.update(max_retries=0, timeout=REQUEST_TIMEOUT)
     return OpenAI(*args, **kwargs)
 
