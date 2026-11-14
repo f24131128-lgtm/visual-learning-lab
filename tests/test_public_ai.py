@@ -54,6 +54,27 @@ class LedgerFixture(unittest.TestCase):
 
 
 class DurableCase(LedgerFixture):
+    def test_upload_auth_failure_logs_only_metadata_and_preserves_reservation(self):
+        client, raw = self.client()
+        from pypdf import PdfReader, PdfWriter
+        writer=PdfWriter();writer.add_page(PdfReader(io.BytesIO(sample_pdf())).pages[0])
+        stream=io.BytesIO();writer.write(stream)
+        error = RuntimeError('private-key-and-source-canary')
+        error.status_code = 401
+        error.code = 'invalid_api_key'
+        raw.files.create.side_effect = error
+        with self.assertLogs('metered_client', level='WARNING') as logged:
+            with self.assertRaisesRegex(AdmissionDenied, '^request_unavailable$'):
+                client.files.create(file=('uploaded.pdf',stream.getvalue(),'application/pdf'),purpose='user_data')
+        text = ' '.join(logged.output)
+        self.assertIn('phase=file_upload status=401 code=invalid_api_key', text)
+        self.assertNotIn('private-key-and-source-canary', text)
+        raw.files.create.assert_called_once()
+        raw.responses.create.assert_not_called()
+        status = self.store.inspect(self.person)
+        self.assertTrue(status['paused'])
+        self.assertEqual(status['remaining'], BUDGET-RESERVATION)
+
     def test_restart_and_second_connection_cannot_reset_person(self):
         self.finish();self.finish()
         second=Ledger(self.connect,'offline-policy','sqlite')
@@ -188,6 +209,17 @@ class DurableCase(LedgerFixture):
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_api_diagnostic_rejects_untrusted_status_and_error_code(self):
+        from metered_client import log_api_failure
+        error = RuntimeError('private-canary')
+        error.status_code = 'private-canary'
+        error.code = 'private-canary'
+        with self.assertLogs('metered_client',level='WARNING') as logged:
+            log_api_failure('file_upload',error)
+        text = ' '.join(logged.output)
+        self.assertIn('status=unknown code=unknown',text)
+        self.assertNotIn('private-canary',text)
+
     def config(self):return PublicConfig('synthetic-private','proj_offline','postgresql://localhost/offline','https://issuer.example','s'*32)
 
     def google_secrets(self):

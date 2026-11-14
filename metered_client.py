@@ -1,6 +1,18 @@
 """Only public SDK surface: bounded file upload and one metered Responses call."""
 import json
+import logging
 from paid_policy import AdmissionDenied, conservative_charge
+
+
+def log_api_failure(phase, error):
+    """Bounded operator metadata only; omit SDK body, key, source and URL."""
+    status = getattr(error, 'status_code', None)
+    if type(status) is not int or status not in (400,401,403,404,408,409,413,422,429,500,502,503,504):
+        status = 'unknown'
+    code = getattr(error, 'code', None)
+    if code not in ('invalid_api_key','insufficient_quota','permission_denied','model_not_found','rate_limit_exceeded'):
+        code = 'unknown'
+    logging.getLogger(__name__).warning('Paid API failure: phase=%s status=%s code=%s',phase,status,code)
 
 
 class ResponseEndpoint:
@@ -49,7 +61,8 @@ class MeteredClient:
                 raise AdmissionDenied('file_forbidden')
             self._file_ids.add(result.id)
             return result
-        except Exception:
+        except Exception as error:
+            log_api_failure('file_upload', error)
             self.uncertain()
             raise AdmissionDenied('request_unavailable') from None
 
@@ -61,6 +74,7 @@ class MeteredClient:
 
     def respond(self, options):
         from production_safety import MAX_OUTPUT_TOKENS
+        phase = 'validation'
         try:
             allowed={'model','reasoning','max_output_tokens','store','instructions','input','text'}
             if set(options)-allowed or options.get('model')!='gpt-6.1-sol' or options.get('store') is not False:
@@ -76,12 +90,16 @@ class MeteredClient:
             # Fixed server policy: 30-minute writes are included in the $7
             # reservation proof. Never accept caller-selected 12-hour writes.
             # extra_body preserves compatibility with the pinned 1.x SDK.
+            phase = 'responses'
             response=self._raw.responses.create(**options,service_tier='default',
                 extra_body={'prompt_cache_options':{'ttl':'30m'}})
+            phase = 'settlement'
             cost=conservative_charge(response)
             if not self._ledger.finish(self._reservation,cost):raise AdmissionDenied('request_unavailable')
             return response
-        except Exception:
+        except Exception as error:
+            if phase == 'responses':
+                log_api_failure(phase, error)
             self.uncertain()
             raise AdmissionDenied('request_unavailable') from None
         finally:
