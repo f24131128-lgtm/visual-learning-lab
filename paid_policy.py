@@ -3,6 +3,7 @@ from contextlib import contextmanager, closing
 from dataclasses import dataclass
 import uuid
 import re
+import logging
 
 # Worst documented GPT-6.1 Sol context, forced 30m long-context cache-write rate and
 # regional premium: 1,050,000*5.5 + 16,000*16.5 = 6,039,000 micro USD.
@@ -19,6 +20,34 @@ PRICE_VALID_UNTIL = '2026-12-01'
 
 class AdmissionDenied(RuntimeError):
     """Controlled reason only; never include driver/SDK exception bodies."""
+
+
+def ledger_failure_reason(error):
+    """Finite operator diagnostics; never return driver text or connection data."""
+    known = {'28P01':'database_authentication', '28000':'database_authentication',
+             '42501':'database_permission', '42P01':'ledger_table_missing',
+             '3D000':'database_missing', '57014':'database_statement_timeout',
+             '55P03':'database_lock_timeout'}
+    code = known.get(getattr(error, 'sqlstate', None))
+    if code:
+        return code
+    # libpq connection failures often have no server SQLSTATE. Inspect locally,
+    # then log only a fixed label; never interpolate the exception or traceback.
+    message = str(error).lower()[:8192]
+    for marker, reason in (
+        ('password authentication failed','database_authentication'),
+        ('no password supplied','database_authentication'),
+        ('certificate verify failed','database_tls_verification'),
+        ('root certificate file','database_tls_configuration'),
+        ('could not translate host name','database_dns'),
+        ('name or service not known','database_dns'),
+        ('timeout expired','database_connect_timeout'),
+        ('connection timeout expired','database_connect_timeout'),
+        ('invalid connection option','database_connection_options'),
+    ):
+        if marker in message:
+            return reason
+    return 'database_driver_error'
 
 
 @dataclass(frozen=True)
@@ -53,19 +82,25 @@ class Ledger:
 
     @contextmanager
     def transaction(self):
+        phase = 'connect'
         try:
             with closing(self.connect()) as connection:
                 with connection:
+                    phase = 'session_setup'
                     if self.dialect=='sqlite':
                         connection.execute('BEGIN IMMEDIATE')
                     else:
                         connection.execute("SET LOCAL TIME ZONE 'UTC'")
                         connection.execute("SET LOCAL statement_timeout = '3000ms'")
                         connection.execute("SET LOCAL lock_timeout = '2000ms'")
+                    phase = 'ledger_query'
                     yield connection
+                    phase = 'commit'
         except AdmissionDenied:
             raise
-        except Exception:
+        except Exception as error:
+            logging.getLogger(__name__).warning('Ledger driver failure: phase=%s reason=%s',
+                                                phase, ledger_failure_reason(error))
             raise AdmissionDenied('ledger_unavailable') from None
 
     def initialize(self):

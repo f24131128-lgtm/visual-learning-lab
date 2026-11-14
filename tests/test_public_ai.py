@@ -339,6 +339,27 @@ class WorkerTests(unittest.TestCase):
 
 
 class DeploymentBoundaryTests(unittest.TestCase):
+    def test_ledger_diagnostics_preserve_denial_without_logging_private_driver_text(self):
+        import psycopg.errors
+        cases = [
+            (psycopg.errors.InvalidPassword('private-dsn-canary'), 'database_authentication'),
+            (psycopg.errors.InsufficientPrivilege('private-dsn-canary'), 'database_permission'),
+            (psycopg.errors.UndefinedTable('private-dsn-canary'), 'ledger_table_missing'),
+            (RuntimeError('certificate verify failed private-dsn-canary'), 'database_tls_verification'),
+            (RuntimeError('could not translate host name private-dsn-canary'), 'database_dns'),
+            (RuntimeError('timeout expired private-dsn-canary'), 'database_connect_timeout'),
+            (RuntimeError('private-dsn-canary'), 'database_driver_error'),
+        ]
+        for error, reason in cases:
+            with self.subTest(reason=reason), self.assertLogs('paid_policy', level='WARNING') as logged:
+                store = Ledger(MagicMock(side_effect=error), 'offline')
+                with self.assertRaisesRegex(AdmissionDenied, '^ledger_unavailable$'):
+                    store.inspect('a'*64)
+            text = ' '.join(logged.output)
+            self.assertIn('phase=connect reason='+reason, text)
+            self.assertNotIn('private-dsn-canary', text)
+            self.assertNotIn('Traceback', text)
+
     def test_postgres_transaction_locks_policy_and_uses_bound_parameters(self):
         connection=MagicMock();connection.execute.return_value.fetchone.return_value=('fingerprint',BUDGET,0,False)
         store=Ledger(lambda:connection,'fingerprint')
