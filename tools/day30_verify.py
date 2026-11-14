@@ -19,6 +19,9 @@ sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
 def main():
     mode=sys.argv[1]
     if mode not in ('focused','full','recovery'):raise ValueError('Unknown suite')
+    if '--worker' not in sys.argv:
+        from prepare_regression_inputs import prepare
+        prepare()
     tracked=subprocess.check_output(['git','ls-files','docs'],cwd=ROOT).decode('utf8').splitlines()
     before={ROOT/name:(ROOT/name).read_bytes() for name in tracked
             if not name.startswith(('docs/day30/','docs/DAY30_')) and (ROOT/name).is_file()}

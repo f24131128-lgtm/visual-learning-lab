@@ -8,7 +8,7 @@ import os
 import re
 from urllib.parse import urlparse
 
-from paid_policy import AdmissionDenied, Ledger, BUDGET, PRICE_VALID_UNTIL
+from paid_policy import AdmissionDenied, Ledger, BUDGET, PRICE_VALID_UNTIL, PRICE_REVIEW_DATE
 
 GOOGLE_ISSUER = 'https://accounts.google.com'
 GOOGLE_METADATA = GOOGLE_ISSUER + '/.well-known/openid-configuration'
@@ -85,7 +85,7 @@ def configuration():
         reason='public_budget'
         if raw.get('budget_microusd')!=BUDGET:raise ValueError()
         reason='public_price_review'
-        if raw.get('price_review_date')!='2026-10-13':raise ValueError()
+        if raw.get('price_review_date')!=PRICE_REVIEW_DATE:raise ValueError()
         reason='public_auth'
         check_auth_configuration()
         return PublicConfig(key,project,dsn,issuer,salt,raw.get('ca_cert','system'))

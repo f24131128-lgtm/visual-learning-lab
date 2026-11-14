@@ -1,5 +1,10 @@
 # Day30 — Competition Edition evidence
 
+2026-11-14 maintenance follow-up: [current closeout](CLOSEOUT.md) records the
+price/cache-policy review, GitHub CI input repair and pending own-PDF AI release.
+The Day30 prepared-demo acceptance below remains historical; it does not attest
+to a successful new PDF AI request.
+
 Work began 2026-10-14 and continued 2026-10-15, Asia/Taipei. Starting commit,
 local `origin/main` and fetched remote main: `9502c4b64ce19412d958489d4bc7ed3cace9555d`.
 Working directory: `D:\Projects\visual-learning-lab`; branch `codex/day30-competition`.

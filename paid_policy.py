@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import uuid
 import re
 
-# Worst documented GPT-6.1 Sol context, long-context cache-write rate and
+# Worst documented GPT-6.1 Sol context, forced 30m long-context cache-write rate and
 # regional premium: 1,050,000*5.5 + 16,000*16.5 = 6,039,000 micro USD.
 # Fixed Standard processing only; rounding/margin rounds reservation up to $7.
 RESERVATION = 7_000_000
@@ -13,7 +13,8 @@ DAILY_REQUESTS = 20
 USER_ANALYSES = 2
 USER_GENERATIONS = 6
 CONCURRENCY = 1
-PRICE_VALID_UNTIL = '2026-11-01'
+PRICE_REVIEW_DATE = '2026-11-14'
+PRICE_VALID_UNTIL = '2026-12-01'
 
 
 class AdmissionDenied(RuntimeError):

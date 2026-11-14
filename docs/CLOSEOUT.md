@@ -1,42 +1,30 @@
 # 最後收尾：網站、GitHub 與自己的 PDF
 
-2026-11-13，Asia/Taipei。目標是能上傳自己的 PDF 並完成 AI 分析，不以示例或
-只有 PDF 預覽冒充完成。沒有新增另一套解析器或 AI 引擎。
+2026-11-14，Asia/Taipei。公開網站正常，Owner 的 Google 登入已驗證。
+自己的 PDF AI 分析仍待帳本初始化與真實付費請求驗收，目前不能宣稱已開放。
 
-## 已核對
+- GitHub main 已正常 fast-forward 到 `f6c4b9df69b39c8620a3a682ea1ce99b353cc01b`，先前 DNS 阻礙已排除。
+- 已用 Cloud DSN 的非機密主機名稱核對既有 Neon production 分支；該分支只有 `neondb`，兩張帳本表均不存在。沒有重設資料庫或預算。
+- Owner 已將價格審核日期更新為 `2026-11-14`，付費開關保持空白。
+- 價格政策更新固定 `prompt_cache_options.ttl=30m`，審核有效至 `2026-12-01` UTC。保留 USD 10 終身上限、USD 7 預留、每人2次分析／6次後續生成及既有失敗保留規則。
+- 兩份免登入 Prepared Demo 的公開互動驗收見 [2026-10-20 紀錄](day30/cloud-public-20261020/ACCEPTANCE.md)。這不代替新 PDF 分析驗收。
 
-- 公開網站原本因閒置休眠；已透過正常 Wake 按鈕喚醒，首頁正常顯示。
-- Owner 自行完成 Google 登入，正式網站顯示「Google 登入已驗證」。
-- 同一畫面顯示「持久帳本尚未驗證」，付費 AI、PDF 上傳與開始理解仍停用。
-- 本機只讀 preflight：mode 空白、public configuration 未配置；這不是雲端 secrets 的查核結果。
-- 本機已有使用指南、個人啟動器、安全回報、貢獻指南及離線 CI；未為文件變更重跑整套測試。
-- 既有個人啟動器的5項聚焦測試通過（10.870秒，mocked subprocess／client，未呼叫付費 API）；不代表雲端 PDF AI 已通過。
-- GitHub fetch 兩次均因 `Could not resolve host: github.com` 失敗；不能將本機成果說成已推送。
+## 本次驗證
 
-[正式畫面](closeout-20261113/cloud-gate.jpg) · [受控狀態紀錄](closeout-20261113/status.json)
+公開付費安全38項聚焦測試通過（51.414秒）；補充的 SDK 實際序列化與舊審核日期拒絕測試2項通過。全部使用模擬傳輸，沒有付費請求。
 
-## 仍須完成才可宣稱收工
+完整離線回歸567項中，唯一失敗為修改封存測試檔觸發原有完整性檢查。該檔已原樣還原，受影響的7項 red-team 測試重新通過（9.818秒），沒有改預期雜湊。[完整執行紀錄](closeout-20261114/full-results.json)保留該次失敗，不冒稱全綠。
 
-1. Owner 登入 Streamlit Cloud 管理平台。網站 Google 登入與部署平台登入是不同 session。
-2. 讀實際 Cloud 日誌的受控原因，確認既有專用 Project 與持久帳本配置；不把金鑰、連線字串或 OAuth cookie 貼進聊天／Git／截圖。
-3. 價格政策 `PRICE_VALID_UNTIL=2026-11-01` 已過期。重新審查並實作相容的政策更新；日期是 policy fingerprint 的一部分，不能僅延後日期或重設資料庫來取得新額度。
-4. 保留 USD10 終身上限、既有使用量與 pending/uncertain 紀錄。通過帳本／登入／價格驗收後，才發布 `limited-public`；公開網站不可使用 `private`。
-5. 以一份不含私人資料、2頁／2MiB以內的教材，實際走登入→上傳→AI分析→Source，驗證額度及錯誤隔離。成功前不宣稱公開 PDF AI 可用。
-6. 網路恢復後重新核對遠端 main，只提交已檢查檔案並正常 fast-forward push。
+GitHub CI 的真實失敗指出乾淨 checkout 缺少舊研究輸入。已封裝必要的兩份歷史回應與三份封存報告，共26,243 bytes；只供離線測試。PDF重用現有相同檔案，不重複封裝。準備工具逐檔驗證原始 SHA-256，僅復原可逆的 checkout 換行差異，內容異動仍拒絕。3項新測試通過；從乾淨 `git archive HEAD` 成功復原14個必要輸入／位元組格式，再執行為0次寫入。原封存程式、manifest及預期雜湊不變。
 
-## 本次價格文件核對
+## 價格依據與剩餘發布步驟
 
-已讀官方 [Standard pricing data](https://developers.openai.com/api/docs/pricing.md)
-與 [GPT-6.1 Sol](https://developers.openai.com/api/docs/models/gpt-6.1-sol)。Standard
-長 context 表列 input $4/M、output $15/M，30m cache write $5/M、12h write $10/M；
-地區處理另有10%加成。現有保守計費 $5.50/M input、$16.50/M output 不能直接宣稱
-涵蓋所有 cache retention。因此本輪沒有僅延長日期或啟用付費。
+已讀官方 [價格表](https://developers.openai.com/api/docs/pricing.md)、[模型界線](https://developers.openai.com/api/docs/models/gpt-6.1-sol)及[快取政策](https://developers.openai.com/api/docs/guides/prompt-caching)。長 context 的30分鐘 cache write為 $5/M，output為 $15/M，加地區10%後使用既有 $5.50/M input與 $16.50/M output保守計費。伺服器固定30分鐘TTL並拒絕呼叫端覆寫，不能放任12小時寫入費率。
 
-模型仍為既有 gpt-6.1-sol；沒有自行切換模型、調高預算或呼叫付費 API。
-目前證據不足以證明 Cloud 帳本的具體失敗原因，需以管理日誌核對，不能由本機配置推定。
+`1,050,000 × $5.50 / 1M + 16,000 × $16.50 / 1M = $6.039 < $7`。
 
-## 個人使用的既有途徑
+仍需：部署新程式後取得實際 Cloud policy checksum，在已核對且兩表不存在的資料庫首次初始化，保持既有 USD10 上限；驗證 Cloud 帳本後，才將模式改為 `limited-public` 並以不含私人資料的小 PDF 實測。公開站不可使用 `private`，不得清空／重建已有帳本來解鎖額度。
 
-本機可用 `python tools/run_local.py`，以隱藏輸入提供自己的 API key，之後上傳 PDF
-並明確啟動 AI。這會使用自己的 API 額度，並非免費離線分析；請勿把私人模式對外公開。
-[使用指南](USER_GUIDE.md)。沒有新增依賴。
+沒有新增依賴。本機執行 `python tools/run_local.py`；一般 Streamlit 入口為 `streamlit run app.py`。[使用指南](USER_GUIDE.md)。
+
+[11月13日畫面](closeout-20261113/cloud-gate.jpg)與[當日狀態](closeout-20261113/status.json)保留為歷史證據。

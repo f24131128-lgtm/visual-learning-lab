@@ -1,5 +1,13 @@
 # Existing Cloud site: configuration review, 2026-10-13
 
+**2026-11-14 follow-up:** this setup record is historical. See
+[current closeout](../CLOSEOUT.md). Google owner login is verified and main has
+been pushed. The current price review is `2026-11-14`, expires `2026-12-01` UTC,
+and forces a 30-minute cache TTL. Budget remains USD 10 lifetime. The existing
+Cloud DSN was matched to its production Neon branch; both ledger tables were
+absent on a read-only check. Do not initialize another same-named project or
+reset an existing ledger.
+
 The owner reports that the OpenAI Project/key, Google Web OAuth client, exact
 Cloud callback and Neon database now exist. This is an owner report, not a
 completed Cloud acceptance test. The current uncommitted implementation is
@@ -68,7 +76,7 @@ ensure it is not `private`, and restart after changing the server configuration.
    browser secret-leak checks and the prepared Golden Path. Synthetic exhaustion
    tests must use a separate test ledger, never reset or drain production credit.
    A real PDF analysis requires a new explicit authorization; none ran here.
-8. The pricing review expires on 2026-11-01 UTC. Review pricing before that date;
+8. The current pricing review expires on 2026-12-01 UTC. Review pricing before that date;
    the current code denies generation at expiry. Do not increase the USD 10 cap.
 
 ## Verification and coverage

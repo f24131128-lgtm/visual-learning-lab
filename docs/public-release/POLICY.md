@@ -1,8 +1,8 @@
-# Limited public AI policy — 2026-10-13
+# Limited public AI policy — reviewed 2026-11-14
 
-The owner approved **USD 10 lifetime model-usage budget**. Code is reviewable;
-public deployment, commits and pushes have not been performed. Real Project/key,
-OIDC and remote PostgreSQL configuration are still unverified. Missing
+The owner approved **USD 10 lifetime model-usage budget**. The site is deployed,
+and owner Google login is verified. Paid PDF analysis still awaits actual ledger
+initialization and live acceptance. Missing
 configuration keeps paid access closed. Prepared exploration works without login.
 
 | Control | Enforced behavior |
@@ -11,7 +11,7 @@ configuration keeps paid access closed. Prepared exploration works without login
 | Personal allowance | Lifetime 2 main analyses and 6 additional generations per account. Explain, Focused Review, Scene, Atlas, representation planning, Analogy and Dynamic Simulation share those 6. Failed admitted attempts count. |
 | Global allowance | 20 inference attempts per UTC day; one pending/uncertain inference across all processes using the same database. No automatic budget reset. |
 | Budget | USD 10 lifetime, reserve USD 7 atomically **before** upload/inference, then replace it with rounded-up conservative usage after a known completed response. Remaining below USD 7 stops new requests even when positive. |
-| Model/transport | `gpt-6.1-sol`, medium reasoning, Standard (`service_tier=default`), at most 16,000 output tokens, `store=False`, fixed OpenAI URL, dedicated Project header/key, SDK retries zero, 90-second timeout. No tools, background, streaming, remote image URL or foreign file IDs. |
+| Model/transport | `gpt-6.1-sol`, medium reasoning, Standard (`service_tier=default`), server-forced `prompt_cache_options.ttl=30m`, at most 16,000 output tokens, `store=False`, fixed OpenAI URL, dedicated Project header/key, SDK retries zero, 90-second timeout. No tools, background, streaming, remote image URL or foreign file IDs. |
 | Sources | Public PDF <=2 MiB, <=2 total pages, no encryption; original Day29 signature/MIME/name/object/dimension bounds remain. Text <=48,000 characters; original PDF and validated extracted pages remain analysis input. No OCR. |
 | Local operations | Source/Explore/Practice, selection, zoom, quizzes, sliders and playback use existing state. They consume no AI allowance. Existing explicitly requested builds/explanations use the same admission ledger. |
 | Prepared demo | Always accessible, including without login/configuration, after exhaustion and after an existing analysis. Verified bundled 8-page source is exempt from the visitor-upload page cap. |
@@ -27,20 +27,24 @@ PDF/image tokenization that cannot be exactly estimated locally:
 
 `1,050,000 × $5.50 / 1M + 16,000 × $16.50 / 1M = $6.039 < $7`.
 
-$5.50/M input includes the higher cache-write, long-context and regional rates;
+$5.50/M input includes the 30-minute cache-write, long-context and regional rates;
 $16.50/M output includes long-context and regional rates. Completed usage is
 charged as `ceil(input_tokens × 5.5 + output_tokens × 16.5)` micro USD, including
 reasoning output. Cache hits do not lower this conservative accounting. Usage
 outside the documented context/output, an unknown model or non-default tier
 retains the full reserve and pauses the app. Tools/additional billed services are
-disabled. This is a conservative admission ledger, not an invoice estimate.
+disabled. The [pricing table](https://developers.openai.com/api/docs/pricing.md)
+lists a higher 12-hour write rate, so the server fixes the
+[cache TTL](https://developers.openai.com/api/docs/guides/prompt-caching) to `30m`
+through the SDK's `extra_body`. Caller-supplied cache options or `extra_body`
+are rejected before admission. This is a conservative admission ledger, not an invoice estimate.
 
 Admission and settlement both lock the same persisted PostgreSQL row in a
 transaction. Admission requires `committed + $7 <= $10`; outstanding reservations
 already count in `committed`. A crash cannot mint new credit or concurrency. The
 proof depends on published pricing/model bounds, exclusive use of this Project
 through this gate, protected database/configuration and successful real
-PostgreSQL validation. Pricing must be reviewed before **2026-11-01 UTC**, when
+PostgreSQL validation. Pricing must be reviewed before **2026-12-01 UTC**, when
 generation closes automatically. Tax, hosting, database and identity-provider
 charges are outside the USD 10 model-usage ceiling.
 

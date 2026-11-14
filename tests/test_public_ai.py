@@ -123,6 +123,8 @@ class DurableCase(LedgerFixture):
         self.assertIs(response,raw.responses.create.return_value)
         self.assertEqual(raw.responses.create.call_count,1)
         self.assertEqual(raw.responses.create.call_args.kwargs['service_tier'],'default')
+        self.assertEqual(raw.responses.create.call_args.kwargs['extra_body'],
+                         {'prompt_cache_options':{'ttl':'30m'}})
         self.assertEqual(self.store.inspect(self.person)['remaining'],BUDGET-conservative_charge(response))
 
     def test_every_action_uses_same_admission(self):
@@ -147,6 +149,7 @@ class DurableCase(LedgerFixture):
 
     def test_forbidden_options_remote_files_tools_and_url_before_upstream(self):
         for patch_options in [dict(model='other'),dict(max_output_tokens=999999),dict(store=True),dict(tools=[]),
+                dict(prompt_cache_options={'ttl':'12h'}),dict(extra_body={'prompt_cache_options':{'ttl':'12h'}}),
                 dict(stream=True),dict(service_tier='priority'),dict(reasoning={'effort':'high'}),
                 dict(input=[{'role':'user','content':[{'type':'input_file','file_id':'file-foreign'}]}]),
                 dict(input=[{'role':'user','content':[{'type':'input_image','image_url':'https://invalid.example'}]}])]:
@@ -191,7 +194,7 @@ class ConfigurationTests(unittest.TestCase):
         return dict(public_ai=dict(api_key='synthetic-private',project_id='proj_offline',
                     ledger_dsn='postgresql://localhost/offline',identity_issuer='https://accounts.google.com',
                     quota_hmac_secret='s'*32,dedicated_project_verified=True,budget_microusd=BUDGET,
-                    price_review_date='2026-10-13'),
+                    price_review_date='2026-11-14'),
                     auth=dict(redirect_uri='https://staging.example/oauth2callback',cookie_secret='c'*32,
                     client_id='synthetic.apps.googleusercontent.com',client_secret='synthetic-client-secret',
                     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',expose_tokens=[]))
@@ -206,7 +209,8 @@ class ConfigurationTests(unittest.TestCase):
                 ('auth','redirect_uri','https://staging.example/wrong'),
                 ('auth','redirect_uri','https://staging.example/oauth2callback?token=bad'),
                 ('auth','redirect_uri','https://user:password@staging.example/oauth2callback'),
-                ('auth','expose_tokens',['id']),('public_ai','budget_microusd',BUDGET+1)]:
+                ('auth','expose_tokens',['id']),('public_ai','budget_microusd',BUDGET+1),
+                ('public_ai','price_review_date','2026-10-13')]:
             invalid=copy.deepcopy(valid);invalid[section][key]=value
             with self.subTest(section=section,key=key,value=value),patch('streamlit.secrets',invalid):
                 with self.assertRaisesRegex(AdmissionDenied,'configuration_required'):configuration()
@@ -360,21 +364,27 @@ class DeploymentBoundaryTests(unittest.TestCase):
         # MockTransport has no socket/network access; real SDK serialization is
         # tested, including a 429 and max_retries=0.
         script='''
-import httpx
+import httpx, json
 from openai import OpenAI, RateLimitError
 seen=[]
 def handler(request):
  seen.append(request)
  assert request.headers['OpenAI-Project']=='proj_offline'
  body=request.read()
- assert b'expires_after[anchor]' in body and b'created_at' in body
- assert b'expires_after[seconds]' in body and b'3600' in body
+ if request.url.path.endswith('/files'):
+  assert b'expires_after[anchor]' in body and b'created_at' in body
+  assert b'expires_after[seconds]' in body and b'3600' in body
+ else:
+  assert request.url.path.endswith('/responses')
+  assert json.loads(body)['prompt_cache_options']=={'ttl':'30m'}
  return httpx.Response(429,json={'error':{'message':'offline','type':'rate_limit_error'}})
 with OpenAI(api_key='synthetic-offline',project='proj_offline',max_retries=0,http_client=httpx.Client(transport=httpx.MockTransport(handler))) as client:
  try:client.files.create(file=('uploaded.pdf',b'%PDF-offline','application/pdf'),purpose='user_data',expires_after={'anchor':'created_at','seconds':3600})
  except RateLimitError:pass
-assert len(seen)==1
-print('mock SDK transport: one attempt, expiry serialized, no network')
+ try:client.responses.create(model='gpt-6.1-sol',input='offline',extra_body={'prompt_cache_options':{'ttl':'30m'}})
+ except RateLimitError:pass
+assert len(seen)==2
+print('mock SDK transport: one attempt per endpoint, expiry and 30m TTL serialized, no network')
 '''
         result=subprocess.run([sys.executable,'-I','-B','-c',script],capture_output=True,text=True,timeout=20)
         self.assertEqual(result.returncode,0,result.stderr[-1200:]);self.assertIn('no network',result.stdout)

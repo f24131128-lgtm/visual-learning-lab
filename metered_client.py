@@ -73,7 +73,11 @@ class MeteredClient:
             # Prevent arbitrary pre-existing files, URLs, tools or binary input.
             self.check_input(options['input'])
             self.admit()
-            response=self._raw.responses.create(**options,service_tier='default')
+            # Fixed server policy: 30-minute writes are included in the $7
+            # reservation proof. Never accept caller-selected 12-hour writes.
+            # extra_body preserves compatibility with the pinned 1.x SDK.
+            response=self._raw.responses.create(**options,service_tier='default',
+                extra_body={'prompt_cache_options':{'ttl':'30m'}})
             cost=conservative_charge(response)
             if not self._ledger.finish(self._reservation,cost):raise AdmissionDenied('request_unavailable')
             return response
