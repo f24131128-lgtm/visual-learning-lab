@@ -35,6 +35,11 @@ unnamed `[auth]` provider; `[auth.google]` alone does not match the current code
 An OS environment variable VLL_LIVE_AI takes precedence over the root secret;
 ensure it is not `private`, and restart after changing the server configuration.
 
+In the current adapter, `ca_cert="system"` selects the installed certifi Mozilla
+CA file explicitly; binary libpq's build-time "system" CA location failed the
+real Cloud handshake. `verify-full` and hostname verification remain mandatory.
+A configured custom CA file path is preserved, with no insecure fallback/retry.
+
 ## Manual settings before activation
 
 1. Keep the existing app private during acceptance. Verify its actual GitHub

@@ -372,13 +372,25 @@ class DeploymentBoundaryTests(unittest.TestCase):
         self.assertIn(('SELECT %s',(42,)),statements);connection.close.assert_called_once()
 
     def test_production_driver_requires_verified_tls_and_fails_closed(self):
+        import certifi
         from public_access import ledger
         config=ConfigurationTests().config()
         connect=MagicMock(side_effect=RuntimeError('secret-dsn-canary'))
         with patch.dict(sys.modules,{'psycopg':SimpleNamespace(connect=connect)}):
             with self.assertRaises(AdmissionDenied) as error:ledger(config).inspect('a'*64)
         self.assertNotIn('secret-dsn-canary',str(error.exception))
-        self.assertEqual(connect.call_args.kwargs,dict(connect_timeout=3,sslmode='verify-full',sslrootcert='system'))
+        self.assertEqual(connect.call_args.kwargs,dict(connect_timeout=3,sslmode='verify-full',sslrootcert=certifi.where()))
+        connect.assert_called_once()
+
+    def test_explicit_ca_is_preserved_without_insecure_retry(self):
+        from public_access import ledger
+        config=ConfigurationTests().config()
+        config=PublicConfig(config.api_key,config.project,config.dsn,config.issuer,config.salt,'/trusted/custom-ca.pem')
+        connect=MagicMock(side_effect=RuntimeError('certificate verify failed private-canary'))
+        with patch.dict(sys.modules,{'psycopg':SimpleNamespace(connect=connect)}):
+            with self.assertRaisesRegex(AdmissionDenied,'^ledger_unavailable$'):
+                ledger(config).inspect('a'*64)
+        connect.assert_called_once_with(config.dsn,connect_timeout=3,sslmode='verify-full',sslrootcert='/trusted/custom-ca.pem')
 
     def test_real_sdk_multipart_expiry_and_single_attempt_with_mock_transport(self):
         # Isolated process keeps the suite's external request guard intact.

@@ -175,3 +175,9 @@ Public smoke source/screenshot: the unchanged first two pages of the existing
 prepared MIT OCW Chapter 23 excerpt, with the attribution and CC BY-NC-SA 4.0
 terms above. Replayed analysis is explicitly an offline test, not new paid AI
 grounding evidence. These software notices do not alter source-material terms.
+
+2026-11-14 TLS maintenance: certifi (already installed transitively through
+httpx) is now a direct dependency, `>=2026.7.22`; local verification used
+2026.7.22. Its Mozilla CA bundle is MPL-2.0. The app calls the public
+`certifi.where()` API and does not copy or modify the bundle. Retain the installed
+distribution's license when redistributing it. [Package and license](https://pypi.org/project/certifi/).

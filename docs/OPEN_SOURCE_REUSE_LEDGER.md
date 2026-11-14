@@ -365,3 +365,13 @@ The full PDF retains its source context and original bytes. No third-party sourc
 code, weights or proprietary folder copied. Current production PDFium and wheel
 license obligations remain; PyMuPDF is test-only and historical distribution
 obligations are not retroactively cleared. Passing tests is not legal approval.
+
+2026-11-14 PostgreSQL TLS repair: **REUSE** the already-installed certifi public
+`where()` API (Mozilla CA bundle, MPL-2.0) with psycopg's existing `verify-full`.
+Binary libpq's `sslrootcert=system` failed real verification; the explicit CA
+bundle passed TLS against the same endpoint without a database password.
+**DEFER** hard-coded OS certificate paths or a vendored root file, which would
+add platform/release maintenance. No custom TLS client or insecure retry.
+[certifi API](https://pypi.org/project/certifi/),
+[Neon verified TLS](https://neon.com/docs/connect/connect-securely),
+[libpq verification](https://www.postgresql.org/docs/current/libpq-ssl.html).

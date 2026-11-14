@@ -10,3 +10,5 @@ numpy>=1.26,<3.0
 plotly>=6.0,<7.0
 jsonschema>=4.23,<5
 psycopg[binary]>=3.2,<4
+# Already installed through httpx; used directly for verified PostgreSQL TLS.
+certifi>=2026.7.22

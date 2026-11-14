@@ -120,8 +120,13 @@ def principal(config):
 def ledger(config):
     def connect():
         import psycopg
+        import certifi
         # No SQLite fallback, connection retry or URL supplied by visitors.
-        return psycopg.connect(config.dsn,connect_timeout=3,sslmode='verify-full',sslrootcert=config.ca_cert)
+        # Binary libpq may resolve "system" against an absent build-time CA
+        # directory. Use Mozilla's portable bundle while keeping verify-full;
+        # an explicitly configured private CA path remains authoritative.
+        root_cert = certifi.where() if config.ca_cert == 'system' else config.ca_cert
+        return psycopg.connect(config.dsn,connect_timeout=3,sslmode='verify-full',sslrootcert=root_cert)
     return Ledger(connect,config.fingerprint)
 
 
